@@ -1,4 +1,5 @@
 
+using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
@@ -16,10 +17,21 @@ namespace XPlaneMonitorApp
         private float? _lat, _lng;
         private GMapOverlay _mapOverlay = new();
         private GMapRoute _mapRoute = new("flight");
+        private GMapRoute _runwayRoute = new("runway");
 
         private DateTime _tickMapUpd;
 
         private bool _closed;
+
+        enum SettingMode
+        {
+            NONE,
+            RUNWAY_BEGIN,
+            RUNWAY_END
+        }
+        private SettingMode _settingMode = SettingMode.NONE;
+
+        private PointLatLng? _runwayBegin, _runwayEnd;
 
         public MainForm()
         {
@@ -33,6 +45,7 @@ namespace XPlaneMonitorApp
             map.ShowCenter = false;
             map.Overlays.Add(_mapOverlay);
             _mapOverlay.Routes.Add(_mapRoute);
+            _mapOverlay.Routes.Add(_runwayRoute);
 
             map.MaxZoom = 100;
             map.MinZoom = 0;
@@ -114,12 +127,13 @@ namespace XPlaneMonitorApp
             if ((DateTime.Now - _tickMapUpd).TotalMilliseconds < 1000) return;
             _tickMapUpd = DateTime.Now;
 
-            var pos = new GMap.NET.PointLatLng(_lat.Value, _lng.Value);
+            var pos = new PointLatLng(_lat.Value, _lng.Value);
             var marker = new GMarkerGoogle(pos, GMarkerGoogleType.blue);
 
             map.Position = pos;
 
             _mapRoute.Points.Add(pos);
+            map.UpdateRouteLocalPosition(_mapRoute);
 
             _mapOverlay.Markers.Clear();
             _mapOverlay.Markers.Add(marker);
@@ -142,6 +156,55 @@ namespace XPlaneMonitorApp
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             _closed = true;
+        }
+
+        private void map_OnMapClick(PointLatLng pointClick, MouseEventArgs e)
+        {
+            if (_settingMode == SettingMode.RUNWAY_BEGIN)
+            {
+                _runwayBegin = pointClick; 
+                _settingMode = SettingMode.RUNWAY_END; 
+            } else if (_settingMode == SettingMode.RUNWAY_END)
+            {
+                _runwayEnd = pointClick;
+                _settingMode = SettingMode.NONE;
+            }
+
+            CheckRunwayPoints();
+        }
+        
+        private void CheckRunwayPoints()
+        {
+            if (_runwayBegin.HasValue && _runwayEnd.HasValue)
+            {
+                _runwayRoute.Points.Clear();
+                _runwayRoute.Points.Add(_runwayBegin.Value);
+                _runwayRoute.Points.Add(_runwayEnd.Value);
+
+                map.UpdateRouteLocalPosition(_runwayRoute);
+
+                Text = GeoCalculator.CalculateDistance(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
+                    _runwayEnd.Value.Lat, _runwayEnd.Value.Lng).ToString() + " graus: " +
+                    GeoCalculator.CalculateBearing(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
+                    _runwayEnd.Value.Lat, _runwayEnd.Value.Lng).ToString();
+
+
+            }
+        }
+
+        private void btnSetRunwayBegin_Click(object sender, EventArgs e)
+        {
+            _settingMode = SettingMode.RUNWAY_BEGIN;
+        }
+
+        private void btnSetRunwayEnd_Click(object sender, EventArgs e)
+        {
+            _settingMode = SettingMode.RUNWAY_END;
+        }
+
+        private void btnTurnOffSettingMode_Click(object sender, EventArgs e)
+        {
+            _settingMode = SettingMode.NONE;
         }
     }
 }

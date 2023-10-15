@@ -43,6 +43,9 @@
             map=new GMap.NET.WindowsForms.GMapControl();
             lbParking=new Label();
             gaugeElvTrim=new GaugePanel();
+            btnSetRunwayBegin=new Button();
+            btnSetRunwayEnd=new Button();
+            btnTurnOffSettingMode=new Button();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -189,18 +192,19 @@
             map.ScaleMode=GMap.NET.WindowsForms.ScaleModes.Integer;
             map.SelectedAreaFillColor=Color.FromArgb(33, 65, 105, 225);
             map.ShowTileGridLines=false;
-            map.Size=new Size(960, 424);
+            map.Size=new Size(1048, 424);
             map.TabIndex=13;
             map.Zoom=0D;
+            map.OnMapClick+=map_OnMapClick;
             // 
             // lbParking
             // 
             lbParking.AutoSize=true;
             lbParking.Location=new Point(560, 72);
             lbParking.Name="lbParking";
-            lbParking.Size=new Size(50, 20);
+            lbParking.Size=new Size(118, 20);
             lbParking.TabIndex=14;
-            lbParking.Text="label6";
+            lbParking.Text="PARKING BRAKE";
             // 
             // gaugeElvTrim
             // 
@@ -213,11 +217,44 @@
             gaugeElvTrim.Size=new Size(344, 160);
             gaugeElvTrim.TabIndex=15;
             // 
+            // btnSetRunwayBegin
+            // 
+            btnSetRunwayBegin.Location=new Point(824, 32);
+            btnSetRunwayBegin.Name="btnSetRunwayBegin";
+            btnSetRunwayBegin.Size=new Size(152, 32);
+            btnSetRunwayBegin.TabIndex=16;
+            btnSetRunwayBegin.Text="Set runway begin";
+            btnSetRunwayBegin.UseVisualStyleBackColor=true;
+            btnSetRunwayBegin.Click+=btnSetRunwayBegin_Click;
+            // 
+            // btnSetRunwayEnd
+            // 
+            btnSetRunwayEnd.Location=new Point(824, 64);
+            btnSetRunwayEnd.Name="btnSetRunwayEnd";
+            btnSetRunwayEnd.Size=new Size(152, 32);
+            btnSetRunwayEnd.TabIndex=17;
+            btnSetRunwayEnd.Text="Set runway end";
+            btnSetRunwayEnd.UseVisualStyleBackColor=true;
+            btnSetRunwayEnd.Click+=btnSetRunwayEnd_Click;
+            // 
+            // btnTurnOffSettingMode
+            // 
+            btnTurnOffSettingMode.Location=new Point(824, 96);
+            btnTurnOffSettingMode.Name="btnTurnOffSettingMode";
+            btnTurnOffSettingMode.Size=new Size(152, 32);
+            btnTurnOffSettingMode.TabIndex=18;
+            btnTurnOffSettingMode.Text="Turn off runway cfg";
+            btnTurnOffSettingMode.UseVisualStyleBackColor=true;
+            btnTurnOffSettingMode.Click+=btnTurnOffSettingMode_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
-            ClientSize=new Size(1131, 742);
+            ClientSize=new Size(1078, 742);
+            Controls.Add(btnTurnOffSettingMode);
+            Controls.Add(btnSetRunwayEnd);
+            Controls.Add(btnSetRunwayBegin);
             Controls.Add(gaugeElvTrim);
             Controls.Add(lbParking);
             Controls.Add(map);
@@ -258,5 +295,8 @@
         private GMap.NET.WindowsForms.GMapControl map;
         private Label lbParking;
         private GaugePanel gaugeElvTrim;
+        private Button btnSetRunwayBegin;
+        private Button btnSetRunwayEnd;
+        private Button btnTurnOffSettingMode;
     }
 }
