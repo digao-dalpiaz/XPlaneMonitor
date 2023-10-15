@@ -18,6 +18,8 @@
             get => lbHigh.Text; set => lbHigh.Text = value;
         }
 
+        public bool GaugeUnique { get; set; }
+
         public float Max = 1;
         public float PosRqst;
         public float PosFinal;
@@ -29,6 +31,15 @@
 
         private void GaugePanel_Resize(object sender, EventArgs e)
         {
+            if (GaugeUnique)
+            {
+                lbPercRqst.Visible = false;
+                barRqst.Visible = false;
+
+                lbPercFinal.Top = lbPercRqst.Top;
+                barFinal.Top = barRqst.Top;
+            }
+
             lbHigh.Left = internalBox.Width - lbHigh.Width - 8;
             barFinal.Height = internalBox.Height - barFinal.Top - 8;
 
@@ -49,22 +60,19 @@
         {
             int fullSize = internalBox.Width - barRqst.Left - 8;
 
-            barRqst.Width = RoundToInt(fullSize * GetPercRqst()) + 1;
-            barFinal.Width = RoundToInt(fullSize * GetPercFinal()) + 1;
+            barRqst.Width = Utils.RoundToInt(fullSize * GetPercRqst()) + 1;
+            barFinal.Width = Utils.RoundToInt(fullSize * GetPercFinal()) + 1;
         }
 
         public void Recalc()
         {
-            lbPercRqst.Text = RoundToInt(GetPercRqst() * 100).ToString() + "%";
-            lbPercFinal.Text = RoundToInt(GetPercFinal() * 100).ToString() + "%";
+            lbPercRqst.Text = Utils.RoundToInt(GetPercRqst() * 100).ToString() + "%";
+            lbPercFinal.Text = Utils.RoundToInt(GetPercFinal() * 100).ToString() + "%";
 
             RecalcCommon();
         }
 
-        private static int RoundToInt(float value)
-        {
-            return (int)Math.Round(value);
-        }
+        
 
     }
 }
