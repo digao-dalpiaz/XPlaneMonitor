@@ -28,18 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            gaugeFlaps=new GaugePanel();
             SuspendLayout();
+            // 
+            // gaugeFlaps
+            // 
+            gaugeFlaps.GaugeHigh="Extended";
+            gaugeFlaps.GaugeLow="Retracted";
+            gaugeFlaps.GaugeTitle="Flaps";
+            gaugeFlaps.Location=new Point(96, 104);
+            gaugeFlaps.Name="gaugeFlaps";
+            gaugeFlaps.Size=new Size(344, 200);
+            gaugeFlaps.TabIndex=0;
             // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(800, 450);
+            Controls.Add(gaugeFlaps);
             Name="MainForm";
             Text="X-Plane Monitor";
+            Load+=MainForm_Load;
             ResumeLayout(false);
         }
 
         #endregion
+
+        private GaugePanel gaugeFlaps;
     }
 }

@@ -53,7 +53,7 @@
             barReq.BackColor=Color.FromArgb(255, 128, 0);
             barReq.Location=new Point(56, 80);
             barReq.Name="barReq";
-            barReq.Size=new Size(224, 24);
+            barReq.Size=new Size(232, 24);
             barReq.TabIndex=3;
             barReq.TextAlign=ContentAlignment.MiddleCenter;
             // 
@@ -70,15 +70,15 @@
             // 
             lbLow.Location=new Point(56, 48);
             lbLow.Name="lbLow";
-            lbLow.Size=new Size(120, 25);
+            lbLow.Size=new Size(104, 25);
             lbLow.TabIndex=5;
             lbLow.Text="low";
             // 
             // lbHigh
             // 
-            lbHigh.Location=new Point(152, 48);
+            lbHigh.Location=new Point(168, 48);
             lbHigh.Name="lbHigh";
-            lbHigh.Size=new Size(144, 25);
+            lbHigh.Size=new Size(120, 25);
             lbHigh.TabIndex=6;
             lbHigh.Text="high";
             lbHigh.TextAlign=ContentAlignment.TopRight;
@@ -87,14 +87,14 @@
             // 
             lbPercReq.Location=new Point(0, 80);
             lbPercReq.Name="lbPercReq";
-            lbPercReq.Size=new Size(56, 25);
+            lbPercReq.Size=new Size(56, 24);
             lbPercReq.TabIndex=7;
             lbPercReq.Text="100%";
             lbPercReq.TextAlign=ContentAlignment.TopRight;
             // 
             // lbPercReal
             // 
-            lbPercReal.Location=new Point(0, 120);
+            lbPercReal.Location=new Point(0, 112);
             lbPercReal.Name="lbPercReal";
             lbPercReal.Size=new Size(56, 24);
             lbPercReal.TabIndex=8;
