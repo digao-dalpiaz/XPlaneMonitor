@@ -194,7 +194,7 @@ namespace XPlaneMonitorApp
 
                 Text = GeoCalculator.CalculateDistance(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
                     _runwayEnd.Value.Lat, _runwayEnd.Value.Lng).ToString() + " graus: " +
-                    graus.ToString();
+                    graus.ToString() + " elev: " + AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
 
 
             }
