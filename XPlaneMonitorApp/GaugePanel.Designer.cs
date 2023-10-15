@@ -29,12 +29,16 @@
         private void InitializeComponent()
         {
             lbTitle=new Label();
-            barReq=new Label();
-            barReal=new Label();
+            barRqst=new Label();
+            barFinal=new Label();
             lbLow=new Label();
             lbHigh=new Label();
-            lbPercReq=new Label();
-            lbPercReal=new Label();
+            lbPercRqst=new Label();
+            lbPercFinal=new Label();
+            panel1=new Panel();
+            internalBox=new Panel();
+            panel1.SuspendLayout();
+            internalBox.SuspendLayout();
             SuspendLayout();
             // 
             // lbTitle
@@ -44,88 +48,113 @@
             lbTitle.ForeColor=Color.WhiteSmoke;
             lbTitle.Location=new Point(0, 0);
             lbTitle.Name="lbTitle";
-            lbTitle.Size=new Size(300, 40);
+            lbTitle.Size=new Size(726, 40);
             lbTitle.TabIndex=2;
             lbTitle.TextAlign=ContentAlignment.MiddleCenter;
             // 
-            // barReq
+            // barRqst
             // 
-            barReq.BackColor=Color.FromArgb(255, 128, 0);
-            barReq.Location=new Point(56, 80);
-            barReq.Name="barReq";
-            barReq.Size=new Size(232, 24);
-            barReq.TabIndex=3;
-            barReq.TextAlign=ContentAlignment.MiddleCenter;
+            barRqst.BackColor=Color.FromArgb(255, 128, 0);
+            barRqst.Location=new Point(62, 70);
+            barRqst.Name="barRqst";
+            barRqst.Size=new Size(232, 24);
+            barRqst.TabIndex=3;
             // 
-            // barReal
+            // barFinal
             // 
-            barReal.BackColor=Color.Lime;
-            barReal.Location=new Point(56, 112);
-            barReal.Name="barReal";
-            barReal.Size=new Size(232, 48);
-            barReal.TabIndex=4;
-            barReal.TextAlign=ContentAlignment.MiddleCenter;
+            barFinal.BackColor=Color.Lime;
+            barFinal.Location=new Point(62, 102);
+            barFinal.Name="barFinal";
+            barFinal.Size=new Size(232, 40);
+            barFinal.TabIndex=4;
             // 
             // lbLow
             // 
-            lbLow.Location=new Point(56, 48);
+            lbLow.Font=new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            lbLow.Location=new Point(62, 46);
             lbLow.Name="lbLow";
-            lbLow.Size=new Size(104, 25);
+            lbLow.Size=new Size(104, 24);
             lbLow.TabIndex=5;
             lbLow.Text="low";
             // 
             // lbHigh
             // 
-            lbHigh.Location=new Point(168, 48);
+            lbHigh.Font=new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            lbHigh.Location=new Point(174, 46);
             lbHigh.Name="lbHigh";
-            lbHigh.Size=new Size(120, 25);
+            lbHigh.Size=new Size(120, 24);
             lbHigh.TabIndex=6;
             lbHigh.Text="high";
             lbHigh.TextAlign=ContentAlignment.TopRight;
             // 
-            // lbPercReq
+            // lbPercRqst
             // 
-            lbPercReq.Location=new Point(0, 80);
-            lbPercReq.Name="lbPercReq";
-            lbPercReq.Size=new Size(56, 24);
-            lbPercReq.TabIndex=7;
-            lbPercReq.Text="100%";
-            lbPercReq.TextAlign=ContentAlignment.TopRight;
+            lbPercRqst.Location=new Point(6, 70);
+            lbPercRqst.Name="lbPercRqst";
+            lbPercRqst.Size=new Size(56, 24);
+            lbPercRqst.TabIndex=7;
+            lbPercRqst.Text="100%";
+            lbPercRqst.TextAlign=ContentAlignment.TopRight;
             // 
-            // lbPercReal
+            // lbPercFinal
             // 
-            lbPercReal.Location=new Point(0, 112);
-            lbPercReal.Name="lbPercReal";
-            lbPercReal.Size=new Size(56, 24);
-            lbPercReal.TabIndex=8;
-            lbPercReal.Text="100%";
-            lbPercReal.TextAlign=ContentAlignment.TopRight;
+            lbPercFinal.Location=new Point(6, 110);
+            lbPercFinal.Name="lbPercFinal";
+            lbPercFinal.Size=new Size(56, 24);
+            lbPercFinal.TabIndex=8;
+            lbPercFinal.Text="100%";
+            lbPercFinal.TextAlign=ContentAlignment.TopRight;
+            // 
+            // panel1
+            // 
+            panel1.BackColor=Color.Gray;
+            panel1.Controls.Add(internalBox);
+            panel1.Dock=DockStyle.Fill;
+            panel1.Location=new Point(0, 0);
+            panel1.Name="panel1";
+            panel1.Padding=new Padding(10);
+            panel1.Size=new Size(746, 392);
+            panel1.TabIndex=9;
+            // 
+            // internalBox
+            // 
+            internalBox.BackColor=Color.White;
+            internalBox.Controls.Add(barFinal);
+            internalBox.Controls.Add(lbTitle);
+            internalBox.Controls.Add(lbPercFinal);
+            internalBox.Controls.Add(barRqst);
+            internalBox.Controls.Add(lbPercRqst);
+            internalBox.Controls.Add(lbLow);
+            internalBox.Controls.Add(lbHigh);
+            internalBox.Dock=DockStyle.Fill;
+            internalBox.Location=new Point(10, 10);
+            internalBox.Name="internalBox";
+            internalBox.Size=new Size(726, 372);
+            internalBox.TabIndex=0;
             // 
             // GaugePanel
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
-            Controls.Add(lbPercReal);
-            Controls.Add(lbPercReq);
-            Controls.Add(lbHigh);
-            Controls.Add(lbLow);
-            Controls.Add(barReal);
-            Controls.Add(barReq);
-            Controls.Add(lbTitle);
+            Controls.Add(panel1);
             Name="GaugePanel";
-            Size=new Size(300, 168);
+            Size=new Size(746, 392);
             Resize+=GaugePanel_Resize;
+            panel1.ResumeLayout(false);
+            internalBox.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Label lbTitle;
-        private Label barReq;
-        private Label barReal;
+        private Label barRqst;
+        private Label barFinal;
         private Label lbLow;
         private Label lbHigh;
-        private Label lbPercReq;
-        private Label lbPercReal;
+        private Label lbPercRqst;
+        private Label lbPercFinal;
+        private Panel panel1;
+        private Panel internalBox;
     }
 }
