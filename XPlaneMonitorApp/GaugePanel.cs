@@ -18,7 +18,7 @@
             get => lbHigh.Text; set => lbHigh.Text = value;
         }
 
-        public float Max;
+        public float Max = 1;
         public float PosRqst;
         public float PosFinal;
 
@@ -30,6 +30,7 @@
         private void GaugePanel_Resize(object sender, EventArgs e)
         {
             lbHigh.Left = internalBox.Width - lbHigh.Width - 8;
+            barFinal.Height = internalBox.Height - barFinal.Top - 8;
 
             RecalcCommon();
         }

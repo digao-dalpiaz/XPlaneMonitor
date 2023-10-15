@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             gaugeFlaps=new GaugePanel();
+            gaugeThrottle=new GaugePanel();
+            gaugeN2=new GaugePanel();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -38,14 +40,36 @@
             gaugeFlaps.GaugeTitle="Flaps";
             gaugeFlaps.Location=new Point(96, 104);
             gaugeFlaps.Name="gaugeFlaps";
-            gaugeFlaps.Size=new Size(344, 200);
+            gaugeFlaps.Size=new Size(344, 176);
             gaugeFlaps.TabIndex=0;
+            // 
+            // gaugeThrottle
+            // 
+            gaugeThrottle.GaugeHigh="Full Power";
+            gaugeThrottle.GaugeLow="Idle";
+            gaugeThrottle.GaugeTitle="Throttle";
+            gaugeThrottle.Location=new Point(96, 288);
+            gaugeThrottle.Name="gaugeThrottle";
+            gaugeThrottle.Size=new Size(344, 176);
+            gaugeThrottle.TabIndex=1;
+            // 
+            // gaugeN2
+            // 
+            gaugeN2.GaugeHigh="High";
+            gaugeN2.GaugeLow="Low";
+            gaugeN2.GaugeTitle="N2";
+            gaugeN2.Location=new Point(504, 80);
+            gaugeN2.Name="gaugeN2";
+            gaugeN2.Size=new Size(344, 176);
+            gaugeN2.TabIndex=2;
             // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
-            ClientSize=new Size(800, 450);
+            ClientSize=new Size(995, 537);
+            Controls.Add(gaugeN2);
+            Controls.Add(gaugeThrottle);
             Controls.Add(gaugeFlaps);
             Name="MainForm";
             Text="X-Plane Monitor";
@@ -56,5 +80,7 @@
         #endregion
 
         private GaugePanel gaugeFlaps;
+        private GaugePanel gaugeThrottle;
+        private GaugePanel gaugeN2;
     }
 }

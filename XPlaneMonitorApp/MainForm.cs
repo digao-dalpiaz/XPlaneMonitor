@@ -17,6 +17,7 @@ namespace XPlaneMonitorApp
         private void MainForm_Load(object sender, EventArgs e)
         {
             gaugeFlaps.Max = 1;
+            gaugeN2.Max = 1;
 
             _xp = new("127.0.0.1", 49000);
             SubscribeAll();
@@ -26,11 +27,15 @@ namespace XPlaneMonitorApp
 
         private void SubscribeAll()
         {
-            Subscribe(DataRefs.Cockpit2EngineActuatorsThrottleRatioAll);
-            Subscribe(DataRefs.Flightmodel2ControlsFlap1DeployRatio);
             Subscribe(DataRefs.FlightmodelControlsFlaprqst);
+            Subscribe(DataRefs.Flightmodel2ControlsFlapHandleDeployRatio);
+
+            Subscribe(DataRefs.Cockpit2EngineActuatorsThrottleRatioAll);
+            Subscribe(DataRefs.FlightmodelEngineENGNEGT);
+
             Subscribe(DataRefs.FlightmodelPositionLatitude);
             Subscribe(DataRefs.FlightmodelPositionLongitude);
+
         }
 
         private void Subscribe(DataRefElement element)
@@ -46,14 +51,27 @@ namespace XPlaneMonitorApp
                 {
                     gaugeFlaps.PosRqst = d.Value;
                     gaugeFlaps.Recalc();
-                } else
-                if (d.DataRef == DataRefs.Flightmodel2ControlsFlap1DeployRatio.DataRef)
+                }
+                else
+                if (d.DataRef == DataRefs.Flightmodel2ControlsFlapHandleDeployRatio.DataRef)
                 {
                     gaugeFlaps.PosFinal = d.Value;
                     gaugeFlaps.Recalc();
                 }
+                else
+                if (d.DataRef == DataRefs.Cockpit2EngineActuatorsThrottleRatioAll.DataRef)
+                {
+                    gaugeThrottle.PosRqst = d.Value;
+                    gaugeThrottle.Recalc();
+                }
+                else
+                if (d.DataRef == DataRefs.FlightmodelEngineENGNEGT.DataRef)
+                {
+                    gaugeN2.PosFinal = d.Value;
+                    gaugeN2.Recalc();
+                }
             }));
         }
-        
+
     }
 }
