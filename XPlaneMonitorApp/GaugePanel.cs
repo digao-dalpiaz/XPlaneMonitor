@@ -16,5 +16,10 @@ namespace XPlaneMonitorApp
         {
             InitializeComponent();
         }
+
+        private void GaugePanel_Resize(object sender, EventArgs e)
+        {
+
+        }
     }
 }
