@@ -41,6 +41,8 @@
             label4=new Label();
             label5=new Label();
             map=new GMap.NET.WindowsForms.GMapControl();
+            lbParking=new Label();
+            gaugeElvTrim=new GaugePanel();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -49,9 +51,9 @@
             gaugeFlaps.GaugeLow="Retracted";
             gaugeFlaps.GaugeTitle="Flaps";
             gaugeFlaps.GaugeUnique=false;
-            gaugeFlaps.Location=new Point(16, 112);
+            gaugeFlaps.Location=new Point(16, 136);
             gaugeFlaps.Name="gaugeFlaps";
-            gaugeFlaps.Size=new Size(344, 176);
+            gaugeFlaps.Size=new Size(344, 160);
             gaugeFlaps.TabIndex=0;
             // 
             // gaugeThrottle
@@ -60,60 +62,70 @@
             gaugeThrottle.GaugeLow="Idle";
             gaugeThrottle.GaugeTitle="Throttle";
             gaugeThrottle.GaugeUnique=true;
-            gaugeThrottle.Location=new Point(376, 112);
+            gaugeThrottle.Location=new Point(368, 136);
             gaugeThrottle.Name="gaugeThrottle";
-            gaugeThrottle.Size=new Size(344, 176);
+            gaugeThrottle.Size=new Size(344, 160);
             gaugeThrottle.TabIndex=1;
             // 
             // lbAirspeed
             // 
             lbAirspeed.AutoSize=true;
-            lbAirspeed.Location=new Point(160, 8);
+            lbAirspeed.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lbAirspeed.ForeColor=Color.FromArgb(192, 0, 192);
+            lbAirspeed.Location=new Point(128, 8);
             lbAirspeed.Name="lbAirspeed";
-            lbAirspeed.Size=new Size(50, 20);
+            lbAirspeed.Size=new Size(91, 36);
             lbAirspeed.TabIndex=3;
             lbAirspeed.Text="label1";
             // 
             // lbAltitude
             // 
             lbAltitude.AutoSize=true;
-            lbAltitude.Location=new Point(424, 8);
+            lbAltitude.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lbAltitude.ForeColor=Color.FromArgb(192, 64, 0);
+            lbAltitude.Location=new Point(392, 8);
             lbAltitude.Name="lbAltitude";
-            lbAltitude.Size=new Size(50, 20);
+            lbAltitude.Size=new Size(96, 36);
             lbAltitude.TabIndex=4;
             lbAltitude.Text="label2";
             // 
             // lbGroundspeed
             // 
             lbGroundspeed.AutoSize=true;
-            lbGroundspeed.Location=new Point(160, 72);
+            lbGroundspeed.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lbGroundspeed.ForeColor=Color.DimGray;
+            lbGroundspeed.Location=new Point(128, 88);
             lbGroundspeed.Name="lbGroundspeed";
-            lbGroundspeed.Size=new Size(50, 20);
+            lbGroundspeed.Size=new Size(96, 36);
             lbGroundspeed.TabIndex=5;
             lbGroundspeed.Text="label2";
             // 
             // lbVerticalspeed
             // 
             lbVerticalspeed.AutoSize=true;
-            lbVerticalspeed.Location=new Point(160, 40);
+            lbVerticalspeed.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lbVerticalspeed.ForeColor=Color.White;
+            lbVerticalspeed.Location=new Point(128, 48);
             lbVerticalspeed.Name="lbVerticalspeed";
-            lbVerticalspeed.Size=new Size(50, 20);
+            lbVerticalspeed.Size=new Size(96, 36);
             lbVerticalspeed.TabIndex=6;
             lbVerticalspeed.Text="label2";
             // 
             // lbRadioAltimeter
             // 
             lbRadioAltimeter.AutoSize=true;
-            lbRadioAltimeter.Location=new Point(424, 40);
+            lbRadioAltimeter.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lbRadioAltimeter.ForeColor=Color.FromArgb(0, 0, 192);
+            lbRadioAltimeter.Location=new Point(392, 48);
             lbRadioAltimeter.Name="lbRadioAltimeter";
-            lbRadioAltimeter.Size=new Size(50, 20);
+            lbRadioAltimeter.Size=new Size(96, 36);
             lbRadioAltimeter.TabIndex=7;
             lbRadioAltimeter.Text="label2";
             // 
             // label1
             // 
             label1.AutoSize=true;
-            label1.Location=new Point(304, 40);
+            label1.Location=new Point(272, 56);
             label1.Name="label1";
             label1.Size=new Size(117, 20);
             label1.TabIndex=8;
@@ -122,7 +134,7 @@
             // label2
             // 
             label2.AutoSize=true;
-            label2.Location=new Point(304, 8);
+            label2.Location=new Point(272, 16);
             label2.Name="label2";
             label2.Size=new Size(65, 20);
             label2.TabIndex=9;
@@ -131,7 +143,7 @@
             // label3
             // 
             label3.AutoSize=true;
-            label3.Location=new Point(32, 40);
+            label3.Location=new Point(16, 56);
             label3.Name="label3";
             label3.Size=new Size(107, 20);
             label3.TabIndex=10;
@@ -140,7 +152,7 @@
             // label4
             // 
             label4.AutoSize=true;
-            label4.Location=new Point(32, 72);
+            label4.Location=new Point(16, 96);
             label4.Name="label4";
             label4.Size=new Size(107, 20);
             label4.TabIndex=11;
@@ -149,7 +161,7 @@
             // label5
             // 
             label5.AutoSize=true;
-            label5.Location=new Point(32, 8);
+            label5.Location=new Point(16, 16);
             label5.Name="label5";
             label5.Size=new Size(77, 20);
             label5.TabIndex=12;
@@ -181,11 +193,33 @@
             map.TabIndex=13;
             map.Zoom=0D;
             // 
+            // lbParking
+            // 
+            lbParking.AutoSize=true;
+            lbParking.Location=new Point(560, 72);
+            lbParking.Name="lbParking";
+            lbParking.Size=new Size(50, 20);
+            lbParking.TabIndex=14;
+            lbParking.Text="label6";
+            // 
+            // gaugeElvTrim
+            // 
+            gaugeElvTrim.GaugeHigh="Up";
+            gaugeElvTrim.GaugeLow="Down";
+            gaugeElvTrim.GaugeTitle="Elevator Trim";
+            gaugeElvTrim.GaugeUnique=true;
+            gaugeElvTrim.Location=new Point(720, 136);
+            gaugeElvTrim.Name="gaugeElvTrim";
+            gaugeElvTrim.Size=new Size(344, 160);
+            gaugeElvTrim.TabIndex=15;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
-            ClientSize=new Size(995, 742);
+            ClientSize=new Size(1131, 742);
+            Controls.Add(gaugeElvTrim);
+            Controls.Add(lbParking);
             Controls.Add(map);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -201,6 +235,7 @@
             Controls.Add(gaugeFlaps);
             Name="MainForm";
             Text="X-Plane Monitor";
+            FormClosed+=MainForm_FormClosed;
             Load+=MainForm_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -221,5 +256,7 @@
         private Label label4;
         private Label label5;
         private GMap.NET.WindowsForms.GMapControl map;
+        private Label lbParking;
+        private GaugePanel gaugeElvTrim;
     }
 }

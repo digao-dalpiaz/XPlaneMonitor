@@ -19,6 +19,8 @@ namespace XPlaneMonitorApp
 
         private DateTime _tickMapUpd;
 
+        private bool _closed;
+
         public MainForm()
         {
             InitializeComponent();
@@ -36,7 +38,7 @@ namespace XPlaneMonitorApp
             map.MinZoom = 0;
             map.Zoom = 15;
 
-            gaugeFlaps.Max = 1;
+            gaugeElvTrim.Max = 2;
 
             _xp = new("127.0.0.1", 49000);
             SubscribeAll();
@@ -58,7 +60,7 @@ namespace XPlaneMonitorApp
             });
             Subscribe(DataRefs.Cockpit2EngineActuatorsThrottleRatioAll, d =>
             {
-                gaugeThrottle.PosRqst = d.Value;
+                gaugeThrottle.PosFinal = d.Value;
                 gaugeThrottle.Recalc();
             });
             Subscribe(DataRefs.Cockpit2GaugesIndicatorsAltitudeFtPilot, d =>
@@ -77,12 +79,12 @@ namespace XPlaneMonitorApp
             Subscribe(DataRefs.FlightmodelPositionVhIndFpm, d =>
             {
                 lbVerticalspeed.Text = Utils.RoundToInt(d.Value).ToString() + " ft/m";
+                lbVerticalspeed.ForeColor = d.Value > 0 ? Color.Green : Color.Red;
             });
             Subscribe(DataRefs.Cockpit2GaugesIndicatorsRadioAltimeterHeightFtPilot, d =>
             {
                 lbRadioAltimeter.Text = Utils.RoundToInt(d.Value).ToString() + " ft";
             });
-
             Subscribe(DataRefs.FlightmodelPositionLatitude, d =>
             {
                 _lat = d.Value;
@@ -92,6 +94,16 @@ namespace XPlaneMonitorApp
             {
                 _lng = d.Value;
                 UpdateMap();
+            });
+            Subscribe(DataRefs.Cockpit2ControlsParkingBrakeRatio, d =>
+            {
+                lbParking.Text = "PARKING BRAKE " + (d.Value == 1 ? "ON" : "OFF");
+                lbParking.ForeColor = d.Value == 1 ? Color.Red : Color.Green;
+            });
+            Subscribe(DataRefs.Cockpit2ControlsElevatorTrim, d =>
+            {
+                gaugeElvTrim.PosFinal = d.Value + 1;
+                gaugeElvTrim.Recalc();
             });
         }
 
@@ -108,7 +120,7 @@ namespace XPlaneMonitorApp
             map.Position = pos;
 
             _mapRoute.Points.Add(pos);
-            
+
             _mapOverlay.Markers.Clear();
             _mapOverlay.Markers.Add(marker);
         }
@@ -121,9 +133,15 @@ namespace XPlaneMonitorApp
 
         private void OnDataRefReceived(DataRefElement d)
         {
+            if (_closed) return;
+
             var ev = _elementsDictionary.First(x => x.Key.DataRef == d.DataRef);
             Invoke(() => ev.Value(d));
         }
 
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _closed = true;
+        }
     }
 }
