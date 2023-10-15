@@ -49,6 +49,38 @@ namespace XPlaneMonitorApp
             return (bearing + 360) % 360; // Garante um ângulo entre 0 e 360 graus
         }
 
+        public static (double, double) CalculateDestinationPoint(double lat1, double lon1, double initialBearing, double distance)
+        {
+            const double earthRadius = 6371; // Raio médio da Terra em quilômetros
+
+            // Converter graus para radianos
+            double radiansLat1 = DegreesToRadians(lat1);
+            double radiansLon1 = DegreesToRadians(lon1);
+            double radiansBearing = DegreesToRadians(initialBearing);
+
+            // Converter distância para radianos (arc length)
+            double angularDistance = distance / earthRadius;
+
+            // Calcular a latitude do ponto final
+            double finalLat = Math.Asin(Math.Sin(radiansLat1) * Math.Cos(angularDistance) + Math.Cos(radiansLat1) * Math.Sin(angularDistance) * Math.Cos(radiansBearing));
+
+            // Calcular a longitude do ponto final
+            double finalLon = radiansLon1 + Math.Atan2(Math.Sin(radiansBearing) * Math.Sin(angularDistance) * Math.Cos(radiansLat1), Math.Cos(angularDistance) - Math.Sin(radiansLat1) * Math.Sin(finalLat));
+
+            finalLat = RadiansToDegrees(finalLat);
+            finalLon = RadiansToDegrees(finalLon);
+
+            return (finalLat, finalLon);
+        }
+
+        public static double InvertDegree(double angle)
+        {
+            // Adicionar 180 graus para inverter o ângulo
+            double invertedAngle = (angle + 180) % 360;
+
+            return invertedAngle;
+        }
+
         private static double DegreesToRadians(double degrees)
         {
             return degrees * Math.PI / 180.0;

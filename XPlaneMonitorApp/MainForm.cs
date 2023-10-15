@@ -177,7 +177,16 @@ namespace XPlaneMonitorApp
         {
             if (_runwayBegin.HasValue && _runwayEnd.HasValue)
             {
+                var graus = GeoCalculator.CalculateBearing(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
+                    _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
+
+                var aproach = GeoCalculator.CalculateDestinationPoint(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng, GeoCalculator.InvertDegree(graus), 22);
+
                 _runwayRoute.Points.Clear();
+                _runwayRoute.Points.Add(
+                    new PointLatLng(aproach.Item1, aproach.Item2)
+                    );
+
                 _runwayRoute.Points.Add(_runwayBegin.Value);
                 _runwayRoute.Points.Add(_runwayEnd.Value);
 
@@ -185,8 +194,7 @@ namespace XPlaneMonitorApp
 
                 Text = GeoCalculator.CalculateDistance(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
                     _runwayEnd.Value.Lat, _runwayEnd.Value.Lng).ToString() + " graus: " +
-                    GeoCalculator.CalculateBearing(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
-                    _runwayEnd.Value.Lat, _runwayEnd.Value.Lng).ToString();
+                    graus.ToString();
 
 
             }
