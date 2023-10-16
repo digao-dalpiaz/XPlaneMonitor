@@ -123,6 +123,11 @@ namespace XPlaneMonitorApp
             {
                 lbHeading.Text = Utils.RoundToInt(d.Value).ToString() + "º";
             });
+            Subscribe(DataRefs.AircraftPartsAcfGearDeploy, d =>
+            {
+                gaugeGear.PosFinal = d.Value;
+                gaugeGear.Recalc();
+            });
         }
 
         private void UpdateMap()

@@ -71,6 +71,7 @@
             label16=new Label();
             lbHeading=new Label();
             label17=new Label();
+            gaugeGear=new GaugePanel();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -81,7 +82,7 @@
             gaugeFlaps.GaugeUnique=false;
             gaugeFlaps.Location=new Point(16, 136);
             gaugeFlaps.Name="gaugeFlaps";
-            gaugeFlaps.Size=new Size(344, 160);
+            gaugeFlaps.Size=new Size(344, 144);
             gaugeFlaps.TabIndex=0;
             // 
             // gaugeThrottle
@@ -92,7 +93,7 @@
             gaugeThrottle.GaugeUnique=true;
             gaugeThrottle.Location=new Point(368, 136);
             gaugeThrottle.Name="gaugeThrottle";
-            gaugeThrottle.Size=new Size(344, 160);
+            gaugeThrottle.Size=new Size(344, 144);
             gaugeThrottle.TabIndex=1;
             // 
             // lbAirspeed
@@ -203,7 +204,7 @@
             map.GrayScaleMode=false;
             map.HelperLineOption=GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             map.LevelsKeepInMemory=5;
-            map.Location=new Point(16, 304);
+            map.Location=new Point(16, 288);
             map.MarkersEnabled=true;
             map.MaxZoom=2;
             map.MinZoom=2;
@@ -217,7 +218,7 @@
             map.ScaleMode=GMap.NET.WindowsForms.ScaleModes.Integer;
             map.SelectedAreaFillColor=Color.FromArgb(33, 65, 105, 225);
             map.ShowTileGridLines=false;
-            map.Size=new Size(1048, 424);
+            map.Size=new Size(1048, 440);
             map.TabIndex=13;
             map.Zoom=0D;
             map.OnMapClick+=map_OnMapClick;
@@ -225,9 +226,10 @@
             // lbParking
             // 
             lbParking.AutoSize=true;
-            lbParking.Location=new Point(560, 72);
+            lbParking.Font=new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            lbParking.Location=new Point(536, 16);
             lbParking.Name="lbParking";
-            lbParking.Size=new Size(118, 20);
+            lbParking.Size=new Size(169, 28);
             lbParking.TabIndex=14;
             lbParking.Text="PARKING BRAKE";
             // 
@@ -239,7 +241,7 @@
             gaugeElvTrim.GaugeUnique=true;
             gaugeElvTrim.Location=new Point(720, 136);
             gaugeElvTrim.Name="gaugeElvTrim";
-            gaugeElvTrim.Size=new Size(344, 160);
+            gaugeElvTrim.Size=new Size(344, 144);
             gaugeElvTrim.TabIndex=15;
             // 
             // btnSetRunwayBegin
@@ -497,11 +499,23 @@
             label17.TabIndex=43;
             label17.Text="Heading:";
             // 
+            // gaugeGear
+            // 
+            gaugeGear.GaugeHigh="Up";
+            gaugeGear.GaugeLow="Down";
+            gaugeGear.GaugeTitle="Landing Gear";
+            gaugeGear.GaugeUnique=true;
+            gaugeGear.Location=new Point(1072, 384);
+            gaugeGear.Name="gaugeGear";
+            gaugeGear.Size=new Size(344, 144);
+            gaugeGear.TabIndex=44;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
+            Controls.Add(gaugeGear);
             Controls.Add(label17);
             Controls.Add(lbHeading);
             Controls.Add(edRampHeight);
@@ -598,5 +612,6 @@
         private Label label16;
         private Label lbHeading;
         private Label label17;
+        private GaugePanel gaugeGear;
     }
 }
