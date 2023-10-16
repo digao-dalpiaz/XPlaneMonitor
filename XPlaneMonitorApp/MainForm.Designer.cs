@@ -64,6 +64,7 @@
             label14=new Label();
             lbCompassToRunway=new Label();
             label15=new Label();
+            btnClearRunwayApproach=new Button();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -237,7 +238,7 @@
             // 
             // btnSetRunwayBegin
             // 
-            btnSetRunwayBegin.Location=new Point(824, 32);
+            btnSetRunwayBegin.Location=new Point(728, 16);
             btnSetRunwayBegin.Name="btnSetRunwayBegin";
             btnSetRunwayBegin.Size=new Size(152, 32);
             btnSetRunwayBegin.TabIndex=16;
@@ -247,7 +248,7 @@
             // 
             // btnSetRunwayEnd
             // 
-            btnSetRunwayEnd.Location=new Point(824, 64);
+            btnSetRunwayEnd.Location=new Point(728, 48);
             btnSetRunwayEnd.Name="btnSetRunwayEnd";
             btnSetRunwayEnd.Size=new Size(152, 32);
             btnSetRunwayEnd.TabIndex=17;
@@ -257,7 +258,7 @@
             // 
             // btnTurnOffSettingMode
             // 
-            btnTurnOffSettingMode.Location=new Point(824, 96);
+            btnTurnOffSettingMode.Location=new Point(728, 80);
             btnTurnOffSettingMode.Name="btnTurnOffSettingMode";
             btnTurnOffSettingMode.Size=new Size(152, 32);
             btnTurnOffSettingMode.TabIndex=18;
@@ -287,15 +288,19 @@
             // 
             edRunwayBegin.Location=new Point(1184, 32);
             edRunwayBegin.Name="edRunwayBegin";
+            edRunwayBegin.ReadOnly=true;
             edRunwayBegin.Size=new Size(320, 27);
             edRunwayBegin.TabIndex=21;
+            edRunwayBegin.TabStop=false;
             // 
             // edRunwayEnd
             // 
             edRunwayEnd.Location=new Point(1184, 64);
             edRunwayEnd.Name="edRunwayEnd";
+            edRunwayEnd.ReadOnly=true;
             edRunwayEnd.Size=new Size(320, 27);
             edRunwayEnd.TabIndex=22;
+            edRunwayEnd.TabStop=false;
             // 
             // label8
             // 
@@ -423,11 +428,22 @@
             label15.TabIndex=35;
             label15.Text="Compass direction:";
             // 
+            // btnClearRunwayApproach
+            // 
+            btnClearRunwayApproach.Location=new Point(896, 80);
+            btnClearRunwayApproach.Name="btnClearRunwayApproach";
+            btnClearRunwayApproach.Size=new Size(152, 32);
+            btnClearRunwayApproach.TabIndex=37;
+            btnClearRunwayApproach.Text="Clear runway cfg";
+            btnClearRunwayApproach.UseVisualStyleBackColor=true;
+            btnClearRunwayApproach.Click+=btnClearRunwayApproach_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
+            Controls.Add(btnClearRunwayApproach);
             Controls.Add(lbCompassToRunway);
             Controls.Add(label15);
             Controls.Add(lbCompassToApproach);
@@ -510,5 +526,6 @@
         private Label label14;
         private Label lbCompassToRunway;
         private Label label15;
+        private Button btnClearRunwayApproach;
     }
 }

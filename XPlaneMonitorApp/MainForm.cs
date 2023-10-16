@@ -28,7 +28,7 @@ namespace XPlaneMonitorApp
             RUNWAY_BEGIN,
             RUNWAY_END
         }
-        private SettingMode _settingMode = SettingMode.NONE;
+        private SettingMode _settingMode;
 
         private PointLatLng? _runwayBegin, _runwayEnd, _runwayApproach;
 
@@ -39,6 +39,8 @@ namespace XPlaneMonitorApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            SetSettingMode(SettingMode.NONE);
+
             map.MapProvider = OpenStreetMapGraphHopperProvider.Instance;
             map.DragButton = MouseButtons.Left;
             map.ShowCenter = false;
@@ -159,19 +161,31 @@ namespace XPlaneMonitorApp
             _closed = true;
         }
 
+        private void SetSettingMode(SettingMode setting)
+        {
+            _settingMode = setting;
+
+            btnSetRunwayBegin.BackColor = setting == SettingMode.RUNWAY_BEGIN ? Color.Red : SystemColors.Control;
+            btnSetRunwayEnd.BackColor = setting == SettingMode.RUNWAY_END ? Color.Red : SystemColors.Control;
+
+            btnTurnOffSettingMode.Enabled = setting != SettingMode.NONE;
+        }
+
         private void map_OnMapClick(PointLatLng pointClick, MouseEventArgs e)
         {
             if (_settingMode == SettingMode.RUNWAY_BEGIN)
             {
                 _runwayBegin = pointClick;
                 edRunwayBegin.Text = pointClick.ToString();
-                _settingMode = SettingMode.RUNWAY_END;
+
+                SetSettingMode(SettingMode.RUNWAY_END);
             }
             else if (_settingMode == SettingMode.RUNWAY_END)
             {
                 _runwayEnd = pointClick;
                 edRunwayEnd.Text = pointClick.ToString();
-                _settingMode = SettingMode.NONE;
+
+                SetSettingMode(SettingMode.NONE);
             }
 
             CheckRunwayPoints();
@@ -228,17 +242,41 @@ namespace XPlaneMonitorApp
 
         private void btnSetRunwayBegin_Click(object sender, EventArgs e)
         {
-            _settingMode = SettingMode.RUNWAY_BEGIN;
+            SetSettingMode(SettingMode.RUNWAY_BEGIN);
         }
 
         private void btnSetRunwayEnd_Click(object sender, EventArgs e)
         {
-            _settingMode = SettingMode.RUNWAY_END;
+            SetSettingMode(SettingMode.RUNWAY_END);
         }
 
         private void btnTurnOffSettingMode_Click(object sender, EventArgs e)
         {
-            _settingMode = SettingMode.NONE;
+            SetSettingMode(SettingMode.NONE);
+        }
+
+        private void btnClearRunwayApproach_Click(object sender, EventArgs e)
+        {
+            SetSettingMode(SettingMode.NONE);
+
+            _runwayBegin = null;
+            _runwayEnd = null;
+            _runwayApproach = null;
+
+            _runwayRoute.Points.Clear();
+            map.UpdateRouteLocalPosition(_runwayRoute);
+
+            edRunwayBegin.Clear();
+            edRunwayEnd.Clear();
+
+            lbRunwayElevation.Text = string.Empty;
+            lbRunwayDegrees.Text = string.Empty;
+            lbRunwaySize.Text = string.Empty;
+            lbApproachDist.Text = string.Empty;
+            lbRunwayDist.Text = string.Empty;
+            lbCompassToApproach.Text = string.Empty;
+            lbCompassToRunway.Text = string.Empty;
+
         }
     }
 }
