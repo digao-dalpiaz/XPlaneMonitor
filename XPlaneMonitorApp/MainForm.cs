@@ -195,6 +195,11 @@ namespace XPlaneMonitorApp
 
                 var approach = GeoCalculator.CalculateDestinationPoint(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng, GeoCalculator.InvertDegree(degrees), 22);
 
+                lbApproachDist.Text = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
+                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, approach.Item1, approach.Item2))).ToString();
+                lbRunwayDist.Text = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
+                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng))).ToString();
+
                 _runwayRoute.Points.Clear();
                 _runwayRoute.Points.Add(
                     new PointLatLng(approach.Item1, approach.Item2)

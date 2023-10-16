@@ -56,6 +56,10 @@
             label10=new Label();
             lbRunwaySize=new Label();
             label11=new Label();
+            label9=new Label();
+            label12=new Label();
+            lbRunwayDist=new Label();
+            lbApproachDist=new Label();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -343,11 +347,51 @@
             label11.TabIndex=27;
             label11.Text="Runway size:";
             // 
+            // label9
+            // 
+            label9.AutoSize=true;
+            label9.Location=new Point(1072, 216);
+            label9.Name="label9";
+            label9.Size=new Size(136, 20);
+            label9.TabIndex=29;
+            label9.Text="Approach distance:";
+            // 
+            // label12
+            // 
+            label12.AutoSize=true;
+            label12.Location=new Point(1072, 248);
+            label12.Name="label12";
+            label12.Size=new Size(122, 20);
+            label12.TabIndex=30;
+            label12.Text="Runway distance:";
+            // 
+            // lbRunwayDist
+            // 
+            lbRunwayDist.AutoSize=true;
+            lbRunwayDist.Location=new Point(1216, 248);
+            lbRunwayDist.Name="lbRunwayDist";
+            lbRunwayDist.Size=new Size(39, 20);
+            lbRunwayDist.TabIndex=32;
+            lbRunwayDist.Text="-----";
+            // 
+            // lbApproachDist
+            // 
+            lbApproachDist.AutoSize=true;
+            lbApproachDist.Location=new Point(1216, 216);
+            lbApproachDist.Name="lbApproachDist";
+            lbApproachDist.Size=new Size(39, 20);
+            lbApproachDist.TabIndex=31;
+            lbApproachDist.Text="-----";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
+            Controls.Add(lbRunwayDist);
+            Controls.Add(lbApproachDist);
+            Controls.Add(label12);
+            Controls.Add(label9);
             Controls.Add(lbRunwaySize);
             Controls.Add(label11);
             Controls.Add(lbRunwayDegrees);
@@ -414,5 +458,9 @@
         private Label label10;
         private Label lbRunwaySize;
         private Label label11;
+        private Label label9;
+        private Label label12;
+        private Label lbRunwayDist;
+        private Label lbApproachDist;
     }
 }
