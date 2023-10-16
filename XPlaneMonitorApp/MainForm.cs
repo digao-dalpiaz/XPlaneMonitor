@@ -119,6 +119,10 @@ namespace XPlaneMonitorApp
                 gaugeElvTrim.PosFinal = d.Value + 1;
                 gaugeElvTrim.Recalc();
             });
+            Subscribe(DataRefs.Cockpit2GaugesIndicatorsCompassHeadingDegMag, d =>
+            {
+                lbHeading.Text = Utils.RoundToInt(d.Value).ToString() + "º";
+            });
         }
 
         private void UpdateMap()
