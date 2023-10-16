@@ -60,6 +60,10 @@
             label12=new Label();
             lbRunwayDist=new Label();
             lbApproachDist=new Label();
+            lbCompassToApproach=new Label();
+            label14=new Label();
+            lbCompassToRunway=new Label();
+            label15=new Label();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -383,11 +387,51 @@
             lbApproachDist.TabIndex=31;
             lbApproachDist.Text="-----";
             // 
+            // lbCompassToApproach
+            // 
+            lbCompassToApproach.AutoSize=true;
+            lbCompassToApproach.Location=new Point(1448, 216);
+            lbCompassToApproach.Name="lbCompassToApproach";
+            lbCompassToApproach.Size=new Size(39, 20);
+            lbCompassToApproach.TabIndex=34;
+            lbCompassToApproach.Text="-----";
+            // 
+            // label14
+            // 
+            label14.AutoSize=true;
+            label14.Location=new Point(1304, 216);
+            label14.Name="label14";
+            label14.Size=new Size(135, 20);
+            label14.TabIndex=33;
+            label14.Text="Compass direction:";
+            // 
+            // lbCompassToRunway
+            // 
+            lbCompassToRunway.AutoSize=true;
+            lbCompassToRunway.Location=new Point(1448, 248);
+            lbCompassToRunway.Name="lbCompassToRunway";
+            lbCompassToRunway.Size=new Size(39, 20);
+            lbCompassToRunway.TabIndex=36;
+            lbCompassToRunway.Text="-----";
+            // 
+            // label15
+            // 
+            label15.AutoSize=true;
+            label15.Location=new Point(1304, 248);
+            label15.Name="label15";
+            label15.Size=new Size(135, 20);
+            label15.TabIndex=35;
+            label15.Text="Compass direction:";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
+            Controls.Add(lbCompassToRunway);
+            Controls.Add(label15);
+            Controls.Add(lbCompassToApproach);
+            Controls.Add(label14);
             Controls.Add(lbRunwayDist);
             Controls.Add(lbApproachDist);
             Controls.Add(label12);
@@ -462,5 +506,9 @@
         private Label label12;
         private Label lbRunwayDist;
         private Label lbApproachDist;
+        private Label lbCompassToApproach;
+        private Label label14;
+        private Label lbCompassToRunway;
+        private Label label15;
     }
 }

@@ -30,7 +30,7 @@ namespace XPlaneMonitorApp
         }
         private SettingMode _settingMode = SettingMode.NONE;
 
-        private PointLatLng? _runwayBegin, _runwayEnd;
+        private PointLatLng? _runwayBegin, _runwayEnd, _runwayApproach;
 
         public MainForm()
         {
@@ -136,6 +136,8 @@ namespace XPlaneMonitorApp
 
             _mapOverlay.Markers.Clear();
             _mapOverlay.Markers.Add(marker);
+
+            RecalcApproachParams();
         }
 
         private void Subscribe(DataRefElement element, Action<DataRefElement> action)
@@ -195,20 +197,32 @@ namespace XPlaneMonitorApp
 
                 var approach = GeoCalculator.CalculateDestinationPoint(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng, GeoCalculator.InvertDegree(degrees), 22);
 
-                lbApproachDist.Text = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
-                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, approach.Item1, approach.Item2))).ToString();
-                lbRunwayDist.Text = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
-                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng))).ToString();
+                _runwayApproach = new PointLatLng(approach.Item1, approach.Item2);
 
                 _runwayRoute.Points.Clear();
-                _runwayRoute.Points.Add(
-                    new PointLatLng(approach.Item1, approach.Item2)
-                    );
-
+                _runwayRoute.Points.Add(_runwayApproach.Value);
                 _runwayRoute.Points.Add(_runwayBegin.Value);
                 _runwayRoute.Points.Add(_runwayEnd.Value);
 
                 map.UpdateRouteLocalPosition(_runwayRoute);
+
+                RecalcApproachParams();
+            }
+        }
+
+        private void RecalcApproachParams()
+        {
+            if (_lat.HasValue && _lng.HasValue && _runwayBegin.HasValue && _runwayEnd.HasValue && _runwayApproach.HasValue)
+            {
+                lbApproachDist.Text = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
+                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng))).ToString();
+                lbRunwayDist.Text = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
+                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng))).ToString();
+
+                lbCompassToApproach.Text = Utils.RoundToInt(
+                    GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)).ToString();
+                lbCompassToRunway.Text = Utils.RoundToInt(
+                    GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng)).ToString();
             }
         }
 
