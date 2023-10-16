@@ -86,7 +86,7 @@ namespace XPlaneMonitorApp
             Subscribe(DataRefs.FlightmodelPositionGroundspeed, d =>
             {
                 //original value in m/s - converting to knots
-                lbGroundspeed.Text = Utils.RoundToInt((float)(d.Value * 1.943844492441)).ToString() + " kts";
+                lbGroundspeed.Text = Utils.RoundToInt(d.Value * 1.943844492441).ToString() + " kts";
             });
             Subscribe(DataRefs.FlightmodelPositionVhIndFpm, d =>
             {
@@ -161,41 +161,49 @@ namespace XPlaneMonitorApp
         {
             if (_settingMode == SettingMode.RUNWAY_BEGIN)
             {
-                _runwayBegin = pointClick; 
-                _settingMode = SettingMode.RUNWAY_END; 
-            } else if (_settingMode == SettingMode.RUNWAY_END)
+                _runwayBegin = pointClick;
+                edRunwayBegin.Text = pointClick.ToString();
+                _settingMode = SettingMode.RUNWAY_END;
+            }
+            else if (_settingMode == SettingMode.RUNWAY_END)
             {
                 _runwayEnd = pointClick;
+                edRunwayEnd.Text = pointClick.ToString();
                 _settingMode = SettingMode.NONE;
             }
 
             CheckRunwayPoints();
         }
-        
+
         private void CheckRunwayPoints()
         {
             if (_runwayBegin.HasValue && _runwayEnd.HasValue)
             {
-                var graus = GeoCalculator.CalculateBearing(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
+                var degrees = GeoCalculator.CalculateBearing(
+                    _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
                     _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
 
-                var aproach = GeoCalculator.CalculateDestinationPoint(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng, GeoCalculator.InvertDegree(graus), 22);
+                var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
+
+                var size = GeoCalculator.CalculateDistance(
+                    _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
+                    _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
+
+                lbRunwayElevation.Text = elevMeters.ToString() + " m / " + Utils.RoundToInt(GeoCalculator.ConvertMetersToFeet(elevMeters)) + " ft";
+                lbRunwayDegrees.Text = Utils.RoundToInt(degrees).ToString() + "º";
+                lbRunwaySize.Text = Utils.RoundToInt(size * 1000).ToString() + " m";
+
+                var approach = GeoCalculator.CalculateDestinationPoint(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng, GeoCalculator.InvertDegree(degrees), 22);
 
                 _runwayRoute.Points.Clear();
                 _runwayRoute.Points.Add(
-                    new PointLatLng(aproach.Item1, aproach.Item2)
+                    new PointLatLng(approach.Item1, approach.Item2)
                     );
 
                 _runwayRoute.Points.Add(_runwayBegin.Value);
                 _runwayRoute.Points.Add(_runwayEnd.Value);
 
                 map.UpdateRouteLocalPosition(_runwayRoute);
-
-                Text = GeoCalculator.CalculateDistance(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
-                    _runwayEnd.Value.Lat, _runwayEnd.Value.Lng).ToString() + " graus: " +
-                    graus.ToString() + " elev: " + AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
-
-
             }
         }
 

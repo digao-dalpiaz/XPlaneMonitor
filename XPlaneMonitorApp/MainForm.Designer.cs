@@ -46,6 +46,16 @@
             btnSetRunwayBegin=new Button();
             btnSetRunwayEnd=new Button();
             btnTurnOffSettingMode=new Button();
+            label6=new Label();
+            label7=new Label();
+            edRunwayBegin=new TextBox();
+            edRunwayEnd=new TextBox();
+            label8=new Label();
+            lbRunwayElevation=new Label();
+            lbRunwayDegrees=new Label();
+            label10=new Label();
+            lbRunwaySize=new Label();
+            label11=new Label();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -77,9 +87,9 @@
             lbAirspeed.ForeColor=Color.FromArgb(192, 0, 192);
             lbAirspeed.Location=new Point(128, 8);
             lbAirspeed.Name="lbAirspeed";
-            lbAirspeed.Size=new Size(91, 36);
+            lbAirspeed.Size=new Size(85, 36);
             lbAirspeed.TabIndex=3;
-            lbAirspeed.Text="label1";
+            lbAirspeed.Text="-----";
             // 
             // lbAltitude
             // 
@@ -88,9 +98,9 @@
             lbAltitude.ForeColor=Color.FromArgb(192, 64, 0);
             lbAltitude.Location=new Point(392, 8);
             lbAltitude.Name="lbAltitude";
-            lbAltitude.Size=new Size(96, 36);
+            lbAltitude.Size=new Size(85, 36);
             lbAltitude.TabIndex=4;
-            lbAltitude.Text="label2";
+            lbAltitude.Text="-----";
             // 
             // lbGroundspeed
             // 
@@ -99,9 +109,9 @@
             lbGroundspeed.ForeColor=Color.DimGray;
             lbGroundspeed.Location=new Point(128, 88);
             lbGroundspeed.Name="lbGroundspeed";
-            lbGroundspeed.Size=new Size(96, 36);
+            lbGroundspeed.Size=new Size(85, 36);
             lbGroundspeed.TabIndex=5;
-            lbGroundspeed.Text="label2";
+            lbGroundspeed.Text="-----";
             // 
             // lbVerticalspeed
             // 
@@ -110,9 +120,9 @@
             lbVerticalspeed.ForeColor=Color.White;
             lbVerticalspeed.Location=new Point(128, 48);
             lbVerticalspeed.Name="lbVerticalspeed";
-            lbVerticalspeed.Size=new Size(96, 36);
+            lbVerticalspeed.Size=new Size(85, 36);
             lbVerticalspeed.TabIndex=6;
-            lbVerticalspeed.Text="label2";
+            lbVerticalspeed.Text="-----";
             // 
             // lbRadioAltimeter
             // 
@@ -121,9 +131,9 @@
             lbRadioAltimeter.ForeColor=Color.FromArgb(0, 0, 192);
             lbRadioAltimeter.Location=new Point(392, 48);
             lbRadioAltimeter.Name="lbRadioAltimeter";
-            lbRadioAltimeter.Size=new Size(96, 36);
+            lbRadioAltimeter.Size=new Size(85, 36);
             lbRadioAltimeter.TabIndex=7;
-            lbRadioAltimeter.Text="label2";
+            lbRadioAltimeter.Text="-----";
             // 
             // label1
             // 
@@ -247,11 +257,107 @@
             btnTurnOffSettingMode.UseVisualStyleBackColor=true;
             btnTurnOffSettingMode.Click+=btnTurnOffSettingMode_Click;
             // 
+            // label6
+            // 
+            label6.AutoSize=true;
+            label6.Location=new Point(1072, 32);
+            label6.Name="label6";
+            label6.Size=new Size(105, 20);
+            label6.TabIndex=19;
+            label6.Text="Runway begin:";
+            // 
+            // label7
+            // 
+            label7.AutoSize=true;
+            label7.Location=new Point(1072, 64);
+            label7.Name="label7";
+            label7.Size=new Size(92, 20);
+            label7.TabIndex=20;
+            label7.Text="Runway end:";
+            // 
+            // edRunwayBegin
+            // 
+            edRunwayBegin.Location=new Point(1184, 32);
+            edRunwayBegin.Name="edRunwayBegin";
+            edRunwayBegin.Size=new Size(320, 27);
+            edRunwayBegin.TabIndex=21;
+            // 
+            // edRunwayEnd
+            // 
+            edRunwayEnd.Location=new Point(1184, 64);
+            edRunwayEnd.Name="edRunwayEnd";
+            edRunwayEnd.Size=new Size(320, 27);
+            edRunwayEnd.TabIndex=22;
+            // 
+            // label8
+            // 
+            label8.AutoSize=true;
+            label8.Location=new Point(1072, 104);
+            label8.Name="label8";
+            label8.Size=new Size(128, 20);
+            label8.TabIndex=23;
+            label8.Text="Runway elevation:";
+            // 
+            // lbRunwayElevation
+            // 
+            lbRunwayElevation.AutoSize=true;
+            lbRunwayElevation.Location=new Point(1208, 104);
+            lbRunwayElevation.Name="lbRunwayElevation";
+            lbRunwayElevation.Size=new Size(39, 20);
+            lbRunwayElevation.TabIndex=24;
+            lbRunwayElevation.Text="-----";
+            // 
+            // lbRunwayDegrees
+            // 
+            lbRunwayDegrees.AutoSize=true;
+            lbRunwayDegrees.Location=new Point(1208, 136);
+            lbRunwayDegrees.Name="lbRunwayDegrees";
+            lbRunwayDegrees.Size=new Size(39, 20);
+            lbRunwayDegrees.TabIndex=26;
+            lbRunwayDegrees.Text="-----";
+            // 
+            // label10
+            // 
+            label10.AutoSize=true;
+            label10.Location=new Point(1072, 136);
+            label10.Name="label10";
+            label10.Size=new Size(120, 20);
+            label10.TabIndex=25;
+            label10.Text="Runway degrees:";
+            // 
+            // lbRunwaySize
+            // 
+            lbRunwaySize.AutoSize=true;
+            lbRunwaySize.Location=new Point(1208, 168);
+            lbRunwaySize.Name="lbRunwaySize";
+            lbRunwaySize.Size=new Size(39, 20);
+            lbRunwaySize.TabIndex=28;
+            lbRunwaySize.Text="-----";
+            // 
+            // label11
+            // 
+            label11.AutoSize=true;
+            label11.Location=new Point(1072, 168);
+            label11.Name="label11";
+            label11.Size=new Size(92, 20);
+            label11.TabIndex=27;
+            label11.Text="Runway size:";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
-            ClientSize=new Size(1078, 742);
+            ClientSize=new Size(1521, 742);
+            Controls.Add(lbRunwaySize);
+            Controls.Add(label11);
+            Controls.Add(lbRunwayDegrees);
+            Controls.Add(label10);
+            Controls.Add(lbRunwayElevation);
+            Controls.Add(label8);
+            Controls.Add(edRunwayEnd);
+            Controls.Add(edRunwayBegin);
+            Controls.Add(label7);
+            Controls.Add(label6);
             Controls.Add(btnTurnOffSettingMode);
             Controls.Add(btnSetRunwayEnd);
             Controls.Add(btnSetRunwayBegin);
@@ -298,5 +404,15 @@
         private Button btnSetRunwayBegin;
         private Button btnSetRunwayEnd;
         private Button btnTurnOffSettingMode;
+        private Label label6;
+        private Label label7;
+        private TextBox edRunwayBegin;
+        private TextBox edRunwayEnd;
+        private Label label8;
+        private Label lbRunwayElevation;
+        private Label lbRunwayDegrees;
+        private Label label10;
+        private Label lbRunwaySize;
+        private Label label11;
     }
 }

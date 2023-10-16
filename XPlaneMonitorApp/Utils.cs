@@ -8,5 +8,10 @@
             return (int)Math.Round(value);
         }
 
+        public static int RoundToInt(double value)
+        {
+            return (int)Math.Round(value);
+        }
+
     }
 }

@@ -85,5 +85,17 @@
             return radians * 180.0 / Math.PI;
         }
 
+        public static double ConvertMetersToFeet(double metros)
+        {
+            const double metrosPorPe = 0.3048;
+            return metros / metrosPorPe;
+        }
+
+        public static double ConverterKmParaMilhaNautica(double km)
+        {
+            const double quilometrosPorMilhaNautica = 1.852;
+            return km / quilometrosPorMilhaNautica;
+        }
+
     }
 }
