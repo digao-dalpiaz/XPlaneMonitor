@@ -68,9 +68,7 @@
             label16=new Label();
             lbHeading=new Label();
             label17=new Label();
-            gaugeGear=new GaugePanel();
             lbLastReceive=new Label();
-            gaugeN1_1=new GaugePanel();
             toolStrip1=new ToolStrip();
             btnConnect=new ToolStripButton();
             btnDisconnect=new ToolStripButton();
@@ -86,7 +84,6 @@
             gaugeFlaps.GaugeHigh="Extended";
             gaugeFlaps.GaugeLow="Retracted";
             gaugeFlaps.GaugeTitle="Flaps";
-            gaugeFlaps.GaugeUnique=false;
             gaugeFlaps.Location=new Point(16, 160);
             gaugeFlaps.Name="gaugeFlaps";
             gaugeFlaps.Size=new Size(344, 128);
@@ -97,10 +94,9 @@
             gaugeThrottle.GaugeHigh="Full Power";
             gaugeThrottle.GaugeLow="Idle";
             gaugeThrottle.GaugeTitle="Throttle";
-            gaugeThrottle.GaugeUnique=true;
-            gaugeThrottle.Location=new Point(368, 160);
+            gaugeThrottle.Location=new Point(1080, 376);
             gaugeThrottle.Name="gaugeThrottle";
-            gaugeThrottle.Size=new Size(344, 128);
+            gaugeThrottle.Size=new Size(344, 272);
             gaugeThrottle.TabIndex=1;
             // 
             // lbAirspeed
@@ -245,7 +241,6 @@
             gaugeElvTrim.GaugeHigh="Up";
             gaugeElvTrim.GaugeLow="Down";
             gaugeElvTrim.GaugeTitle="Elevator Trim";
-            gaugeElvTrim.GaugeUnique=true;
             gaugeElvTrim.Location=new Point(720, 160);
             gaugeElvTrim.Name="gaugeElvTrim";
             gaugeElvTrim.Size=new Size(344, 128);
@@ -466,17 +461,6 @@
             label17.TabIndex=43;
             label17.Text="Heading:";
             // 
-            // gaugeGear
-            // 
-            gaugeGear.GaugeHigh="Up";
-            gaugeGear.GaugeLow="Down";
-            gaugeGear.GaugeTitle="Landing Gear";
-            gaugeGear.GaugeUnique=true;
-            gaugeGear.Location=new Point(1072, 384);
-            gaugeGear.Name="gaugeGear";
-            gaugeGear.Size=new Size(344, 144);
-            gaugeGear.TabIndex=44;
-            // 
             // lbLastReceive
             // 
             lbLastReceive.AutoSize=true;
@@ -485,17 +469,6 @@
             lbLastReceive.Size=new Size(63, 20);
             lbLastReceive.TabIndex=45;
             lbLastReceive.Text="00:00:00";
-            // 
-            // gaugeN1_1
-            // 
-            gaugeN1_1.GaugeHigh="Up";
-            gaugeN1_1.GaugeLow="Down";
-            gaugeN1_1.GaugeTitle="Landing Gear";
-            gaugeN1_1.GaugeUnique=false;
-            gaugeN1_1.Location=new Point(1072, 544);
-            gaugeN1_1.Name="gaugeN1_1";
-            gaugeN1_1.Size=new Size(344, 152);
-            gaugeN1_1.TabIndex=46;
             // 
             // toolStrip1
             // 
@@ -567,9 +540,7 @@
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
             Controls.Add(toolStrip1);
-            Controls.Add(gaugeN1_1);
             Controls.Add(lbLastReceive);
-            Controls.Add(gaugeGear);
             Controls.Add(label17);
             Controls.Add(lbHeading);
             Controls.Add(edRampHeight);
@@ -660,9 +631,7 @@
         private Label label16;
         private Label lbHeading;
         private Label label17;
-        private GaugePanel gaugeGear;
         private Label lbLastReceive;
-        private GaugePanel gaugeN1_1;
         private ToolStrip toolStrip1;
         private ToolStripButton btnConnect;
         private ToolStripButton btnDisconnect;

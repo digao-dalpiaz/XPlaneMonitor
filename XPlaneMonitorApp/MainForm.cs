@@ -2,6 +2,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
+using System;
 using XPlaneMonitorApp.Communicator;
 
 namespace XPlaneMonitorApp
@@ -48,12 +49,17 @@ namespace XPlaneMonitorApp
             map.MinZoom = 0;
             map.Zoom = 15;
 
-            //gaugeElvTrim.Max = 2;
-
-            //gaugeN1_1.Max = 100;
-
             gaugeFlaps.AddBar(null, Color.Orange, 1);
             gaugeFlaps.AddBar(null, Color.Green, 1);
+
+            gaugeElvTrim.AddBar(null, Color.Bisque, 2);
+
+            for (int i = 0; i < 4; i++)
+            {
+                gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), Color.Green, 1);
+                gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), Color.Red, 100);
+                gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Orange, 100);
+            }
 
             SubscribeAll();
             _communicator = new(_refsData, this);
@@ -63,7 +69,7 @@ namespace XPlaneMonitorApp
             OnStatusChanged(); //update buttons
         }
 
-        
+
 
         private void SubscribeAll()
         {
@@ -124,8 +130,8 @@ namespace XPlaneMonitorApp
             });
             _refsData.Subscribe("sim/cockpit2/controls/elevator_trim", v =>
             {
-                //gaugeElvTrim.PosFinal = v + 1;
-                //gaugeElvTrim.Recalc();
+                gaugeElvTrim.Bars[0].Pos = v + 1;
+                gaugeElvTrim.Reload();
             });
             _refsData.Subscribe("sim/cockpit2/controls/parking_brake_ratio", v =>
             {
@@ -133,16 +139,49 @@ namespace XPlaneMonitorApp
                 lbParking.ForeColor = v == 1 ? Color.Red : Color.Green;
             });
 
-            _refsData.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio[1]", v =>
+            var updEngine = (int engineIndex, int barIndex, float value) =>
             {
-                //gaugeN1_1.PosRqst = v * 100;
-                //gaugeN1_1.Recalc();
-            });
-            _refsData.Subscribe("sim/cockpit2/engine/indicators/N1_percent[1]", v =>
+                gaugeThrottle.Bars[(engineIndex * 3) + barIndex].Pos = value;
+                gaugeThrottle.Reload();
+            };
+
+            var getEngineRef = (int engineIndex, EngineRefPart engineRefPart) =>
             {
-                //gaugeN1_1.PosFinal = v;
-                //gaugeN1_1.Recalc();
-            });
+                string fmt;
+                switch (engineRefPart)
+                {
+                    case EngineRefPart.TH: 
+                        fmt = "sim/cockpit2/engine/actuators/throttle_ratio[{0}]";
+                        break;
+                    case EngineRefPart.N1: 
+                        fmt =  "sim/cockpit2/engine/indicators/N1_percent[{0}]";
+                        break;
+                    case EngineRefPart.N2: 
+                        fmt =  "sim/cockpit2/engine/indicators/N2_percent[{0}]";
+                        break;
+                    default:
+                        throw new Exception("Engine part invalid");
+                }
+
+                return string.Format(fmt, engineIndex);
+            };
+
+            _refsData.Subscribe(getEngineRef(0, EngineRefPart.TH), v => updEngine(0, 0, v));
+            _refsData.Subscribe(getEngineRef(0, EngineRefPart.N1), v => updEngine(0, 1, v));
+            _refsData.Subscribe(getEngineRef(0, EngineRefPart.N2), v => updEngine(0, 2, v));
+
+            _refsData.Subscribe(getEngineRef(1, EngineRefPart.TH), v => updEngine(1, 0, v));
+            _refsData.Subscribe(getEngineRef(1, EngineRefPart.N1), v => updEngine(1, 1, v));
+            _refsData.Subscribe(getEngineRef(1, EngineRefPart.N2), v => updEngine(1, 2, v));
+
+            _refsData.Subscribe(getEngineRef(2, EngineRefPart.TH), v => updEngine(2, 0, v));
+            _refsData.Subscribe(getEngineRef(2, EngineRefPart.N1), v => updEngine(2, 1, v));
+            _refsData.Subscribe(getEngineRef(2, EngineRefPart.N2), v => updEngine(2, 2, v));
+
+            _refsData.Subscribe(getEngineRef(3, EngineRefPart.TH), v => updEngine(3, 0, v));
+            _refsData.Subscribe(getEngineRef(3, EngineRefPart.N1), v => updEngine(3, 1, v));
+            _refsData.Subscribe(getEngineRef(3, EngineRefPart.N2), v => updEngine(3, 2, v));
+
             /*
             
             Subscribe(DataRefs.AircraftPartsAcfGearDeploy, d =>
@@ -150,6 +189,11 @@ namespace XPlaneMonitorApp
                 gaugeGear.PosFinal = d.Value;
                 gaugeGear.Recalc();
             });*/
+        }
+
+        enum EngineRefPart
+        {
+            TH, N1, N2
         }
 
         private void UpdateMap()
@@ -312,7 +356,7 @@ namespace XPlaneMonitorApp
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            _communicator.Connect("127.0.0.1", 49009);
+            _communicator.Connect("127.0.0.1", 49000);
         }
 
         private void btnDisconnect_Click(object sender, EventArgs e)

@@ -18,7 +18,6 @@ namespace XPlaneMonitorApp.Communicator
             "sim/aircraft/view/acf_Vno", //parametro de velocidade:
             "sim/aircraft/view/acf_Vne", //parametro de velocidade:
             "sim/aircraft/engine/acf_num_engines", //numero de motores
-            "sim/aircraft/controls/acf_flap_detents", //quantidade de dentes de flap
             "sim/aircraft/gear/acf_gear_retract", //trem de pouso extensível
             "sim/aircraft/weight/acf_m_fuel_tot", //capacidade total de combustivel
             "sim/cockpit/autopilot/autopilot_mode",
@@ -217,8 +216,10 @@ namespace XPlaneMonitorApp.Communicator
 
         private void RunSync(Action action)
         {
-            if (_invokeControl.IsDisposed) return;
-            _invokeControl.Invoke(action);
+            try
+            {
+                _invokeControl.Invoke(action);
+            } catch (ObjectDisposedException) { }
         }
 
     }

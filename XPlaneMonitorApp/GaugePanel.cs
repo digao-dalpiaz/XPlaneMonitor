@@ -1,15 +1,24 @@
-﻿namespace XPlaneMonitorApp
+﻿using System.Reflection;
+
+namespace XPlaneMonitorApp
 {
     public partial class GaugePanel : UserControl
     {
 
         public class Bar
         {
-            public string Name;
-            public Color Color;
-            public float Max;
+            public readonly string Name;
+            public readonly Color Color;
+            public readonly float Max;
 
             public float Pos;
+
+            public Bar(string name, Color color, float max)
+            {
+                this.Name = name;
+                this.Color = color;
+                this.Max = max;
+            }
         }
 
         public string GaugeTitle
@@ -21,13 +30,15 @@
 
         public string GaugeHigh { get; set; }
 
-        public bool GaugeUnique { get; set; }
-
-        public List<Bar> Bars { get; set; } = new();
+        public readonly List<Bar> Bars = new();
 
         public GaugePanel()
         {
             InitializeComponent();
+
+            typeof(Panel).InvokeMember("DoubleBuffered", 
+                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
+                null, boxDraw, new object[] { true });
         }
 
         private void boxDraw_Paint(object sender, PaintEventArgs e)
@@ -39,7 +50,21 @@
 
             foreach (var bar in Bars)
             {
-                e.Graphics.FillRectangle(new SolidBrush(bar.Color), 0, y, boxDraw.Width * (bar.Pos / bar.Max), h);
+                var perc = bar.Pos / bar.Max;
+
+                e.Graphics.FillRectangle(new SolidBrush(bar.Color), 0, y, boxDraw.Width * perc, h);
+
+                var text = Utils.RoundToInt(perc * 100).ToString() + "%";
+                var strSize = e.Graphics.MeasureString(text, this.Font);
+                var textY = y + ((h - strSize.Height) / 2);
+                e.Graphics.DrawString(text, this.Font, Brushes.Black,
+                    (boxDraw.Width - strSize.Width) / 2, textY);
+
+                if (bar.Name != null)
+                {
+                    e.Graphics.DrawString(bar.Name, this.Font, Brushes.Gray, 4, textY);
+                }
+
                 y += h;
             }
         }
@@ -51,12 +76,7 @@
 
         public void AddBar(string name, Color color, float max)
         {
-            Bar bar = new();
-            bar.Name = name;
-            bar.Color = color;  
-            bar.Max = max;
-
-            Bars.Add(bar);
+            Bars.Add(new Bar(name, color, max));
         }
 
     }
