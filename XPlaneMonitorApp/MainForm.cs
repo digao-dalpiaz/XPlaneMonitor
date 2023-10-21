@@ -2,7 +2,6 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-using Newtonsoft.Json.Linq;
 using XPlaneMonitorApp.Communicator;
 
 namespace XPlaneMonitorApp
@@ -56,13 +55,25 @@ namespace XPlaneMonitorApp
 
             gaugeElvTrim.AddBar(null, Color.Bisque, 2);
 
+            gaugeGear.AddBar(null, Color.Purple, 1);
+            gaugeGear.AddBar(null, Color.Firebrick, 1);
+
+            gaugeSpoilers.AddBar("Left", Color.Gainsboro, 20);
+            gaugeSpoilers.AddBar("Right", Color.Gainsboro, 20);
+
+            gaugeSpeedBrake.AddBar("Requested", Color.Gold, 1);
+            gaugeSpeedBrake.AddBar("Actual", Color.MediumBlue, 1);
+
+            gaugeWheelBrake.AddBar("Left", Color.Fuchsia, 1);
+            gaugeWheelBrake.AddBar("Right", Color.Fuchsia, 1);
+
             for (int i = 0; i < 4; i++)
             {
                 gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), Color.Green, 1);
                 gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), Color.Red, 100);
                 gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Orange, 100);
 
-                gaugeFuel.AddBar(null, Color.Aquamarine, 0);
+                gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.Aquamarine, 0);
             }
 
             SubscribeAll();
@@ -113,7 +124,7 @@ namespace XPlaneMonitorApp
                 lbHeading.Text = Utils.RoundToInt(r.Value).ToString() + "º";
             });
 
-            _refsData.Subscribe("sim/cockpit2/controls/parking_brake_ratio", r =>
+            _refsData.Subscribe("sim/flightmodel/controls/parkbrake", r =>
             {
                 lbParking.Text = "PARKING BRAKE " + (r.Value == 1 ? "ON" : "OFF");
                 lbParking.ForeColor = r.Value == 1 ? Color.Red : Color.Green;
@@ -165,7 +176,9 @@ namespace XPlaneMonitorApp
             }, 4);
             _refsData.Subscribe("sim/cockpit2/fuel/fuel_quantity", r =>
             {
-                gaugeFuel.Bars[r.ArrayIndex].Pos = r.Value;
+                var bar = gaugeFuel.Bars[r.ArrayIndex];
+                bar.Pos = r.Value;
+                //bar.Name = bar.Pos + "/" + bar.Max;
                 gaugeFuel.Reload();
             }, 4);
 
@@ -175,13 +188,54 @@ namespace XPlaneMonitorApp
                 gaugeFuel.Reload();
             });
 
-            /*
-            
-            Subscribe(DataRefs.AircraftPartsAcfGearDeploy, d =>
+            _refsData.Subscribe("sim/cockpit/switches/gear_handle_status", r =>
             {
-                gaugeGear.PosFinal = d.Value;
-                gaugeGear.Recalc();
-            });*/
+                gaugeGear.Bars[0].Pos = r.Value;
+                gaugeGear.Reload();
+            });
+            _refsData.Subscribe("sim/flightmodel/movingparts/gear1def", r =>
+            {
+                gaugeGear.Bars[1].Pos = r.Value;
+                gaugeGear.Reload();
+            });
+
+            _refsData.Subscribe("sim/flightmodel/controls/lsplrdef", r =>
+            {
+                gaugeSpoilers.Bars[0].Pos = r.Value;
+                gaugeSpoilers.Reload();
+            });
+            _refsData.Subscribe("sim/flightmodel/controls/rsplrdef", r =>
+            {
+                gaugeSpoilers.Bars[1].Pos = r.Value;
+                gaugeSpoilers.Reload();
+            });
+
+            _refsData.Subscribe("sim/flightmodel/controls/sbrkrqst", r =>
+            {
+                gaugeSpeedBrake.Bars[0].Pos = r.Value;
+                gaugeSpeedBrake.Reload();
+            });
+            _refsData.Subscribe("sim/flightmodel/controls/sbrkrat", r =>
+            {
+                gaugeSpeedBrake.Bars[1].Pos = r.Value;
+                gaugeSpeedBrake.Reload();
+            });
+
+            _refsData.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>
+            {
+                lbAutoBrake.Text = r.Value == 0 ? "RTO" : r.Value == 1 ? "OFF" : "ON " + (r.Value-1);
+            });
+
+            _refsData.Subscribe("sim/cockpit2/controls/left_brake_ratio", r =>
+            {
+                gaugeWheelBrake.Bars[0].Pos = r.Value;
+                gaugeWheelBrake.Reload();
+            });
+            _refsData.Subscribe("sim/cockpit2/controls/right_brake_ratio", r =>
+            {
+                gaugeWheelBrake.Bars[1].Pos = r.Value;
+                gaugeWheelBrake.Reload();
+            });
         }
 
         private void UpdateMap()
@@ -349,6 +403,11 @@ namespace XPlaneMonitorApp
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
             _communicator.Disconnect();
+        }
+
+        private void map_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

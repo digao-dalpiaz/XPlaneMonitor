@@ -51,6 +51,7 @@
         public readonly RefDataContract Contract;
         public readonly int ArrayIndex;
         public float Value;
+        public bool AlreadyLoadedOnce;
 
         public RefDataSubscription(RefDataContract contract, int arrayIndex)
         {

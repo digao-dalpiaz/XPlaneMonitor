@@ -77,6 +77,12 @@
             btnTurnOffSettingMode=new ToolStripButton();
             btnClearRunwayApproach=new ToolStripButton();
             gaugeFuel=new GaugePanel();
+            gaugeGear=new GaugePanel();
+            gaugeSpoilers=new GaugePanel();
+            gaugeSpeedBrake=new GaugePanel();
+            label18=new Label();
+            lbAutoBrake=new Label();
+            gaugeWheelBrake=new GaugePanel();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -204,7 +210,7 @@
             map.GrayScaleMode=false;
             map.HelperLineOption=GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             map.LevelsKeepInMemory=5;
-            map.Location=new Point(16, 296);
+            map.Location=new Point(24, 296);
             map.MarkersEnabled=true;
             map.MaxZoom=2;
             map.MinZoom=2;
@@ -222,6 +228,7 @@
             map.TabIndex=13;
             map.Zoom=0D;
             map.OnMapClick+=map_OnMapClick;
+            map.Load+=map_Load;
             // 
             // lbParking
             // 
@@ -532,16 +539,72 @@
             // gaugeFuel
             // 
             gaugeFuel.GaugeTitle="Fuel";
-            gaugeFuel.Location=new Point(720, 96);
+            gaugeFuel.Location=new Point(720, 160);
             gaugeFuel.Name="gaugeFuel";
-            gaugeFuel.Size=new Size(328, 176);
+            gaugeFuel.Size=new Size(328, 112);
             gaugeFuel.TabIndex=49;
+            // 
+            // gaugeGear
+            // 
+            gaugeGear.GaugeTitle="Landing Gear";
+            gaugeGear.Location=new Point(736, 64);
+            gaugeGear.Name="gaugeGear";
+            gaugeGear.Size=new Size(328, 112);
+            gaugeGear.TabIndex=50;
+            // 
+            // gaugeSpoilers
+            // 
+            gaugeSpoilers.GaugeTitle="Spoilers";
+            gaugeSpoilers.Location=new Point(240, 432);
+            gaugeSpoilers.Name="gaugeSpoilers";
+            gaugeSpoilers.Size=new Size(328, 112);
+            gaugeSpoilers.TabIndex=51;
+            // 
+            // gaugeSpeedBrake
+            // 
+            gaugeSpeedBrake.GaugeTitle="Speed Brakes";
+            gaugeSpeedBrake.Location=new Point(256, 312);
+            gaugeSpeedBrake.Name="gaugeSpeedBrake";
+            gaugeSpeedBrake.Size=new Size(328, 112);
+            gaugeSpeedBrake.TabIndex=52;
+            // 
+            // label18
+            // 
+            label18.AutoSize=true;
+            label18.Location=new Point(512, 56);
+            label18.Name="label18";
+            label18.Size=new Size(85, 20);
+            label18.TabIndex=53;
+            label18.Text="Auto Brake:";
+            // 
+            // lbAutoBrake
+            // 
+            lbAutoBrake.AutoSize=true;
+            lbAutoBrake.Location=new Point(592, 56);
+            lbAutoBrake.Name="lbAutoBrake";
+            lbAutoBrake.Size=new Size(36, 20);
+            lbAutoBrake.TabIndex=54;
+            lbAutoBrake.Text="###";
+            // 
+            // gaugeWheelBrake
+            // 
+            gaugeWheelBrake.GaugeTitle="Wheel Brakes";
+            gaugeWheelBrake.Location=new Point(596, 315);
+            gaugeWheelBrake.Name="gaugeWheelBrake";
+            gaugeWheelBrake.Size=new Size(328, 112);
+            gaugeWheelBrake.TabIndex=55;
             // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
+            Controls.Add(gaugeWheelBrake);
+            Controls.Add(lbAutoBrake);
+            Controls.Add(label18);
+            Controls.Add(gaugeSpeedBrake);
+            Controls.Add(gaugeSpoilers);
+            Controls.Add(gaugeGear);
             Controls.Add(gaugeFuel);
             Controls.Add(toolStrip1);
             Controls.Add(lbLastReceive);
@@ -644,5 +707,11 @@
         private ToolStripButton btnTurnOffSettingMode;
         private ToolStripButton btnClearRunwayApproach;
         private GaugePanel gaugeFuel;
+        private GaugePanel gaugeGear;
+        private GaugePanel gaugeSpoilers;
+        private GaugePanel gaugeSpeedBrake;
+        private Label label18;
+        private Label lbAutoBrake;
+        private GaugePanel gaugeWheelBrake;
     }
 }
