@@ -3,76 +3,61 @@
     public partial class GaugePanel : UserControl
     {
 
+        public class Bar
+        {
+            public string Name;
+            public Color Color;
+            public float Max;
+
+            public float Pos;
+        }
+
         public string GaugeTitle
         {
             get => lbTitle.Text; set => lbTitle.Text = value;
         }
 
-        public string GaugeLow
-        {
-            get => lbLow.Text; set => lbLow.Text = value;
-        }
+        public string GaugeLow { get; set; }
 
-        public string GaugeHigh
-        {
-            get => lbHigh.Text; set => lbHigh.Text = value;
-        }
+        public string GaugeHigh { get; set; }
 
         public bool GaugeUnique { get; set; }
 
-        public float Max = 1;
-        public float PosRqst;
-        public float PosFinal;
+        public List<Bar> Bars { get; set; } = new();
 
         public GaugePanel()
         {
             InitializeComponent();
         }
 
-        private void GaugePanel_Resize(object sender, EventArgs e)
+        private void boxDraw_Paint(object sender, PaintEventArgs e)
         {
-            if (GaugeUnique)
+            if (Bars.Count == 0) return;
+
+            float y = 0;
+            float h = boxDraw.Height / Bars.Count;
+
+            foreach (var bar in Bars)
             {
-                lbPercRqst.Visible = false;
-                barRqst.Visible = false;
-
-                lbPercFinal.Top = lbPercRqst.Top;
-                barFinal.Top = barRqst.Top;
+                e.Graphics.FillRectangle(new SolidBrush(bar.Color), 0, y, boxDraw.Width * (bar.Pos / bar.Max), h);
+                y += h;
             }
-
-            lbHigh.Left = internalBox.Width - lbHigh.Width - 8;
-            barFinal.Height = internalBox.Height - barFinal.Top - 8;
-
-            RecalcCommon();
         }
-
-        private float GetPercRqst()
-        {
-            return PosRqst / Max;
-        }
-
-        private float GetPercFinal()
-        {
-            return PosFinal / Max;
-        }
-
-        private void RecalcCommon()
-        {
-            int fullSize = internalBox.Width - barRqst.Left - 8;
-
-            barRqst.Width = Utils.RoundToInt(fullSize * GetPercRqst()) + 1;
-            barFinal.Width = Utils.RoundToInt(fullSize * GetPercFinal()) + 1;
-        }
-
-        public void Recalc()
-        {
-            lbPercRqst.Text = Utils.RoundToInt(GetPercRqst() * 100).ToString() + "%";
-            lbPercFinal.Text = Utils.RoundToInt(GetPercFinal() * 100).ToString() + "%";
-
-            RecalcCommon();
-        }
-
         
+        public void Reload()
+        {
+            boxDraw.Invalidate();
+        }
+
+        public void AddBar(string name, Color color, float max)
+        {
+            Bar bar = new();
+            bar.Name = name;
+            bar.Color = color;  
+            bar.Max = max;
+
+            Bars.Add(bar);
+        }
 
     }
 }

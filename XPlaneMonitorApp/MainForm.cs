@@ -47,14 +47,19 @@ namespace XPlaneMonitorApp
             map.MinZoom = 0;
             map.Zoom = 15;
 
-            gaugeElvTrim.Max = 2;
+            //gaugeElvTrim.Max = 2;
 
-            gaugeN1_1.Max = 100;
+            //gaugeN1_1.Max = 100;
+
+            gaugeFlaps.AddBar(null, Color.Orange, 1);
+            gaugeFlaps.AddBar(null, Color.Green, 1);
 
             SubscribeAll();
             _communicator = new(_refsData, this);
             _communicator.OnReceived += OnDataRefReceived;
-            _communicator.Connect();
+            _communicator.OnStatusChanged += OnStatusChanged;
+
+            OnStatusChanged(); //update buttons
         }
 
         private void Subscribe(string refName, Action<float> proc)
@@ -69,13 +74,13 @@ namespace XPlaneMonitorApp
         {
             Subscribe("sim/flightmodel/controls/flaprqst", v =>
             {
-                gaugeFlaps.PosRqst = v;
-                gaugeFlaps.Recalc();
+                gaugeFlaps.Bars[0].Pos = v;
+                gaugeFlaps.Reload();
             });
             Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", v =>
             {
-                gaugeFlaps.PosFinal = v;
-                gaugeFlaps.Recalc();
+                gaugeFlaps.Bars[1].Pos = v;
+                gaugeFlaps.Reload();
             });
             /*
             Subscribe(DataRefs.Cockpit2EngineActuatorsThrottleRatioAll, d =>
@@ -124,8 +129,8 @@ namespace XPlaneMonitorApp
             });
             Subscribe("sim/cockpit2/controls/elevator_trim", v =>
             {
-                gaugeElvTrim.PosFinal = v + 1;
-                gaugeElvTrim.Recalc();
+                //gaugeElvTrim.PosFinal = v + 1;
+                //gaugeElvTrim.Recalc();
             });
             Subscribe("sim/cockpit2/controls/parking_brake_ratio", v =>
             {
@@ -135,13 +140,13 @@ namespace XPlaneMonitorApp
 
             Subscribe("sim/cockpit2/engine/actuators/throttle_ratio[1]", v =>
             {
-                gaugeN1_1.PosRqst = v * 100;
-                gaugeN1_1.Recalc();
+                //gaugeN1_1.PosRqst = v * 100;
+                //gaugeN1_1.Recalc();
             });
             Subscribe("sim/cockpit2/engine/indicators/N1_percent[1]", v =>
             {
-                gaugeN1_1.PosFinal = v;
-                gaugeN1_1.Recalc();
+                //gaugeN1_1.PosFinal = v;
+                //gaugeN1_1.Recalc();
             });
             /*
             
@@ -175,11 +180,13 @@ namespace XPlaneMonitorApp
 
         private void OnDataRefReceived()
         {
-            Invoke(() => lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss"));
+            lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void OnStatusChanged()
         {
+            btnConnect.Enabled = _communicator.Status == XPlaneCommunicator.ConnectionStatus.DISCONNECTED;
+            btnDisconnect.Enabled = _communicator.Status == XPlaneCommunicator.ConnectionStatus.CONNECTED;
         }
 
         private void SetSettingMode(SettingMode setting)
@@ -298,6 +305,24 @@ namespace XPlaneMonitorApp
             lbCompassToApproach.Text = string.Empty;
             lbCompassToRunway.Text = string.Empty;
 
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_communicator.Status == XPlaneCommunicator.ConnectionStatus.CONNECTED)
+            {
+                _communicator.Disconnect();
+            }
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            _communicator.Connect();
+        }
+
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            _communicator.Disconnect();
         }
     }
 }

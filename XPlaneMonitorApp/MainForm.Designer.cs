@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             gaugeFlaps=new GaugePanel();
             gaugeThrottle=new GaugePanel();
             lbAirspeed=new Label();
@@ -43,9 +44,6 @@
             map=new GMap.NET.WindowsForms.GMapControl();
             lbParking=new Label();
             gaugeElvTrim=new GaugePanel();
-            btnSetRunwayBegin=new Button();
-            btnSetRunwayEnd=new Button();
-            btnTurnOffSettingMode=new Button();
             label6=new Label();
             label7=new Label();
             edRunwayBegin=new TextBox();
@@ -64,7 +62,6 @@
             label14=new Label();
             lbCompassToRunway=new Label();
             label15=new Label();
-            btnClearRunwayApproach=new Button();
             label13=new Label();
             edRampDistance=new TextBox();
             edRampHeight=new TextBox();
@@ -74,6 +71,14 @@
             gaugeGear=new GaugePanel();
             lbLastReceive=new Label();
             gaugeN1_1=new GaugePanel();
+            toolStrip1=new ToolStrip();
+            btnConnect=new ToolStripButton();
+            btnDisconnect=new ToolStripButton();
+            btnSetRunwayBegin=new ToolStripButton();
+            btnSetRunwayEnd=new ToolStripButton();
+            btnTurnOffSettingMode=new ToolStripButton();
+            btnClearRunwayApproach=new ToolStripButton();
+            toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -82,9 +87,9 @@
             gaugeFlaps.GaugeLow="Retracted";
             gaugeFlaps.GaugeTitle="Flaps";
             gaugeFlaps.GaugeUnique=false;
-            gaugeFlaps.Location=new Point(16, 136);
+            gaugeFlaps.Location=new Point(16, 160);
             gaugeFlaps.Name="gaugeFlaps";
-            gaugeFlaps.Size=new Size(344, 144);
+            gaugeFlaps.Size=new Size(344, 128);
             gaugeFlaps.TabIndex=0;
             // 
             // gaugeThrottle
@@ -93,9 +98,9 @@
             gaugeThrottle.GaugeLow="Idle";
             gaugeThrottle.GaugeTitle="Throttle";
             gaugeThrottle.GaugeUnique=true;
-            gaugeThrottle.Location=new Point(368, 136);
+            gaugeThrottle.Location=new Point(368, 160);
             gaugeThrottle.Name="gaugeThrottle";
-            gaugeThrottle.Size=new Size(344, 144);
+            gaugeThrottle.Size=new Size(344, 128);
             gaugeThrottle.TabIndex=1;
             // 
             // lbAirspeed
@@ -103,7 +108,7 @@
             lbAirspeed.AutoSize=true;
             lbAirspeed.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
             lbAirspeed.ForeColor=Color.FromArgb(192, 0, 192);
-            lbAirspeed.Location=new Point(128, 8);
+            lbAirspeed.Location=new Point(128, 32);
             lbAirspeed.Name="lbAirspeed";
             lbAirspeed.Size=new Size(91, 36);
             lbAirspeed.TabIndex=3;
@@ -114,7 +119,7 @@
             lbAltitude.AutoSize=true;
             lbAltitude.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
             lbAltitude.ForeColor=Color.FromArgb(192, 64, 0);
-            lbAltitude.Location=new Point(392, 8);
+            lbAltitude.Location=new Point(392, 32);
             lbAltitude.Name="lbAltitude";
             lbAltitude.Size=new Size(91, 36);
             lbAltitude.TabIndex=4;
@@ -125,7 +130,7 @@
             lbGroundspeed.AutoSize=true;
             lbGroundspeed.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
             lbGroundspeed.ForeColor=Color.DimGray;
-            lbGroundspeed.Location=new Point(128, 88);
+            lbGroundspeed.Location=new Point(128, 112);
             lbGroundspeed.Name="lbGroundspeed";
             lbGroundspeed.Size=new Size(91, 36);
             lbGroundspeed.TabIndex=5;
@@ -136,7 +141,7 @@
             lbVerticalspeed.AutoSize=true;
             lbVerticalspeed.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
             lbVerticalspeed.ForeColor=Color.White;
-            lbVerticalspeed.Location=new Point(128, 48);
+            lbVerticalspeed.Location=new Point(128, 72);
             lbVerticalspeed.Name="lbVerticalspeed";
             lbVerticalspeed.Size=new Size(91, 36);
             lbVerticalspeed.TabIndex=6;
@@ -147,7 +152,7 @@
             lbRadioAltimeter.AutoSize=true;
             lbRadioAltimeter.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
             lbRadioAltimeter.ForeColor=Color.FromArgb(0, 0, 192);
-            lbRadioAltimeter.Location=new Point(392, 48);
+            lbRadioAltimeter.Location=new Point(392, 72);
             lbRadioAltimeter.Name="lbRadioAltimeter";
             lbRadioAltimeter.Size=new Size(91, 36);
             lbRadioAltimeter.TabIndex=7;
@@ -156,7 +161,7 @@
             // label1
             // 
             label1.AutoSize=true;
-            label1.Location=new Point(272, 56);
+            label1.Location=new Point(272, 80);
             label1.Name="label1";
             label1.Size=new Size(117, 20);
             label1.TabIndex=8;
@@ -165,7 +170,7 @@
             // label2
             // 
             label2.AutoSize=true;
-            label2.Location=new Point(272, 16);
+            label2.Location=new Point(272, 40);
             label2.Name="label2";
             label2.Size=new Size(65, 20);
             label2.TabIndex=9;
@@ -174,7 +179,7 @@
             // label3
             // 
             label3.AutoSize=true;
-            label3.Location=new Point(16, 56);
+            label3.Location=new Point(16, 80);
             label3.Name="label3";
             label3.Size=new Size(107, 20);
             label3.TabIndex=10;
@@ -183,7 +188,7 @@
             // label4
             // 
             label4.AutoSize=true;
-            label4.Location=new Point(16, 96);
+            label4.Location=new Point(16, 120);
             label4.Name="label4";
             label4.Size=new Size(107, 20);
             label4.TabIndex=11;
@@ -192,7 +197,7 @@
             // label5
             // 
             label5.AutoSize=true;
-            label5.Location=new Point(16, 16);
+            label5.Location=new Point(16, 40);
             label5.Name="label5";
             label5.Size=new Size(77, 20);
             label5.TabIndex=12;
@@ -206,7 +211,7 @@
             map.GrayScaleMode=false;
             map.HelperLineOption=GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             map.LevelsKeepInMemory=5;
-            map.Location=new Point(16, 288);
+            map.Location=new Point(16, 296);
             map.MarkersEnabled=true;
             map.MaxZoom=2;
             map.MinZoom=2;
@@ -220,7 +225,7 @@
             map.ScaleMode=GMap.NET.WindowsForms.ScaleModes.Integer;
             map.SelectedAreaFillColor=Color.FromArgb(33, 65, 105, 225);
             map.ShowTileGridLines=false;
-            map.Size=new Size(1048, 440);
+            map.Size=new Size(1048, 432);
             map.TabIndex=13;
             map.Zoom=0D;
             map.OnMapClick+=map_OnMapClick;
@@ -229,7 +234,7 @@
             // 
             lbParking.AutoSize=true;
             lbParking.Font=new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbParking.Location=new Point(536, 16);
+            lbParking.Location=new Point(512, 112);
             lbParking.Name="lbParking";
             lbParking.Size=new Size(169, 28);
             lbParking.TabIndex=14;
@@ -241,40 +246,10 @@
             gaugeElvTrim.GaugeLow="Down";
             gaugeElvTrim.GaugeTitle="Elevator Trim";
             gaugeElvTrim.GaugeUnique=true;
-            gaugeElvTrim.Location=new Point(720, 136);
+            gaugeElvTrim.Location=new Point(720, 160);
             gaugeElvTrim.Name="gaugeElvTrim";
-            gaugeElvTrim.Size=new Size(344, 144);
+            gaugeElvTrim.Size=new Size(344, 128);
             gaugeElvTrim.TabIndex=15;
-            // 
-            // btnSetRunwayBegin
-            // 
-            btnSetRunwayBegin.Location=new Point(728, 16);
-            btnSetRunwayBegin.Name="btnSetRunwayBegin";
-            btnSetRunwayBegin.Size=new Size(152, 32);
-            btnSetRunwayBegin.TabIndex=16;
-            btnSetRunwayBegin.Text="Set runway begin";
-            btnSetRunwayBegin.UseVisualStyleBackColor=true;
-            btnSetRunwayBegin.Click+=btnSetRunwayBegin_Click;
-            // 
-            // btnSetRunwayEnd
-            // 
-            btnSetRunwayEnd.Location=new Point(728, 48);
-            btnSetRunwayEnd.Name="btnSetRunwayEnd";
-            btnSetRunwayEnd.Size=new Size(152, 32);
-            btnSetRunwayEnd.TabIndex=17;
-            btnSetRunwayEnd.Text="Set runway end";
-            btnSetRunwayEnd.UseVisualStyleBackColor=true;
-            btnSetRunwayEnd.Click+=btnSetRunwayEnd_Click;
-            // 
-            // btnTurnOffSettingMode
-            // 
-            btnTurnOffSettingMode.Location=new Point(728, 80);
-            btnTurnOffSettingMode.Name="btnTurnOffSettingMode";
-            btnTurnOffSettingMode.Size=new Size(152, 32);
-            btnTurnOffSettingMode.TabIndex=18;
-            btnTurnOffSettingMode.Text="Turn off runway cfg";
-            btnTurnOffSettingMode.UseVisualStyleBackColor=true;
-            btnTurnOffSettingMode.Click+=btnTurnOffSettingMode_Click;
             // 
             // label6
             // 
@@ -438,16 +413,6 @@
             label15.TabIndex=35;
             label15.Text="Compass direction:";
             // 
-            // btnClearRunwayApproach
-            // 
-            btnClearRunwayApproach.Location=new Point(896, 80);
-            btnClearRunwayApproach.Name="btnClearRunwayApproach";
-            btnClearRunwayApproach.Size=new Size(152, 32);
-            btnClearRunwayApproach.TabIndex=37;
-            btnClearRunwayApproach.Text="Clear runway cfg";
-            btnClearRunwayApproach.UseVisualStyleBackColor=true;
-            btnClearRunwayApproach.Click+=btnClearRunwayApproach_Click;
-            // 
             // label13
             // 
             label13.AutoSize=true;
@@ -486,7 +451,7 @@
             // 
             lbHeading.AutoSize=true;
             lbHeading.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            lbHeading.Location=new Point(392, 88);
+            lbHeading.Location=new Point(392, 112);
             lbHeading.Name="lbHeading";
             lbHeading.Size=new Size(91, 36);
             lbHeading.TabIndex=42;
@@ -495,7 +460,7 @@
             // label17
             // 
             label17.AutoSize=true;
-            label17.Location=new Point(272, 96);
+            label17.Location=new Point(272, 120);
             label17.Name="label17";
             label17.Size=new Size(69, 20);
             label17.TabIndex=43;
@@ -515,7 +480,7 @@
             // lbLastReceive
             // 
             lbLastReceive.AutoSize=true;
-            lbLastReceive.Location=new Point(928, 16);
+            lbLastReceive.Location=new Point(928, 40);
             lbLastReceive.Name="lbLastReceive";
             lbLastReceive.Size=new Size(63, 20);
             lbLastReceive.TabIndex=45;
@@ -527,16 +492,81 @@
             gaugeN1_1.GaugeLow="Down";
             gaugeN1_1.GaugeTitle="Landing Gear";
             gaugeN1_1.GaugeUnique=false;
-            gaugeN1_1.Location=new Point(1096, 528);
+            gaugeN1_1.Location=new Point(1072, 544);
             gaugeN1_1.Name="gaugeN1_1";
             gaugeN1_1.Size=new Size(344, 152);
             gaugeN1_1.TabIndex=46;
+            // 
+            // toolStrip1
+            // 
+            toolStrip1.ImageScalingSize=new Size(20, 20);
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, btnSetRunwayBegin, btnSetRunwayEnd, btnTurnOffSettingMode, btnClearRunwayApproach });
+            toolStrip1.Location=new Point(0, 0);
+            toolStrip1.Name="toolStrip1";
+            toolStrip1.Size=new Size(1521, 27);
+            toolStrip1.TabIndex=48;
+            toolStrip1.Text="toolStrip1";
+            // 
+            // btnConnect
+            // 
+            btnConnect.Image=(Image)resources.GetObject("btnConnect.Image");
+            btnConnect.ImageTransparentColor=Color.Magenta;
+            btnConnect.Name="btnConnect";
+            btnConnect.Size=new Size(87, 24);
+            btnConnect.Text="Connect";
+            btnConnect.Click+=btnConnect_Click;
+            // 
+            // btnDisconnect
+            // 
+            btnDisconnect.Image=(Image)resources.GetObject("btnDisconnect.Image");
+            btnDisconnect.ImageTransparentColor=Color.Magenta;
+            btnDisconnect.Name="btnDisconnect";
+            btnDisconnect.Size=new Size(106, 24);
+            btnDisconnect.Text="Disconnect";
+            btnDisconnect.Click+=btnDisconnect_Click;
+            // 
+            // btnSetRunwayBegin
+            // 
+            btnSetRunwayBegin.Image=(Image)resources.GetObject("btnSetRunwayBegin.Image");
+            btnSetRunwayBegin.ImageTransparentColor=Color.Magenta;
+            btnSetRunwayBegin.Name="btnSetRunwayBegin";
+            btnSetRunwayBegin.Size=new Size(151, 24);
+            btnSetRunwayBegin.Text="Set Runway Begin";
+            btnSetRunwayBegin.Click+=btnSetRunwayBegin_Click;
+            // 
+            // btnSetRunwayEnd
+            // 
+            btnSetRunwayEnd.Image=(Image)resources.GetObject("btnSetRunwayEnd.Image");
+            btnSetRunwayEnd.ImageTransparentColor=Color.Magenta;
+            btnSetRunwayEnd.Name="btnSetRunwayEnd";
+            btnSetRunwayEnd.Size=new Size(138, 24);
+            btnSetRunwayEnd.Text="Set Runway End";
+            btnSetRunwayEnd.Click+=btnSetRunwayEnd_Click;
+            // 
+            // btnTurnOffSettingMode
+            // 
+            btnTurnOffSettingMode.Image=(Image)resources.GetObject("btnTurnOffSettingMode.Image");
+            btnTurnOffSettingMode.ImageTransparentColor=Color.Magenta;
+            btnTurnOffSettingMode.Name="btnTurnOffSettingMode";
+            btnTurnOffSettingMode.Size=new Size(178, 24);
+            btnTurnOffSettingMode.Text="Cancel Runway Range";
+            btnTurnOffSettingMode.Click+=btnTurnOffSettingMode_Click;
+            // 
+            // btnClearRunwayApproach
+            // 
+            btnClearRunwayApproach.Image=(Image)resources.GetObject("btnClearRunwayApproach.Image");
+            btnClearRunwayApproach.ImageTransparentColor=Color.Magenta;
+            btnClearRunwayApproach.Name="btnClearRunwayApproach";
+            btnClearRunwayApproach.Size=new Size(191, 24);
+            btnClearRunwayApproach.Text="Clear Runway Approach";
+            btnClearRunwayApproach.Click+=btnClearRunwayApproach_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
+            Controls.Add(toolStrip1);
             Controls.Add(gaugeN1_1);
             Controls.Add(lbLastReceive);
             Controls.Add(gaugeGear);
@@ -546,7 +576,6 @@
             Controls.Add(label16);
             Controls.Add(edRampDistance);
             Controls.Add(label13);
-            Controls.Add(btnClearRunwayApproach);
             Controls.Add(lbCompassToRunway);
             Controls.Add(label15);
             Controls.Add(lbCompassToApproach);
@@ -565,9 +594,6 @@
             Controls.Add(edRunwayBegin);
             Controls.Add(label7);
             Controls.Add(label6);
-            Controls.Add(btnTurnOffSettingMode);
-            Controls.Add(btnSetRunwayEnd);
-            Controls.Add(btnSetRunwayBegin);
             Controls.Add(gaugeElvTrim);
             Controls.Add(lbParking);
             Controls.Add(map);
@@ -585,8 +611,10 @@
             Controls.Add(gaugeFlaps);
             Name="MainForm";
             Text="X-Plane Monitor";
-            FormClosed+=MainForm_FormClosed;
+            FormClosing+=MainForm_FormClosing;
             Load+=MainForm_Load;
+            toolStrip1.ResumeLayout(false);
+            toolStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -608,9 +636,6 @@
         private GMap.NET.WindowsForms.GMapControl map;
         private Label lbParking;
         private GaugePanel gaugeElvTrim;
-        private Button btnSetRunwayBegin;
-        private Button btnSetRunwayEnd;
-        private Button btnTurnOffSettingMode;
         private Label label6;
         private Label label7;
         private TextBox edRunwayBegin;
@@ -629,7 +654,6 @@
         private Label label14;
         private Label lbCompassToRunway;
         private Label label15;
-        private Button btnClearRunwayApproach;
         private Label label13;
         private TextBox edRampDistance;
         private TextBox edRampHeight;
@@ -639,5 +663,12 @@
         private GaugePanel gaugeGear;
         private Label lbLastReceive;
         private GaugePanel gaugeN1_1;
+        private ToolStrip toolStrip1;
+        private ToolStripButton btnConnect;
+        private ToolStripButton btnDisconnect;
+        private ToolStripButton btnSetRunwayBegin;
+        private ToolStripButton btnSetRunwayEnd;
+        private ToolStripButton btnTurnOffSettingMode;
+        private ToolStripButton btnClearRunwayApproach;
     }
 }

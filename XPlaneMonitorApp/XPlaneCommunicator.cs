@@ -90,30 +90,55 @@ namespace XPlaneMonitorApp
         private UdpClient _server;
         private UdpClient _client;
 
+        public enum ConnectionStatus
+        {
+            CONNECTED, DISCONNECTED, CONNECTING
+        }
+        public ConnectionStatus Status = ConnectionStatus.DISCONNECTED;
+
         public event Action OnReceived;
+        public event Action OnStatusChanged;
 
         public XPlaneCommunicator(List<RefData> refsData, Control invokeControl)
         {
             _refsData = refsData;
             _invokeControl = invokeControl;
         }
+
+        private void ChangeStatus(ConnectionStatus status)
+        {
+            this.Status = status;
+            RunSync(() => OnStatusChanged.Invoke());
+        }
         
         public void Connect()
         {
+            ChangeStatus(ConnectionStatus.CONNECTING);
+
             _client = new UdpClient("127.0.0.1", 49000);
 
-            var ep = (IPEndPoint?)_client.Client.LocalEndPoint;
+            var ep = (IPEndPoint)_client.Client.LocalEndPoint;
             _server = new UdpClient(ep);
             _server.BeginReceive(ReceiveCallback, null);
 
-            InitRefs();
+            RequestRefs(true);
         }
 
-        private void InitRefs()
+        public void Disconnect()
+        {
+            RequestRefs(false);
+
+            _server.Close();
+            _client.Close();
+
+            ChangeStatus(ConnectionStatus.DISCONNECTED);
+        }
+
+        private void RequestRefs(bool subscribe)
         {
             for (int i = 0; i < _refsData.Count; i++)
             {
-                SendRef(_refsData[i].Name, i+1, 2);
+                SendRef(_refsData[i].Name, i+1, subscribe ? 2 : 0);
             }
         }
 
@@ -139,25 +164,25 @@ namespace XPlaneMonitorApp
 
         private void ReceiveCallback(IAsyncResult ar)
         {
+            byte[] response;
             try
             {
-                byte[] response;
-                try
-                {
-                    IPEndPoint? remoteEndPoint = null;
-                    response = _server.EndReceive(ar, ref remoteEndPoint);
-                }
-                catch (SocketException ex)
-                {
-                    //Invoke(() => richTextBox1.AppendText("Erro no Socket: " + ex.Message + Environment.NewLine));
-                    return;
-                }
-                ParseResponse(response);
+                IPEndPoint? remoteEndPoint = null;
+                response = _server.EndReceive(ar, ref remoteEndPoint);
             }
-            finally
+            catch (ObjectDisposedException ex)
             {
-                _server.BeginReceive(ReceiveCallback, null);
+                return;
             }
+            catch (SocketException ex)
+            {
+                //Invoke(() => richTextBox1.AppendText("Erro no Socket: " + ex.Message + Environment.NewLine));
+                Disconnect();
+                return;
+            }
+            if (Status == ConnectionStatus.CONNECTING) ChangeStatus(ConnectionStatus.CONNECTED);
+            ParseResponse(response);
+            _server.BeginReceive(ReceiveCallback, null);
         }
 
         private void ParseResponse(byte[] buffer)
@@ -165,7 +190,7 @@ namespace XPlaneMonitorApp
             var header = Encoding.ASCII.GetString(buffer, 0, 5);
             if (header != "RREF,") throw new Exception("Mensagem inválida recebida");
 
-            OnReceived.Invoke();
+            RunSync(() => OnReceived.Invoke());
 
             for (int i = 5; i < buffer.Length; i += 8)
             {
@@ -177,9 +202,16 @@ namespace XPlaneMonitorApp
                 if (r.Value == null || r.Value.Value != value)
                 {
                     r.Value = value;
-                    _invokeControl.Invoke(() => r.Proc(value));
+
+                    RunSync(() => r.Proc(value));
                 }
             }
+        }
+
+        private void RunSync(Action action)
+        {
+            if (_invokeControl.IsDisposed) return;
+            _invokeControl.Invoke(action);
         }
 
     }
