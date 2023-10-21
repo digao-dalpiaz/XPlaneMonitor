@@ -26,9 +26,7 @@ namespace XPlaneMonitorApp
             get => lbTitle.Text; set => lbTitle.Text = value;
         }
 
-        public string GaugeLow { get; set; }
-
-        public string GaugeHigh { get; set; }
+        public int ShowBarsCount = -1;
 
         public readonly List<Bar> Bars = new();
 
@@ -36,19 +34,22 @@ namespace XPlaneMonitorApp
         {
             InitializeComponent();
 
-            typeof(Panel).InvokeMember("DoubleBuffered", 
+            typeof(Panel).InvokeMember("DoubleBuffered",
                 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
                 null, boxDraw, new object[] { true });
         }
 
         private void boxDraw_Paint(object sender, PaintEventArgs e)
         {
-            if (Bars.Count == 0) return;
+            var count = ShowBarsCount > -1 ? ShowBarsCount : Bars.Count;
+            if (count == 0) return;
+
+            var list = Bars.Take(count);
 
             float y = 0;
-            float h = boxDraw.Height / Bars.Count;
+            float h = boxDraw.Height / count;
 
-            foreach (var bar in Bars)
+            foreach (var bar in list)
             {
                 var perc = bar.Pos / bar.Max;
 
@@ -68,7 +69,7 @@ namespace XPlaneMonitorApp
                 y += h;
             }
         }
-        
+
         public void Reload()
         {
             boxDraw.Invalidate();

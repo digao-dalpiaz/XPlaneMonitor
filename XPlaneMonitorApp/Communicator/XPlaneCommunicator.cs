@@ -205,7 +205,7 @@ namespace XPlaneMonitorApp.Communicator
 
                 var r = _refsData[id - 1];
 
-                if (r.Value == null || r.Value.Value != value)
+                if (r.Value != value)
                 {
                     r.Value = value;
 

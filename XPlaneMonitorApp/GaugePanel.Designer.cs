@@ -44,7 +44,7 @@
             lbTitle.ForeColor=Color.WhiteSmoke;
             lbTitle.Location=new Point(0, 0);
             lbTitle.Name="lbTitle";
-            lbTitle.Size=new Size(373, 40);
+            lbTitle.Size=new Size(373, 32);
             lbTitle.TabIndex=2;
             lbTitle.TextAlign=ContentAlignment.MiddleCenter;
             // 
@@ -73,9 +73,9 @@
             // boxDraw
             // 
             boxDraw.Dock=DockStyle.Fill;
-            boxDraw.Location=new Point(0, 40);
+            boxDraw.Location=new Point(0, 32);
             boxDraw.Name="boxDraw";
-            boxDraw.Size=new Size(373, 162);
+            boxDraw.Size=new Size(373, 170);
             boxDraw.TabIndex=3;
             boxDraw.Paint+=boxDraw_Paint;
             // 

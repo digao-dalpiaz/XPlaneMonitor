@@ -49,8 +49,8 @@ namespace XPlaneMonitorApp
             map.MinZoom = 0;
             map.Zoom = 15;
 
-            gaugeFlaps.AddBar(null, Color.Orange, 1);
-            gaugeFlaps.AddBar(null, Color.Green, 1);
+            gaugeFlaps.AddBar("Requested", Color.Orange, 1);
+            gaugeFlaps.AddBar("Actual", Color.Green, 1);
 
             gaugeElvTrim.AddBar(null, Color.Bisque, 2);
 
@@ -69,32 +69,23 @@ namespace XPlaneMonitorApp
             OnStatusChanged(); //update buttons
         }
 
-
-
         private void SubscribeAll()
         {
-            _refsData.Subscribe("sim/flightmodel/controls/flaprqst", v =>
+            _refsData.Subscribe("sim/flightmodel/position/latitude", v =>
             {
-                gaugeFlaps.Bars[0].Pos = v;
-                gaugeFlaps.Reload();
+                _lat = v;
+                UpdateMap();
             });
-            _refsData.Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", v =>
+            _refsData.Subscribe("sim/flightmodel/position/longitude", v =>
             {
-                gaugeFlaps.Bars[1].Pos = v;
-                gaugeFlaps.Reload();
+                _lng = v;
+                UpdateMap();
             });
-            /*
-            Subscribe(DataRefs.Cockpit2EngineActuatorsThrottleRatioAll, d =>
-            {
-                gaugeThrottle.PosFinal = d.Value;
-                gaugeThrottle.Recalc();
-            });
-            */
+
             _refsData.Subscribe("sim/flightmodel/misc/h_ind", v =>
             {
                 lbAltitude.Text = Utils.RoundToInt(v).ToString() + " ft";
             });
-
             _refsData.Subscribe("sim/flightmodel/position/indicated_airspeed", v =>
             {
                 lbAirspeed.Text = Utils.RoundToInt(v).ToString() + " kts";
@@ -104,7 +95,6 @@ namespace XPlaneMonitorApp
                 //original value in m/s
                 lbGroundspeed.Text = Utils.RoundToInt(v * 3.6).ToString() + " km/h";
             });
-
             _refsData.Subscribe("sim/flightmodel/position/vh_ind_fpm", v =>
             {
                 lbVerticalspeed.Text = Utils.RoundToInt(v).ToString() + " ft/m";
@@ -118,27 +108,30 @@ namespace XPlaneMonitorApp
             {
                 lbHeading.Text = Utils.RoundToInt(v).ToString() + "º";
             });
-            _refsData.Subscribe("sim/flightmodel/position/latitude", v =>
-            {
-                _lat = v;
-                UpdateMap();
-            });
-            _refsData.Subscribe("sim/flightmodel/position/longitude", v =>
-            {
-                _lng = v;
-                UpdateMap();
-            });
-            _refsData.Subscribe("sim/cockpit2/controls/elevator_trim", v =>
-            {
-                gaugeElvTrim.Bars[0].Pos = v + 1;
-                gaugeElvTrim.Reload();
-            });
+
             _refsData.Subscribe("sim/cockpit2/controls/parking_brake_ratio", v =>
             {
                 lbParking.Text = "PARKING BRAKE " + (v == 1 ? "ON" : "OFF");
                 lbParking.ForeColor = v == 1 ? Color.Red : Color.Green;
             });
 
+            _refsData.Subscribe("sim/flightmodel/controls/flaprqst", v =>
+            {
+                gaugeFlaps.Bars[0].Pos = v;
+                gaugeFlaps.Reload();
+            });
+            _refsData.Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", v =>
+            {
+                gaugeFlaps.Bars[1].Pos = v;
+                gaugeFlaps.Reload();
+            });
+
+            _refsData.Subscribe("sim/cockpit2/controls/elevator_trim", v =>
+            {
+                gaugeElvTrim.Bars[0].Pos = v + 1;
+                gaugeElvTrim.Reload();
+            });
+            
             var updEngine = (int engineIndex, int barIndex, float value) =>
             {
                 gaugeThrottle.Bars[(engineIndex * 3) + barIndex].Pos = value;
@@ -150,13 +143,13 @@ namespace XPlaneMonitorApp
                 string fmt;
                 switch (engineRefPart)
                 {
-                    case EngineRefPart.TH: 
+                    case EngineRefPart.TH:
                         fmt = "sim/cockpit2/engine/actuators/throttle_ratio[{0}]";
                         break;
-                    case EngineRefPart.N1: 
+                    case EngineRefPart.N1:
                         fmt =  "sim/cockpit2/engine/indicators/N1_percent[{0}]";
                         break;
-                    case EngineRefPart.N2: 
+                    case EngineRefPart.N2:
                         fmt =  "sim/cockpit2/engine/indicators/N2_percent[{0}]";
                         break;
                     default:
@@ -181,6 +174,12 @@ namespace XPlaneMonitorApp
             _refsData.Subscribe(getEngineRef(3, EngineRefPart.TH), v => updEngine(3, 0, v));
             _refsData.Subscribe(getEngineRef(3, EngineRefPart.N1), v => updEngine(3, 1, v));
             _refsData.Subscribe(getEngineRef(3, EngineRefPart.N2), v => updEngine(3, 2, v));
+
+            _refsData.Subscribe("sim/aircraft/engine/acf_num_engines", v =>
+            {
+                gaugeThrottle.ShowBarsCount = (int)v * 3;
+                gaugeThrottle.Reload();
+            });
 
             /*
             
@@ -343,7 +342,6 @@ namespace XPlaneMonitorApp
             lbRunwayDist.Text = string.Empty;
             lbCompassToApproach.Text = string.Empty;
             lbCompassToRunway.Text = string.Empty;
-
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

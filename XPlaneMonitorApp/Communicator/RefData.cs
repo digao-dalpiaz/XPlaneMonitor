@@ -5,7 +5,7 @@
         public readonly string Name;
         public readonly RefDataAction Proc;
 
-        public float? Value;
+        public float Value;
 
         public RefData(string name, RefDataAction proc)
         {

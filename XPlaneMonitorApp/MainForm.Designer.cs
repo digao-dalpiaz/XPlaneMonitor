@@ -81,19 +81,15 @@
             // 
             // gaugeFlaps
             // 
-            gaugeFlaps.GaugeHigh="Extended";
-            gaugeFlaps.GaugeLow="Retracted";
             gaugeFlaps.GaugeTitle="Flaps";
             gaugeFlaps.Location=new Point(16, 160);
             gaugeFlaps.Name="gaugeFlaps";
-            gaugeFlaps.Size=new Size(344, 128);
+            gaugeFlaps.Size=new Size(344, 112);
             gaugeFlaps.TabIndex=0;
             // 
             // gaugeThrottle
             // 
-            gaugeThrottle.GaugeHigh="Full Power";
-            gaugeThrottle.GaugeLow="Idle";
-            gaugeThrottle.GaugeTitle="Throttle";
+            gaugeThrottle.GaugeTitle="Engines";
             gaugeThrottle.Location=new Point(1080, 376);
             gaugeThrottle.Name="gaugeThrottle";
             gaugeThrottle.Size=new Size(344, 272);
@@ -238,12 +234,10 @@
             // 
             // gaugeElvTrim
             // 
-            gaugeElvTrim.GaugeHigh="Up";
-            gaugeElvTrim.GaugeLow="Down";
             gaugeElvTrim.GaugeTitle="Elevator Trim";
-            gaugeElvTrim.Location=new Point(720, 160);
+            gaugeElvTrim.Location=new Point(368, 160);
             gaugeElvTrim.Name="gaugeElvTrim";
-            gaugeElvTrim.Size=new Size(344, 128);
+            gaugeElvTrim.Size=new Size(344, 112);
             gaugeElvTrim.TabIndex=15;
             // 
             // label6
