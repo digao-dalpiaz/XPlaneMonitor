@@ -76,6 +76,7 @@
             btnSetRunwayEnd=new ToolStripButton();
             btnTurnOffSettingMode=new ToolStripButton();
             btnClearRunwayApproach=new ToolStripButton();
+            gaugeFuel=new GaugePanel();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -528,11 +529,20 @@
             btnClearRunwayApproach.Text="Clear Runway Approach";
             btnClearRunwayApproach.Click+=btnClearRunwayApproach_Click;
             // 
+            // gaugeFuel
+            // 
+            gaugeFuel.GaugeTitle="Fuel";
+            gaugeFuel.Location=new Point(720, 96);
+            gaugeFuel.Name="gaugeFuel";
+            gaugeFuel.Size=new Size(328, 176);
+            gaugeFuel.TabIndex=49;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
+            Controls.Add(gaugeFuel);
             Controls.Add(toolStrip1);
             Controls.Add(lbLastReceive);
             Controls.Add(label17);
@@ -633,5 +643,6 @@
         private ToolStripButton btnSetRunwayEnd;
         private ToolStripButton btnTurnOffSettingMode;
         private ToolStripButton btnClearRunwayApproach;
+        private GaugePanel gaugeFuel;
     }
 }

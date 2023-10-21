@@ -2,7 +2,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-using System;
+using Newtonsoft.Json.Linq;
 using XPlaneMonitorApp.Communicator;
 
 namespace XPlaneMonitorApp
@@ -10,7 +10,7 @@ namespace XPlaneMonitorApp
     public partial class MainForm : Form
     {
 
-        private RefDataList _refsData = new();
+        private RefDataContractList _refsData = new();
         private XPlaneCommunicator _communicator;
         private float? _lat, _lng;
         private GMapOverlay _mapOverlay = new();
@@ -18,6 +18,8 @@ namespace XPlaneMonitorApp
         private GMapRoute _runwayRoute = new("runway");
 
         private DateTime _tickMapUpd;
+
+        private float _fuelTotalCapacity;
 
         enum SettingMode
         {
@@ -59,6 +61,8 @@ namespace XPlaneMonitorApp
                 gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), Color.Green, 1);
                 gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), Color.Red, 100);
                 gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Orange, 100);
+
+                gaugeFuel.AddBar(null, Color.Aquamarine, 0);
             }
 
             SubscribeAll();
@@ -71,114 +75,110 @@ namespace XPlaneMonitorApp
 
         private void SubscribeAll()
         {
-            _refsData.Subscribe("sim/flightmodel/position/latitude", v =>
+            _refsData.Subscribe("sim/flightmodel/position/latitude", r =>
             {
-                _lat = v;
+                _lat = r.Value;
                 UpdateMap();
             });
-            _refsData.Subscribe("sim/flightmodel/position/longitude", v =>
+            _refsData.Subscribe("sim/flightmodel/position/longitude", r =>
             {
-                _lng = v;
+                _lng = r.Value;
                 UpdateMap();
             });
 
-            _refsData.Subscribe("sim/flightmodel/misc/h_ind", v =>
+            _refsData.Subscribe("sim/flightmodel/misc/h_ind", r =>
             {
-                lbAltitude.Text = Utils.RoundToInt(v).ToString() + " ft";
+                lbAltitude.Text = Utils.RoundToInt(r.Value).ToString() + " ft";
             });
-            _refsData.Subscribe("sim/flightmodel/position/indicated_airspeed", v =>
+            _refsData.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
             {
-                lbAirspeed.Text = Utils.RoundToInt(v).ToString() + " kts";
+                lbAirspeed.Text = Utils.RoundToInt(r.Value).ToString() + " kts";
             });
-            _refsData.Subscribe("sim/flightmodel/position/groundspeed", v =>
+            _refsData.Subscribe("sim/flightmodel/position/groundspeed", r =>
             {
                 //original value in m/s
-                lbGroundspeed.Text = Utils.RoundToInt(v * 3.6).ToString() + " km/h";
+                lbGroundspeed.Text = Utils.RoundToInt(r.Value * 3.6).ToString() + " km/h";
             });
-            _refsData.Subscribe("sim/flightmodel/position/vh_ind_fpm", v =>
+            _refsData.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
             {
-                lbVerticalspeed.Text = Utils.RoundToInt(v).ToString() + " ft/m";
-                lbVerticalspeed.ForeColor = v > 0 ? Color.Green : Color.Red;
+                lbVerticalspeed.Text = Utils.RoundToInt(r.Value).ToString() + " ft/m";
+                lbVerticalspeed.ForeColor = r.Value > 0 ? Color.Green : Color.Red;
             });
-            _refsData.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", v =>
+            _refsData.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", r =>
             {
-                lbRadioAltimeter.Text = Utils.RoundToInt(v).ToString() + " ft";
+                lbRadioAltimeter.Text = Utils.RoundToInt(r.Value).ToString() + " ft";
             });
-            _refsData.Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", v =>
+            _refsData.Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", r =>
             {
-                lbHeading.Text = Utils.RoundToInt(v).ToString() + "º";
-            });
-
-            _refsData.Subscribe("sim/cockpit2/controls/parking_brake_ratio", v =>
-            {
-                lbParking.Text = "PARKING BRAKE " + (v == 1 ? "ON" : "OFF");
-                lbParking.ForeColor = v == 1 ? Color.Red : Color.Green;
+                lbHeading.Text = Utils.RoundToInt(r.Value).ToString() + "º";
             });
 
-            _refsData.Subscribe("sim/flightmodel/controls/flaprqst", v =>
+            _refsData.Subscribe("sim/cockpit2/controls/parking_brake_ratio", r =>
             {
-                gaugeFlaps.Bars[0].Pos = v;
+                lbParking.Text = "PARKING BRAKE " + (r.Value == 1 ? "ON" : "OFF");
+                lbParking.ForeColor = r.Value == 1 ? Color.Red : Color.Green;
+            });
+
+            _refsData.Subscribe("sim/flightmodel/controls/flaprqst", r =>
+            {
+                gaugeFlaps.Bars[0].Pos = r.Value;
                 gaugeFlaps.Reload();
             });
-            _refsData.Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", v =>
+            _refsData.Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", r =>
             {
-                gaugeFlaps.Bars[1].Pos = v;
+                gaugeFlaps.Bars[1].Pos = r.Value;
                 gaugeFlaps.Reload();
             });
 
-            _refsData.Subscribe("sim/cockpit2/controls/elevator_trim", v =>
+            _refsData.Subscribe("sim/cockpit2/controls/elevator_trim", r =>
             {
-                gaugeElvTrim.Bars[0].Pos = v + 1;
+                gaugeElvTrim.Bars[0].Pos = r.Value + 1;
                 gaugeElvTrim.Reload();
             });
-            
-            var updEngine = (int engineIndex, int barIndex, float value) =>
+
+            _refsData.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r =>
             {
-                gaugeThrottle.Bars[(engineIndex * 3) + barIndex].Pos = value;
+                gaugeThrottle.Bars[(r.ArrayIndex * 3) + 0].Pos = r.Value;
                 gaugeThrottle.Reload();
-            };
-
-            var getEngineRef = (int engineIndex, EngineRefPart engineRefPart) =>
+            }, 4);
+            _refsData.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r =>
             {
-                string fmt;
-                switch (engineRefPart)
-                {
-                    case EngineRefPart.TH:
-                        fmt = "sim/cockpit2/engine/actuators/throttle_ratio[{0}]";
-                        break;
-                    case EngineRefPart.N1:
-                        fmt =  "sim/cockpit2/engine/indicators/N1_percent[{0}]";
-                        break;
-                    case EngineRefPart.N2:
-                        fmt =  "sim/cockpit2/engine/indicators/N2_percent[{0}]";
-                        break;
-                    default:
-                        throw new Exception("Engine part invalid");
-                }
-
-                return string.Format(fmt, engineIndex);
-            };
-
-            _refsData.Subscribe(getEngineRef(0, EngineRefPart.TH), v => updEngine(0, 0, v));
-            _refsData.Subscribe(getEngineRef(0, EngineRefPart.N1), v => updEngine(0, 1, v));
-            _refsData.Subscribe(getEngineRef(0, EngineRefPart.N2), v => updEngine(0, 2, v));
-
-            _refsData.Subscribe(getEngineRef(1, EngineRefPart.TH), v => updEngine(1, 0, v));
-            _refsData.Subscribe(getEngineRef(1, EngineRefPart.N1), v => updEngine(1, 1, v));
-            _refsData.Subscribe(getEngineRef(1, EngineRefPart.N2), v => updEngine(1, 2, v));
-
-            _refsData.Subscribe(getEngineRef(2, EngineRefPart.TH), v => updEngine(2, 0, v));
-            _refsData.Subscribe(getEngineRef(2, EngineRefPart.N1), v => updEngine(2, 1, v));
-            _refsData.Subscribe(getEngineRef(2, EngineRefPart.N2), v => updEngine(2, 2, v));
-
-            _refsData.Subscribe(getEngineRef(3, EngineRefPart.TH), v => updEngine(3, 0, v));
-            _refsData.Subscribe(getEngineRef(3, EngineRefPart.N1), v => updEngine(3, 1, v));
-            _refsData.Subscribe(getEngineRef(3, EngineRefPart.N2), v => updEngine(3, 2, v));
-
-            _refsData.Subscribe("sim/aircraft/engine/acf_num_engines", v =>
-            {
-                gaugeThrottle.ShowBarsCount = (int)v * 3;
+                gaugeThrottle.Bars[(r.ArrayIndex * 3) + 1].Pos = r.Value;
                 gaugeThrottle.Reload();
+            }, 4);
+            _refsData.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r =>
+            {
+                gaugeThrottle.Bars[(r.ArrayIndex * 3) + 2].Pos = r.Value;
+                gaugeThrottle.Reload();
+            }, 4);
+
+            _refsData.Subscribe("sim/aircraft/engine/acf_num_engines", r =>
+            {
+                gaugeThrottle.ShowBarsCount = (int)r.Value * 3;
+                gaugeThrottle.Reload();
+            });
+
+            _refsData.Subscribe("sim/aircraft/weight/acf_m_fuel_tot", r =>
+            {
+                _fuelTotalCapacity = r.Value;
+                //
+            });
+
+            _refsData.Subscribe("sim/aircraft/overflow/acf_tank_rat", r =>
+            {
+                gaugeFuel.Bars[r.ArrayIndex].Max = r.Value * _fuelTotalCapacity;
+                gaugeFuel.Reload();
+            }, 4);
+            _refsData.Subscribe("sim/cockpit2/fuel/fuel_quantity", r =>
+            {
+                gaugeFuel.Bars[r.ArrayIndex].Pos = r.Value;
+                gaugeFuel.Reload();
+            }, 4);
+
+            _refsData.Subscribe("sim/aircraft/overflow/acf_num_tanks", r =>
+            {
+                gaugeFuel.ShowBarsCount = (int)r.Value;
+                gaugeFuel.Reload();
             });
 
             /*
@@ -188,11 +188,6 @@ namespace XPlaneMonitorApp
                 gaugeGear.PosFinal = d.Value;
                 gaugeGear.Recalc();
             });*/
-        }
-
-        enum EngineRefPart
-        {
-            TH, N1, N2
         }
 
         private void UpdateMap()

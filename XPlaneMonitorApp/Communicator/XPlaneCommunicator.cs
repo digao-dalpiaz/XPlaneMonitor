@@ -7,8 +7,9 @@ namespace XPlaneMonitorApp.Communicator
     public class XPlaneCommunicator
     {
 
-        private readonly RefDataList _refsData;
         private readonly Control _invokeControl;
+
+        private readonly List<RefDataSubscription> _subscriptions = new();
 
         private string[] nnnnnnnnnnnnnn =
         {
@@ -17,7 +18,6 @@ namespace XPlaneMonitorApp.Communicator
             "sim/aircraft/view/acf_Vs", //parametro de velocidade:
             "sim/aircraft/view/acf_Vno", //parametro de velocidade:
             "sim/aircraft/view/acf_Vne", //parametro de velocidade:
-            "sim/aircraft/engine/acf_num_engines", //numero de motores
             "sim/aircraft/gear/acf_gear_retract", //trem de pouso extensível
             "sim/aircraft/weight/acf_m_fuel_tot", //capacidade total de combustivel
             "sim/cockpit/autopilot/autopilot_mode",
@@ -98,10 +98,11 @@ namespace XPlaneMonitorApp.Communicator
         private string _host;
         private int _port;
 
-        public XPlaneCommunicator(RefDataList refsData, Control invokeControl)
+        public XPlaneCommunicator(RefDataContractList refsData, Control invokeControl)
         {
-            _refsData = refsData;
             _invokeControl = invokeControl;
+
+            _subscriptions = refsData.GetSubscriptions();
         }
 
         private void ChangeStatus(ConnectionStatus status)
@@ -138,9 +139,9 @@ namespace XPlaneMonitorApp.Communicator
 
         private void RequestRefs(bool subscribe)
         {
-            for (int i = 0; i < _refsData.Count; i++)
+            for (int i = 0; i < _subscriptions.Count; i++)
             {
-                SendRef(_refsData[i].Name, i + 1, subscribe ? 2 : 0);
+                SendRef(_subscriptions[i].GetName(), i+1, subscribe ? 2 : 0);
             }
         }
 
@@ -203,13 +204,13 @@ namespace XPlaneMonitorApp.Communicator
                 var id = BitConverter.ToInt32(buffer, i);
                 var value = BitConverter.ToSingle(buffer, i + 4);
 
-                var r = _refsData[id - 1];
+                var r = _subscriptions[id - 1];
 
                 if (r.Value != value)
                 {
                     r.Value = value;
 
-                    RunSync(() => r.Proc(value));
+                    RunSync(() => r.Contract.Proc(r));
                 }
             }
         }

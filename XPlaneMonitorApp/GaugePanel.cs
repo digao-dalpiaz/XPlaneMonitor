@@ -7,9 +7,10 @@ namespace XPlaneMonitorApp
 
         public class Bar
         {
-            public readonly string Name;
+            public string Name;
             public readonly Color Color;
-            public readonly float Max;
+
+            public float Max;
 
             public float Pos;
 
@@ -51,6 +52,7 @@ namespace XPlaneMonitorApp
 
             foreach (var bar in list)
             {
+                if (bar.Max == 0) continue;
                 var perc = bar.Pos / bar.Max;
 
                 e.Graphics.FillRectangle(new SolidBrush(bar.Color), 0, y, boxDraw.Width * perc, h);
