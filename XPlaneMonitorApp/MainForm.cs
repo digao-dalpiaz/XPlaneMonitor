@@ -2,13 +2,14 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
+using XPlaneMonitorApp.Communicator;
 
 namespace XPlaneMonitorApp
 {
     public partial class MainForm : Form
     {
 
-        private List<RefData> _refsData = new();
+        private RefDataList _refsData = new();
         private XPlaneCommunicator _communicator;
         private float? _lat, _lng;
         private GMapOverlay _mapOverlay = new();
@@ -62,22 +63,16 @@ namespace XPlaneMonitorApp
             OnStatusChanged(); //update buttons
         }
 
-        private void Subscribe(string refName, Action<float> proc)
-        {
-            RefData r = new();
-            r.Name = refName;
-            r.Proc = proc;
-            _refsData.Add(r);
-        }
+        
 
         private void SubscribeAll()
         {
-            Subscribe("sim/flightmodel/controls/flaprqst", v =>
+            _refsData.Subscribe("sim/flightmodel/controls/flaprqst", v =>
             {
                 gaugeFlaps.Bars[0].Pos = v;
                 gaugeFlaps.Reload();
             });
-            Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", v =>
+            _refsData.Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", v =>
             {
                 gaugeFlaps.Bars[1].Pos = v;
                 gaugeFlaps.Reload();
@@ -89,61 +84,61 @@ namespace XPlaneMonitorApp
                 gaugeThrottle.Recalc();
             });
             */
-            Subscribe("sim/flightmodel/misc/h_ind", v =>
+            _refsData.Subscribe("sim/flightmodel/misc/h_ind", v =>
             {
                 lbAltitude.Text = Utils.RoundToInt(v).ToString() + " ft";
             });
 
-            Subscribe("sim/flightmodel/position/indicated_airspeed", v =>
+            _refsData.Subscribe("sim/flightmodel/position/indicated_airspeed", v =>
             {
                 lbAirspeed.Text = Utils.RoundToInt(v).ToString() + " kts";
             });
-            Subscribe("sim/flightmodel/position/groundspeed", v =>
+            _refsData.Subscribe("sim/flightmodel/position/groundspeed", v =>
             {
                 //original value in m/s
                 lbGroundspeed.Text = Utils.RoundToInt(v * 3.6).ToString() + " km/h";
             });
 
-            Subscribe("sim/flightmodel/position/vh_ind_fpm", v =>
+            _refsData.Subscribe("sim/flightmodel/position/vh_ind_fpm", v =>
             {
                 lbVerticalspeed.Text = Utils.RoundToInt(v).ToString() + " ft/m";
                 lbVerticalspeed.ForeColor = v > 0 ? Color.Green : Color.Red;
             });
-            Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", v =>
+            _refsData.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", v =>
             {
                 lbRadioAltimeter.Text = Utils.RoundToInt(v).ToString() + " ft";
             });
-            Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", v =>
+            _refsData.Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", v =>
             {
                 lbHeading.Text = Utils.RoundToInt(v).ToString() + "º";
             });
-            Subscribe("sim/flightmodel/position/latitude", v =>
+            _refsData.Subscribe("sim/flightmodel/position/latitude", v =>
             {
                 _lat = v;
                 UpdateMap();
             });
-            Subscribe("sim/flightmodel/position/longitude", v =>
+            _refsData.Subscribe("sim/flightmodel/position/longitude", v =>
             {
                 _lng = v;
                 UpdateMap();
             });
-            Subscribe("sim/cockpit2/controls/elevator_trim", v =>
+            _refsData.Subscribe("sim/cockpit2/controls/elevator_trim", v =>
             {
                 //gaugeElvTrim.PosFinal = v + 1;
                 //gaugeElvTrim.Recalc();
             });
-            Subscribe("sim/cockpit2/controls/parking_brake_ratio", v =>
+            _refsData.Subscribe("sim/cockpit2/controls/parking_brake_ratio", v =>
             {
                 lbParking.Text = "PARKING BRAKE " + (v == 1 ? "ON" : "OFF");
                 lbParking.ForeColor = v == 1 ? Color.Red : Color.Green;
             });
 
-            Subscribe("sim/cockpit2/engine/actuators/throttle_ratio[1]", v =>
+            _refsData.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio[1]", v =>
             {
                 //gaugeN1_1.PosRqst = v * 100;
                 //gaugeN1_1.Recalc();
             });
-            Subscribe("sim/cockpit2/engine/indicators/N1_percent[1]", v =>
+            _refsData.Subscribe("sim/cockpit2/engine/indicators/N1_percent[1]", v =>
             {
                 //gaugeN1_1.PosFinal = v;
                 //gaugeN1_1.Recalc();
@@ -185,8 +180,8 @@ namespace XPlaneMonitorApp
 
         private void OnStatusChanged()
         {
-            btnConnect.Enabled = _communicator.Status == XPlaneCommunicator.ConnectionStatus.DISCONNECTED;
-            btnDisconnect.Enabled = _communicator.Status == XPlaneCommunicator.ConnectionStatus.CONNECTED;
+            btnConnect.Enabled = _communicator.Status == ConnectionStatus.DISCONNECTED;
+            btnDisconnect.Enabled = _communicator.Status == ConnectionStatus.CONNECTED;
         }
 
         private void SetSettingMode(SettingMode setting)
@@ -309,7 +304,7 @@ namespace XPlaneMonitorApp
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_communicator.Status == XPlaneCommunicator.ConnectionStatus.CONNECTED)
+            if (_communicator.Status == ConnectionStatus.CONNECTED)
             {
                 _communicator.Disconnect();
             }
@@ -317,7 +312,7 @@ namespace XPlaneMonitorApp
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            _communicator.Connect();
+            _communicator.Connect("127.0.0.1", 49009);
         }
 
         private void btnDisconnect_Click(object sender, EventArgs e)

@@ -2,15 +2,15 @@
 using System.Net.Sockets;
 using System.Text;
 
-namespace XPlaneMonitorApp
+namespace XPlaneMonitorApp.Communicator
 {
     public class XPlaneCommunicator
     {
 
-        private readonly List<RefData> _refsData;
+        private readonly RefDataList _refsData;
         private readonly Control _invokeControl;
 
-        private string[] nnnnnnnnnnnnnn = 
+        private string[] nnnnnnnnnnnnnn =
         {
             "sim/aircraft/view/acf_Vso", //parametro de velocidade: de stol
             "sim/aircraft/view/acf_Vfe", //parametro de velocidade: máxima com flaps full
@@ -90,16 +90,16 @@ namespace XPlaneMonitorApp
         private UdpClient _server;
         private UdpClient _client;
 
-        public enum ConnectionStatus
-        {
-            CONNECTED, DISCONNECTED, CONNECTING
-        }
-        public ConnectionStatus Status = ConnectionStatus.DISCONNECTED;
+        private ConnectionStatus _connectionStatus = ConnectionStatus.DISCONNECTED;
+        public ConnectionStatus Status { get { return _connectionStatus; } }
 
         public event Action OnReceived;
         public event Action OnStatusChanged;
 
-        public XPlaneCommunicator(List<RefData> refsData, Control invokeControl)
+        private string _host;
+        private int _port;
+
+        public XPlaneCommunicator(RefDataList refsData, Control invokeControl)
         {
             _refsData = refsData;
             _invokeControl = invokeControl;
@@ -107,15 +107,18 @@ namespace XPlaneMonitorApp
 
         private void ChangeStatus(ConnectionStatus status)
         {
-            this.Status = status;
+            _connectionStatus = status;
             RunSync(() => OnStatusChanged.Invoke());
         }
-        
-        public void Connect()
+
+        public void Connect(string host, int port)
         {
+            _host = host;
+            _port = port;
+
             ChangeStatus(ConnectionStatus.CONNECTING);
 
-            _client = new UdpClient("127.0.0.1", 49000);
+            _client = new UdpClient(host, port);
 
             var ep = (IPEndPoint)_client.Client.LocalEndPoint;
             _server = new UdpClient(ep);
@@ -138,7 +141,7 @@ namespace XPlaneMonitorApp
         {
             for (int i = 0; i < _refsData.Count; i++)
             {
-                SendRef(_refsData[i].Name, i+1, subscribe ? 2 : 0);
+                SendRef(_refsData[i].Name, i + 1, subscribe ? 2 : 0);
             }
         }
 
@@ -170,14 +173,18 @@ namespace XPlaneMonitorApp
                 IPEndPoint? remoteEndPoint = null;
                 response = _server.EndReceive(ar, ref remoteEndPoint);
             }
-            catch (ObjectDisposedException ex)
+            catch (ObjectDisposedException)
             {
                 return;
             }
             catch (SocketException ex)
             {
-                //Invoke(() => richTextBox1.AppendText("Erro no Socket: " + ex.Message + Environment.NewLine));
                 Disconnect();
+                RunSync(() =>
+                {
+                    string msg = ex.ErrorCode == 10054 ? string.Format("X-Plane not found running at {0}:{1}", _host, _port) : ex.Message;
+                    MessageBox.Show(msg, "Error");
+                });
                 return;
             }
             if (Status == ConnectionStatus.CONNECTING) ChangeStatus(ConnectionStatus.CONNECTED);
@@ -188,16 +195,16 @@ namespace XPlaneMonitorApp
         private void ParseResponse(byte[] buffer)
         {
             var header = Encoding.ASCII.GetString(buffer, 0, 5);
-            if (header != "RREF,") throw new Exception("Mensagem inválida recebida");
+            if (header != "RREF,") return; //wrong message received?
 
             RunSync(() => OnReceived.Invoke());
 
             for (int i = 5; i < buffer.Length; i += 8)
             {
                 var id = BitConverter.ToInt32(buffer, i);
-                var value = BitConverter.ToSingle(buffer, i+4);
+                var value = BitConverter.ToSingle(buffer, i + 4);
 
-                var r = _refsData[id-1];
+                var r = _refsData[id - 1];
 
                 if (r.Value == null || r.Value.Value != value)
                 {
