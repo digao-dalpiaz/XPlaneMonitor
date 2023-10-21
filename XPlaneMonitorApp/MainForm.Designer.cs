@@ -83,6 +83,7 @@
             label18=new Label();
             lbAutoBrake=new Label();
             gaugeWheelBrake=new GaugePanel();
+            boxRamp=new Panel();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -478,43 +479,47 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, btnSetRunwayBegin, btnSetRunwayEnd, btnTurnOffSettingMode, btnClearRunwayApproach });
             toolStrip1.Location=new Point(0, 0);
             toolStrip1.Name="toolStrip1";
-            toolStrip1.Size=new Size(1720, 27);
+            toolStrip1.Size=new Size(1720, 31);
             toolStrip1.TabIndex=48;
             toolStrip1.Text="toolStrip1";
             // 
             // btnConnect
             // 
             btnConnect.Image=(Image)resources.GetObject("btnConnect.Image");
+            btnConnect.ImageScaling=ToolStripItemImageScaling.None;
             btnConnect.ImageTransparentColor=Color.Magenta;
             btnConnect.Name="btnConnect";
-            btnConnect.Size=new Size(87, 24);
+            btnConnect.Size=new Size(91, 28);
             btnConnect.Text="Connect";
             btnConnect.Click+=btnConnect_Click;
             // 
             // btnDisconnect
             // 
             btnDisconnect.Image=(Image)resources.GetObject("btnDisconnect.Image");
+            btnDisconnect.ImageScaling=ToolStripItemImageScaling.None;
             btnDisconnect.ImageTransparentColor=Color.Magenta;
             btnDisconnect.Name="btnDisconnect";
-            btnDisconnect.Size=new Size(106, 24);
+            btnDisconnect.Size=new Size(110, 28);
             btnDisconnect.Text="Disconnect";
             btnDisconnect.Click+=btnDisconnect_Click;
             // 
             // btnSetRunwayBegin
             // 
             btnSetRunwayBegin.Image=(Image)resources.GetObject("btnSetRunwayBegin.Image");
+            btnSetRunwayBegin.ImageScaling=ToolStripItemImageScaling.None;
             btnSetRunwayBegin.ImageTransparentColor=Color.Magenta;
             btnSetRunwayBegin.Name="btnSetRunwayBegin";
-            btnSetRunwayBegin.Size=new Size(151, 24);
+            btnSetRunwayBegin.Size=new Size(155, 28);
             btnSetRunwayBegin.Text="Set Runway Begin";
             btnSetRunwayBegin.Click+=btnSetRunwayBegin_Click;
             // 
             // btnSetRunwayEnd
             // 
             btnSetRunwayEnd.Image=(Image)resources.GetObject("btnSetRunwayEnd.Image");
+            btnSetRunwayEnd.ImageScaling=ToolStripItemImageScaling.None;
             btnSetRunwayEnd.ImageTransparentColor=Color.Magenta;
             btnSetRunwayEnd.Name="btnSetRunwayEnd";
-            btnSetRunwayEnd.Size=new Size(138, 24);
+            btnSetRunwayEnd.Size=new Size(142, 28);
             btnSetRunwayEnd.Text="Set Runway End";
             btnSetRunwayEnd.Click+=btnSetRunwayEnd_Click;
             // 
@@ -523,7 +528,7 @@
             btnTurnOffSettingMode.Image=(Image)resources.GetObject("btnTurnOffSettingMode.Image");
             btnTurnOffSettingMode.ImageTransparentColor=Color.Magenta;
             btnTurnOffSettingMode.Name="btnTurnOffSettingMode";
-            btnTurnOffSettingMode.Size=new Size(178, 24);
+            btnTurnOffSettingMode.Size=new Size(178, 28);
             btnTurnOffSettingMode.Text="Cancel Runway Range";
             btnTurnOffSettingMode.Click+=btnTurnOffSettingMode_Click;
             // 
@@ -532,7 +537,7 @@
             btnClearRunwayApproach.Image=(Image)resources.GetObject("btnClearRunwayApproach.Image");
             btnClearRunwayApproach.ImageTransparentColor=Color.Magenta;
             btnClearRunwayApproach.Name="btnClearRunwayApproach";
-            btnClearRunwayApproach.Size=new Size(191, 24);
+            btnClearRunwayApproach.Size=new Size(191, 28);
             btnClearRunwayApproach.Text="Clear Runway Approach";
             btnClearRunwayApproach.Click+=btnClearRunwayApproach_Click;
             // 
@@ -594,11 +599,20 @@
             gaugeWheelBrake.Size=new Size(304, 112);
             gaugeWheelBrake.TabIndex=55;
             // 
+            // boxRamp
+            // 
+            boxRamp.Location=new Point(1272, 384);
+            boxRamp.Name="boxRamp";
+            boxRamp.Size=new Size(432, 216);
+            boxRamp.TabIndex=56;
+            boxRamp.Paint+=boxRamp_Paint;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1720, 921);
+            Controls.Add(boxRamp);
             Controls.Add(gaugeWheelBrake);
             Controls.Add(lbAutoBrake);
             Controls.Add(label18);
@@ -713,5 +727,6 @@
         private Label label18;
         private Label lbAutoBrake;
         private GaugePanel gaugeWheelBrake;
+        private Panel boxRamp;
     }
 }

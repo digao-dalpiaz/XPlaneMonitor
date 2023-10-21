@@ -19,6 +19,9 @@ namespace XPlaneMonitorApp
         private DateTime _tickMapUpd;
 
         private float _fuelTotalCapacity;
+        private float _altitude;
+        private float _runwayElevation;
+        private float _runwayDistance;
 
         enum SettingMode
         {
@@ -99,6 +102,7 @@ namespace XPlaneMonitorApp
 
             _refsData.Subscribe("sim/flightmodel/misc/h_ind", r =>
             {
+                _altitude = r.Value;
                 lbAltitude.Text = Utils.RoundToInt(r.Value).ToString() + " ft";
             });
             _refsData.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
@@ -316,7 +320,9 @@ namespace XPlaneMonitorApp
                     _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
                     _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
 
-                lbRunwayElevation.Text = elevMeters.ToString() + " m / " + Utils.RoundToInt(GeoCalculator.ConvertMetersToFeet(elevMeters)) + " ft";
+                _runwayElevation = (float)GeoCalculator.ConvertMetersToFeet(elevMeters);
+
+                lbRunwayElevation.Text = elevMeters.ToString() + " m / " + Utils.RoundToInt(_runwayElevation) + " ft";
                 lbRunwayDegrees.Text = Utils.RoundToInt(degrees).ToString() + "º";
                 lbRunwaySize.Text = Utils.RoundToInt(size * 1000).ToString() + " m";
 
@@ -339,15 +345,19 @@ namespace XPlaneMonitorApp
         {
             if (_lat.HasValue && _lng.HasValue && _runwayBegin.HasValue && _runwayEnd.HasValue && _runwayApproach.HasValue)
             {
+                _runwayDistance = (float)GeoCalculator.ConverterKmParaMilhaNautica(
+                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng));
+
                 lbApproachDist.Text = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
                     GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng))).ToString();
-                lbRunwayDist.Text = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
-                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng))).ToString();
+                lbRunwayDist.Text = Utils.RoundToInt(_runwayDistance).ToString();
 
                 lbCompassToApproach.Text = Utils.RoundToInt(
                     GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)).ToString();
                 lbCompassToRunway.Text = Utils.RoundToInt(
                     GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng)).ToString();
+
+                boxRamp.Invalidate();
             }
         }
 
@@ -410,6 +420,20 @@ namespace XPlaneMonitorApp
         private void map_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void boxRamp_Paint(object sender, PaintEventArgs e)
+        {
+            var fullDistance = float.Parse(edRampDistance.Text) * 1.25;
+            var fullHeight = float.Parse(edRampHeight.Text) * 1.25;
+
+            var aircraftHeight = _altitude - _runwayElevation;
+
+            var y = boxRamp.Height - ((aircraftHeight / fullHeight) * boxRamp.Height);
+            var x = boxRamp.Width - ((_runwayDistance / fullDistance) * boxRamp.Width);
+
+            e.Graphics.FillRectangle(Brushes.Black, boxRamp.ClientRectangle);
+            e.Graphics.DrawLine(new Pen(Color.Red), (int)x, (int)y, boxRamp.Width, boxRamp.Height);
         }
     }
 }

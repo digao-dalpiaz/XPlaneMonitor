@@ -26,7 +26,6 @@ namespace XPlaneMonitorApp.Communicator
             "sim/cockpit/engine/APU_running",
             "sim/cockpit/engine/APU_N1",
             "sim/cockpit/misc/compass_indicated", //proa em graus
-            "sim/cockpit/switches/auto_brake_settings",
             "sim/cockpit/switches/dumping_fuel",
             "sim/flightmodel/controls/dist", //distancia viajada em metros
             "sim/flightmodel/position/true_psi", //norte absoluto
