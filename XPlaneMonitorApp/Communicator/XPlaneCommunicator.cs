@@ -29,18 +29,11 @@ namespace XPlaneMonitorApp.Communicator
             "sim/cockpit/switches/auto_brake_settings",
             "sim/cockpit/switches/dumping_fuel",
             "sim/flightmodel/controls/dist", //distancia viajada em metros
-            "sim/flightmodel/controls/l_brake_add",
-            "sim/flightmodel/controls/r_brake_add",
-            "sim/flightmodel/controls/parkbrake",
             "sim/flightmodel/position/true_psi", //norte absoluto
             "sim/flightmodel/position/mag_psi", //norte magnetico
             "sim/flightmodel/position/magnetic_variation",
             "sim/time/total_flight_time_sec",
             "sim/cockpit2/autopilot/autothrottle_enabled", //Auto-throttle: -1=hard off, not even armed. 0=servos declutched (arm, hold), 1=airspeed hold, 2=N1 target hold, 3=retard, 4=reserved for future use	
-            "sim/cockpit2/controls/speedbrake_ratio", //deflexao do speed brake
-            "sim/cockpit2/controls/parking_brake_ratio",
-            "sim/cockpit2/controls/left_brake_ratio",
-            "sim/cockpit2/controls/right_brake_ratio",
             "sim/cockpit2/gauges/indicators/wind_heading_deg_mag",
             "sim/cockpit2/gauges/indicators/wind_speed_kts",
             "sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_pilot",

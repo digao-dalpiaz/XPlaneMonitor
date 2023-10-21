@@ -89,17 +89,17 @@
             // gaugeFlaps
             // 
             gaugeFlaps.GaugeTitle="Flaps";
-            gaugeFlaps.Location=new Point(16, 160);
+            gaugeFlaps.Location=new Point(8, 160);
             gaugeFlaps.Name="gaugeFlaps";
-            gaugeFlaps.Size=new Size(344, 112);
+            gaugeFlaps.Size=new Size(304, 112);
             gaugeFlaps.TabIndex=0;
             // 
             // gaugeThrottle
             // 
             gaugeThrottle.GaugeTitle="Engines";
-            gaugeThrottle.Location=new Point(1080, 376);
+            gaugeThrottle.Location=new Point(8, 640);
             gaugeThrottle.Name="gaugeThrottle";
-            gaugeThrottle.Size=new Size(344, 272);
+            gaugeThrottle.Size=new Size(304, 272);
             gaugeThrottle.TabIndex=1;
             // 
             // lbAirspeed
@@ -210,7 +210,7 @@
             map.GrayScaleMode=false;
             map.HelperLineOption=GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             map.LevelsKeepInMemory=5;
-            map.Location=new Point(24, 296);
+            map.Location=new Point(336, 280);
             map.MarkersEnabled=true;
             map.MaxZoom=2;
             map.MinZoom=2;
@@ -224,7 +224,7 @@
             map.ScaleMode=GMap.NET.WindowsForms.ScaleModes.Integer;
             map.SelectedAreaFillColor=Color.FromArgb(33, 65, 105, 225);
             map.ShowTileGridLines=false;
-            map.Size=new Size(1048, 432);
+            map.Size=new Size(912, 632);
             map.TabIndex=13;
             map.Zoom=0D;
             map.OnMapClick+=map_OnMapClick;
@@ -243,15 +243,15 @@
             // gaugeElvTrim
             // 
             gaugeElvTrim.GaugeTitle="Elevator Trim";
-            gaugeElvTrim.Location=new Point(368, 160);
+            gaugeElvTrim.Location=new Point(8, 520);
             gaugeElvTrim.Name="gaugeElvTrim";
-            gaugeElvTrim.Size=new Size(344, 112);
+            gaugeElvTrim.Size=new Size(304, 112);
             gaugeElvTrim.TabIndex=15;
             // 
             // label6
             // 
             label6.AutoSize=true;
-            label6.Location=new Point(1072, 32);
+            label6.Location=new Point(1272, 48);
             label6.Name="label6";
             label6.Size=new Size(105, 20);
             label6.TabIndex=19;
@@ -260,7 +260,7 @@
             // label7
             // 
             label7.AutoSize=true;
-            label7.Location=new Point(1072, 64);
+            label7.Location=new Point(1272, 80);
             label7.Name="label7";
             label7.Size=new Size(92, 20);
             label7.TabIndex=20;
@@ -268,7 +268,7 @@
             // 
             // edRunwayBegin
             // 
-            edRunwayBegin.Location=new Point(1184, 32);
+            edRunwayBegin.Location=new Point(1384, 48);
             edRunwayBegin.Name="edRunwayBegin";
             edRunwayBegin.ReadOnly=true;
             edRunwayBegin.Size=new Size(320, 27);
@@ -277,7 +277,7 @@
             // 
             // edRunwayEnd
             // 
-            edRunwayEnd.Location=new Point(1184, 64);
+            edRunwayEnd.Location=new Point(1384, 80);
             edRunwayEnd.Name="edRunwayEnd";
             edRunwayEnd.ReadOnly=true;
             edRunwayEnd.Size=new Size(320, 27);
@@ -287,7 +287,7 @@
             // label8
             // 
             label8.AutoSize=true;
-            label8.Location=new Point(1072, 104);
+            label8.Location=new Point(1272, 120);
             label8.Name="label8";
             label8.Size=new Size(128, 20);
             label8.TabIndex=23;
@@ -296,7 +296,7 @@
             // lbRunwayElevation
             // 
             lbRunwayElevation.AutoSize=true;
-            lbRunwayElevation.Location=new Point(1208, 104);
+            lbRunwayElevation.Location=new Point(1408, 120);
             lbRunwayElevation.Name="lbRunwayElevation";
             lbRunwayElevation.Size=new Size(39, 20);
             lbRunwayElevation.TabIndex=24;
@@ -305,7 +305,7 @@
             // lbRunwayDegrees
             // 
             lbRunwayDegrees.AutoSize=true;
-            lbRunwayDegrees.Location=new Point(1208, 136);
+            lbRunwayDegrees.Location=new Point(1408, 152);
             lbRunwayDegrees.Name="lbRunwayDegrees";
             lbRunwayDegrees.Size=new Size(39, 20);
             lbRunwayDegrees.TabIndex=26;
@@ -314,7 +314,7 @@
             // label10
             // 
             label10.AutoSize=true;
-            label10.Location=new Point(1072, 136);
+            label10.Location=new Point(1272, 152);
             label10.Name="label10";
             label10.Size=new Size(120, 20);
             label10.TabIndex=25;
@@ -323,7 +323,7 @@
             // lbRunwaySize
             // 
             lbRunwaySize.AutoSize=true;
-            lbRunwaySize.Location=new Point(1208, 168);
+            lbRunwaySize.Location=new Point(1408, 184);
             lbRunwaySize.Name="lbRunwaySize";
             lbRunwaySize.Size=new Size(39, 20);
             lbRunwaySize.TabIndex=28;
@@ -332,7 +332,7 @@
             // label11
             // 
             label11.AutoSize=true;
-            label11.Location=new Point(1072, 168);
+            label11.Location=new Point(1272, 184);
             label11.Name="label11";
             label11.Size=new Size(92, 20);
             label11.TabIndex=27;
@@ -341,7 +341,7 @@
             // label9
             // 
             label9.AutoSize=true;
-            label9.Location=new Point(1072, 216);
+            label9.Location=new Point(1272, 232);
             label9.Name="label9";
             label9.Size=new Size(136, 20);
             label9.TabIndex=29;
@@ -350,7 +350,7 @@
             // label12
             // 
             label12.AutoSize=true;
-            label12.Location=new Point(1072, 248);
+            label12.Location=new Point(1272, 264);
             label12.Name="label12";
             label12.Size=new Size(122, 20);
             label12.TabIndex=30;
@@ -359,7 +359,7 @@
             // lbRunwayDist
             // 
             lbRunwayDist.AutoSize=true;
-            lbRunwayDist.Location=new Point(1216, 248);
+            lbRunwayDist.Location=new Point(1416, 264);
             lbRunwayDist.Name="lbRunwayDist";
             lbRunwayDist.Size=new Size(39, 20);
             lbRunwayDist.TabIndex=32;
@@ -368,7 +368,7 @@
             // lbApproachDist
             // 
             lbApproachDist.AutoSize=true;
-            lbApproachDist.Location=new Point(1216, 216);
+            lbApproachDist.Location=new Point(1416, 232);
             lbApproachDist.Name="lbApproachDist";
             lbApproachDist.Size=new Size(39, 20);
             lbApproachDist.TabIndex=31;
@@ -377,7 +377,7 @@
             // lbCompassToApproach
             // 
             lbCompassToApproach.AutoSize=true;
-            lbCompassToApproach.Location=new Point(1448, 216);
+            lbCompassToApproach.Location=new Point(1480, 224);
             lbCompassToApproach.Name="lbCompassToApproach";
             lbCompassToApproach.Size=new Size(39, 20);
             lbCompassToApproach.TabIndex=34;
@@ -386,7 +386,7 @@
             // label14
             // 
             label14.AutoSize=true;
-            label14.Location=new Point(1304, 216);
+            label14.Location=new Point(1504, 232);
             label14.Name="label14";
             label14.Size=new Size(135, 20);
             label14.TabIndex=33;
@@ -395,7 +395,7 @@
             // lbCompassToRunway
             // 
             lbCompassToRunway.AutoSize=true;
-            lbCompassToRunway.Location=new Point(1448, 248);
+            lbCompassToRunway.Location=new Point(1480, 256);
             lbCompassToRunway.Name="lbCompassToRunway";
             lbCompassToRunway.Size=new Size(39, 20);
             lbCompassToRunway.TabIndex=36;
@@ -404,7 +404,7 @@
             // label15
             // 
             label15.AutoSize=true;
-            label15.Location=new Point(1304, 248);
+            label15.Location=new Point(1504, 264);
             label15.Name="label15";
             label15.Size=new Size(135, 20);
             label15.TabIndex=35;
@@ -413,7 +413,7 @@
             // label13
             // 
             label13.AutoSize=true;
-            label13.Location=new Point(1072, 296);
+            label13.Location=new Point(1272, 312);
             label13.Name="label13";
             label13.Size=new Size(142, 20);
             label13.TabIndex=38;
@@ -421,7 +421,7 @@
             // 
             // edRampDistance
             // 
-            edRampDistance.Location=new Point(1072, 320);
+            edRampDistance.Location=new Point(1272, 336);
             edRampDistance.Name="edRampDistance";
             edRampDistance.Size=new Size(125, 27);
             edRampDistance.TabIndex=39;
@@ -429,7 +429,7 @@
             // 
             // edRampHeight
             // 
-            edRampHeight.Location=new Point(1232, 320);
+            edRampHeight.Location=new Point(1432, 336);
             edRampHeight.Name="edRampHeight";
             edRampHeight.Size=new Size(125, 27);
             edRampHeight.TabIndex=41;
@@ -438,7 +438,7 @@
             // label16
             // 
             label16.AutoSize=true;
-            label16.Location=new Point(1232, 296);
+            label16.Location=new Point(1432, 312);
             label16.Name="label16";
             label16.Size=new Size(118, 20);
             label16.TabIndex=40;
@@ -478,7 +478,7 @@
             toolStrip1.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, btnSetRunwayBegin, btnSetRunwayEnd, btnTurnOffSettingMode, btnClearRunwayApproach });
             toolStrip1.Location=new Point(0, 0);
             toolStrip1.Name="toolStrip1";
-            toolStrip1.Size=new Size(1521, 27);
+            toolStrip1.Size=new Size(1720, 27);
             toolStrip1.TabIndex=48;
             toolStrip1.Text="toolStrip1";
             // 
@@ -539,33 +539,33 @@
             // gaugeFuel
             // 
             gaugeFuel.GaugeTitle="Fuel";
-            gaugeFuel.Location=new Point(720, 160);
+            gaugeFuel.Location=new Point(320, 160);
             gaugeFuel.Name="gaugeFuel";
-            gaugeFuel.Size=new Size(328, 112);
+            gaugeFuel.Size=new Size(304, 112);
             gaugeFuel.TabIndex=49;
             // 
             // gaugeGear
             // 
             gaugeGear.GaugeTitle="Landing Gear";
-            gaugeGear.Location=new Point(736, 64);
+            gaugeGear.Location=new Point(632, 160);
             gaugeGear.Name="gaugeGear";
-            gaugeGear.Size=new Size(328, 112);
+            gaugeGear.Size=new Size(304, 112);
             gaugeGear.TabIndex=50;
             // 
             // gaugeSpoilers
             // 
             gaugeSpoilers.GaugeTitle="Spoilers";
-            gaugeSpoilers.Location=new Point(240, 432);
+            gaugeSpoilers.Location=new Point(8, 280);
             gaugeSpoilers.Name="gaugeSpoilers";
-            gaugeSpoilers.Size=new Size(328, 112);
+            gaugeSpoilers.Size=new Size(304, 112);
             gaugeSpoilers.TabIndex=51;
             // 
             // gaugeSpeedBrake
             // 
             gaugeSpeedBrake.GaugeTitle="Speed Brakes";
-            gaugeSpeedBrake.Location=new Point(256, 312);
+            gaugeSpeedBrake.Location=new Point(8, 400);
             gaugeSpeedBrake.Name="gaugeSpeedBrake";
-            gaugeSpeedBrake.Size=new Size(328, 112);
+            gaugeSpeedBrake.Size=new Size(304, 112);
             gaugeSpeedBrake.TabIndex=52;
             // 
             // label18
@@ -589,16 +589,16 @@
             // gaugeWheelBrake
             // 
             gaugeWheelBrake.GaugeTitle="Wheel Brakes";
-            gaugeWheelBrake.Location=new Point(596, 315);
+            gaugeWheelBrake.Location=new Point(944, 160);
             gaugeWheelBrake.Name="gaugeWheelBrake";
-            gaugeWheelBrake.Size=new Size(328, 112);
+            gaugeWheelBrake.Size=new Size(304, 112);
             gaugeWheelBrake.TabIndex=55;
             // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
-            ClientSize=new Size(1521, 742);
+            ClientSize=new Size(1720, 921);
             Controls.Add(gaugeWheelBrake);
             Controls.Add(lbAutoBrake);
             Controls.Add(label18);

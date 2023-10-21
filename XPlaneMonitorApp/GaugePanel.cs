@@ -8,6 +8,7 @@ namespace XPlaneMonitorApp
         public class Bar
         {
             public string Name;
+            public string Extra;
             public readonly Color Color;
 
             public float Max;
@@ -66,6 +67,13 @@ namespace XPlaneMonitorApp
                 if (bar.Name != null)
                 {
                     e.Graphics.DrawString(bar.Name, this.Font, Brushes.Gray, 4, textY);
+                }
+                
+                if (bar.Extra != null)
+                {
+                    text = bar.Extra;
+                    strSize = e.Graphics.MeasureString(text, this.Font);
+                    e.Graphics.DrawString(text, this.Font, Brushes.Black, boxDraw.Width - strSize.Width, textY);
                 }
 
                 y += h;

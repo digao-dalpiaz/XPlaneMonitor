@@ -55,8 +55,8 @@ namespace XPlaneMonitorApp
 
             gaugeElvTrim.AddBar(null, Color.Bisque, 2);
 
-            gaugeGear.AddBar(null, Color.Purple, 1);
-            gaugeGear.AddBar(null, Color.Firebrick, 1);
+            gaugeGear.AddBar("Requested", Color.Purple, 1);
+            gaugeGear.AddBar("Actual", Color.Firebrick, 1);
 
             gaugeSpoilers.AddBar("Left", Color.Gainsboro, 20);
             gaugeSpoilers.AddBar("Right", Color.Gainsboro, 20);
@@ -191,6 +191,7 @@ namespace XPlaneMonitorApp
             _refsData.Subscribe("sim/cockpit/switches/gear_handle_status", r =>
             {
                 gaugeGear.Bars[0].Pos = r.Value;
+                gaugeGear.Bars[0].Extra = r.Value < 0 ? "OFF" : r.Value >= 1 ? "DOWN" : "PREPARED";
                 gaugeGear.Reload();
             });
             _refsData.Subscribe("sim/flightmodel/movingparts/gear1def", r =>
@@ -213,6 +214,7 @@ namespace XPlaneMonitorApp
             _refsData.Subscribe("sim/flightmodel/controls/sbrkrqst", r =>
             {
                 gaugeSpeedBrake.Bars[0].Pos = r.Value;
+                gaugeSpeedBrake.Bars[0].Extra = r.Value < 0 ? "ARMED" : null;
                 gaugeSpeedBrake.Reload();
             });
             _refsData.Subscribe("sim/flightmodel/controls/sbrkrat", r =>
