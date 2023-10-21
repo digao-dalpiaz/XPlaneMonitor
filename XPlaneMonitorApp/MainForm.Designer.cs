@@ -73,6 +73,7 @@
             label17=new Label();
             gaugeGear=new GaugePanel();
             lbLastReceive=new Label();
+            gaugeN1_1=new GaugePanel();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -520,11 +521,23 @@
             lbLastReceive.TabIndex=45;
             lbLastReceive.Text="00:00:00";
             // 
+            // gaugeN1_1
+            // 
+            gaugeN1_1.GaugeHigh="Up";
+            gaugeN1_1.GaugeLow="Down";
+            gaugeN1_1.GaugeTitle="Landing Gear";
+            gaugeN1_1.GaugeUnique=false;
+            gaugeN1_1.Location=new Point(1096, 528);
+            gaugeN1_1.Name="gaugeN1_1";
+            gaugeN1_1.Size=new Size(344, 152);
+            gaugeN1_1.TabIndex=46;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
+            Controls.Add(gaugeN1_1);
             Controls.Add(lbLastReceive);
             Controls.Add(gaugeGear);
             Controls.Add(label17);
@@ -625,5 +638,6 @@
         private Label label17;
         private GaugePanel gaugeGear;
         private Label lbLastReceive;
+        private GaugePanel gaugeN1_1;
     }
 }

@@ -49,8 +49,10 @@ namespace XPlaneMonitorApp
 
             gaugeElvTrim.Max = 2;
 
+            gaugeN1_1.Max = 100;
+
             SubscribeAll();
-            _communicator = new(_refsData);
+            _communicator = new(_refsData, this);
             _communicator.OnReceived += OnDataRefReceived;
             _communicator.Connect();
         }
@@ -81,52 +83,68 @@ namespace XPlaneMonitorApp
                 gaugeThrottle.PosFinal = d.Value;
                 gaugeThrottle.Recalc();
             });
-            Subscribe(DataRefs.Cockpit2GaugesIndicatorsAltitudeFtPilot, d =>
+            */
+            Subscribe("sim/flightmodel/misc/h_ind", v =>
             {
-                lbAltitude.Text = Utils.RoundToInt(d.Value).ToString() + " ft";
+                lbAltitude.Text = Utils.RoundToInt(v).ToString() + " ft";
             });
-            Subscribe(DataRefs.Cockpit2GaugesIndicatorsAirspeedKtsPilot, d =>
+
+            Subscribe("sim/flightmodel/position/indicated_airspeed", v =>
             {
-                lbAirspeed.Text = Utils.RoundToInt(d.Value).ToString() + " kts";
+                lbAirspeed.Text = Utils.RoundToInt(v).ToString() + " kts";
             });
-            Subscribe(DataRefs.FlightmodelPositionGroundspeed, d =>
+            Subscribe("sim/flightmodel/position/groundspeed", v =>
             {
-                //original value in m/s - converting to knots
-                lbGroundspeed.Text = Utils.RoundToInt(d.Value * 1.943844492441).ToString() + " kts";
+                //original value in m/s
+                lbGroundspeed.Text = Utils.RoundToInt(v * 3.6).ToString() + " km/h";
             });
-            Subscribe(DataRefs.FlightmodelPositionVhIndFpm, d =>
+
+            Subscribe("sim/flightmodel/position/vh_ind_fpm", v =>
             {
-                lbVerticalspeed.Text = Utils.RoundToInt(d.Value).ToString() + " ft/m";
-                lbVerticalspeed.ForeColor = d.Value > 0 ? Color.Green : Color.Red;
+                lbVerticalspeed.Text = Utils.RoundToInt(v).ToString() + " ft/m";
+                lbVerticalspeed.ForeColor = v > 0 ? Color.Green : Color.Red;
             });
-            Subscribe(DataRefs.Cockpit2GaugesIndicatorsRadioAltimeterHeightFtPilot, d =>
+            Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", v =>
             {
-                lbRadioAltimeter.Text = Utils.RoundToInt(d.Value).ToString() + " ft";
+                lbRadioAltimeter.Text = Utils.RoundToInt(v).ToString() + " ft";
             });
-            Subscribe(DataRefs.FlightmodelPositionLatitude, d =>
+            Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", v =>
             {
-                _lat = d.Value;
+                lbHeading.Text = Utils.RoundToInt(v).ToString() + "º";
+            });
+            Subscribe("sim/flightmodel/position/latitude", v =>
+            {
+                _lat = v;
                 UpdateMap();
             });
-            Subscribe(DataRefs.FlightmodelPositionLongitude, d =>
+            Subscribe("sim/flightmodel/position/longitude", v =>
             {
-                _lng = d.Value;
+                _lng = v;
                 UpdateMap();
             });
-            Subscribe(DataRefs.Cockpit2ControlsParkingBrakeRatio, d =>
+            Subscribe("sim/cockpit2/controls/elevator_trim", v =>
             {
-                lbParking.Text = "PARKING BRAKE " + (d.Value == 1 ? "ON" : "OFF");
-                lbParking.ForeColor = d.Value == 1 ? Color.Red : Color.Green;
-            });
-            Subscribe(DataRefs.Cockpit2ControlsElevatorTrim, d =>
-            {
-                gaugeElvTrim.PosFinal = d.Value + 1;
+                gaugeElvTrim.PosFinal = v + 1;
                 gaugeElvTrim.Recalc();
             });
-            Subscribe(DataRefs.Cockpit2GaugesIndicatorsCompassHeadingDegMag, d =>
+            Subscribe("sim/cockpit2/controls/parking_brake_ratio", v =>
             {
-                lbHeading.Text = Utils.RoundToInt(d.Value).ToString() + "º";
+                lbParking.Text = "PARKING BRAKE " + (v == 1 ? "ON" : "OFF");
+                lbParking.ForeColor = v == 1 ? Color.Red : Color.Green;
             });
+
+            Subscribe("sim/cockpit2/engine/actuators/throttle_ratio[1]", v =>
+            {
+                gaugeN1_1.PosRqst = v * 100;
+                gaugeN1_1.Recalc();
+            });
+            Subscribe("sim/cockpit2/engine/indicators/N1_percent[1]", v =>
+            {
+                gaugeN1_1.PosFinal = v;
+                gaugeN1_1.Recalc();
+            });
+            /*
+            
             Subscribe(DataRefs.AircraftPartsAcfGearDeploy, d =>
             {
                 gaugeGear.PosFinal = d.Value;
@@ -157,7 +175,7 @@ namespace XPlaneMonitorApp
 
         private void OnDataRefReceived()
         {
-            lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss");
+            Invoke(() => lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss"));
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

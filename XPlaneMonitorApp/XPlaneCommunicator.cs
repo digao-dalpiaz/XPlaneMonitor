@@ -8,6 +8,7 @@ namespace XPlaneMonitorApp
     {
 
         private readonly List<RefData> _refsData;
+        private readonly Control _invokeControl;
 
         private string[] nnnnnnnnnnnnnn = 
         {
@@ -45,14 +46,11 @@ namespace XPlaneMonitorApp
             //"sim/flightmodel/engine/ENGN_N1_1",
             //"sim/flightmodel/engine/ENGN_power_"
             //"sim/flightmodel/engine/ENGN_thro_"
-            "sim/flightmodel/misc/h_ind", //altitude indicada
             "sim/flightmodel/movingparts/gear1def", //tem do 1 ao 5, aqui peguei só o 1 por enquanto
             "sim/flightmodel/position/latitude",
             "sim/flightmodel/position/longitude",
             "sim/flightmodel/position/true_psi", //norte absoluto
             "sim/flightmodel/position/mag_psi", //norte magnetico
-            "sim/flightmodel/position/groundspeed", //ground speed em metros por segundo
-            "sim/flightmodel/position/indicated_airspeed",
             "sim/flightmodel/position/magnetic_variation",
             "sim/flightmodel/weight/m_fuel1", //kgs
             "sim/flightmodel/weight/m_fuel2",//kgs
@@ -72,7 +70,6 @@ namespace XPlaneMonitorApp
             //"sim/cockpit2/fuel/fuel_quantity_"
             "sim/cockpit2/gauges/indicators/wind_heading_deg_mag",
             "sim/cockpit2/gauges/indicators/wind_speed_kts",
-            "sim/cockpit2/gauges/indicators/compass_heading_deg_mag",
             "sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_pilot",
             "sim/cockpit2/gauges/indicators/airspeed_kts_pilot",
             "sim/cockpit2/gauges/indicators/altitude_ft_pilot",
@@ -87,7 +84,6 @@ namespace XPlaneMonitorApp
             //"sim/flightmodel2/engines/N1_percent_"
             "sim/flightmodel2/position/true_psi",
             "sim/flightmodel2/position/mag_psi",
-            "sim/flightmodel2/position/groundspeed",
             "sim/flightmodel2/position/true_airspeed"
         };
 
@@ -96,9 +92,10 @@ namespace XPlaneMonitorApp
 
         public event Action OnReceived;
 
-        public XPlaneCommunicator(List<RefData> refsData)
+        public XPlaneCommunicator(List<RefData> refsData, Control invokeControl)
         {
             _refsData = refsData;
+            _invokeControl = invokeControl;
         }
         
         public void Connect()
@@ -116,7 +113,7 @@ namespace XPlaneMonitorApp
         {
             for (int i = 0; i < _refsData.Count; i++)
             {
-                SendRef(_refsData[i].Name, i+1, 1);
+                SendRef(_refsData[i].Name, i+1, 2);
             }
         }
 
@@ -180,7 +177,7 @@ namespace XPlaneMonitorApp
                 if (r.Value == null || r.Value.Value != value)
                 {
                     r.Value = value;
-                    r.Proc(value);
+                    _invokeControl.Invoke(() => r.Proc(value));
                 }
             }
         }
