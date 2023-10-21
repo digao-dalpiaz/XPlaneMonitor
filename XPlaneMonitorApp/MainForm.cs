@@ -8,14 +8,14 @@ namespace XPlaneMonitorApp
     public partial class MainForm : Form
     {
 
+        private List<RefData> _refsData = new();
+        private XPlaneCommunicator _communicator;
         private float? _lat, _lng;
         private GMapOverlay _mapOverlay = new();
         private GMapRoute _mapRoute = new("flight");
         private GMapRoute _runwayRoute = new("runway");
 
         private DateTime _tickMapUpd;
-
-        private bool _closed;
 
         enum SettingMode
         {
@@ -49,20 +49,33 @@ namespace XPlaneMonitorApp
 
             gaugeElvTrim.Max = 2;
 
+            SubscribeAll();
+            _communicator = new(_refsData);
+            _communicator.OnReceived += OnDataRefReceived;
+            _communicator.Connect();
+        }
+
+        private void Subscribe(string refName, Action<float> proc)
+        {
+            RefData r = new();
+            r.Name = refName;
+            r.Proc = proc;
+            _refsData.Add(r);
         }
 
         private void SubscribeAll()
         {
-            /*Subscribe(DataRefs.FlightmodelControlsFlaprqst, d =>
+            Subscribe("sim/flightmodel/controls/flaprqst", v =>
             {
-                gaugeFlaps.PosRqst = d.Value;
+                gaugeFlaps.PosRqst = v;
                 gaugeFlaps.Recalc();
             });
-            Subscribe(DataRefs.Flightmodel2ControlsFlapHandleDeployRatio, d =>
+            Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", v =>
             {
-                gaugeFlaps.PosFinal = d.Value;
+                gaugeFlaps.PosFinal = v;
                 gaugeFlaps.Recalc();
             });
+            /*
             Subscribe(DataRefs.Cockpit2EngineActuatorsThrottleRatioAll, d =>
             {
                 gaugeThrottle.PosFinal = d.Value;
@@ -142,19 +155,13 @@ namespace XPlaneMonitorApp
             RecalcApproachParams();
         }
 
-        private void OnDataRefReceived(object d)
+        private void OnDataRefReceived()
         {
-            if (_closed) return;
-
             lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss");
-
-            //var ev = _elementsDictionary.First(x => x.Key.DataRef == d.DataRef);
-            //Invoke(() => ev.Value(d));
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _closed = true;
         }
 
         private void SetSettingMode(SettingMode setting)

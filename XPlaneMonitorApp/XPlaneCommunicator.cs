@@ -7,7 +7,9 @@ namespace XPlaneMonitorApp
     public class XPlaneCommunicator
     {
 
-        private string[] _stringRefs = 
+        private readonly List<RefData> _refsData;
+
+        private string[] nnnnnnnnnnnnnn = 
         {
             "sim/aircraft/view/acf_Vso", //parametro de velocidade: de stol
             "sim/aircraft/view/acf_Vfe", //parametro de velocidade: máxima com flaps full
@@ -31,7 +33,6 @@ namespace XPlaneMonitorApp
             "sim/cockpit/switches/no_smoking",
             "sim/cockpit/switches/fasten_seat_belts",
             "sim/flightmodel/controls/sbrkrat", //speed brake deploy
-            "sim/flightmodel/controls/flaprqst", //flaps requisitados
             "sim/flightmodel/controls/dist", //distancia viajada em metros
             "sim/flightmodel/controls/elv_trim",
             "sim/flightmodel/controls/flaprat", //posicao flap atual
@@ -60,8 +61,6 @@ namespace XPlaneMonitorApp
             "sim/time/total_flight_time_sec",
             "sim/cockpit2/autopilot/autothrottle_enabled", //Auto-throttle: -1=hard off, not even armed. 0=servos declutched (arm, hold), 1=airspeed hold, 2=N1 target hold, 3=retard, 4=reserved for future use	
             "sim/cockpit2/controls/speedbrake_ratio", //deflexao do speed brake
-            "sim/cockpit2/controls/flap_system_deploy_ratio",
-            "sim/cockpit2/controls/flap_handle_request_ratio",
             "sim/cockpit2/controls/parking_brake_ratio",
             "sim/cockpit2/controls/left_brake_ratio",
             "sim/cockpit2/controls/right_brake_ratio",
@@ -92,12 +91,17 @@ namespace XPlaneMonitorApp
             "sim/flightmodel2/position/true_airspeed"
         };
 
-        private Dictionary<int, string> _refs = new();
-
         private UdpClient _server;
         private UdpClient _client;
 
-        public XPlaneCommunicator()
+        public event Action OnReceived;
+
+        public XPlaneCommunicator(List<RefData> refsData)
+        {
+            _refsData = refsData;
+        }
+        
+        public void Connect()
         {
             _client = new UdpClient("127.0.0.1", 49000);
 
@@ -110,13 +114,9 @@ namespace XPlaneMonitorApp
 
         private void InitRefs()
         {
-            int idx = 0;
-
-            foreach (var option in _stringRefs)
+            for (int i = 0; i < _refsData.Count; i++)
             {
-                idx++;
-                _refs.Add(idx, option);
-                SendRef(option, idx, 1);
+                SendRef(_refsData[i].Name, i+1, 1);
             }
         }
 
@@ -168,18 +168,20 @@ namespace XPlaneMonitorApp
             var header = Encoding.ASCII.GetString(buffer, 0, 5);
             if (header != "RREF,") throw new Exception("Mensagem inválida recebida");
 
+            OnReceived.Invoke();
+
             for (int i = 5; i < buffer.Length; i += 8)
             {
                 var id = BitConverter.ToInt32(buffer, i);
                 var value = BitConverter.ToSingle(buffer, i+4);
 
-                _refs.TryGetValue(id, out string? name);
+                var r = _refsData[id-1];
 
-                Invoke(() => {
-                    richTextBox1.AppendText(string.Format("ID: {0} - Valor: {1}" + Environment.NewLine, name, value));
-                    richTextBox1.SelectionStart = richTextBox1.TextLength;
-                    richTextBox1.ScrollToCaret();
-                });
+                if (r.Value == null || r.Value.Value != value)
+                {
+                    r.Value = value;
+                    r.Proc(value);
+                }
             }
         }
 
