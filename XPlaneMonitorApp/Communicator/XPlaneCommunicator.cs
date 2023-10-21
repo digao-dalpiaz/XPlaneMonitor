@@ -195,7 +195,7 @@ namespace XPlaneMonitorApp.Communicator
         private void ParseResponse(byte[] buffer)
         {
             var header = Encoding.ASCII.GetString(buffer, 0, 5);
-            if (header != "RREF,") return; //wrong message received?
+            if (header != "RREF,") throw new Exception("Wrong message header received: " + header);
 
             RunSync(() => OnReceived.Invoke());
 

@@ -136,21 +136,15 @@ namespace XPlaneMonitorApp
                 gaugeElvTrim.Reload();
             });
 
-            _refsData.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r =>
+            var updEngine = (RefDataSubscription r, int barIndex) =>
             {
-                gaugeThrottle.Bars[(r.ArrayIndex * 3) + 0].Pos = r.Value;
+                gaugeThrottle.Bars[(r.ArrayIndex * 3) + barIndex].Pos = r.Value;
                 gaugeThrottle.Reload();
-            }, 4);
-            _refsData.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r =>
-            {
-                gaugeThrottle.Bars[(r.ArrayIndex * 3) + 1].Pos = r.Value;
-                gaugeThrottle.Reload();
-            }, 4);
-            _refsData.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r =>
-            {
-                gaugeThrottle.Bars[(r.ArrayIndex * 3) + 2].Pos = r.Value;
-                gaugeThrottle.Reload();
-            }, 4);
+            };
+
+            _refsData.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), 4);
+            _refsData.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
+            _refsData.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
 
             _refsData.Subscribe("sim/aircraft/engine/acf_num_engines", r =>
             {
