@@ -72,6 +72,7 @@
             lbHeading=new Label();
             label17=new Label();
             gaugeGear=new GaugePanel();
+            lbLastReceive=new Label();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -510,11 +511,21 @@
             gaugeGear.Size=new Size(344, 144);
             gaugeGear.TabIndex=44;
             // 
+            // lbLastReceive
+            // 
+            lbLastReceive.AutoSize=true;
+            lbLastReceive.Location=new Point(928, 16);
+            lbLastReceive.Name="lbLastReceive";
+            lbLastReceive.Size=new Size(63, 20);
+            lbLastReceive.TabIndex=45;
+            lbLastReceive.Text="00:00:00";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1521, 742);
+            Controls.Add(lbLastReceive);
             Controls.Add(gaugeGear);
             Controls.Add(label17);
             Controls.Add(lbHeading);
@@ -613,5 +624,6 @@
         private Label lbHeading;
         private Label label17;
         private GaugePanel gaugeGear;
+        private Label lbLastReceive;
     }
 }

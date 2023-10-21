@@ -2,16 +2,11 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-using XPlaneConnector;
-using XPlaneConnector.DataRefs;
 
 namespace XPlaneMonitorApp
 {
     public partial class MainForm : Form
     {
-
-        private XPlaneConnector.XPlaneConnector _xp;
-        private Dictionary<DataRefElement, Action<DataRefElement>> _elementsDictionary = new();
 
         private float? _lat, _lng;
         private GMapOverlay _mapOverlay = new();
@@ -54,15 +49,11 @@ namespace XPlaneMonitorApp
 
             gaugeElvTrim.Max = 2;
 
-            _xp = new("127.0.0.1", 49000);
-            SubscribeAll();
-            _xp.OnDataRefReceived += OnDataRefReceived;
-            _xp.Start();
         }
 
         private void SubscribeAll()
         {
-            Subscribe(DataRefs.FlightmodelControlsFlaprqst, d =>
+            /*Subscribe(DataRefs.FlightmodelControlsFlaprqst, d =>
             {
                 gaugeFlaps.PosRqst = d.Value;
                 gaugeFlaps.Recalc();
@@ -127,7 +118,7 @@ namespace XPlaneMonitorApp
             {
                 gaugeGear.PosFinal = d.Value;
                 gaugeGear.Recalc();
-            });
+            });*/
         }
 
         private void UpdateMap()
@@ -151,18 +142,14 @@ namespace XPlaneMonitorApp
             RecalcApproachParams();
         }
 
-        private void Subscribe(DataRefElement element, Action<DataRefElement> action)
-        {
-            _xp.Subscribe(element, 2);
-            _elementsDictionary.Add(element, action);
-        }
-
-        private void OnDataRefReceived(DataRefElement d)
+        private void OnDataRefReceived(object d)
         {
             if (_closed) return;
 
-            var ev = _elementsDictionary.First(x => x.Key.DataRef == d.DataRef);
-            Invoke(() => ev.Value(d));
+            lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss");
+
+            //var ev = _elementsDictionary.First(x => x.Key.DataRef == d.DataRef);
+            //Invoke(() => ev.Value(d));
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
