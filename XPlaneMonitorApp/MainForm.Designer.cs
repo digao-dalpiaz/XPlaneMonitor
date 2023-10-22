@@ -84,6 +84,9 @@
             lbAutoBrake=new Label();
             gaugeWheelBrake=new GaugePanel();
             boxRamp=new Panel();
+            lbSpacing=new Label();
+            label20=new Label();
+            boxSpacing=new Panel();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -378,7 +381,7 @@
             // lbCompassToApproach
             // 
             lbCompassToApproach.AutoSize=true;
-            lbCompassToApproach.Location=new Point(1480, 224);
+            lbCompassToApproach.Location=new Point(1648, 232);
             lbCompassToApproach.Name="lbCompassToApproach";
             lbCompassToApproach.Size=new Size(39, 20);
             lbCompassToApproach.TabIndex=34;
@@ -396,7 +399,7 @@
             // lbCompassToRunway
             // 
             lbCompassToRunway.AutoSize=true;
-            lbCompassToRunway.Location=new Point(1480, 256);
+            lbCompassToRunway.Location=new Point(1648, 264);
             lbCompassToRunway.Name="lbCompassToRunway";
             lbCompassToRunway.Size=new Size(39, 20);
             lbCompassToRunway.TabIndex=36;
@@ -607,11 +610,40 @@
             boxRamp.TabIndex=56;
             boxRamp.Paint+=boxRamp_Paint;
             // 
+            // lbSpacing
+            // 
+            lbSpacing.AutoSize=true;
+            lbSpacing.Location=new Point(1408, 608);
+            lbSpacing.Name="lbSpacing";
+            lbSpacing.Size=new Size(39, 20);
+            lbSpacing.TabIndex=58;
+            lbSpacing.Text="-----";
+            // 
+            // label20
+            // 
+            label20.AutoSize=true;
+            label20.Location=new Point(1272, 608);
+            label20.Name="label20";
+            label20.Size=new Size(65, 20);
+            label20.TabIndex=57;
+            label20.Text="Spacing:";
+            // 
+            // boxSpacing
+            // 
+            boxSpacing.Location=new Point(1272, 640);
+            boxSpacing.Name="boxSpacing";
+            boxSpacing.Size=new Size(432, 192);
+            boxSpacing.TabIndex=59;
+            boxSpacing.Paint+=boxSpacing_Paint;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1720, 921);
+            Controls.Add(boxSpacing);
+            Controls.Add(lbSpacing);
+            Controls.Add(label20);
             Controls.Add(boxRamp);
             Controls.Add(gaugeWheelBrake);
             Controls.Add(lbAutoBrake);
@@ -728,5 +760,8 @@
         private Label lbAutoBrake;
         private GaugePanel gaugeWheelBrake;
         private Panel boxRamp;
+        private Label lbSpacing;
+        private Label label20;
+        private Panel boxSpacing;
     }
 }

@@ -23,6 +23,8 @@ namespace XPlaneMonitorApp
         private float _runwayElevation;
         private float _runwayDistance;
 
+        private float _spacing;
+
         enum SettingMode
         {
             NONE,
@@ -357,7 +359,15 @@ namespace XPlaneMonitorApp
                 lbCompassToRunway.Text = Utils.RoundToInt(
                     GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng)).ToString();
 
+                _spacing = (float)ProximityCalculator.CalcularDistanciaAteLinhaAeroporto(
+                    new double[] { _runwayBegin.Value.Lat, _runwayBegin.Value.Lng },
+                    new double[] { _runwayEnd.Value.Lat, _runwayEnd.Value.Lng },
+                    new double[] { _lat.Value, _lng.Value });
+
+                lbSpacing.Text = _spacing.ToString();
+
                 boxRamp.Invalidate();
+                boxSpacing.Invalidate();
             }
         }
 
@@ -424,16 +434,45 @@ namespace XPlaneMonitorApp
 
         private void boxRamp_Paint(object sender, PaintEventArgs e)
         {
-            var fullDistance = float.Parse(edRampDistance.Text) * 1.25;
-            var fullHeight = float.Parse(edRampHeight.Text) * 1.25;
+            var rampDistance = float.Parse(edRampDistance.Text);
+            var rampHeight = float.Parse(edRampHeight.Text);
+
+            var fullDistance = rampDistance * 1.25;
+            if (_runwayDistance > fullDistance) return;
+
+            var fullHeight = rampHeight * 1.5;
 
             var aircraftHeight = _altitude - _runwayElevation;
 
-            var y = boxRamp.Height - ((aircraftHeight / fullHeight) * boxRamp.Height);
-            var x = boxRamp.Width - ((_runwayDistance / fullDistance) * boxRamp.Width);
+            var calcX = (float distance) =>
+            {
+                return boxRamp.Width - ((distance / fullDistance) * boxRamp.Width);
+            };
+            var calcY = (float height) =>
+            {
+                return boxRamp.Height - ((height / fullHeight) * boxRamp.Height);
+            };
 
             e.Graphics.FillRectangle(Brushes.Black, boxRamp.ClientRectangle);
-            e.Graphics.DrawLine(new Pen(Color.Red), (int)x, (int)y, boxRamp.Width, boxRamp.Height);
+            e.Graphics.DrawLine(new Pen(Color.Red), (float)calcX(_runwayDistance), (float)calcY(aircraftHeight), boxRamp.Width, boxRamp.Height); //real
+            e.Graphics.DrawLine(new Pen(Color.Green), (float)calcX(rampDistance), (float)calcY(rampHeight), boxRamp.Width, boxRamp.Height); //ideal
+        }
+
+        private void boxSpacing_Paint(object sender, PaintEventArgs e)
+        {
+            var s = _spacing;
+            if (s > 100) s = 100;
+            if (s < -100) s = -100;
+
+            s += 100;
+
+            var x = boxSpacing.Width * s / 200;
+
+            var xIdeal = boxSpacing.Width / 2;
+
+            e.Graphics.FillRectangle(Brushes.Black, boxSpacing.ClientRectangle);
+            e.Graphics.DrawLine(new Pen(Color.Purple), x, 0, x, boxSpacing.Height);
+            e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
         }
     }
 }
