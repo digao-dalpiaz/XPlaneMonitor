@@ -67,6 +67,8 @@
             lbRunwayDist=new Controls.BorderControl();
             lbRunwayPoints=new Controls.BorderControl();
             lbSpacing=new Controls.BorderControl();
+            lbBoxDescentRamp=new Label();
+            lbBoxAlign=new Label();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             SuspendLayout();
@@ -270,17 +272,17 @@
             // 
             // boxRamp
             // 
-            boxRamp.Location=new Point(1224, 296);
+            boxRamp.Location=new Point(1224, 320);
             boxRamp.Name="boxRamp";
-            boxRamp.Size=new Size(488, 240);
+            boxRamp.Size=new Size(488, 264);
             boxRamp.TabIndex=56;
             boxRamp.Paint+=boxRamp_Paint;
             // 
             // boxSpacing
             // 
-            boxSpacing.Location=new Point(1224, 600);
+            boxSpacing.Location=new Point(1224, 616);
             boxSpacing.Name="boxSpacing";
-            boxSpacing.Size=new Size(488, 240);
+            boxSpacing.Size=new Size(488, 264);
             boxSpacing.TabIndex=59;
             boxSpacing.Paint+=boxSpacing_Paint;
             // 
@@ -469,13 +471,33 @@
             // lbSpacing
             // 
             lbSpacing.BackColor=Color.White;
-            lbSpacing.Location=new Point(1224, 544);
+            lbSpacing.Location=new Point(1224, 880);
             lbSpacing.Name="lbSpacing";
             lbSpacing.Padding=new Padding(1);
-            lbSpacing.Size=new Size(488, 48);
+            lbSpacing.Size=new Size(488, 40);
             lbSpacing.TabIndex=85;
-            lbSpacing.Title="Runway Alignment";
+            lbSpacing.Title="Align Deviation";
             lbSpacing.Value="";
+            // 
+            // lbBoxDescentRamp
+            // 
+            lbBoxDescentRamp.BackColor=Color.Gray;
+            lbBoxDescentRamp.Location=new Point(1224, 296);
+            lbBoxDescentRamp.Name="lbBoxDescentRamp";
+            lbBoxDescentRamp.Size=new Size(488, 24);
+            lbBoxDescentRamp.TabIndex=86;
+            lbBoxDescentRamp.Text="Descent Ramp";
+            lbBoxDescentRamp.TextAlign=ContentAlignment.MiddleCenter;
+            // 
+            // lbBoxAlign
+            // 
+            lbBoxAlign.BackColor=Color.Gray;
+            lbBoxAlign.Location=new Point(1224, 592);
+            lbBoxAlign.Name="lbBoxAlign";
+            lbBoxAlign.Size=new Size(488, 24);
+            lbBoxAlign.TabIndex=87;
+            lbBoxAlign.Text="Approach Alignment";
+            lbBoxAlign.TextAlign=ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
@@ -483,8 +505,10 @@
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1720, 926);
-            Controls.Add(boxSpacing);
+            Controls.Add(lbBoxAlign);
+            Controls.Add(lbBoxDescentRamp);
             Controls.Add(lbSpacing);
+            Controls.Add(boxSpacing);
             Controls.Add(lbRunwayPoints);
             Controls.Add(lbRunwayDist);
             Controls.Add(lbApproachDist);
@@ -565,5 +589,7 @@
         private ToolStripButton btnConfig;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripButton btnCenterMap;
+        private Label lbBoxDescentRamp;
+        private Label lbBoxAlign;
     }
 }

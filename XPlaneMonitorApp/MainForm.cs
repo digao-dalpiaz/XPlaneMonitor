@@ -391,13 +391,13 @@ namespace XPlaneMonitorApp
                 _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
                 _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
 
-            lbRunwayElevation.Value = elevMeters + " m / " + Utils.RoundToInt(_runwayElevation) + " ft";
+            lbRunwayElevation.Value = Utils.RoundToInt(_runwayElevation) + " ft";
             lbRunwayDegrees.Value = Utils.RoundToInt(_runwayHeading) + "º";
             lbRunwaySize.Value = Utils.RoundToInt(sizeKm * 1000) + " m";
 
             var approach = GeoCalculator.CalculateDestinationPoint(
-                _runwayBegin.Value.Lat, _runwayBegin.Value.Lng, 
-                Utils.InvertDegree(_runwayHeading), 
+                _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
+                Utils.InvertDegree(_runwayHeading),
                 Utils.ConverterKmParaMilhaNautica(Vars.Cfg.RampDistance));
 
             _runwayApproach = new PointLatLng(approach.Item1, approach.Item2);
@@ -540,7 +540,7 @@ namespace XPlaneMonitorApp
 
         private void btnCenterMap_Click(object sender, EventArgs e)
         {
-            GotoPositionOnMap(); 
+            GotoPositionOnMap();
         }
 
         private void map_OnMapDrag()
