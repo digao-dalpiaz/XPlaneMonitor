@@ -340,9 +340,9 @@ namespace XPlaneMonitorApp
 
                 _runwayElevation = (float)GeoCalculator.ConvertMetersToFeet(elevMeters);
 
-                lbRunwayElevation.Text = elevMeters.ToString() + " m / " + Utils.RoundToInt(_runwayElevation) + " ft";
-                lbRunwayDegrees.Text = Utils.RoundToInt(_runwayHeading).ToString() + "º";
-                lbRunwaySize.Text = Utils.RoundToInt(size * 1000).ToString() + " m";
+                lbRunwayElevation.Value = elevMeters.ToString() + " m / " + Utils.RoundToInt(_runwayElevation) + " ft";
+                lbRunwayDegrees.Value = Utils.RoundToInt(_runwayHeading).ToString() + "º";
+                lbRunwaySize.Value = Utils.RoundToInt(size * 1000).ToString() + " m";
 
                 var approach = GeoCalculator.CalculateDestinationPoint(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng, GeoCalculator.InvertDegree(_runwayHeading), 22);
 
@@ -366,14 +366,14 @@ namespace XPlaneMonitorApp
                 _runwayDistance = (float)GeoCalculator.ConverterKmParaMilhaNautica(
                     GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng));
 
-                lbApproachDist.Text = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
+                lbApproachDist.Value = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
                     GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng))).ToString();
-                lbRunwayDist.Text = Utils.RoundToInt(_runwayDistance).ToString();
+                lbRunwayDist.Value = Utils.RoundToInt(_runwayDistance).ToString();
 
-                lbCompassToApproach.Text = Utils.RoundToInt(
+                /*lbCompassToApproach.Text = Utils.RoundToInt(
                     GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)).ToString();
                 lbCompassToRunway.Text = Utils.RoundToInt(
-                    GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng)).ToString();
+                    GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng)).ToString();*/
 
                 _spacing = (float)ProximityCalculator.CalcularDistanciaAteLinhaAeroporto2(
                     new double[] { _runwayBegin.Value.Lat, _runwayBegin.Value.Lng },
@@ -425,13 +425,11 @@ namespace XPlaneMonitorApp
             edRunwayBegin.Clear();
             edRunwayEnd.Clear();
 
-            lbRunwayElevation.Text = string.Empty;
-            lbRunwayDegrees.Text = string.Empty;
-            lbRunwaySize.Text = string.Empty;
-            lbApproachDist.Text = string.Empty;
-            lbRunwayDist.Text = string.Empty;
-            lbCompassToApproach.Text = string.Empty;
-            lbCompassToRunway.Text = string.Empty;
+            lbRunwayElevation.Value = string.Empty;
+            lbRunwayDegrees.Value = string.Empty;
+            lbRunwaySize.Value = string.Empty;
+            lbApproachDist.Value = string.Empty;
+            lbRunwayDist.Value = string.Empty;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

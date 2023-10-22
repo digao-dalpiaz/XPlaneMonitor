@@ -36,28 +36,15 @@
             label7=new Label();
             edRunwayBegin=new TextBox();
             edRunwayEnd=new TextBox();
-            label8=new Label();
-            lbRunwayElevation=new Label();
-            lbRunwayDegrees=new Label();
-            label10=new Label();
-            lbRunwaySize=new Label();
-            label11=new Label();
-            label9=new Label();
-            label12=new Label();
-            lbRunwayDist=new Label();
-            lbApproachDist=new Label();
-            lbCompassToApproach=new Label();
-            label14=new Label();
-            lbCompassToRunway=new Label();
-            label15=new Label();
             label13=new Label();
             edRampDistance=new TextBox();
             edRampHeight=new TextBox();
             label16=new Label();
             lbLastReceive=new Label();
-            toolStrip1=new ToolStrip();
+            toolBar=new ToolStrip();
             btnConnect=new ToolStripButton();
             btnDisconnect=new ToolStripButton();
+            toolStripSeparator1=new ToolStripSeparator();
             btnSetRunwayBegin=new ToolStripButton();
             btnSetRunwayEnd=new ToolStripButton();
             btnClearRunwayApproach=new ToolStripButton();
@@ -88,7 +75,12 @@
             lbAutoBrake=new Controls.BorderControl();
             lbHeadingTrue=new Controls.BorderControl();
             lbParkingBrake=new Controls.BorderControl();
-            toolStrip1.SuspendLayout();
+            lbRunwayElevation=new Controls.BorderControl();
+            lbRunwayDegrees=new Controls.BorderControl();
+            lbRunwaySize=new Controls.BorderControl();
+            lbApproachDist=new Controls.BorderControl();
+            lbRunwayDist=new Controls.BorderControl();
+            toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -187,136 +179,10 @@
             edRunwayEnd.TabIndex=22;
             edRunwayEnd.TabStop=false;
             // 
-            // label8
-            // 
-            label8.AutoSize=true;
-            label8.Location=new Point(1272, 120);
-            label8.Name="label8";
-            label8.Size=new Size(128, 20);
-            label8.TabIndex=23;
-            label8.Text="Runway elevation:";
-            // 
-            // lbRunwayElevation
-            // 
-            lbRunwayElevation.AutoSize=true;
-            lbRunwayElevation.Location=new Point(1408, 120);
-            lbRunwayElevation.Name="lbRunwayElevation";
-            lbRunwayElevation.Size=new Size(39, 20);
-            lbRunwayElevation.TabIndex=24;
-            lbRunwayElevation.Text="-----";
-            // 
-            // lbRunwayDegrees
-            // 
-            lbRunwayDegrees.AutoSize=true;
-            lbRunwayDegrees.Location=new Point(1408, 152);
-            lbRunwayDegrees.Name="lbRunwayDegrees";
-            lbRunwayDegrees.Size=new Size(39, 20);
-            lbRunwayDegrees.TabIndex=26;
-            lbRunwayDegrees.Text="-----";
-            // 
-            // label10
-            // 
-            label10.AutoSize=true;
-            label10.Location=new Point(1272, 152);
-            label10.Name="label10";
-            label10.Size=new Size(120, 20);
-            label10.TabIndex=25;
-            label10.Text="Runway degrees:";
-            // 
-            // lbRunwaySize
-            // 
-            lbRunwaySize.AutoSize=true;
-            lbRunwaySize.Location=new Point(1408, 184);
-            lbRunwaySize.Name="lbRunwaySize";
-            lbRunwaySize.Size=new Size(39, 20);
-            lbRunwaySize.TabIndex=28;
-            lbRunwaySize.Text="-----";
-            // 
-            // label11
-            // 
-            label11.AutoSize=true;
-            label11.Location=new Point(1272, 184);
-            label11.Name="label11";
-            label11.Size=new Size(92, 20);
-            label11.TabIndex=27;
-            label11.Text="Runway size:";
-            // 
-            // label9
-            // 
-            label9.AutoSize=true;
-            label9.Location=new Point(1272, 232);
-            label9.Name="label9";
-            label9.Size=new Size(136, 20);
-            label9.TabIndex=29;
-            label9.Text="Approach distance:";
-            // 
-            // label12
-            // 
-            label12.AutoSize=true;
-            label12.Location=new Point(1272, 264);
-            label12.Name="label12";
-            label12.Size=new Size(122, 20);
-            label12.TabIndex=30;
-            label12.Text="Runway distance:";
-            // 
-            // lbRunwayDist
-            // 
-            lbRunwayDist.AutoSize=true;
-            lbRunwayDist.Location=new Point(1416, 264);
-            lbRunwayDist.Name="lbRunwayDist";
-            lbRunwayDist.Size=new Size(39, 20);
-            lbRunwayDist.TabIndex=32;
-            lbRunwayDist.Text="-----";
-            // 
-            // lbApproachDist
-            // 
-            lbApproachDist.AutoSize=true;
-            lbApproachDist.Location=new Point(1416, 232);
-            lbApproachDist.Name="lbApproachDist";
-            lbApproachDist.Size=new Size(39, 20);
-            lbApproachDist.TabIndex=31;
-            lbApproachDist.Text="-----";
-            // 
-            // lbCompassToApproach
-            // 
-            lbCompassToApproach.AutoSize=true;
-            lbCompassToApproach.Location=new Point(1648, 232);
-            lbCompassToApproach.Name="lbCompassToApproach";
-            lbCompassToApproach.Size=new Size(39, 20);
-            lbCompassToApproach.TabIndex=34;
-            lbCompassToApproach.Text="-----";
-            // 
-            // label14
-            // 
-            label14.AutoSize=true;
-            label14.Location=new Point(1504, 232);
-            label14.Name="label14";
-            label14.Size=new Size(135, 20);
-            label14.TabIndex=33;
-            label14.Text="Compass direction:";
-            // 
-            // lbCompassToRunway
-            // 
-            lbCompassToRunway.AutoSize=true;
-            lbCompassToRunway.Location=new Point(1648, 264);
-            lbCompassToRunway.Name="lbCompassToRunway";
-            lbCompassToRunway.Size=new Size(39, 20);
-            lbCompassToRunway.TabIndex=36;
-            lbCompassToRunway.Text="-----";
-            // 
-            // label15
-            // 
-            label15.AutoSize=true;
-            label15.Location=new Point(1504, 264);
-            label15.Name="label15";
-            label15.Size=new Size(135, 20);
-            label15.TabIndex=35;
-            label15.Text="Compass direction:";
-            // 
             // label13
             // 
             label13.AutoSize=true;
-            label13.Location=new Point(1272, 312);
+            label13.Location=new Point(1272, 328);
             label13.Name="label13";
             label13.Size=new Size(142, 20);
             label13.TabIndex=38;
@@ -324,7 +190,7 @@
             // 
             // edRampDistance
             // 
-            edRampDistance.Location=new Point(1272, 336);
+            edRampDistance.Location=new Point(1272, 352);
             edRampDistance.Name="edRampDistance";
             edRampDistance.Size=new Size(125, 27);
             edRampDistance.TabIndex=39;
@@ -332,7 +198,7 @@
             // 
             // edRampHeight
             // 
-            edRampHeight.Location=new Point(1432, 336);
+            edRampHeight.Location=new Point(1432, 352);
             edRampHeight.Name="edRampHeight";
             edRampHeight.Size=new Size(125, 27);
             edRampHeight.TabIndex=41;
@@ -341,7 +207,7 @@
             // label16
             // 
             label16.AutoSize=true;
-            label16.Location=new Point(1432, 312);
+            label16.Location=new Point(1432, 328);
             label16.Name="label16";
             label16.Size=new Size(118, 20);
             label16.TabIndex=40;
@@ -356,15 +222,14 @@
             lbLastReceive.TabIndex=45;
             lbLastReceive.Text="00:00:00";
             // 
-            // toolStrip1
+            // toolBar
             // 
-            toolStrip1.ImageScalingSize=new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach });
-            toolStrip1.Location=new Point(0, 0);
-            toolStrip1.Name="toolStrip1";
-            toolStrip1.Size=new Size(1720, 31);
-            toolStrip1.TabIndex=48;
-            toolStrip1.Text="toolStrip1";
+            toolBar.ImageScalingSize=new Size(20, 20);
+            toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach });
+            toolBar.Location=new Point(0, 0);
+            toolBar.Name="toolBar";
+            toolBar.Size=new Size(1720, 31);
+            toolBar.TabIndex=48;
             // 
             // btnConnect
             // 
@@ -385,6 +250,11 @@
             btnDisconnect.Size=new Size(110, 28);
             btnDisconnect.Text="Disconnect";
             btnDisconnect.Click+=btnDisconnect_Click;
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name="toolStripSeparator1";
+            toolStripSeparator1.Size=new Size(6, 31);
             // 
             // btnSetRunwayBegin
             // 
@@ -581,7 +451,7 @@
             // 
             icoParkingBrake.BackColor=Color.White;
             icoParkingBrake.Image=Properties.Resources.alert;
-            icoParkingBrake.Location=new Point(880, 80);
+            icoParkingBrake.Location=new Point(872, 83);
             icoParkingBrake.Name="icoParkingBrake";
             icoParkingBrake.Size=new Size(32, 32);
             icoParkingBrake.SizeMode=PictureBoxSizeMode.AutoSize;
@@ -693,12 +563,72 @@
             lbParkingBrake.Title="Parking Brake";
             lbParkingBrake.Value="";
             // 
+            // lbRunwayElevation
+            // 
+            lbRunwayElevation.BackColor=Color.White;
+            lbRunwayElevation.Location=new Point(1272, 112);
+            lbRunwayElevation.Name="lbRunwayElevation";
+            lbRunwayElevation.Padding=new Padding(1);
+            lbRunwayElevation.Size=new Size(248, 40);
+            lbRunwayElevation.TabIndex=79;
+            lbRunwayElevation.Title="Runway Elevation";
+            lbRunwayElevation.Value="#####";
+            // 
+            // lbRunwayDegrees
+            // 
+            lbRunwayDegrees.BackColor=Color.White;
+            lbRunwayDegrees.Location=new Point(1272, 152);
+            lbRunwayDegrees.Name="lbRunwayDegrees";
+            lbRunwayDegrees.Padding=new Padding(1);
+            lbRunwayDegrees.Size=new Size(248, 40);
+            lbRunwayDegrees.TabIndex=80;
+            lbRunwayDegrees.Title="Runway Heading";
+            lbRunwayDegrees.Value="#####";
+            // 
+            // lbRunwaySize
+            // 
+            lbRunwaySize.BackColor=Color.White;
+            lbRunwaySize.Location=new Point(1272, 192);
+            lbRunwaySize.Name="lbRunwaySize";
+            lbRunwaySize.Padding=new Padding(1);
+            lbRunwaySize.Size=new Size(248, 40);
+            lbRunwaySize.TabIndex=81;
+            lbRunwaySize.Title="Runway Size";
+            lbRunwaySize.Value="#####";
+            // 
+            // lbApproachDist
+            // 
+            lbApproachDist.BackColor=Color.White;
+            lbApproachDist.Location=new Point(1272, 240);
+            lbApproachDist.Name="lbApproachDist";
+            lbApproachDist.Padding=new Padding(1);
+            lbApproachDist.Size=new Size(248, 40);
+            lbApproachDist.TabIndex=82;
+            lbApproachDist.Title="Approach Dist.";
+            lbApproachDist.Value="#####";
+            // 
+            // lbRunwayDist
+            // 
+            lbRunwayDist.BackColor=Color.White;
+            lbRunwayDist.Location=new Point(1272, 280);
+            lbRunwayDist.Name="lbRunwayDist";
+            lbRunwayDist.Padding=new Padding(1);
+            lbRunwayDist.Size=new Size(248, 40);
+            lbRunwayDist.TabIndex=83;
+            lbRunwayDist.Title="Runway Distance";
+            lbRunwayDist.Value="#####";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1720, 926);
+            Controls.Add(lbRunwayDist);
+            Controls.Add(lbApproachDist);
+            Controls.Add(lbRunwaySize);
+            Controls.Add(lbRunwayDegrees);
+            Controls.Add(lbRunwayElevation);
             Controls.Add(lbHeadingTrue);
             Controls.Add(lbAutoBrake);
             Controls.Add(icoParkingBrake);
@@ -719,26 +649,12 @@
             Controls.Add(gaugeSpoilers);
             Controls.Add(gaugeGear);
             Controls.Add(gaugeFuel);
-            Controls.Add(toolStrip1);
+            Controls.Add(toolBar);
             Controls.Add(lbLastReceive);
             Controls.Add(edRampHeight);
             Controls.Add(label16);
             Controls.Add(edRampDistance);
             Controls.Add(label13);
-            Controls.Add(lbCompassToRunway);
-            Controls.Add(label15);
-            Controls.Add(lbCompassToApproach);
-            Controls.Add(label14);
-            Controls.Add(lbRunwayDist);
-            Controls.Add(lbApproachDist);
-            Controls.Add(label12);
-            Controls.Add(label9);
-            Controls.Add(lbRunwaySize);
-            Controls.Add(label11);
-            Controls.Add(lbRunwayDegrees);
-            Controls.Add(label10);
-            Controls.Add(lbRunwayElevation);
-            Controls.Add(label8);
             Controls.Add(edRunwayEnd);
             Controls.Add(edRunwayBegin);
             Controls.Add(label7);
@@ -758,8 +674,8 @@
             Text="X-Plane Monitor";
             FormClosing+=MainForm_FormClosing;
             Load+=MainForm_Load;
-            toolStrip1.ResumeLayout(false);
-            toolStrip1.PerformLayout();
+            toolBar.ResumeLayout(false);
+            toolBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -788,27 +704,13 @@
         private Label label7;
         private TextBox edRunwayBegin;
         private TextBox edRunwayEnd;
-        private Label label8;
-        private Label lbRunwayElevation;
-        private Label lbRunwayDegrees;
-        private Label label10;
-        private Label lbRunwaySize;
-        private Label label11;
-        private Label label9;
-        private Label label12;
-        private Label lbRunwayDist;
-        private Label lbApproachDist;
-        private Label lbCompassToApproach;
-        private Label label14;
-        private Label lbCompassToRunway;
-        private Label label15;
         private Label label13;
         private TextBox edRampDistance;
         private TextBox edRampHeight;
         private Label label16;
         private Label label17;
         private Label lbLastReceive;
-        private ToolStrip toolStrip1;
+        private ToolStrip toolBar;
         private ToolStripButton btnConnect;
         private ToolStripButton btnDisconnect;
         private ToolStripButton btnSetRunwayBegin;
@@ -841,5 +743,11 @@
         private Controls.BorderControl lbAutoBrake;
         private Controls.BorderControl lbHeadingTrue;
         private Controls.BorderControl lbParkingBrake;
+        private ToolStripSeparator toolStripSeparator1;
+        private Controls.BorderControl lbRunwayElevation;
+        private Controls.BorderControl lbRunwayDegrees;
+        private Controls.BorderControl lbRunwaySize;
+        private Controls.BorderControl lbApproachDist;
+        private Controls.BorderControl lbRunwayDist;
     }
 }
