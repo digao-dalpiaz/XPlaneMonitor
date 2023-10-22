@@ -309,19 +309,25 @@ namespace XPlaneMonitorApp
             if (_settingMode == SettingMode.RUNWAY_BEGIN)
             {
                 _runwayBegin = pointClick;
-                edRunwayBegin.Text = pointClick.ToString();
-
                 SetSettingMode(SettingMode.RUNWAY_END);
             }
             else if (_settingMode == SettingMode.RUNWAY_END)
             {
                 _runwayEnd = pointClick;
-                edRunwayEnd.Text = pointClick.ToString();
-
                 SetSettingMode(SettingMode.NONE);
             }
 
+            UpdateRunwayPointsLabel();
             CheckRunwayPoints();
+        }
+
+        private void UpdateRunwayPointsLabel()
+        {
+            bool none = !_runwayBegin.HasValue && !_runwayEnd.HasValue;
+            bool all = _runwayBegin.HasValue && _runwayEnd.HasValue;
+
+            lbRunwayPoints.Value = none ? "NOT SET" : (_runwayBegin.HasValue ? "[<]" : "") + (_runwayEnd.HasValue ? "[>]" : "");
+            lbRunwayPoints.ForeColor = none ? Color.Gray : all ? Color.Green : Color.Red;
         }
 
         private void CheckRunwayPoints()
@@ -422,9 +428,7 @@ namespace XPlaneMonitorApp
             _runwayRoute.Points.Clear();
             map.UpdateRouteLocalPosition(_runwayRoute);
 
-            edRunwayBegin.Clear();
-            edRunwayEnd.Clear();
-
+            UpdateRunwayPointsLabel();
             lbRunwayElevation.Value = string.Empty;
             lbRunwayDegrees.Value = string.Empty;
             lbRunwaySize.Value = string.Empty;
