@@ -39,7 +39,7 @@ namespace XPlaneMonitorApp
         }
         private RunwaySettingMode _runwaySettingMode = RunwaySettingMode.NONE;
 
-        private PointLatLng? _runwayBegin, _runwayEnd, _runwayApproach;
+        private PointLatLng? _runwayBegin, _runwayEnd, _runwayApproach, _lastAirportRetrievedAltitude;
 
         public MainForm()
         {
@@ -301,7 +301,7 @@ namespace XPlaneMonitorApp
             FrmConfig f = new();
             if (f.ShowDialog() == DialogResult.OK)
             {
-
+                BuildApproach();
             }
         }
 
@@ -349,7 +349,7 @@ namespace XPlaneMonitorApp
             _mapOverlay.Markers.Clear();
             _mapOverlay.Markers.Add(marker);
 
-            RecalcApproachParams();
+            UpdateApproachParams();
         }
 
         private void SetRunwaySettingMode(RunwaySettingMode setting)
@@ -380,7 +380,7 @@ namespace XPlaneMonitorApp
             if (someDefined)
             {
                 UpdateRunwayPointsLabel();
-                CheckRunwayPoints();
+                BuildApproach();
             }
         }
 
@@ -395,12 +395,17 @@ namespace XPlaneMonitorApp
             btnClearRunwayApproach.Enabled = !none;
         }
 
-        private void CheckRunwayPoints()
+        private void BuildApproach()
         {
             if (!_runwayBegin.HasValue || !_runwayEnd.HasValue) return;
 
-            var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
-            _runwayElevation = Utils.ConvertMetersToFeet(elevMeters);
+            if (_lastAirportRetrievedAltitude != _runwayBegin)
+            {
+                var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
+                _runwayElevation = Utils.ConvertMetersToFeet(elevMeters);
+
+                _lastAirportRetrievedAltitude = _runwayBegin;
+            }
 
             _runwayHeading = GeoCalculator.CalculateBearing(
                 _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
@@ -428,10 +433,10 @@ namespace XPlaneMonitorApp
 
             map.UpdateRouteLocalPosition(_runwayRoute);
 
-            RecalcApproachParams();
+            UpdateApproachParams();
         }
 
-        private void RecalcApproachParams()
+        private void UpdateApproachParams()
         {
             if (_runwayBegin.HasValue && _runwayEnd.HasValue && _runwayApproach.HasValue)
             {
