@@ -271,6 +271,17 @@ namespace XPlaneMonitorApp
             return lst;
         }
 
+        private void OnDataRefReceived()
+        {
+            lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        private void OnStatusChanged()
+        {
+            btnConnect.Enabled = _communicator.Status == ConnectionStatus.DISCONNECTED;
+            btnDisconnect.Enabled = _communicator.Status == ConnectionStatus.CONNECTED;
+        }
+
         private void UpdateMap()
         {
             if (!_lat.HasValue || !_lng.HasValue) return;
@@ -290,17 +301,6 @@ namespace XPlaneMonitorApp
             _mapOverlay.Markers.Add(marker);
 
             RecalcApproachParams();
-        }
-
-        private void OnDataRefReceived()
-        {
-            lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss");
-        }
-
-        private void OnStatusChanged()
-        {
-            btnConnect.Enabled = _communicator.Status == ConnectionStatus.DISCONNECTED;
-            btnDisconnect.Enabled = _communicator.Status == ConnectionStatus.CONNECTED;
         }
 
         private void SetRunwaySettingMode(RunwaySettingMode setting)
