@@ -1,4 +1,4 @@
-﻿namespace XPlaneMonitorApp
+﻿namespace XPlaneMonitorApp.Functions
 {
     public class Messages
     {

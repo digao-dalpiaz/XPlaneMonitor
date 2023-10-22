@@ -1,4 +1,5 @@
 ﻿using XPlaneMonitorApp.Config;
+using XPlaneMonitorApp.Functions;
 
 namespace XPlaneMonitorApp
 {
