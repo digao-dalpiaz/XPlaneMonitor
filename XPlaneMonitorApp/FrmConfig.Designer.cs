@@ -142,6 +142,7 @@
             btnOK.TabIndex=6;
             btnOK.Text="OK";
             btnOK.UseVisualStyleBackColor=true;
+            btnOK.Click+=btnOK_Click;
             // 
             // btnCancel
             // 
@@ -169,6 +170,7 @@
             ShowInTaskbar=false;
             StartPosition=FormStartPosition.CenterScreen;
             Text="Settings";
+            Load+=FrmConfig_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);

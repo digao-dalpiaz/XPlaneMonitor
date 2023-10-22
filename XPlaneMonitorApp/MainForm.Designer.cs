@@ -32,10 +32,6 @@
             gaugeThrottle=new GaugePanel();
             map=new GMap.NET.WindowsForms.GMapControl();
             gaugeElvTrim=new GaugePanel();
-            label13=new Label();
-            edRampDistance=new TextBox();
-            edRampHeight=new TextBox();
-            label16=new Label();
             lbLastReceive=new Label();
             toolBar=new ToolStrip();
             btnConnect=new ToolStripButton();
@@ -138,40 +134,6 @@
             gaugeElvTrim.Name="gaugeElvTrim";
             gaugeElvTrim.Size=new Size(296, 112);
             gaugeElvTrim.TabIndex=15;
-            // 
-            // label13
-            // 
-            label13.AutoSize=true;
-            label13.Location=new Point(1272, 328);
-            label13.Name="label13";
-            label13.Size=new Size(142, 20);
-            label13.TabIndex=38;
-            label13.Text="Ramp distance (nm)";
-            // 
-            // edRampDistance
-            // 
-            edRampDistance.Location=new Point(1272, 352);
-            edRampDistance.Name="edRampDistance";
-            edRampDistance.Size=new Size(125, 27);
-            edRampDistance.TabIndex=39;
-            edRampDistance.Text="12";
-            // 
-            // edRampHeight
-            // 
-            edRampHeight.Location=new Point(1432, 352);
-            edRampHeight.Name="edRampHeight";
-            edRampHeight.Size=new Size(125, 27);
-            edRampHeight.TabIndex=41;
-            edRampHeight.Text="4000";
-            // 
-            // label16
-            // 
-            label16.AutoSize=true;
-            label16.Location=new Point(1432, 328);
-            label16.Name="label16";
-            label16.Size=new Size(118, 20);
-            label16.TabIndex=40;
-            label16.Text="Ramp height (ft)";
             // 
             // lbLastReceive
             // 
@@ -615,10 +577,6 @@
             Controls.Add(gaugeFuel);
             Controls.Add(toolBar);
             Controls.Add(lbLastReceive);
-            Controls.Add(edRampHeight);
-            Controls.Add(label16);
-            Controls.Add(edRampDistance);
-            Controls.Add(label13);
             Controls.Add(gaugeElvTrim);
             Controls.Add(map);
             Controls.Add(gaugeThrottle);
@@ -660,10 +618,6 @@
         private Label label5;
         private GMap.NET.WindowsForms.GMapControl map;
         private GaugePanel gaugeElvTrim;
-        private Label label13;
-        private TextBox edRampDistance;
-        private TextBox edRampHeight;
-        private Label label16;
         private Label label17;
         private Label lbLastReceive;
         private ToolStrip toolBar;

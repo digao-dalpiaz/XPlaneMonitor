@@ -19,7 +19,7 @@ namespace XPlaneMonitorApp
         private DateTime _tickMapUpd;
 
         private float? _lat, _lng;
-        
+
         private float _fuelTotalCapacity;
         private float _altitude;
         private float _runwayElevation;
@@ -48,6 +48,8 @@ namespace XPlaneMonitorApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            ConfigEngine.Load();
+
             SetSettingMode(SettingMode.NONE);
 
             map.MapProvider = OpenStreetMapGraphHopperProvider.Instance;
@@ -448,7 +450,7 @@ namespace XPlaneMonitorApp
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            _communicator.Connect("127.0.0.1", 49000);
+            _communicator.Connect(Vars.Cfg.Host, Vars.Cfg.Port);
         }
 
         private void btnDisconnect_Click(object sender, EventArgs e)
@@ -458,8 +460,8 @@ namespace XPlaneMonitorApp
 
         private void boxRamp_Paint(object sender, PaintEventArgs e)
         {
-            var rampDistance = float.Parse(edRampDistance.Text);
-            var rampHeight = float.Parse(edRampHeight.Text);
+            var rampDistance = Vars.Cfg.RampDistance;
+            var rampHeight = Vars.Cfg.RampElevation;
 
             var fullDistance = rampDistance * 1.25;
             if (_runwayDistance > fullDistance) return;

@@ -2,5 +2,6 @@
 {
     public class Vars
     {
+        public static Config Cfg;
     }
 }
