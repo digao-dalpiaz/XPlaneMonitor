@@ -23,6 +23,8 @@ namespace XPlaneMonitorApp.Functions
                     {
                         string responseBody = response.Content.ReadAsStringAsync().Result;
                         dynamic elevationData = Newtonsoft.Json.JsonConvert.DeserializeObject(responseBody);
+                        if (elevationData == null) throw new Exception("Null response");
+
                         return elevationData.results[0].elevation;
                     }
                     else

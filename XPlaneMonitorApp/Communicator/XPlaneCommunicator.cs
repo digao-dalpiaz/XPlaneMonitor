@@ -46,6 +46,8 @@ namespace XPlaneMonitorApp.Communicator
             _client = new UdpClient(host, port);
 
             var ep = (IPEndPoint)_client.Client.LocalEndPoint;
+            if (ep == null) throw new Exception("LocalEndPoint null");
+
             _server = new UdpClient(ep);
             _server.BeginReceive(ReceiveCallback, null);
 
@@ -95,7 +97,7 @@ namespace XPlaneMonitorApp.Communicator
             byte[] response;
             try
             {
-                IPEndPoint? remoteEndPoint = null;
+                IPEndPoint remoteEndPoint = null;
                 response = _server.EndReceive(ar, ref remoteEndPoint);
             }
             catch (ObjectDisposedException)
