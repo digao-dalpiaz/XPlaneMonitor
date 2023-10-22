@@ -17,7 +17,7 @@ namespace XPlaneMonitorApp
         private readonly GMapRoute _mapRoute = new("flight");
         private readonly GMapRoute _runwayRoute = new("runway");
 
-        private readonly GMarkerGoogle _aircraftMarker = new(new PointLatLng(), GMarkerGoogleType.blue_dot);
+        private readonly AircraftMarker _aircraftMarker = new(new PointLatLng(), GMarkerGoogleType.blue_dot);
         private readonly GMarkerGoogle _runwayApproachMarker = new(new PointLatLng(), GMarkerGoogleType.purple_small);
         private readonly GMarkerGoogle _runwayBeginMarker = new(new PointLatLng(), GMarkerGoogleType.green_small);
         private readonly GMarkerGoogle _runwayEndMarker = new(new PointLatLng(), GMarkerGoogleType.red_small);
@@ -171,6 +171,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel2/position/true_psi", r =>
             {
                 _headingTrue = r.Value;
+                _aircraftMarker.Angle = r.Value;
                 lbHeadingTrue.Value = Utils.RoundToInt(r.Value) + "º";
             });
 

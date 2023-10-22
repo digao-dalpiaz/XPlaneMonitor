@@ -73,6 +73,16 @@ namespace XPlaneMonitorApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap black_plane {
+            get {
+                object obj = ResourceManager.GetObject("black-plane", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap brakes {
             get {
                 object obj = ResourceManager.GetObject("brakes", resourceCulture);

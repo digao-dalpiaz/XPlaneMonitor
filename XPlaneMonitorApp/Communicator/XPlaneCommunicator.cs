@@ -110,7 +110,7 @@ namespace XPlaneMonitorApp.Communicator
                 RunSync(() =>
                 {
                     string msg = ex.ErrorCode == 10054 ? string.Format("X-Plane not found running at {0}:{1}", _host, _port) : ex.Message;
-                    MessageBox.Show(msg, "Error");
+                    Messages.Error(msg);
                 });
                 return;
             }
