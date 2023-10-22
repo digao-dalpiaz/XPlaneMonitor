@@ -7,9 +7,10 @@ namespace XPlaneMonitorApp.Communicator
     public class XPlaneCommunicator
     {
 
-        private readonly Control _invokeControl;
+        private const int UPDATE_REF_PER_SECOND = 5;
 
-        private readonly List<RefDataSubscription> _subscriptions = new();
+        private readonly Control _invokeControl;
+        private readonly List<RefDataSubscription> _subscriptions;
 
         private UdpClient _server;
         private UdpClient _client;
@@ -26,7 +27,6 @@ namespace XPlaneMonitorApp.Communicator
         public XPlaneCommunicator(RefDataContractList refsData, Control invokeControl)
         {
             _invokeControl = invokeControl;
-
             _subscriptions = refsData.GetSubscriptions();
         }
 
@@ -68,7 +68,7 @@ namespace XPlaneMonitorApp.Communicator
         {
             for (int i = 0; i < _subscriptions.Count; i++)
             {
-                SendRef(_subscriptions[i].GetName(), i+1, subscribe ? 2 : 0);
+                SendRef(_subscriptions[i].GetName(), i+1, subscribe ? UPDATE_REF_PER_SECOND : 0);
             }
         }
 
