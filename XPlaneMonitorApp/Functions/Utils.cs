@@ -1,7 +1,15 @@
-﻿namespace XPlaneMonitorApp.Functions
+﻿using System.Reflection;
+
+namespace XPlaneMonitorApp.Functions
 {
     public class Utils
     {
+        public static void SetDoubleBuffered<T>(T control) where T : Control
+        {
+            typeof(T).InvokeMember("DoubleBuffered",
+                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
+                null, control, new object[] { true });
+        }
 
         public static int RoundToInt(float value)
         {

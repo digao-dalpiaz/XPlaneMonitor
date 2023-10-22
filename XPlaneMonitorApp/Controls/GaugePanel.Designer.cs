@@ -30,12 +30,12 @@
         {
             lbTitle=new Label();
             boxExternal=new Panel();
-            boxInternal=new Panel();
             icon=new PictureBox();
+            boxInternal=new Panel();
             boxDraw=new Panel();
             boxExternal.SuspendLayout();
-            boxInternal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icon).BeginInit();
+            boxInternal.SuspendLayout();
             SuspendLayout();
             // 
             // lbTitle
@@ -62,6 +62,15 @@
             boxExternal.Size=new Size(383, 212);
             boxExternal.TabIndex=9;
             // 
+            // icon
+            // 
+            icon.BackColor=Color.Gray;
+            icon.Location=new Point(9, 2);
+            icon.Name="icon";
+            icon.Size=new Size(32, 32);
+            icon.TabIndex=0;
+            icon.TabStop=false;
+            // 
             // boxInternal
             // 
             boxInternal.BackColor=Color.White;
@@ -72,15 +81,6 @@
             boxInternal.Name="boxInternal";
             boxInternal.Size=new Size(373, 202);
             boxInternal.TabIndex=0;
-            // 
-            // icon
-            // 
-            icon.BackColor=Color.Gray;
-            icon.Location=new Point(9, 2);
-            icon.Name="icon";
-            icon.Size=new Size(32, 32);
-            icon.TabIndex=0;
-            icon.TabStop=false;
             // 
             // boxDraw
             // 
@@ -99,8 +99,8 @@
             Name="GaugePanel";
             Size=new Size(383, 212);
             boxExternal.ResumeLayout(false);
-            boxInternal.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)icon).EndInit();
+            boxInternal.ResumeLayout(false);
             ResumeLayout(false);
         }
 

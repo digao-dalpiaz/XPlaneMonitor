@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using XPlaneMonitorApp.Functions;
+﻿using XPlaneMonitorApp.Functions;
 
 namespace XPlaneMonitorApp
 {
@@ -40,9 +39,7 @@ namespace XPlaneMonitorApp
         {
             InitializeComponent();
 
-            typeof(Panel).InvokeMember("DoubleBuffered",
-                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
-                null, boxDraw, new object[] { true });
+            Utils.SetDoubleBuffered(boxDraw);
         }
 
         private void boxDraw_Paint(object sender, PaintEventArgs e)

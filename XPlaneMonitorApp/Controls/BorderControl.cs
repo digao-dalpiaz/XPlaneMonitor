@@ -12,6 +12,8 @@ namespace XPlaneMonitorApp.Controls
         public BorderControl()
         {
             InitializeComponent();
+
+            DoubleBuffered = true;
         }
 
         private void BorderPanel_Paint(object sender, PaintEventArgs e)
