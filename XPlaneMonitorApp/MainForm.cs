@@ -3,6 +3,7 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using XPlaneMonitorApp.Communicator;
+using XPlaneMonitorApp.Functions;
 
 namespace XPlaneMonitorApp
 {
@@ -11,13 +12,14 @@ namespace XPlaneMonitorApp
 
         private RefDataContractList _refsData = new();
         private XPlaneCommunicator _communicator;
-        private float? _lat, _lng;
         private GMapOverlay _mapOverlay = new();
         private GMapRoute _mapRoute = new("flight");
         private GMapRoute _runwayRoute = new("runway");
 
         private DateTime _tickMapUpd;
 
+        private float? _lat, _lng;
+        
         private float _fuelTotalCapacity;
         private float _altitude;
         private float _runwayElevation;

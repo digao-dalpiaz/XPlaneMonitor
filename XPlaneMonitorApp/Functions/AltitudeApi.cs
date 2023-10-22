@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace XPlaneMonitorApp
+namespace XPlaneMonitorApp.Functions
 {
     public class AltitudeApi
     {
@@ -27,12 +27,12 @@ namespace XPlaneMonitorApp
                     }
                     else
                     {
-                        throw new Exception("Status code: " +  response.StatusCode);
+                        throw new Exception("Status code: " + response.StatusCode);
                     }
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Error retrieving elevation: " +  ex.Message);
+                    throw new Exception("Error retrieving elevation: " + ex.Message);
                 }
             }
         }
