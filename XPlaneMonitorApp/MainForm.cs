@@ -2,6 +2,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
+using System.Windows.Forms.VisualStyles;
 using XPlaneMonitorApp.Communicator;
 using XPlaneMonitorApp.Config;
 using XPlaneMonitorApp.Functions;
@@ -26,7 +27,7 @@ namespace XPlaneMonitorApp
         private float _runwayElevation;
         private float _runwayDistance;
         private float _spacing;
-        private float _heading;
+        private float _headingTrue;
         private float _runwayHeading;
 
         private enum RunwaySettingMode
@@ -116,24 +117,24 @@ namespace XPlaneMonitorApp
                 UpdateMap();
             });
 
-            lst.Subscribe("sim/flightmodel/misc/h_ind", r =>
-            {
-                _altitude = r.Value;
-                lbAltitude.Value = Utils.RoundToInt(r.Value) + " ft";
-            });
             lst.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
             {
                 lbAirSpeed.Value = Utils.RoundToInt(r.Value) + " kts";
+            });
+            lst.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
+            {
+                lbVerticalSpeed.Value = Utils.RoundToInt(r.Value) + " ft/m";
+                lbVerticalSpeed.ForeColor = r.Value >= 0 ? Color.Green : Color.Red;
             });
             lst.Subscribe("sim/flightmodel/position/groundspeed", r =>
             {
                 //original value in m/s
                 lbGroundSpeed.Value = Utils.RoundToInt(r.Value * 3.6) + " km/h";
             });
-            lst.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
+            lst.Subscribe("sim/flightmodel/misc/h_ind", r =>
             {
-                lbVerticalSpeed.Value = Utils.RoundToInt(r.Value) + " ft/m";
-                lbVerticalSpeed.ForeColor = r.Value > 0 ? Color.Green : Color.Red;
+                _altitude = r.Value;
+                lbAltitude.Value = Utils.RoundToInt(r.Value) + " ft";
             });
             lst.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", r =>
             {
@@ -145,10 +146,14 @@ namespace XPlaneMonitorApp
             });
             lst.Subscribe("sim/flightmodel2/position/true_psi", r =>
             {
-                _heading = r.Value;
+                _headingTrue = r.Value;
                 lbHeadingTrue.Value = Utils.RoundToInt(r.Value) + "º";
             });
 
+            lst.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>
+            {
+                lbAutoBrake.Value = r.Value == 0 ? "RTO" : r.Value == 1 ? "OFF" : "ON " + (r.Value-1);
+            });
             lst.Subscribe("sim/flightmodel/controls/parkbrake", r =>
             {
                 bool on = r.Value == 1;
@@ -170,34 +175,16 @@ namespace XPlaneMonitorApp
                 gaugeFlaps.Reload();
             });
 
-            lst.Subscribe("sim/cockpit2/controls/elevator_trim", r =>
-            {
-                gaugeElvTrim.Bars[0].Pos = r.Value + 1;
-                gaugeElvTrim.Reload();
-            });
-
-            void updEngine(RefDataSubscription r, int barIndex)
-            {
-                gaugeThrottle.Bars[(r.ArrayIndex * 3) + barIndex].Pos = r.Value;
-                gaugeThrottle.Reload();
-            }
-
-            lst.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), 4);
-            lst.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
-            lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
-
-            lst.Subscribe("sim/aircraft/engine/acf_num_engines", r =>
-            {
-                gaugeThrottle.ShowBarsCount = (int)r.Value * 3;
-                gaugeThrottle.Reload();
-            });
-
             lst.Subscribe("sim/aircraft/weight/acf_m_fuel_tot", r =>
             {
                 _fuelTotalCapacity = r.Value;
-                //
+                //** if total capacity received after gauge calc, the value will remain wrong until next update
             });
-
+            lst.Subscribe("sim/aircraft/overflow/acf_num_tanks", r =>
+            {
+                gaugeFuel.ShowBarsCount = (int)r.Value;
+                gaugeFuel.Reload();
+            });
             lst.Subscribe("sim/aircraft/overflow/acf_tank_rat", r =>
             {
                 gaugeFuel.Bars[r.ArrayIndex].Max = r.Value * _fuelTotalCapacity;
@@ -205,28 +192,32 @@ namespace XPlaneMonitorApp
             }, 4);
             lst.Subscribe("sim/cockpit2/fuel/fuel_quantity", r =>
             {
-                var bar = gaugeFuel.Bars[r.ArrayIndex];
-                bar.Pos = r.Value;
-                //bar.Name = bar.Pos + "/" + bar.Max;
+                gaugeFuel.Bars[r.ArrayIndex].Pos = r.Value;
                 gaugeFuel.Reload();
             }, 4);
 
-            lst.Subscribe("sim/aircraft/overflow/acf_num_tanks", r =>
-            {
-                gaugeFuel.ShowBarsCount = (int)r.Value;
-                gaugeFuel.Reload();
-            });
-
             lst.Subscribe("sim/cockpit/switches/gear_handle_status", r =>
             {
-                gaugeGear.Bars[0].Pos = r.Value;
-                gaugeGear.Bars[0].Extra = r.Value < 0 ? "OFF" : r.Value >= 1 ? "DOWN" : "PREPARED";
+                var bar = gaugeGear.Bars[0];
+                bar.Pos = r.Value;
+                bar.Extra = r.Value < 0 ? "OFF" : r.Value >= 1 ? "DOWN" : "PREPARED";
                 gaugeGear.Reload();
             });
             lst.Subscribe("sim/flightmodel/movingparts/gear1def", r =>
             {
                 gaugeGear.Bars[1].Pos = r.Value;
                 gaugeGear.Reload();
+            });
+
+            lst.Subscribe("sim/cockpit2/controls/left_brake_ratio", r =>
+            {
+                gaugeWheelBrake.Bars[0].Pos = r.Value;
+                gaugeWheelBrake.Reload();
+            });
+            lst.Subscribe("sim/cockpit2/controls/right_brake_ratio", r =>
+            {
+                gaugeWheelBrake.Bars[1].Pos = r.Value;
+                gaugeWheelBrake.Reload();
             });
 
             lst.Subscribe("sim/flightmodel/controls/lsplrdef", r =>
@@ -242,8 +233,9 @@ namespace XPlaneMonitorApp
 
             lst.Subscribe("sim/flightmodel/controls/sbrkrqst", r =>
             {
-                gaugeSpeedBrake.Bars[0].Pos = r.Value;
-                gaugeSpeedBrake.Bars[0].Extra = r.Value < 0 ? "ARMED" : null;
+                var bar = gaugeSpeedBrake.Bars[0];
+                bar.Pos = r.Value;
+                bar.Extra = r.Value < 0 ? "ARMED" : null;
                 gaugeSpeedBrake.Reload();
             });
             lst.Subscribe("sim/flightmodel/controls/sbrkrat", r =>
@@ -252,22 +244,30 @@ namespace XPlaneMonitorApp
                 gaugeSpeedBrake.Reload();
             });
 
-            lst.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>
+            lst.Subscribe("sim/cockpit2/controls/elevator_trim", r =>
             {
-                lbAutoBrake.Value = r.Value == 0 ? "RTO" : r.Value == 1 ? "OFF" : "ON " + (r.Value-1);
+                gaugeElvTrim.Bars[0].Pos = r.Value + 1;
+                gaugeElvTrim.Reload();
             });
 
-            lst.Subscribe("sim/cockpit2/controls/left_brake_ratio", r =>
+            //--Engines
+            lst.Subscribe("sim/aircraft/engine/acf_num_engines", r =>
             {
-                gaugeWheelBrake.Bars[0].Pos = r.Value;
-                gaugeWheelBrake.Reload();
-            });
-            lst.Subscribe("sim/cockpit2/controls/right_brake_ratio", r =>
-            {
-                gaugeWheelBrake.Bars[1].Pos = r.Value;
-                gaugeWheelBrake.Reload();
+                gaugeThrottle.ShowBarsCount = (int)r.Value * 3;
+                gaugeThrottle.Reload();
             });
 
+            void updEngine(RefDataSubscription r, int barIndex)
+            {
+                gaugeThrottle.Bars[(r.ArrayIndex * 3) + barIndex].Pos = r.Value;
+                gaugeThrottle.Reload();
+            }
+
+            lst.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), 4);
+            lst.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
+            lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
+            //--
+            
             return lst;
         }
 
@@ -503,7 +503,7 @@ namespace XPlaneMonitorApp
 
             //
 
-            double angleInDegrees = 90 + (_runwayHeading - _heading); // Ângulo em graus
+            double angleInDegrees = 90 + (_runwayHeading - _headingTrue); // Ângulo em graus
 
             // Converter o ângulo de graus para radianos
             double angleInRadians = angleInDegrees * (Math.PI / 180);
