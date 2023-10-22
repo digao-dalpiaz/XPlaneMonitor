@@ -51,7 +51,7 @@
             lbValue.Name="lbValue";
             lbValue.Size=new Size(189, 148);
             lbValue.TabIndex=1;
-            lbValue.Text="Value";
+            lbValue.Text="#####";
             lbValue.TextAlign=ContentAlignment.MiddleLeft;
             // 
             // BorderControl

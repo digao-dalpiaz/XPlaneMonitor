@@ -2,7 +2,6 @@
 {
     public partial class BorderControl : UserControl
     {
-
         public string Title { get { return lbTitle.Text; } set { lbTitle.Text = value; } }
         public string Value { get { return lbValue.Text; } set { lbValue.Text = value; } }
 

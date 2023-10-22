@@ -142,7 +142,6 @@
             map.TabIndex=13;
             map.Zoom=0D;
             map.OnMapClick+=map_OnMapClick;
-            map.Load+=map_Load;
             // 
             // gaugeElvTrim
             // 
@@ -599,7 +598,7 @@
             lbAirSpeed.Size=new Size(296, 40);
             lbAirSpeed.TabIndex=70;
             lbAirSpeed.Title="Air Speed";
-            lbAirSpeed.Value="Value";
+            lbAirSpeed.Value="";
             // 
             // lbVerticalSpeed
             // 
@@ -610,7 +609,7 @@
             lbVerticalSpeed.Size=new Size(296, 40);
             lbVerticalSpeed.TabIndex=71;
             lbVerticalSpeed.Title="Vertical Speed";
-            lbVerticalSpeed.Value="Value";
+            lbVerticalSpeed.Value="";
             // 
             // lbGroundSpeed
             // 
@@ -622,7 +621,7 @@
             lbGroundSpeed.Size=new Size(296, 40);
             lbGroundSpeed.TabIndex=72;
             lbGroundSpeed.Title="Ground Speed";
-            lbGroundSpeed.Value="Value";
+            lbGroundSpeed.Value="";
             // 
             // lbAltitude
             // 
@@ -634,7 +633,7 @@
             lbAltitude.Size=new Size(296, 40);
             lbAltitude.TabIndex=73;
             lbAltitude.Title="Altitude";
-            lbAltitude.Value="Value";
+            lbAltitude.Value="";
             // 
             // lbRadioAltimeter
             // 
@@ -646,7 +645,7 @@
             lbRadioAltimeter.Size=new Size(296, 40);
             lbRadioAltimeter.TabIndex=74;
             lbRadioAltimeter.Title="Radio Altimeter";
-            lbRadioAltimeter.Value="Value";
+            lbRadioAltimeter.Value="";
             // 
             // lbHeading
             // 
@@ -658,7 +657,7 @@
             lbHeading.Size=new Size(296, 40);
             lbHeading.TabIndex=75;
             lbHeading.Title="Heading";
-            lbHeading.Value="Value";
+            lbHeading.Value="";
             // 
             // lbAutoBrake
             // 
@@ -669,7 +668,7 @@
             lbAutoBrake.Size=new Size(296, 40);
             lbAutoBrake.TabIndex=76;
             lbAutoBrake.Title="Auto Brake";
-            lbAutoBrake.Value="Value";
+            lbAutoBrake.Value="";
             // 
             // lbHeadingTrue
             // 
@@ -681,7 +680,7 @@
             lbHeadingTrue.Size=new Size(296, 40);
             lbHeadingTrue.TabIndex=77;
             lbHeadingTrue.Title="True Heading";
-            lbHeadingTrue.Value="Value";
+            lbHeadingTrue.Value="";
             // 
             // lbParkingBrake
             // 
@@ -692,7 +691,7 @@
             lbParkingBrake.Size=new Size(296, 40);
             lbParkingBrake.TabIndex=78;
             lbParkingBrake.Title="Parking Brake";
-            lbParkingBrake.Value="Value";
+            lbParkingBrake.Value="";
             // 
             // MainForm
             // 

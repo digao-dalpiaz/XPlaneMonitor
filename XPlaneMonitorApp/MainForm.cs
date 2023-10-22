@@ -82,14 +82,14 @@ namespace XPlaneMonitorApp
                 gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), Color.Red, 100);
                 gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Orange, 100);
 
-                gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.Aquamarine, 0);
+                gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.Aquamarine, 1);
             }
 
             SubscribeAll();
-            foreach (var r in _refsData)
+            /*foreach (var r in _refsData)
             {
                 r.Proc(new RefDataSubscription(r, 0));
-            }
+            }*/
 
             _communicator = new(_refsData, this);
             _communicator.OnReceived += OnDataRefReceived;
@@ -411,10 +411,6 @@ namespace XPlaneMonitorApp
             }
         }
 
-        private void btnTurnOffSettingMode_Click(object sender, EventArgs e)
-        {
-        }
-
         private void btnClearRunwayApproach_Click(object sender, EventArgs e)
         {
             SetSettingMode(SettingMode.NONE);
@@ -454,11 +450,6 @@ namespace XPlaneMonitorApp
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
             _communicator.Disconnect();
-        }
-
-        private void map_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void boxRamp_Paint(object sender, PaintEventArgs e)
