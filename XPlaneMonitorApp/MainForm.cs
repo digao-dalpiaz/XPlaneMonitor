@@ -407,6 +407,8 @@ namespace XPlaneMonitorApp
 
             if (someDefined)
             {
+                map.Refresh(); //force refresh map before getting airport altitude on the Internet
+
                 UpdateRunwayPointsLabel();
                 BuildApproach();
             }
@@ -429,10 +431,21 @@ namespace XPlaneMonitorApp
 
             if (_lastAirportRetrievedAltitude != _runwayBegin)
             {
-                var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
-                _runwayElevation = Utils.ConvertMetersToFeet(elevMeters);
+                lbRunwayElevation.Value = "wait...";
+                lbRunwayElevation.Refresh();
+                try
+                {
+                    var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
+                    _runwayElevation = Utils.ConvertMetersToFeet(elevMeters);
 
-                _lastAirportRetrievedAltitude = _runwayBegin;
+                    _lastAirportRetrievedAltitude = _runwayBegin;
+                } 
+                catch (Exception ex)
+                {
+                    _runwayElevation = 0;
+                    lbRunwayElevation.Value = "fail!!!";
+                    Messages.Error(ex.Message);
+                }
             }
 
             _runwayHeading = GeoCalculator.CalculateBearing(
