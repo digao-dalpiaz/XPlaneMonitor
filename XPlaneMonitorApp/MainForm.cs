@@ -16,7 +16,6 @@ namespace XPlaneMonitorApp
         private readonly GMapOverlay _mapOverlay = new();
         private readonly GMapRoute _mapRoute = new("flight");
         private readonly GMapRoute _runwayRoute = new("runway");
-        private readonly GMapRoute _approachRoute = new("approach");
 
         private float _tmpReceivedLatitude;
 
@@ -78,11 +77,6 @@ namespace XPlaneMonitorApp
             map.Overlays.Add(_mapOverlay);
             _mapOverlay.Routes.Add(_mapRoute);
             _mapOverlay.Routes.Add(_runwayRoute);
-            _mapOverlay.Routes.Add(_approachRoute);
-
-            _mapRoute.Stroke.Color = Color.Blue;
-            _runwayRoute.Stroke.Color = Color.Orange;
-            _approachRoute.Stroke.Color = Color.Purple;
 
             GotoPositionOnMap();
         }
@@ -436,14 +430,10 @@ namespace XPlaneMonitorApp
             _runwayApproach = new PointLatLng(approach.Item1, approach.Item2);
 
             _runwayRoute.Points.Clear();
+            _runwayRoute.Points.Add(_runwayApproach.Value);
             _runwayRoute.Points.Add(_runwayBegin.Value);
             _runwayRoute.Points.Add(_runwayEnd.Value);
             map.UpdateRouteLocalPosition(_runwayRoute);
-            _approachRoute.Points.Clear();
-            _approachRoute.Points.Add(_runwayApproach.Value);
-            _approachRoute.Points.Add(_runwayBegin.Value);
-            map.UpdateRouteLocalPosition(_approachRoute);
-
             map.Invalidate(); //there is a bug in GMap when clearing route
 
             UpdateApproachParams();
@@ -506,8 +496,8 @@ namespace XPlaneMonitorApp
             _runwayEnd = null;
             _runwayApproach = null;
 
-            _runwayRoute.Points.Clear(); map.UpdateRouteLocalPosition(_runwayRoute);
-            _approachRoute.Points.Clear(); map.UpdateRouteLocalPosition(_approachRoute);
+            _runwayRoute.Points.Clear(); 
+            map.UpdateRouteLocalPosition(_runwayRoute);
             map.Invalidate(); //there is a bug in GMap when clearing route
 
             UpdateRunwayPointsLabel();
@@ -543,7 +533,6 @@ namespace XPlaneMonitorApp
             {
                 return boxRamp.Height - ((height / fullHeight) * boxRamp.Height);
             }
-
 
             e.Graphics.DrawLine(new Pen(Color.Red, 3), (float)calcX(_runwayDistance), (float)calcY(aircraftHeight), boxRamp.Width, boxRamp.Height); //real
             e.Graphics.DrawLine(new Pen(Color.Green), (float)calcX(rampDistance), (float)calcY(rampHeight), boxRamp.Width, boxRamp.Height); //ideal
