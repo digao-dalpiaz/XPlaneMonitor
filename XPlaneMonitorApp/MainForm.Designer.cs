@@ -37,6 +37,7 @@
             btnConnect=new ToolStripButton();
             btnDisconnect=new ToolStripButton();
             toolStripSeparator1=new ToolStripSeparator();
+            btnCenterMap=new ToolStripButton();
             btnSetRunwayBegin=new ToolStripButton();
             btnSetRunwayEnd=new ToolStripButton();
             btnClearRunwayApproach=new ToolStripButton();
@@ -114,6 +115,7 @@
             map.TabIndex=13;
             map.Zoom=0D;
             map.OnMapClick+=map_OnMapClick;
+            map.OnMapDrag+=map_OnMapDrag;
             // 
             // gaugeElvTrim
             // 
@@ -136,7 +138,7 @@
             // toolBar
             // 
             toolBar.ImageScalingSize=new Size(20, 20);
-            toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach, toolStripSeparator2, btnConfig });
+            toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnCenterMap, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach, toolStripSeparator2, btnConfig });
             toolBar.Location=new Point(0, 0);
             toolBar.Name="toolBar";
             toolBar.Size=new Size(1720, 31);
@@ -166,6 +168,15 @@
             // 
             toolStripSeparator1.Name="toolStripSeparator1";
             toolStripSeparator1.Size=new Size(6, 31);
+            // 
+            // btnCenterMap
+            // 
+            btnCenterMap.Image=Properties.Resources.maps_and_flags;
+            btnCenterMap.ImageTransparentColor=Color.Magenta;
+            btnCenterMap.Name="btnCenterMap";
+            btnCenterMap.Size=new Size(110, 28);
+            btnCenterMap.Text="Center Map";
+            btnCenterMap.Click+=btnCenterMap_Click;
             // 
             // btnSetRunwayBegin
             // 
@@ -553,5 +564,6 @@
         private Controls.BorderControl lbSpacing;
         private ToolStripButton btnConfig;
         private ToolStripSeparator toolStripSeparator2;
+        private ToolStripButton btnCenterMap;
     }
 }

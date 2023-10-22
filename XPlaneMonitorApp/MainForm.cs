@@ -20,7 +20,8 @@ namespace XPlaneMonitorApp
 
         private DateTime _tickMapUpd;
 
-        private float? _lat, _lng;
+        private double _lat = -23.4323859;
+        private double _lng = -46.4916308;
 
         private float _fuelTotalCapacity;
         private float _altitude;
@@ -71,6 +72,8 @@ namespace XPlaneMonitorApp
             map.Overlays.Add(_mapOverlay);
             _mapOverlay.Routes.Add(_mapRoute);
             _mapOverlay.Routes.Add(_runwayRoute);
+
+            GotoPositionOnMap();
         }
 
         private void BuildGaugeBars()
@@ -109,12 +112,12 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel/position/latitude", r =>
             {
                 _lat = r.Value;
-                UpdateMap();
+                ReceivedAircraftPosition();
             });
             lst.Subscribe("sim/flightmodel/position/longitude", r =>
             {
                 _lng = r.Value;
-                UpdateMap();
+                ReceivedAircraftPosition();
             });
 
             lst.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
@@ -267,7 +270,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
             lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
             //--
-            
+
             return lst;
         }
 
@@ -282,17 +285,25 @@ namespace XPlaneMonitorApp
             btnDisconnect.Enabled = _communicator.Status == ConnectionStatus.CONNECTED;
         }
 
-        private void UpdateMap()
+        private void GotoPositionOnMap()
         {
-            if (!_lat.HasValue || !_lng.HasValue) return;
+            map.Position = new PointLatLng(_lat, _lng);
 
+            btnCenterMap.Enabled = false;
+        }
+
+        private void ReceivedAircraftPosition()
+        {
             if ((DateTime.Now - _tickMapUpd).TotalMilliseconds < 1000) return;
             _tickMapUpd = DateTime.Now;
 
-            var pos = new PointLatLng(_lat.Value, _lng.Value);
+            var pos = new PointLatLng(_lat, _lng);
             var marker = new GMarkerGoogle(pos, GMarkerGoogleType.blue);
 
-            map.Position = pos;
+            if (!btnCenterMap.Enabled)
+            {
+                map.Position = pos;
+            }
 
             _mapRoute.Points.Add(pos);
             map.UpdateRouteLocalPosition(_mapRoute);
@@ -374,19 +385,19 @@ namespace XPlaneMonitorApp
 
         private void RecalcApproachParams()
         {
-            if (_lat.HasValue && _lng.HasValue && _runwayBegin.HasValue && _runwayEnd.HasValue && _runwayApproach.HasValue)
+            if (_runwayBegin.HasValue && _runwayEnd.HasValue && _runwayApproach.HasValue)
             {
                 _runwayDistance = (float)GeoCalculator.ConverterKmParaMilhaNautica(
-                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng));
+                    GeoCalculator.CalculateDistance(_lat, _lng, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng));
 
                 lbApproachDist.Value = Math.Round(GeoCalculator.ConverterKmParaMilhaNautica(
-                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)), 1) + " nm";
+                    GeoCalculator.CalculateDistance(_lat, _lng, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)), 1) + " nm";
                 lbRunwayDist.Value = Math.Round(_runwayDistance, 1) + " nm";
 
                 _spacing = (float)ProximityCalculator.CalcularDistanciaAteLinhaAeroporto2(
                     new double[] { _runwayBegin.Value.Lat, _runwayBegin.Value.Lng },
                     new double[] { _runwayEnd.Value.Lat, _runwayEnd.Value.Lng },
-                    new double[] { _lat.Value, _lng.Value });
+                    new double[] { _lat, _lng });
 
                 lbSpacing.Value = Utils.RoundToInt(_spacing) + " m";
 
@@ -517,6 +528,16 @@ namespace XPlaneMonitorApp
         {
             FrmConfig f = new();
             f.ShowDialog();
+        }
+
+        private void btnCenterMap_Click(object sender, EventArgs e)
+        {
+            GotoPositionOnMap(); 
+        }
+
+        private void map_OnMapDrag()
+        {
+            btnCenterMap.Enabled = true;
         }
     }
 }
