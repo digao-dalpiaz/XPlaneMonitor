@@ -24,11 +24,13 @@ namespace XPlaneMonitorApp
 
         private float _fuelTotalCapacity;
         private float _altitude;
-        private float _runwayElevation;
+        
         private float _runwayDistance;
         private float _spacing;
         private float _headingTrue;
-        private float _runwayHeading;
+
+        private double _runwayElevation;
+        private double _runwayHeading;
 
         private enum RunwaySettingMode
         {
@@ -58,6 +60,8 @@ namespace XPlaneMonitorApp
             _communicator.OnStatusChanged += OnStatusChanged;
 
             OnStatusChanged(); //update connection buttons
+
+            UpdateRunwayPointsLabel();
         }
 
         private void InitMap()
@@ -349,41 +353,44 @@ namespace XPlaneMonitorApp
 
             lbRunwayPoints.Value = none ? "NOT SET" : (_runwayBegin.HasValue ? "[<]" : "") + (_runwayEnd.HasValue ? "[>]" : "");
             lbRunwayPoints.ForeColor = none ? Color.Gray : all ? Color.Green : Color.Red;
+
+            btnClearRunwayApproach.Enabled = !none;
         }
 
         private void CheckRunwayPoints()
         {
-            if (_runwayBegin.HasValue && _runwayEnd.HasValue)
-            {
-                _runwayHeading = (float)GeoCalculator.CalculateBearing(
-                    _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
-                    _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
+            if (!_runwayBegin.HasValue || !_runwayEnd.HasValue) return;
 
-                var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
+            var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
+            _runwayElevation = GeoCalculator.ConvertMetersToFeet(elevMeters);
 
-                var size = GeoCalculator.CalculateDistance(
-                    _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
-                    _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
+            _runwayHeading = GeoCalculator.CalculateBearing(
+                _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
+                _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
 
-                _runwayElevation = (float)GeoCalculator.ConvertMetersToFeet(elevMeters);
+            var sizeKm = GeoCalculator.CalculateDistance(
+                _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
+                _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
 
-                lbRunwayElevation.Value = elevMeters.ToString() + " m / " + Utils.RoundToInt(_runwayElevation) + " ft";
-                lbRunwayDegrees.Value = Utils.RoundToInt(_runwayHeading).ToString() + "º";
-                lbRunwaySize.Value = Utils.RoundToInt(size * 1000).ToString() + " m";
+            lbRunwayElevation.Value = elevMeters + " m / " + Utils.RoundToInt(_runwayElevation) + " ft";
+            lbRunwayDegrees.Value = Utils.RoundToInt(_runwayHeading) + "º";
+            lbRunwaySize.Value = Utils.RoundToInt(sizeKm * 1000) + " m";
 
-                var approach = GeoCalculator.CalculateDestinationPoint(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng, GeoCalculator.InvertDegree(_runwayHeading), 22);
+            var approach = GeoCalculator.CalculateDestinationPoint(
+                _runwayBegin.Value.Lat, _runwayBegin.Value.Lng, 
+                GeoCalculator.InvertDegree(_runwayHeading), 
+                GeoCalculator.ConverterKmParaMilhaNautica(Vars.Cfg.RampDistance));
 
-                _runwayApproach = new PointLatLng(approach.Item1, approach.Item2);
+            _runwayApproach = new PointLatLng(approach.Item1, approach.Item2);
 
-                _runwayRoute.Points.Clear();
-                _runwayRoute.Points.Add(_runwayApproach.Value);
-                _runwayRoute.Points.Add(_runwayBegin.Value);
-                _runwayRoute.Points.Add(_runwayEnd.Value);
+            _runwayRoute.Points.Clear();
+            _runwayRoute.Points.Add(_runwayApproach.Value);
+            _runwayRoute.Points.Add(_runwayBegin.Value);
+            _runwayRoute.Points.Add(_runwayEnd.Value);
 
-                map.UpdateRouteLocalPosition(_runwayRoute);
+            map.UpdateRouteLocalPosition(_runwayRoute);
 
-                RecalcApproachParams();
-            }
+            RecalcApproachParams();
         }
 
         private void RecalcApproachParams()
