@@ -2,35 +2,6 @@
 {
     internal class ProximityCalculator
     {
-        public static double CalcularDistanciaAteLinhaAeroporto(double[] pontoInicial, double[] pontoFinal, double[] pontoAviao)
-        {
-            // Converter graus para radianos
-            double latitudeInicialRad = GrausParaRadianos(pontoInicial[0]);
-            double longitudeInicialRad = GrausParaRadianos(pontoInicial[1]);
-            double latitudeFinalRad = GrausParaRadianos(pontoFinal[0]);
-            double longitudeFinalRad = GrausParaRadianos(pontoFinal[1]);
-            double latitudeAviaoRad = GrausParaRadianos(pontoAviao[0]);
-            double longitudeAviaoRad = GrausParaRadianos(pontoAviao[1]);
-
-            // Calcular a direção da pista
-            double direcaoPista = Math.Atan2(Math.Sin(longitudeFinalRad - longitudeInicialRad) * Math.Cos(latitudeFinalRad),
-                                              Math.Cos(latitudeInicialRad) * Math.Sin(latitudeFinalRad) -
-                                              Math.Sin(latitudeInicialRad) * Math.Cos(latitudeFinalRad) * Math.Cos(longitudeFinalRad - longitudeInicialRad));
-
-            // Calcular a direção da linha do avião em relação à pista
-            double direcaoAviaoPista = Math.Atan2(Math.Sin(longitudeAviaoRad - longitudeInicialRad) * Math.Cos(latitudeAviaoRad),
-                                                   Math.Cos(latitudeInicialRad) * Math.Sin(latitudeAviaoRad) -
-                                                   Math.Sin(latitudeInicialRad) * Math.Cos(latitudeAviaoRad) * Math.Cos(longitudeAviaoRad - longitudeInicialRad));
-
-            // Calcular a diferença angular
-            double diferencaAngular = Math.Abs(direcaoAviaoPista - direcaoPista);
-
-            // Calcular a distância entre o avião e a linha do aeroporto
-            double distancia = Math.Sin(diferencaAngular) * CalcularDistanciaHaversine(pontoInicial, pontoAviao);
-
-            return distancia;
-        }
-
         public static double GrausParaRadianos(double graus)
         {
             return graus * (Math.PI / 180.0);
@@ -52,6 +23,45 @@
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
             return raioTerra * c;
+        }
+
+        //
+
+        public static double CalcularDistanciaAteLinhaAeroporto2(double[] pontoInicial, double[] pontoFinal, double[] pontoAviao)
+        {
+            double direcaoPista = CalcularDirecao(pontoInicial, pontoFinal);
+            double direcaoAviaoPista = CalcularDirecao(pontoInicial, pontoAviao);
+
+            // Verifique a orientação da pista
+            double diferencaAngular = direcaoAviaoPista - direcaoPista;
+
+            // Normalizar a diferença angular para o intervalo de -180 a 180 graus
+            if (diferencaAngular > Math.PI)
+            {
+                diferencaAngular -= 2 * Math.PI;
+            }
+            else if (diferencaAngular < -Math.PI)
+            {
+                diferencaAngular += 2 * Math.PI;
+            }
+
+            // Calcular a distância entre o avião e a linha do aeroporto
+            double distancia = Math.Sin(diferencaAngular) * CalcularDistanciaHaversine(pontoInicial, pontoAviao);
+
+            return distancia;
+        }
+
+        public static double CalcularDirecao(double[] ponto1, double[] ponto2)
+        {
+            double latitude1Rad = GrausParaRadianos(ponto1[0]);
+            double latitude2Rad = GrausParaRadianos(ponto2[0]);
+            double diferencaLongitudeRad = GrausParaRadianos(ponto2[1] - ponto1[1]);
+
+            double y = Math.Sin(diferencaLongitudeRad) * Math.Cos(latitude2Rad);
+            double x = Math.Cos(latitude1Rad) * Math.Sin(latitude2Rad) - Math.Sin(latitude1Rad) * Math.Cos(latitude2Rad) * Math.Cos(diferencaLongitudeRad);
+
+            double direcao = Math.Atan2(y, x);
+            return direcao;
         }
     }
 }

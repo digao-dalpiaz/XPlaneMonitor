@@ -359,7 +359,7 @@ namespace XPlaneMonitorApp
                 lbCompassToRunway.Text = Utils.RoundToInt(
                     GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng)).ToString();
 
-                _spacing = (float)ProximityCalculator.CalcularDistanciaAteLinhaAeroporto(
+                _spacing = (float)ProximityCalculator.CalcularDistanciaAteLinhaAeroporto2(
                     new double[] { _runwayBegin.Value.Lat, _runwayBegin.Value.Lng },
                     new double[] { _runwayEnd.Value.Lat, _runwayEnd.Value.Lng },
                     new double[] { _lat.Value, _lng.Value });
