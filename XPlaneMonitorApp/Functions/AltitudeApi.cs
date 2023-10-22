@@ -18,7 +18,7 @@ namespace XPlaneMonitorApp.Functions
                 try
                 {
                     HttpResponseMessage response = client.GetAsync(apiUrl).Result;
-                    if (response.IsSuccessStatusCode!) throw new Exception("Status code: " + response.StatusCode);
+                    if (!response.IsSuccessStatusCode) throw new Exception("Status code: " + response.StatusCode);
 
                     string responseBody = response.Content.ReadAsStringAsync().Result;
                     dynamic elevationData = Newtonsoft.Json.JsonConvert.DeserializeObject(responseBody);
