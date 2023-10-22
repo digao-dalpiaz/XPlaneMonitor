@@ -405,10 +405,10 @@
             // lbRunwayElevation
             // 
             lbRunwayElevation.BackColor=Color.White;
-            lbRunwayElevation.Location=new Point(1224, 80);
+            lbRunwayElevation.Location=new Point(1224, 79);
             lbRunwayElevation.Name="lbRunwayElevation";
             lbRunwayElevation.Padding=new Padding(1);
-            lbRunwayElevation.Size=new Size(360, 40);
+            lbRunwayElevation.Size=new Size(296, 40);
             lbRunwayElevation.TabIndex=79;
             lbRunwayElevation.Title="Runway Elevation";
             lbRunwayElevation.Value="";
@@ -416,10 +416,10 @@
             // lbRunwayDegrees
             // 
             lbRunwayDegrees.BackColor=Color.White;
-            lbRunwayDegrees.Location=new Point(1224, 120);
+            lbRunwayDegrees.Location=new Point(1224, 118);
             lbRunwayDegrees.Name="lbRunwayDegrees";
             lbRunwayDegrees.Padding=new Padding(1);
-            lbRunwayDegrees.Size=new Size(360, 40);
+            lbRunwayDegrees.Size=new Size(296, 40);
             lbRunwayDegrees.TabIndex=80;
             lbRunwayDegrees.Title="Runway Heading";
             lbRunwayDegrees.Value="";
@@ -427,10 +427,10 @@
             // lbRunwaySize
             // 
             lbRunwaySize.BackColor=Color.White;
-            lbRunwaySize.Location=new Point(1224, 160);
+            lbRunwaySize.Location=new Point(1224, 157);
             lbRunwaySize.Name="lbRunwaySize";
             lbRunwaySize.Padding=new Padding(1);
-            lbRunwaySize.Size=new Size(360, 40);
+            lbRunwaySize.Size=new Size(296, 40);
             lbRunwaySize.TabIndex=81;
             lbRunwaySize.Title="Runway Size";
             lbRunwaySize.Value="";
@@ -441,7 +441,7 @@
             lbApproachDist.Location=new Point(1224, 208);
             lbApproachDist.Name="lbApproachDist";
             lbApproachDist.Padding=new Padding(1);
-            lbApproachDist.Size=new Size(360, 40);
+            lbApproachDist.Size=new Size(296, 40);
             lbApproachDist.TabIndex=82;
             lbApproachDist.Title="Approach Dist.";
             lbApproachDist.Value="";
@@ -449,10 +449,10 @@
             // lbRunwayDist
             // 
             lbRunwayDist.BackColor=Color.White;
-            lbRunwayDist.Location=new Point(1224, 248);
+            lbRunwayDist.Location=new Point(1224, 247);
             lbRunwayDist.Name="lbRunwayDist";
             lbRunwayDist.Padding=new Padding(1);
-            lbRunwayDist.Size=new Size(360, 40);
+            lbRunwayDist.Size=new Size(296, 40);
             lbRunwayDist.TabIndex=83;
             lbRunwayDist.Title="Runway Distance";
             lbRunwayDist.Value="";
@@ -463,7 +463,7 @@
             lbRunwayPoints.Location=new Point(1224, 40);
             lbRunwayPoints.Name="lbRunwayPoints";
             lbRunwayPoints.Padding=new Padding(1);
-            lbRunwayPoints.Size=new Size(360, 40);
+            lbRunwayPoints.Size=new Size(296, 40);
             lbRunwayPoints.TabIndex=84;
             lbRunwayPoints.Title="Runway Points";
             lbRunwayPoints.Value="";
@@ -474,7 +474,7 @@
             lbSpacing.Location=new Point(1224, 880);
             lbSpacing.Name="lbSpacing";
             lbSpacing.Padding=new Padding(1);
-            lbSpacing.Size=new Size(488, 40);
+            lbSpacing.Size=new Size(296, 40);
             lbSpacing.TabIndex=85;
             lbSpacing.Title="Align Deviation";
             lbSpacing.Value="";

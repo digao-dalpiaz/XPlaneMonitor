@@ -296,6 +296,12 @@ namespace XPlaneMonitorApp
             _communicator.Disconnect();
         }
 
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            FrmConfig f = new();
+            f.ShowDialog();
+        }
+
         private void OnDataRefReceived()
         {
             lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss");
@@ -305,6 +311,16 @@ namespace XPlaneMonitorApp
         {
             btnConnect.Enabled = _communicator.Status == ConnectionStatus.DISCONNECTED;
             btnDisconnect.Enabled = _communicator.Status == ConnectionStatus.CONNECTED;
+        }
+
+        private void btnCenterMap_Click(object sender, EventArgs e)
+        {
+            GotoPositionOnMap();
+        }
+
+        private void map_OnMapDrag()
+        {
+            btnCenterMap.Enabled = true;
         }
 
         private void GotoPositionOnMap()
@@ -490,6 +506,9 @@ namespace XPlaneMonitorApp
             var fullDistance = rampDistance * 1.25;
             var fullHeight = rampHeight * 1.5;
 
+            Utils.DrawGrid(e.Graphics, 1, fullDistance, 500, fullHeight, boxRamp.ClientRectangle);
+            //
+
             if (_runwayDistance > fullDistance) return; //do not paint descent ramp if aircraft is far away from airport
 
             var aircraftHeight = _altitude - _runwayElevation;
@@ -503,49 +522,36 @@ namespace XPlaneMonitorApp
                 return boxRamp.Height - ((height / fullHeight) * boxRamp.Height);
             }
 
-            e.Graphics.FillRectangle(Brushes.Black, boxRamp.ClientRectangle);
+           
             e.Graphics.DrawLine(new Pen(Color.Red, 3), (float)calcX(_runwayDistance), (float)calcY(aircraftHeight), boxRamp.Width, boxRamp.Height); //real
             e.Graphics.DrawLine(new Pen(Color.Green), (float)calcX(rampDistance), (float)calcY(rampHeight), boxRamp.Width, boxRamp.Height); //ideal
         }
 
         private void boxSpacing_Paint(object sender, PaintEventArgs e)
         {
-            var xIdeal = boxSpacing.Width / 2;
+            const int marginSide = 250;
+            const int marginFull = marginSide * 2;
+            Utils.DrawGrid(e.Graphics, 50, marginFull, 1, 1, boxSpacing.ClientRectangle);
+            //
 
-            e.Graphics.FillRectangle(Brushes.Black, boxSpacing.ClientRectangle);
+            var xIdeal = boxSpacing.Width / 2;
             e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
 
             //
-
-            const int margin = 250;
+            
             var s = _spacing;
-            if (s > margin) s = margin;
-            if (s < -margin) s = -margin;
+            if (s > marginSide) s = marginSide;
+            if (s < -marginSide) s = -marginSide;
 
-            s += margin;
+            s += marginSide;
 
             var angle = 90 + (_runwayHeading - _headingTrue);
 
-            var startX = boxSpacing.Width * s / (margin*2);
+            var startX = boxSpacing.Width * s / marginFull;
             var endX = startX + (boxSpacing.Height / Math.Tan(Utils.DegreesToRadians(angle)));
 
             e.Graphics.DrawLine(new Pen(Color.Purple, 3), (float)endX, 0, (float)startX, boxSpacing.Height);
         }
-
-        private void btnConfig_Click(object sender, EventArgs e)
-        {
-            FrmConfig f = new();
-            f.ShowDialog();
-        }
-
-        private void btnCenterMap_Click(object sender, EventArgs e)
-        {
-            GotoPositionOnMap();
-        }
-
-        private void map_OnMapDrag()
-        {
-            btnCenterMap.Enabled = true;
-        }
+        
     }
 }

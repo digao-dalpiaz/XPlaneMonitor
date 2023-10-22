@@ -42,5 +42,26 @@
             return km / quilometrosPorMilhaNautica;
         }
 
+        public static void DrawGrid(Graphics g, double xUnit, double xTotal, double yUnit, double yTotal, Rectangle r)
+        {
+            g.FillRectangle(new SolidBrush(Color.FromArgb(30, 30, 30)), r);
+
+            var xSpacing = r.Width * xUnit / xTotal;
+            double x = 0;
+            while (x < r.Width)
+            {
+                x += xSpacing;
+                g.DrawLine(new Pen(Color.Black), (float)x, 0, (float)x, r.Height);
+            }
+
+            var ySpacing = r.Height * yUnit / yTotal;
+            double y = 0;
+            while (y < r.Height)
+            {
+                y += ySpacing;
+                g.DrawLine(new Pen(Color.Black), 0, (float)y, r.Width, (float)y);
+            }
+        }
+
     }
 }
