@@ -11,44 +11,6 @@ namespace XPlaneMonitorApp.Communicator
 
         private readonly List<RefDataSubscription> _subscriptions = new();
 
-        private string[] nnnnnnnnnnnnnn =
-        {
-            "sim/aircraft/view/acf_Vso", //parametro de velocidade: de stol
-            "sim/aircraft/view/acf_Vfe", //parametro de velocidade: máxima com flaps full
-            "sim/aircraft/view/acf_Vs", //parametro de velocidade:
-            "sim/aircraft/view/acf_Vno", //parametro de velocidade:
-            "sim/aircraft/view/acf_Vne", //parametro de velocidade:
-            "sim/aircraft/gear/acf_gear_retract", //trem de pouso extensível
-            "sim/cockpit/autopilot/autopilot_mode",
-            "sim/cockpit/autopilot/airspeed",
-            "sim/cockpit/autopilot/heading",
-            "sim/cockpit/autopilot/heading_mag",
-            "sim/cockpit/engine/APU_running",
-            "sim/cockpit/engine/APU_N1",
-            "sim/cockpit/misc/compass_indicated", //proa em graus
-            "sim/cockpit/switches/dumping_fuel",
-            "sim/flightmodel/controls/dist", //distancia viajada em metros
-            "sim/flightmodel/position/true_psi", //norte absoluto
-            "sim/flightmodel/position/mag_psi", //norte magnetico
-            "sim/flightmodel/position/magnetic_variation",
-            "sim/time/total_flight_time_sec",
-            "sim/cockpit2/autopilot/autothrottle_enabled", //Auto-throttle: -1=hard off, not even armed. 0=servos declutched (arm, hold), 1=airspeed hold, 2=N1 target hold, 3=retard, 4=reserved for future use	
-            "sim/cockpit2/gauges/indicators/wind_heading_deg_mag",
-            "sim/cockpit2/gauges/indicators/wind_speed_kts",
-            "sim/cockpit2/gauges/indicators/airspeed_acceleration_kts_sec_pilot",
-            "sim/cockpit2/gauges/indicators/airspeed_kts_pilot",
-            "sim/cockpit2/gauges/indicators/altitude_ft_pilot",
-            "sim/cockpit2/gauges/indicators/vvi_fpm_pilot",
-            "sim/cockpit2/gauges/indicators/true_airspeed_kts_pilot",
-            "sim/cockpit2/gauges/indicators/ground_speed_kt",
-            "sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot",
-            "sim/cockpit2/switches/dump_fuel",
-            "sim/cockpit2/temperature/outside_air_temp_degc",
-            "sim/flightmodel2/position/true_psi",
-            "sim/flightmodel2/position/mag_psi",
-            "sim/flightmodel2/position/true_airspeed"
-        };
-
         private UdpClient _server;
         private UdpClient _client;
 
