@@ -24,13 +24,12 @@ namespace XPlaneMonitorApp
 
         private float _fuelTotalCapacity;
         private float _altitude;
-        
-        private float _runwayDistance;
-        private float _spacing;
         private float _headingTrue;
 
         private double _runwayElevation;
         private double _runwayHeading;
+        private double _runwayDistance;
+        private double _spacing;
 
         private enum RunwaySettingMode
         {
@@ -277,6 +276,26 @@ namespace XPlaneMonitorApp
             return lst;
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            map.Manager.CancelTileCaching();
+
+            if (_communicator.Status == ConnectionStatus.CONNECTED)
+            {
+                _communicator.Disconnect();
+            }
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            _communicator.Connect(Vars.Cfg.Host, Vars.Cfg.Port);
+        }
+
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            _communicator.Disconnect();
+        }
+
         private void OnDataRefReceived()
         {
             lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss");
@@ -397,14 +416,16 @@ namespace XPlaneMonitorApp
         {
             if (_runwayBegin.HasValue && _runwayEnd.HasValue && _runwayApproach.HasValue)
             {
-                _runwayDistance = (float)GeoCalculator.ConverterKmParaMilhaNautica(
+                var approachDist = GeoCalculator.ConverterKmParaMilhaNautica(
+                    GeoCalculator.CalculateDistance(_lat, _lng, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng));
+
+                _runwayDistance = GeoCalculator.ConverterKmParaMilhaNautica(
                     GeoCalculator.CalculateDistance(_lat, _lng, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng));
 
-                lbApproachDist.Value = Math.Round(GeoCalculator.ConverterKmParaMilhaNautica(
-                    GeoCalculator.CalculateDistance(_lat, _lng, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)), 1) + " nm";
+                lbApproachDist.Value = Math.Round(approachDist, 1) + " nm";
                 lbRunwayDist.Value = Math.Round(_runwayDistance, 1) + " nm";
 
-                _spacing = (float)ProximityCalculator.CalcularDistanciaAteLinhaAeroporto2(
+                _spacing = ProximityCalculator.CalcularDistanciaAteLinhaAeroporto2(
                     new double[] { _runwayBegin.Value.Lat, _runwayBegin.Value.Lng },
                     new double[] { _runwayEnd.Value.Lat, _runwayEnd.Value.Lng },
                     new double[] { _lat, _lng });
@@ -457,26 +478,8 @@ namespace XPlaneMonitorApp
             lbRunwaySize.Value = string.Empty;
             lbApproachDist.Value = string.Empty;
             lbRunwayDist.Value = string.Empty;
-        }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            map.Manager.CancelTileCaching();
-
-            if (_communicator.Status == ConnectionStatus.CONNECTED)
-            {
-                _communicator.Disconnect();
-            }
-        }
-
-        private void btnConnect_Click(object sender, EventArgs e)
-        {
-            _communicator.Connect(Vars.Cfg.Host, Vars.Cfg.Port);
-        }
-
-        private void btnDisconnect_Click(object sender, EventArgs e)
-        {
-            _communicator.Disconnect();
+            lbSpacing.Value = string.Empty;
         }
 
         private void boxRamp_Paint(object sender, PaintEventArgs e)
@@ -485,17 +488,17 @@ namespace XPlaneMonitorApp
             var rampHeight = Vars.Cfg.RampElevation;
 
             var fullDistance = rampDistance * 1.25;
-            if (_runwayDistance > fullDistance) return;
-
             var fullHeight = rampHeight * 1.5;
+
+            if (_runwayDistance > fullDistance) return; //do not paint descent ramp if aircraft is far away from airport
 
             var aircraftHeight = _altitude - _runwayElevation;
 
-            double calcX(float distance)
+            double calcX(double distance)
             {
                 return boxRamp.Width - ((distance / fullDistance) * boxRamp.Width);
             }
-            double calcY(float height)
+            double calcY(double height)
             {
                 return boxRamp.Height - ((height / fullHeight) * boxRamp.Height);
             }
@@ -507,6 +510,13 @@ namespace XPlaneMonitorApp
 
         private void boxSpacing_Paint(object sender, PaintEventArgs e)
         {
+            var xIdeal = boxSpacing.Width / 2;
+
+            e.Graphics.FillRectangle(Brushes.Black, boxSpacing.ClientRectangle);
+            e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
+
+            //
+
             const int margin = 250;
             var s = _spacing;
             if (s > margin) s = margin;
@@ -514,24 +524,12 @@ namespace XPlaneMonitorApp
 
             s += margin;
 
-            var x = boxSpacing.Width * s / (margin*2);
+            var angle = 90 + (_runwayHeading - _headingTrue);
 
-            var xIdeal = boxSpacing.Width / 2;
+            var startX = boxSpacing.Width * s / (margin*2);
+            var endX = startX + (boxSpacing.Height / Math.Tan(GeoCalculator.DegreesToRadians(angle)));
 
-            e.Graphics.FillRectangle(Brushes.Black, boxSpacing.ClientRectangle);
-            //e.Graphics.DrawLine(new Pen(Color.Purple, 3), x, 0, x, boxSpacing.Height);
-            e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
-
-            //
-
-            double angleInDegrees = 90 + (_runwayHeading - _headingTrue); // Ângulo em graus
-
-            // Converter o ângulo de graus para radianos
-            double angleInRadians = angleInDegrees * (Math.PI / 180);
-
-            var endX = x + (boxSpacing.Height / Math.Tan(angleInRadians));
-
-            e.Graphics.DrawLine(new Pen(Color.Purple, 3), (float)endX, 0, x, boxSpacing.Height);
+            e.Graphics.DrawLine(new Pen(Color.Purple, 3), (float)endX, 0, (float)startX, boxSpacing.Height);
         }
 
         private void btnConfig_Click(object sender, EventArgs e)
