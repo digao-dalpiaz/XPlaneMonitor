@@ -40,7 +40,7 @@ namespace XPlaneMonitorApp
         public GaugePanel()
         {
             InitializeComponent();
-            
+
             typeof(Panel).InvokeMember("DoubleBuffered",
                 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
                 null, boxDraw, new object[] { true });
