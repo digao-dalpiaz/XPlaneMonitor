@@ -11,8 +11,8 @@ namespace XPlaneMonitorApp
     public partial class MainForm : Form
     {
 
-        private readonly RefDataContractList _refsData = new();
         private XPlaneCommunicator _communicator;
+
         private readonly GMapOverlay _mapOverlay = new();
         private readonly GMapRoute _mapRoute = new("flight");
         private readonly GMapRoute _runwayRoute = new("runway");
@@ -25,18 +25,17 @@ namespace XPlaneMonitorApp
         private float _altitude;
         private float _runwayElevation;
         private float _runwayDistance;
-
         private float _spacing;
         private float _heading;
         private float _runwayHeading;
 
-        enum SettingMode
+        enum RunwaySettingMode
         {
             NONE,
             RUNWAY_BEGIN,
             RUNWAY_END
         }
-        private SettingMode _settingMode;
+        private RunwaySettingMode _runwaySettingMode;
 
         private PointLatLng? _runwayBegin, _runwayEnd, _runwayApproach;
 
@@ -49,9 +48,9 @@ namespace XPlaneMonitorApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            ConfigEngine.Load();
+            ConfigEngine.Load(); //load config
 
-            SetSettingMode(SettingMode.NONE);
+            SetRunwaySettingMode(RunwaySettingMode.NONE);
 
             map.MapProvider = OpenStreetMapGraphHopperProvider.Instance;
             map.DragButton = MouseButtons.Left;
@@ -87,69 +86,65 @@ namespace XPlaneMonitorApp
                 gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), Color.Red, 100);
                 gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Orange, 100);
 
-                gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.Aquamarine, 1);
+                gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.Aquamarine, 1); //initial Max=1 only to better initial show, because max will be replaced when connected
             }
 
-            SubscribeAll();
-            /*foreach (var r in _refsData)
-            {
-                r.Proc(new RefDataSubscription(r, 0));
-            }*/
-
-            _communicator = new(_refsData, this);
+            _communicator = new(GetRefDataContractList(), this);
             _communicator.OnReceived += OnDataRefReceived;
             _communicator.OnStatusChanged += OnStatusChanged;
 
             OnStatusChanged(); //update buttons
         }
 
-        private void SubscribeAll()
+        private RefDataContractList GetRefDataContractList()
         {
-            _refsData.Subscribe("sim/flightmodel/position/latitude", r =>
+            RefDataContractList lst = new();
+
+            lst.Subscribe("sim/flightmodel/position/latitude", r =>
             {
                 _lat = r.Value;
                 UpdateMap();
             });
-            _refsData.Subscribe("sim/flightmodel/position/longitude", r =>
+            lst.Subscribe("sim/flightmodel/position/longitude", r =>
             {
                 _lng = r.Value;
                 UpdateMap();
             });
 
-            _refsData.Subscribe("sim/flightmodel/misc/h_ind", r =>
+            lst.Subscribe("sim/flightmodel/misc/h_ind", r =>
             {
                 _altitude = r.Value;
                 lbAltitude.Value = Utils.RoundToInt(r.Value).ToString() + " ft";
             });
-            _refsData.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
+            lst.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
             {
                 lbAirSpeed.Value = Utils.RoundToInt(r.Value).ToString() + " kts";
             });
-            _refsData.Subscribe("sim/flightmodel/position/groundspeed", r =>
+            lst.Subscribe("sim/flightmodel/position/groundspeed", r =>
             {
                 //original value in m/s
                 lbGroundSpeed.Value = Utils.RoundToInt(r.Value * 3.6).ToString() + " km/h";
             });
-            _refsData.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
+            lst.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
             {
                 lbVerticalSpeed.Value = Utils.RoundToInt(r.Value).ToString() + " ft/m";
                 lbVerticalSpeed.ForeColor = r.Value > 0 ? Color.Green : Color.Red;
             });
-            _refsData.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", r =>
+            lst.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", r =>
             {
                 lbRadioAltimeter.Value = Utils.RoundToInt(r.Value).ToString() + " ft";
             });
-            _refsData.Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", r =>
+            lst.Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", r =>
             {
                 lbHeading.Value = Utils.RoundToInt(r.Value).ToString() + "º";
             });
-            _refsData.Subscribe("sim/flightmodel2/position/true_psi", r =>
+            lst.Subscribe("sim/flightmodel2/position/true_psi", r =>
             {
                 _heading = r.Value;
                 lbHeadingTrue.Value = Utils.RoundToInt(r.Value).ToString() + "º";
             });
 
-            _refsData.Subscribe("sim/flightmodel/controls/parkbrake", r =>
+            lst.Subscribe("sim/flightmodel/controls/parkbrake", r =>
             {
                 bool on = r.Value == 1;
 
@@ -159,18 +154,18 @@ namespace XPlaneMonitorApp
                 icoParkingBrake.Visible = on;
             });
 
-            _refsData.Subscribe("sim/flightmodel/controls/flaprqst", r =>
+            lst.Subscribe("sim/flightmodel/controls/flaprqst", r =>
             {
                 gaugeFlaps.Bars[0].Pos = r.Value;
                 gaugeFlaps.Reload();
             });
-            _refsData.Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", r =>
+            lst.Subscribe("sim/cockpit2/controls/flap_system_deploy_ratio", r =>
             {
                 gaugeFlaps.Bars[1].Pos = r.Value;
                 gaugeFlaps.Reload();
             });
 
-            _refsData.Subscribe("sim/cockpit2/controls/elevator_trim", r =>
+            lst.Subscribe("sim/cockpit2/controls/elevator_trim", r =>
             {
                 gaugeElvTrim.Bars[0].Pos = r.Value + 1;
                 gaugeElvTrim.Reload();
@@ -182,28 +177,28 @@ namespace XPlaneMonitorApp
                 gaugeThrottle.Reload();
             }
 
-            _refsData.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), 4);
-            _refsData.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
-            _refsData.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
+            lst.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), 4);
+            lst.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
+            lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
 
-            _refsData.Subscribe("sim/aircraft/engine/acf_num_engines", r =>
+            lst.Subscribe("sim/aircraft/engine/acf_num_engines", r =>
             {
                 gaugeThrottle.ShowBarsCount = (int)r.Value * 3;
                 gaugeThrottle.Reload();
             });
 
-            _refsData.Subscribe("sim/aircraft/weight/acf_m_fuel_tot", r =>
+            lst.Subscribe("sim/aircraft/weight/acf_m_fuel_tot", r =>
             {
                 _fuelTotalCapacity = r.Value;
                 //
             });
 
-            _refsData.Subscribe("sim/aircraft/overflow/acf_tank_rat", r =>
+            lst.Subscribe("sim/aircraft/overflow/acf_tank_rat", r =>
             {
                 gaugeFuel.Bars[r.ArrayIndex].Max = r.Value * _fuelTotalCapacity;
                 gaugeFuel.Reload();
             }, 4);
-            _refsData.Subscribe("sim/cockpit2/fuel/fuel_quantity", r =>
+            lst.Subscribe("sim/cockpit2/fuel/fuel_quantity", r =>
             {
                 var bar = gaugeFuel.Bars[r.ArrayIndex];
                 bar.Pos = r.Value;
@@ -211,62 +206,64 @@ namespace XPlaneMonitorApp
                 gaugeFuel.Reload();
             }, 4);
 
-            _refsData.Subscribe("sim/aircraft/overflow/acf_num_tanks", r =>
+            lst.Subscribe("sim/aircraft/overflow/acf_num_tanks", r =>
             {
                 gaugeFuel.ShowBarsCount = (int)r.Value;
                 gaugeFuel.Reload();
             });
 
-            _refsData.Subscribe("sim/cockpit/switches/gear_handle_status", r =>
+            lst.Subscribe("sim/cockpit/switches/gear_handle_status", r =>
             {
                 gaugeGear.Bars[0].Pos = r.Value;
                 gaugeGear.Bars[0].Extra = r.Value < 0 ? "OFF" : r.Value >= 1 ? "DOWN" : "PREPARED";
                 gaugeGear.Reload();
             });
-            _refsData.Subscribe("sim/flightmodel/movingparts/gear1def", r =>
+            lst.Subscribe("sim/flightmodel/movingparts/gear1def", r =>
             {
                 gaugeGear.Bars[1].Pos = r.Value;
                 gaugeGear.Reload();
             });
 
-            _refsData.Subscribe("sim/flightmodel/controls/lsplrdef", r =>
+            lst.Subscribe("sim/flightmodel/controls/lsplrdef", r =>
             {
                 gaugeSpoilers.Bars[0].Pos = r.Value;
                 gaugeSpoilers.Reload();
             });
-            _refsData.Subscribe("sim/flightmodel/controls/rsplrdef", r =>
+            lst.Subscribe("sim/flightmodel/controls/rsplrdef", r =>
             {
                 gaugeSpoilers.Bars[1].Pos = r.Value;
                 gaugeSpoilers.Reload();
             });
 
-            _refsData.Subscribe("sim/flightmodel/controls/sbrkrqst", r =>
+            lst.Subscribe("sim/flightmodel/controls/sbrkrqst", r =>
             {
                 gaugeSpeedBrake.Bars[0].Pos = r.Value;
                 gaugeSpeedBrake.Bars[0].Extra = r.Value < 0 ? "ARMED" : null;
                 gaugeSpeedBrake.Reload();
             });
-            _refsData.Subscribe("sim/flightmodel/controls/sbrkrat", r =>
+            lst.Subscribe("sim/flightmodel/controls/sbrkrat", r =>
             {
                 gaugeSpeedBrake.Bars[1].Pos = r.Value;
                 gaugeSpeedBrake.Reload();
             });
 
-            _refsData.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>
+            lst.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>
             {
                 lbAutoBrake.Value = r.Value == 0 ? "RTO" : r.Value == 1 ? "OFF" : "ON " + (r.Value-1);
             });
 
-            _refsData.Subscribe("sim/cockpit2/controls/left_brake_ratio", r =>
+            lst.Subscribe("sim/cockpit2/controls/left_brake_ratio", r =>
             {
                 gaugeWheelBrake.Bars[0].Pos = r.Value;
                 gaugeWheelBrake.Reload();
             });
-            _refsData.Subscribe("sim/cockpit2/controls/right_brake_ratio", r =>
+            lst.Subscribe("sim/cockpit2/controls/right_brake_ratio", r =>
             {
                 gaugeWheelBrake.Bars[1].Pos = r.Value;
                 gaugeWheelBrake.Reload();
             });
+
+            return lst;
         }
 
         private void UpdateMap()
@@ -301,25 +298,25 @@ namespace XPlaneMonitorApp
             btnDisconnect.Enabled = _communicator.Status == ConnectionStatus.CONNECTED;
         }
 
-        private void SetSettingMode(SettingMode setting)
+        private void SetRunwaySettingMode(RunwaySettingMode setting)
         {
-            _settingMode = setting;
+            _runwaySettingMode = setting;
 
-            btnSetRunwayBegin.Checked = setting == SettingMode.RUNWAY_BEGIN;
-            btnSetRunwayEnd.Checked = setting == SettingMode.RUNWAY_END;
+            btnSetRunwayBegin.Checked = setting == RunwaySettingMode.RUNWAY_BEGIN;
+            btnSetRunwayEnd.Checked = setting == RunwaySettingMode.RUNWAY_END;
         }
 
         private void map_OnMapClick(PointLatLng pointClick, MouseEventArgs e)
         {
-            if (_settingMode == SettingMode.RUNWAY_BEGIN)
+            if (_runwaySettingMode == RunwaySettingMode.RUNWAY_BEGIN)
             {
                 _runwayBegin = pointClick;
-                SetSettingMode(SettingMode.RUNWAY_END);
+                SetRunwaySettingMode(RunwaySettingMode.RUNWAY_END);
             }
-            else if (_settingMode == SettingMode.RUNWAY_END)
+            else if (_runwaySettingMode == RunwaySettingMode.RUNWAY_END)
             {
                 _runwayEnd = pointClick;
-                SetSettingMode(SettingMode.NONE);
+                SetRunwaySettingMode(RunwaySettingMode.NONE);
             }
 
             UpdateRunwayPointsLabel();
@@ -402,11 +399,11 @@ namespace XPlaneMonitorApp
         {
             if (!btnSetRunwayBegin.Checked)
             {
-                SetSettingMode(SettingMode.RUNWAY_BEGIN);
+                SetRunwaySettingMode(RunwaySettingMode.RUNWAY_BEGIN);
             }
             else
             {
-                SetSettingMode(SettingMode.NONE);
+                SetRunwaySettingMode(RunwaySettingMode.NONE);
             }
         }
 
@@ -414,17 +411,17 @@ namespace XPlaneMonitorApp
         {
             if (!btnSetRunwayEnd.Checked)
             {
-                SetSettingMode(SettingMode.RUNWAY_END);
+                SetRunwaySettingMode(RunwaySettingMode.RUNWAY_END);
             }
             else
             {
-                SetSettingMode(SettingMode.NONE);
+                SetRunwaySettingMode(RunwaySettingMode.NONE);
             }
         }
 
         private void btnClearRunwayApproach_Click(object sender, EventArgs e)
         {
-            SetSettingMode(SettingMode.NONE);
+            SetRunwaySettingMode(RunwaySettingMode.NONE);
 
             _runwayBegin = null;
             _runwayEnd = null;
