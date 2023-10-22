@@ -40,6 +40,8 @@ namespace XPlaneMonitorApp
         public MainForm()
         {
             InitializeComponent();
+
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
