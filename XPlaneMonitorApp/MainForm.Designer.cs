@@ -371,7 +371,7 @@
             // 
             // btnConnect
             // 
-            btnConnect.Image=(Image)resources.GetObject("btnConnect.Image");
+            btnConnect.Image=Properties.Resources.link;
             btnConnect.ImageScaling=ToolStripItemImageScaling.None;
             btnConnect.ImageTransparentColor=Color.Magenta;
             btnConnect.Name="btnConnect";
@@ -381,7 +381,7 @@
             // 
             // btnDisconnect
             // 
-            btnDisconnect.Image=(Image)resources.GetObject("btnDisconnect.Image");
+            btnDisconnect.Image=Properties.Resources.cloud_computing;
             btnDisconnect.ImageScaling=ToolStripItemImageScaling.None;
             btnDisconnect.ImageTransparentColor=Color.Magenta;
             btnDisconnect.Name="btnDisconnect";

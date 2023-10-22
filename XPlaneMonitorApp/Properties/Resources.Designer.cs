@@ -83,6 +83,16 @@ namespace XPlaneMonitorApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cloud_computing {
+            get {
+                object obj = ResourceManager.GetObject("cloud-computing", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap engine {
             get {
                 object obj = ResourceManager.GetObject("engine", resourceCulture);
@@ -126,6 +136,16 @@ namespace XPlaneMonitorApp.Properties {
         internal static System.Drawing.Bitmap landing_gear {
             get {
                 object obj = ResourceManager.GetObject("landing-gear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap link {
+            get {
+                object obj = ResourceManager.GetObject("link", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
