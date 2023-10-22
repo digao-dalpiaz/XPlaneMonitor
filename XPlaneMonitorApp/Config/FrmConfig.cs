@@ -20,10 +20,14 @@ namespace XPlaneMonitorApp
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            edHost.Text = edHost.Text.Trim();
-            edPort.Text = edPort.Text.Trim();
-            edRampDistance.Text = edRampDistance.Text.Trim();
-            edRampElevation.Text = edRampElevation.Text.Trim();
+            if (CheckBlank(edHost)) return;
+            if (CheckBlank(edPort)) return;
+            if (CheckBlank(edRampDistance)) return;
+            if (CheckBlank(edRampElevation)) return;
+
+            if (CheckInvalidInteger(edPort)) return;
+            if (CheckInvalidInteger(edRampDistance)) return;
+            if (CheckInvalidInteger(edRampElevation)) return;
 
             //
 
@@ -37,5 +41,29 @@ namespace XPlaneMonitorApp
 
             DialogResult = DialogResult.OK;
         }
+
+        private bool CheckInvalidInteger(TextBox ed)
+        {
+            if (!int.TryParse(ed.Text, out _))
+            {
+                Messages.Error("Please, type only numbers");
+                ed.Select();
+                return true;
+            }
+            return false;
+        }
+
+        private bool CheckBlank(TextBox ed)
+        {
+            ed.Text = ed.Text.Trim();
+            if (ed.Text == string.Empty)
+            {
+                Messages.Error("Required field is empty");
+                ed.Select();
+                return true;
+            }
+            return false;
+        }
+
     }
 }
