@@ -629,14 +629,8 @@
 
         private GaugePanel gaugeFlaps;
         private GaugePanel gaugeThrottle;
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private Label label5;
         private GMap.NET.WindowsForms.GMapControl map;
         private GaugePanel gaugeElvTrim;
-        private Label label17;
         private Label lbLastReceive;
         private ToolStrip toolBar;
         private ToolStripButton btnConnect;
