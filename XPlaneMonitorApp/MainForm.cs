@@ -84,6 +84,11 @@ namespace XPlaneMonitorApp
             }
 
             SubscribeAll();
+            foreach (var r in _refsData)
+            {
+                r.Proc(new RefDataSubscription(r, 0));
+            }
+
             _communicator = new(_refsData, this);
             _communicator.OnReceived += OnDataRefReceived;
             _communicator.OnStatusChanged += OnStatusChanged;
@@ -107,40 +112,44 @@ namespace XPlaneMonitorApp
             _refsData.Subscribe("sim/flightmodel/misc/h_ind", r =>
             {
                 _altitude = r.Value;
-                lbAltitude.Text = Utils.RoundToInt(r.Value).ToString() + " ft";
+                lbAltitude.Value = Utils.RoundToInt(r.Value).ToString() + " ft";
             });
             _refsData.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
             {
-                lbAirspeed.Text = Utils.RoundToInt(r.Value).ToString() + " kts";
+                lbAirSpeed.Value = Utils.RoundToInt(r.Value).ToString() + " kts";
             });
             _refsData.Subscribe("sim/flightmodel/position/groundspeed", r =>
             {
                 //original value in m/s
-                lbGroundspeed.Text = Utils.RoundToInt(r.Value * 3.6).ToString() + " km/h";
+                lbGroundSpeed.Value = Utils.RoundToInt(r.Value * 3.6).ToString() + " km/h";
             });
             _refsData.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
             {
-                lbVerticalspeed.Text = Utils.RoundToInt(r.Value).ToString() + " ft/m";
-                lbVerticalspeed.ForeColor = r.Value > 0 ? Color.Green : Color.Red;
+                lbVerticalSpeed.Value = Utils.RoundToInt(r.Value).ToString() + " ft/m";
+                lbVerticalSpeed.ForeColor = r.Value > 0 ? Color.Green : Color.Red;
             });
             _refsData.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", r =>
             {
-                lbRadioAltimeter.Text = Utils.RoundToInt(r.Value).ToString() + " ft";
+                lbRadioAltimeter.Value = Utils.RoundToInt(r.Value).ToString() + " ft";
             });
             _refsData.Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", r =>
             {
-                lbHeading.Text = Utils.RoundToInt(r.Value).ToString() + "º";
+                lbHeading.Value = Utils.RoundToInt(r.Value).ToString() + "º";
             });
             _refsData.Subscribe("sim/flightmodel2/position/true_psi", r =>
             {
                 _heading = r.Value;
-                lbHeadingTrue.Text = Utils.RoundToInt(r.Value).ToString() + "º";
+                lbHeadingTrue.Value = Utils.RoundToInt(r.Value).ToString() + "º";
             });
 
             _refsData.Subscribe("sim/flightmodel/controls/parkbrake", r =>
             {
-                lbParking.Text = "PARKING BRAKE " + (r.Value == 1 ? "ON" : "OFF");
-                lbParking.ForeColor = r.Value == 1 ? Color.Red : Color.Green;
+                bool on = r.Value == 1;
+
+                lbParkingBrake.Value = on ? "SET" : "RELEASED";
+                lbParkingBrake.ForeColor = on ? Color.Red : Color.Green;
+
+                icoParkingBrake.Visible = on;
             });
 
             _refsData.Subscribe("sim/flightmodel/controls/flaprqst", r =>
@@ -238,7 +247,7 @@ namespace XPlaneMonitorApp
 
             _refsData.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>
             {
-                lbAutoBrake.Text = r.Value == 0 ? "RTO" : r.Value == 1 ? "OFF" : "ON " + (r.Value-1);
+                lbAutoBrake.Value = r.Value == 0 ? "RTO" : r.Value == 1 ? "OFF" : "ON " + (r.Value-1);
             });
 
             _refsData.Subscribe("sim/cockpit2/controls/left_brake_ratio", r =>
