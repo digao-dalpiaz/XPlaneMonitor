@@ -454,7 +454,7 @@ namespace XPlaneMonitorApp
             };
 
             e.Graphics.FillRectangle(Brushes.Black, boxRamp.ClientRectangle);
-            e.Graphics.DrawLine(new Pen(Color.Red), (float)calcX(_runwayDistance), (float)calcY(aircraftHeight), boxRamp.Width, boxRamp.Height); //real
+            e.Graphics.DrawLine(new Pen(Color.Red, 3), (float)calcX(_runwayDistance), (float)calcY(aircraftHeight), boxRamp.Width, boxRamp.Height); //real
             e.Graphics.DrawLine(new Pen(Color.Green), (float)calcX(rampDistance), (float)calcY(rampHeight), boxRamp.Width, boxRamp.Height); //ideal
         }
 
@@ -471,7 +471,7 @@ namespace XPlaneMonitorApp
             var xIdeal = boxSpacing.Width / 2;
 
             e.Graphics.FillRectangle(Brushes.Black, boxSpacing.ClientRectangle);
-            e.Graphics.DrawLine(new Pen(Color.Purple), x, 0, x, boxSpacing.Height);
+            e.Graphics.DrawLine(new Pen(Color.Purple, 3), x, 0, x, boxSpacing.Height);
             e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
         }
     }
