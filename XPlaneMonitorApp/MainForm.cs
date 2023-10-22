@@ -60,6 +60,17 @@ namespace XPlaneMonitorApp
             _mapOverlay.Routes.Add(_mapRoute);
             _mapOverlay.Routes.Add(_runwayRoute);
 
+            BuildGaugeBars();
+
+            _communicator = new(GetRefDataContractList(), this);
+            _communicator.OnReceived += OnDataRefReceived;
+            _communicator.OnStatusChanged += OnStatusChanged;
+
+            OnStatusChanged(); //update connection buttons
+        }
+
+        private void BuildGaugeBars()
+        {
             gaugeFlaps.AddBar("Requested", Color.Orange, 1);
             gaugeFlaps.AddBar("Actual", Color.Green, 1);
 
@@ -85,12 +96,6 @@ namespace XPlaneMonitorApp
 
                 gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.Aquamarine, 1); //initial Max=1 only to better initial show, because max will be replaced when connected
             }
-
-            _communicator = new(GetRefDataContractList(), this);
-            _communicator.OnReceived += OnDataRefReceived;
-            _communicator.OnStatusChanged += OnStatusChanged;
-
-            OnStatusChanged(); //update buttons
         }
 
         private RefDataContractList GetRefDataContractList()
