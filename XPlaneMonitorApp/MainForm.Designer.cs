@@ -88,7 +88,23 @@
             label20=new Label();
             boxSpacing=new Panel();
             lbHeadingTrue=new Label();
+            pictureBox1=new PictureBox();
+            pictureBox2=new PictureBox();
+            pictureBox3=new PictureBox();
+            pictureBox4=new PictureBox();
+            pictureBox5=new PictureBox();
+            pictureBox6=new PictureBox();
+            pictureBox7=new PictureBox();
+            pictureBox8=new PictureBox();
             toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -647,11 +663,107 @@
             lbHeadingTrue.TabIndex=60;
             lbHeadingTrue.Text="####";
             // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor=Color.Gray;
+            pictureBox1.Image=Properties.Resources.engine;
+            pictureBox1.Location=new Point(16, 643);
+            pictureBox1.Name="pictureBox1";
+            pictureBox1.Size=new Size(32, 32);
+            pictureBox1.SizeMode=PictureBoxSizeMode.AutoSize;
+            pictureBox1.TabIndex=61;
+            pictureBox1.TabStop=false;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor=Color.Gray;
+            pictureBox2.Image=Properties.Resources.flip;
+            pictureBox2.Location=new Point(16, 523);
+            pictureBox2.Name="pictureBox2";
+            pictureBox2.Size=new Size(32, 32);
+            pictureBox2.SizeMode=PictureBoxSizeMode.AutoSize;
+            pictureBox2.TabIndex=62;
+            pictureBox2.TabStop=false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.BackColor=Color.Gray;
+            pictureBox3.Image=Properties.Resources.fuel;
+            pictureBox3.Location=new Point(328, 163);
+            pictureBox3.Name="pictureBox3";
+            pictureBox3.Size=new Size(32, 32);
+            pictureBox3.SizeMode=PictureBoxSizeMode.AutoSize;
+            pictureBox3.TabIndex=63;
+            pictureBox3.TabStop=false;
+            // 
+            // pictureBox4
+            // 
+            pictureBox4.BackColor=Color.Gray;
+            pictureBox4.Image=Properties.Resources.landing_gear;
+            pictureBox4.Location=new Point(640, 163);
+            pictureBox4.Name="pictureBox4";
+            pictureBox4.Size=new Size(32, 32);
+            pictureBox4.SizeMode=PictureBoxSizeMode.AutoSize;
+            pictureBox4.TabIndex=64;
+            pictureBox4.TabStop=false;
+            // 
+            // pictureBox5
+            // 
+            pictureBox5.BackColor=Color.Gray;
+            pictureBox5.Image=Properties.Resources.brakes;
+            pictureBox5.Location=new Point(952, 163);
+            pictureBox5.Name="pictureBox5";
+            pictureBox5.Size=new Size(32, 32);
+            pictureBox5.SizeMode=PictureBoxSizeMode.AutoSize;
+            pictureBox5.TabIndex=65;
+            pictureBox5.TabStop=false;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor=Color.Gray;
+            pictureBox6.Image=Properties.Resources.wings;
+            pictureBox6.Location=new Point(16, 163);
+            pictureBox6.Name="pictureBox6";
+            pictureBox6.Size=new Size(32, 32);
+            pictureBox6.SizeMode=PictureBoxSizeMode.AutoSize;
+            pictureBox6.TabIndex=66;
+            pictureBox6.TabStop=false;
+            // 
+            // pictureBox7
+            // 
+            pictureBox7.BackColor=Color.Gray;
+            pictureBox7.Image=Properties.Resources.spoiler;
+            pictureBox7.Location=new Point(16, 283);
+            pictureBox7.Name="pictureBox7";
+            pictureBox7.Size=new Size(32, 32);
+            pictureBox7.SizeMode=PictureBoxSizeMode.AutoSize;
+            pictureBox7.TabIndex=67;
+            pictureBox7.TabStop=false;
+            // 
+            // pictureBox8
+            // 
+            pictureBox8.BackColor=Color.Gray;
+            pictureBox8.Image=Properties.Resources.flight;
+            pictureBox8.Location=new Point(16, 403);
+            pictureBox8.Name="pictureBox8";
+            pictureBox8.Size=new Size(32, 32);
+            pictureBox8.SizeMode=PictureBoxSizeMode.AutoSize;
+            pictureBox8.TabIndex=68;
+            pictureBox8.TabStop=false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1720, 921);
+            Controls.Add(pictureBox8);
+            Controls.Add(pictureBox7);
+            Controls.Add(pictureBox6);
+            Controls.Add(pictureBox5);
+            Controls.Add(pictureBox4);
+            Controls.Add(pictureBox3);
+            Controls.Add(pictureBox2);
+            Controls.Add(pictureBox1);
             Controls.Add(lbHeadingTrue);
             Controls.Add(boxSpacing);
             Controls.Add(lbSpacing);
@@ -711,6 +823,14 @@
             Load+=MainForm_Load;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -776,5 +896,13 @@
         private Label label20;
         private Panel boxSpacing;
         private Label lbHeadingTrue;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox5;
+        private PictureBox pictureBox6;
+        private PictureBox pictureBox7;
+        private PictureBox pictureBox8;
     }
 }
