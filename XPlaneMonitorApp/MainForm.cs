@@ -48,8 +48,19 @@ namespace XPlaneMonitorApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            ConfigEngine.Load(); //load config
+            ConfigEngine.Load();
+            InitMap();
+            BuildGaugeBars();
 
+            _communicator = new(GetRefDataContractList(), this);
+            _communicator.OnReceived += OnDataRefReceived;
+            _communicator.OnStatusChanged += OnStatusChanged;
+
+            OnStatusChanged(); //update connection buttons
+        }
+
+        private void InitMap()
+        {
             map.MapProvider = OpenStreetMapGraphHopperProvider.Instance;
             map.DragButton = MouseButtons.Left;
             map.ShowCenter = false;
@@ -59,14 +70,6 @@ namespace XPlaneMonitorApp
             map.Overlays.Add(_mapOverlay);
             _mapOverlay.Routes.Add(_mapRoute);
             _mapOverlay.Routes.Add(_runwayRoute);
-
-            BuildGaugeBars();
-
-            _communicator = new(GetRefDataContractList(), this);
-            _communicator.OnReceived += OnDataRefReceived;
-            _communicator.OnStatusChanged += OnStatusChanged;
-
-            OnStatusChanged(); //update connection buttons
         }
 
         private void BuildGaugeBars()
@@ -116,34 +119,34 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel/misc/h_ind", r =>
             {
                 _altitude = r.Value;
-                lbAltitude.Value = Utils.RoundToInt(r.Value).ToString() + " ft";
+                lbAltitude.Value = Utils.RoundToInt(r.Value) + " ft";
             });
             lst.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
             {
-                lbAirSpeed.Value = Utils.RoundToInt(r.Value).ToString() + " kts";
+                lbAirSpeed.Value = Utils.RoundToInt(r.Value) + " kts";
             });
             lst.Subscribe("sim/flightmodel/position/groundspeed", r =>
             {
                 //original value in m/s
-                lbGroundSpeed.Value = Utils.RoundToInt(r.Value * 3.6).ToString() + " km/h";
+                lbGroundSpeed.Value = Utils.RoundToInt(r.Value * 3.6) + " km/h";
             });
             lst.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
             {
-                lbVerticalSpeed.Value = Utils.RoundToInt(r.Value).ToString() + " ft/m";
+                lbVerticalSpeed.Value = Utils.RoundToInt(r.Value) + " ft/m";
                 lbVerticalSpeed.ForeColor = r.Value > 0 ? Color.Green : Color.Red;
             });
             lst.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", r =>
             {
-                lbRadioAltimeter.Value = Utils.RoundToInt(r.Value).ToString() + " ft";
+                lbRadioAltimeter.Value = Utils.RoundToInt(r.Value) + " ft";
             });
             lst.Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", r =>
             {
-                lbHeading.Value = Utils.RoundToInt(r.Value).ToString() + "º";
+                lbHeading.Value = Utils.RoundToInt(r.Value) + "º";
             });
             lst.Subscribe("sim/flightmodel2/position/true_psi", r =>
             {
                 _heading = r.Value;
-                lbHeadingTrue.Value = Utils.RoundToInt(r.Value).ToString() + "º";
+                lbHeadingTrue.Value = Utils.RoundToInt(r.Value) + "º";
             });
 
             lst.Subscribe("sim/flightmodel/controls/parkbrake", r =>
