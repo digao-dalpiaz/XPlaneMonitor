@@ -44,6 +44,12 @@ namespace XPlaneMonitorApp.Functions
             return metros / metrosPorPe;
         }
 
+        public static double ConverterMilhaNauticaParaKm(double nm)
+        {
+            const double milhasNauticasEmQuilometros = 1.852;
+            return nm * milhasNauticasEmQuilometros;
+        }
+
         public static double ConverterKmParaMilhaNautica(double km)
         {
             const double quilometrosPorMilhaNautica = 1.852;

@@ -17,6 +17,11 @@ namespace XPlaneMonitorApp
         private readonly GMapRoute _mapRoute = new("flight");
         private readonly GMapRoute _runwayRoute = new("runway");
 
+        private readonly GMarkerGoogle _aircraftMarker = new(new PointLatLng(), GMarkerGoogleType.blue_dot);
+        private readonly GMarkerGoogle _runwayApproachMarker = new(new PointLatLng(), GMarkerGoogleType.purple_small);
+        private readonly GMarkerGoogle _runwayBeginMarker = new(new PointLatLng(), GMarkerGoogleType.green_small);
+        private readonly GMarkerGoogle _runwayEndMarker = new(new PointLatLng(), GMarkerGoogleType.red_small);
+
         private float _tmpReceivedLatitude;
 
         private double _lat = -23.4323859;
@@ -75,8 +80,19 @@ namespace XPlaneMonitorApp
             map.MinZoom = 0;
             map.Zoom = 15;
             map.Overlays.Add(_mapOverlay);
+
             _mapOverlay.Routes.Add(_mapRoute);
             _mapOverlay.Routes.Add(_runwayRoute);
+
+            _mapOverlay.Markers.Add(_aircraftMarker);
+            _mapOverlay.Markers.Add(_runwayApproachMarker);
+            _mapOverlay.Markers.Add(_runwayBeginMarker);
+            _mapOverlay.Markers.Add(_runwayEndMarker);
+
+            _aircraftMarker.IsVisible = false;
+            _runwayApproachMarker.IsVisible = false;
+            _runwayBeginMarker.IsVisible = false;
+            _runwayEndMarker.IsVisible = false;
 
             GotoPositionOnMap();
         }
@@ -339,7 +355,8 @@ namespace XPlaneMonitorApp
         private void ReceivedAircraftPosition()
         {
             var pos = new PointLatLng(_lat, _lng);
-            var marker = new GMarkerGoogle(pos, GMarkerGoogleType.blue);
+            _aircraftMarker.Position = pos;
+            _aircraftMarker.IsVisible = true;
 
             if (!btnCenterMap.Enabled)
             {
@@ -348,9 +365,6 @@ namespace XPlaneMonitorApp
 
             _mapRoute.Points.Add(pos);
             map.UpdateRouteLocalPosition(_mapRoute);
-
-            _mapOverlay.Markers.Clear();
-            _mapOverlay.Markers.Add(marker);
 
             UpdateApproachParams();
         }
@@ -370,12 +384,16 @@ namespace XPlaneMonitorApp
             if (_runwaySettingMode == RunwaySettingMode.RUNWAY_BEGIN)
             {
                 _runwayBegin = pointClick;
+                _runwayBeginMarker.Position = pointClick;
+                _runwayBeginMarker.IsVisible = true;
                 SetRunwaySettingMode(RunwaySettingMode.RUNWAY_END);
                 someDefined = true;
             }
             else if (_runwaySettingMode == RunwaySettingMode.RUNWAY_END)
             {
                 _runwayEnd = pointClick;
+                _runwayEndMarker.Position = pointClick;
+                _runwayEndMarker.IsVisible = true;
                 SetRunwaySettingMode(RunwaySettingMode.NONE);
                 someDefined = true;
             }
@@ -425,9 +443,11 @@ namespace XPlaneMonitorApp
             var approach = GeoCalculator.CalculateDestinationPoint(
                 _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
                 Utils.InvertDegree(_runwayHeading),
-                Utils.ConverterKmParaMilhaNautica(Vars.Cfg.RampDistance));
+                Utils.ConverterMilhaNauticaParaKm(Vars.Cfg.RampDistance));
 
             _runwayApproach = new PointLatLng(approach.Item1, approach.Item2);
+            _runwayApproachMarker.Position = _runwayApproach.Value;
+            _runwayApproachMarker.IsVisible = true;
 
             _runwayRoute.Points.Clear();
             _runwayRoute.Points.Add(_runwayApproach.Value);
@@ -495,6 +515,10 @@ namespace XPlaneMonitorApp
             _runwayBegin = null;
             _runwayEnd = null;
             _runwayApproach = null;
+
+            _runwayBeginMarker.IsVisible = false;
+            _runwayEndMarker.IsVisible = false;
+            _runwayApproachMarker.IsVisible = false;
 
             _runwayRoute.Points.Clear(); 
             map.UpdateRouteLocalPosition(_runwayRoute);
