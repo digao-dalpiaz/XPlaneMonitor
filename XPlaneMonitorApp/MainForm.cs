@@ -2,7 +2,6 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
-using System.Windows.Forms.VisualStyles;
 using XPlaneMonitorApp.Communicator;
 using XPlaneMonitorApp.Config;
 using XPlaneMonitorApp.Functions;
@@ -18,7 +17,7 @@ namespace XPlaneMonitorApp
         private readonly GMapRoute _mapRoute = new("flight");
         private readonly GMapRoute _runwayRoute = new("runway");
 
-        private DateTime _tickMapUpd;
+        private float _tmpReceivedLatitude;
 
         private double _lat = -23.4323859;
         private double _lng = -46.4916308;
@@ -111,11 +110,11 @@ namespace XPlaneMonitorApp
 
             lst.Subscribe("sim/flightmodel/position/latitude", r =>
             {
-                _lat = r.Value;
-                ReceivedAircraftPosition();
+                _tmpReceivedLatitude = r.Value; //assuming latitude always received before longitude (I hope!)
             });
             lst.Subscribe("sim/flightmodel/position/longitude", r =>
             {
+                _lat = _tmpReceivedLatitude;
                 _lng = r.Value;
                 ReceivedAircraftPosition();
             });
@@ -294,9 +293,6 @@ namespace XPlaneMonitorApp
 
         private void ReceivedAircraftPosition()
         {
-            if ((DateTime.Now - _tickMapUpd).TotalMilliseconds < 1000) return;
-            _tickMapUpd = DateTime.Now;
-
             var pos = new PointLatLng(_lat, _lng);
             var marker = new GMarkerGoogle(pos, GMarkerGoogleType.blue);
 
@@ -324,19 +320,26 @@ namespace XPlaneMonitorApp
 
         private void map_OnMapClick(PointLatLng pointClick, MouseEventArgs e)
         {
+            bool someDefined = false;
+
             if (_runwaySettingMode == RunwaySettingMode.RUNWAY_BEGIN)
             {
                 _runwayBegin = pointClick;
                 SetRunwaySettingMode(RunwaySettingMode.RUNWAY_END);
+                someDefined = true;
             }
             else if (_runwaySettingMode == RunwaySettingMode.RUNWAY_END)
             {
                 _runwayEnd = pointClick;
                 SetRunwaySettingMode(RunwaySettingMode.NONE);
+                someDefined = true;
             }
 
-            UpdateRunwayPointsLabel();
-            CheckRunwayPoints();
+            if (someDefined)
+            {
+                UpdateRunwayPointsLabel();
+                CheckRunwayPoints();
+            }
         }
 
         private void UpdateRunwayPointsLabel()
