@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             gaugeFlaps=new GaugePanel();
             gaugeThrottle=new GaugePanel();
             map=new GMap.NET.WindowsForms.GMapControl();
@@ -61,7 +60,6 @@
             btnDisconnect=new ToolStripButton();
             btnSetRunwayBegin=new ToolStripButton();
             btnSetRunwayEnd=new ToolStripButton();
-            btnTurnOffSettingMode=new ToolStripButton();
             btnClearRunwayApproach=new ToolStripButton();
             gaugeFuel=new GaugePanel();
             gaugeGear=new GaugePanel();
@@ -362,7 +360,7 @@
             // toolStrip1
             // 
             toolStrip1.ImageScalingSize=new Size(20, 20);
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, btnSetRunwayBegin, btnSetRunwayEnd, btnTurnOffSettingMode, btnClearRunwayApproach });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach });
             toolStrip1.Location=new Point(0, 0);
             toolStrip1.Name="toolStrip1";
             toolStrip1.Size=new Size(1720, 31);
@@ -391,7 +389,7 @@
             // 
             // btnSetRunwayBegin
             // 
-            btnSetRunwayBegin.Image=(Image)resources.GetObject("btnSetRunwayBegin.Image");
+            btnSetRunwayBegin.Image=Properties.Resources.runway;
             btnSetRunwayBegin.ImageScaling=ToolStripItemImageScaling.None;
             btnSetRunwayBegin.ImageTransparentColor=Color.Magenta;
             btnSetRunwayBegin.Name="btnSetRunwayBegin";
@@ -401,7 +399,7 @@
             // 
             // btnSetRunwayEnd
             // 
-            btnSetRunwayEnd.Image=(Image)resources.GetObject("btnSetRunwayEnd.Image");
+            btnSetRunwayEnd.Image=Properties.Resources.runway2;
             btnSetRunwayEnd.ImageScaling=ToolStripItemImageScaling.None;
             btnSetRunwayEnd.ImageTransparentColor=Color.Magenta;
             btnSetRunwayEnd.Name="btnSetRunwayEnd";
@@ -409,18 +407,9 @@
             btnSetRunwayEnd.Text="Set Runway End";
             btnSetRunwayEnd.Click+=btnSetRunwayEnd_Click;
             // 
-            // btnTurnOffSettingMode
-            // 
-            btnTurnOffSettingMode.Image=(Image)resources.GetObject("btnTurnOffSettingMode.Image");
-            btnTurnOffSettingMode.ImageTransparentColor=Color.Magenta;
-            btnTurnOffSettingMode.Name="btnTurnOffSettingMode";
-            btnTurnOffSettingMode.Size=new Size(178, 28);
-            btnTurnOffSettingMode.Text="Cancel Runway Range";
-            btnTurnOffSettingMode.Click+=btnTurnOffSettingMode_Click;
-            // 
             // btnClearRunwayApproach
             // 
-            btnClearRunwayApproach.Image=(Image)resources.GetObject("btnClearRunwayApproach.Image");
+            btnClearRunwayApproach.Image=Properties.Resources.cleaning;
             btnClearRunwayApproach.ImageTransparentColor=Color.Magenta;
             btnClearRunwayApproach.Name="btnClearRunwayApproach";
             btnClearRunwayApproach.Size=new Size(191, 28);
@@ -825,7 +814,6 @@
         private ToolStripButton btnDisconnect;
         private ToolStripButton btnSetRunwayBegin;
         private ToolStripButton btnSetRunwayEnd;
-        private ToolStripButton btnTurnOffSettingMode;
         private ToolStripButton btnClearRunwayApproach;
         private GaugePanel gaugeFuel;
         private GaugePanel gaugeGear;

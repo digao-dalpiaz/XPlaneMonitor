@@ -300,10 +300,8 @@ namespace XPlaneMonitorApp
         {
             _settingMode = setting;
 
-            btnSetRunwayBegin.BackColor = setting == SettingMode.RUNWAY_BEGIN ? Color.Red : SystemColors.Control;
-            btnSetRunwayEnd.BackColor = setting == SettingMode.RUNWAY_END ? Color.Red : SystemColors.Control;
-
-            btnTurnOffSettingMode.Enabled = setting != SettingMode.NONE;
+            btnSetRunwayBegin.Checked = setting == SettingMode.RUNWAY_BEGIN;
+            btnSetRunwayEnd.Checked = setting == SettingMode.RUNWAY_END;
         }
 
         private void map_OnMapClick(PointLatLng pointClick, MouseEventArgs e)
@@ -391,17 +389,30 @@ namespace XPlaneMonitorApp
 
         private void btnSetRunwayBegin_Click(object sender, EventArgs e)
         {
-            SetSettingMode(SettingMode.RUNWAY_BEGIN);
+            if (!btnSetRunwayBegin.Checked)
+            {
+                SetSettingMode(SettingMode.RUNWAY_BEGIN);
+            }
+            else
+            {
+                SetSettingMode(SettingMode.NONE);
+            }
         }
 
         private void btnSetRunwayEnd_Click(object sender, EventArgs e)
         {
-            SetSettingMode(SettingMode.RUNWAY_END);
+            if (!btnSetRunwayEnd.Checked)
+            {
+                SetSettingMode(SettingMode.RUNWAY_END);
+            }
+            else
+            {
+                SetSettingMode(SettingMode.NONE);
+            }
         }
 
         private void btnTurnOffSettingMode_Click(object sender, EventArgs e)
         {
-            SetSettingMode(SettingMode.NONE);
         }
 
         private void btnClearRunwayApproach_Click(object sender, EventArgs e)
