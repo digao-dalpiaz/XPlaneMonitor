@@ -1,7 +1,7 @@
 ﻿using GMap.NET;
 using GMap.NET.WindowsForms.Markers;
 
-namespace XPlaneMonitorApp
+namespace XPlaneMonitorApp.Controls
 {
     public class AircraftMarker : GMarkerGoogle
     {
@@ -33,7 +33,7 @@ namespace XPlaneMonitorApp
             var img = RotateImage(Properties.Resources.black_plane, Angle);
             var w = img.Width;
             var h = img.Height;
-            g.DrawImage(img, base.LocalPosition.X - (w / 5), base.LocalPosition.Y + (h / 5), w, h);
+            g.DrawImage(img, LocalPosition.X - w / 5, LocalPosition.Y + h / 5, w, h);
         }
 
     }

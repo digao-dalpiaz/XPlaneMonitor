@@ -4,6 +4,7 @@ using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using XPlaneMonitorApp.Communicator;
 using XPlaneMonitorApp.Config;
+using XPlaneMonitorApp.Controls;
 using XPlaneMonitorApp.Functions;
 
 namespace XPlaneMonitorApp
