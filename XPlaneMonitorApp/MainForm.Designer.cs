@@ -32,7 +32,6 @@
             gaugeThrottle=new GaugePanel();
             map=new GMap.NET.WindowsForms.GMapControl();
             gaugeElvTrim=new GaugePanel();
-            lbLastReceive=new Label();
             toolBar=new ToolStrip();
             btnConnect=new ToolStripButton();
             btnDisconnect=new ToolStripButton();
@@ -69,8 +68,11 @@
             lbSpacing=new Controls.BorderControl();
             lbBoxDescentRamp=new Label();
             lbBoxAlign=new Label();
+            statusBar=new StatusStrip();
+            stLastTimeRec=new ToolStripStatusLabel();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
+            statusBar.SuspendLayout();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -127,15 +129,6 @@
             gaugeElvTrim.Name="gaugeElvTrim";
             gaugeElvTrim.Size=new Size(296, 112);
             gaugeElvTrim.TabIndex=15;
-            // 
-            // lbLastReceive
-            // 
-            lbLastReceive.AutoSize=true;
-            lbLastReceive.Location=new Point(928, 40);
-            lbLastReceive.Name="lbLastReceive";
-            lbLastReceive.Size=new Size(63, 20);
-            lbLastReceive.TabIndex=45;
-            lbLastReceive.Text="00:00:00";
             // 
             // toolBar
             // 
@@ -483,12 +476,28 @@
             lbBoxAlign.Text="Approach Alignment";
             lbBoxAlign.TextAlign=ContentAlignment.MiddleCenter;
             // 
+            // statusBar
+            // 
+            statusBar.ImageScalingSize=new Size(20, 20);
+            statusBar.Items.AddRange(new ToolStripItem[] { stLastTimeRec });
+            statusBar.Location=new Point(0, 933);
+            statusBar.Name="statusBar";
+            statusBar.Size=new Size(1720, 22);
+            statusBar.TabIndex=88;
+            statusBar.Text="statusStrip1";
+            // 
+            // stLastTimeRec
+            // 
+            stLastTimeRec.Name="stLastTimeRec";
+            stLastTimeRec.Size=new Size(0, 18);
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
-            ClientSize=new Size(1720, 926);
+            ClientSize=new Size(1720, 955);
+            Controls.Add(statusBar);
             Controls.Add(lbBoxAlign);
             Controls.Add(lbBoxDescentRamp);
             Controls.Add(lbSpacing);
@@ -509,7 +518,6 @@
             Controls.Add(gaugeGear);
             Controls.Add(gaugeFuel);
             Controls.Add(toolBar);
-            Controls.Add(lbLastReceive);
             Controls.Add(gaugeElvTrim);
             Controls.Add(map);
             Controls.Add(gaugeThrottle);
@@ -528,6 +536,8 @@
             toolBar.ResumeLayout(false);
             toolBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).EndInit();
+            statusBar.ResumeLayout(false);
+            statusBar.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -538,7 +548,6 @@
         private GaugePanel gaugeThrottle;
         private GMap.NET.WindowsForms.GMapControl map;
         private GaugePanel gaugeElvTrim;
-        private Label lbLastReceive;
         private ToolStrip toolBar;
         private ToolStripButton btnConnect;
         private ToolStripButton btnDisconnect;
@@ -575,5 +584,7 @@
         private ToolStripButton btnCenterMap;
         private Label lbBoxDescentRamp;
         private Label lbBoxAlign;
+        private StatusStrip statusBar;
+        private ToolStripStatusLabel stLastTimeRec;
     }
 }

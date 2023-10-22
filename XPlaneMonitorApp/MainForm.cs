@@ -307,7 +307,7 @@ namespace XPlaneMonitorApp
 
         private void OnDataRefReceived()
         {
-            lbLastReceive.Text = DateTime.Now.ToString("HH:mm:ss");
+            stLastTimeRec.Text = "Last data received: " + DateTime.Now.ToString("HH:mm:ss");
         }
 
         private void OnStatusChanged()
