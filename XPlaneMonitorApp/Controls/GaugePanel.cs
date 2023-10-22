@@ -28,6 +28,10 @@ namespace XPlaneMonitorApp
         {
             get => lbTitle.Text; set => lbTitle.Text = value;
         }
+        public Image GaugeImage
+        {
+            get => icon.Image; set => icon.Image = value;
+        }
 
         public int ShowBarsCount = -1;
 
@@ -36,7 +40,7 @@ namespace XPlaneMonitorApp
         public GaugePanel()
         {
             InitializeComponent();
-
+            
             typeof(Panel).InvokeMember("DoubleBuffered",
                 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.SetProperty,
                 null, boxDraw, new object[] { true });
@@ -69,7 +73,7 @@ namespace XPlaneMonitorApp
                 {
                     e.Graphics.DrawString(bar.Name, this.Font, Brushes.Gray, 4, textY);
                 }
-                
+
                 if (bar.Extra != null)
                 {
                     text = bar.Extra;

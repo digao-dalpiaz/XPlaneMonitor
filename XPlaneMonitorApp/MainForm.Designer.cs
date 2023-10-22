@@ -40,6 +40,7 @@
             btnSetRunwayBegin=new ToolStripButton();
             btnSetRunwayEnd=new ToolStripButton();
             btnClearRunwayApproach=new ToolStripButton();
+            toolStripSeparator2=new ToolStripSeparator();
             btnConfig=new ToolStripButton();
             gaugeFuel=new GaugePanel();
             gaugeGear=new GaugePanel();
@@ -48,14 +49,6 @@
             gaugeWheelBrake=new GaugePanel();
             boxRamp=new Panel();
             boxSpacing=new Panel();
-            pictureBox1=new PictureBox();
-            pictureBox2=new PictureBox();
-            pictureBox3=new PictureBox();
-            pictureBox4=new PictureBox();
-            pictureBox5=new PictureBox();
-            pictureBox6=new PictureBox();
-            pictureBox7=new PictureBox();
-            pictureBox8=new PictureBox();
             icoParkingBrake=new PictureBox();
             lbAirSpeed=new Controls.BorderControl();
             lbVerticalSpeed=new Controls.BorderControl();
@@ -73,21 +66,13 @@
             lbRunwayDist=new Controls.BorderControl();
             lbRunwayPoints=new Controls.BorderControl();
             lbSpacing=new Controls.BorderControl();
-            toolStripSeparator2=new ToolStripSeparator();
             toolBar.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             SuspendLayout();
             // 
             // gaugeFlaps
             // 
+            gaugeFlaps.GaugeImage=Properties.Resources.wings;
             gaugeFlaps.GaugeTitle="Flaps";
             gaugeFlaps.Location=new Point(8, 168);
             gaugeFlaps.Name="gaugeFlaps";
@@ -96,6 +81,7 @@
             // 
             // gaugeThrottle
             // 
+            gaugeThrottle.GaugeImage=Properties.Resources.engine;
             gaugeThrottle.GaugeTitle="Engines";
             gaugeThrottle.Location=new Point(8, 648);
             gaugeThrottle.Name="gaugeThrottle";
@@ -131,6 +117,7 @@
             // 
             // gaugeElvTrim
             // 
+            gaugeElvTrim.GaugeImage=Properties.Resources.flip;
             gaugeElvTrim.GaugeTitle="Elevator Trim";
             gaugeElvTrim.Location=new Point(8, 528);
             gaugeElvTrim.Name="gaugeElvTrim";
@@ -210,6 +197,11 @@
             btnClearRunwayApproach.Text="Clear Runway Approach";
             btnClearRunwayApproach.Click+=btnClearRunwayApproach_Click;
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name="toolStripSeparator2";
+            toolStripSeparator2.Size=new Size(6, 31);
+            // 
             // btnConfig
             // 
             btnConfig.Image=Properties.Resources.cogwheel;
@@ -222,6 +214,7 @@
             // 
             // gaugeFuel
             // 
+            gaugeFuel.GaugeImage=Properties.Resources.fuel;
             gaugeFuel.GaugeTitle="Fuel";
             gaugeFuel.Location=new Point(312, 168);
             gaugeFuel.Name="gaugeFuel";
@@ -230,6 +223,7 @@
             // 
             // gaugeGear
             // 
+            gaugeGear.GaugeImage=Properties.Resources.landing_gear;
             gaugeGear.GaugeTitle="Landing Gear";
             gaugeGear.Location=new Point(616, 168);
             gaugeGear.Name="gaugeGear";
@@ -238,6 +232,7 @@
             // 
             // gaugeSpoilers
             // 
+            gaugeSpoilers.GaugeImage=Properties.Resources.spoiler;
             gaugeSpoilers.GaugeTitle="Spoilers";
             gaugeSpoilers.Location=new Point(8, 288);
             gaugeSpoilers.Name="gaugeSpoilers";
@@ -246,6 +241,7 @@
             // 
             // gaugeSpeedBrake
             // 
+            gaugeSpeedBrake.GaugeImage=Properties.Resources.flight;
             gaugeSpeedBrake.GaugeTitle="Speed Brakes";
             gaugeSpeedBrake.Location=new Point(8, 408);
             gaugeSpeedBrake.Name="gaugeSpeedBrake";
@@ -254,6 +250,7 @@
             // 
             // gaugeWheelBrake
             // 
+            gaugeWheelBrake.GaugeImage=Properties.Resources.brakes;
             gaugeWheelBrake.GaugeTitle="Wheel Brakes";
             gaugeWheelBrake.Location=new Point(920, 168);
             gaugeWheelBrake.Name="gaugeWheelBrake";
@@ -262,107 +259,19 @@
             // 
             // boxRamp
             // 
-            boxRamp.Location=new Point(1272, 384);
+            boxRamp.Location=new Point(1224, 296);
             boxRamp.Name="boxRamp";
-            boxRamp.Size=new Size(432, 216);
+            boxRamp.Size=new Size(488, 240);
             boxRamp.TabIndex=56;
             boxRamp.Paint+=boxRamp_Paint;
             // 
             // boxSpacing
             // 
-            boxSpacing.Location=new Point(1272, 640);
+            boxSpacing.Location=new Point(1224, 600);
             boxSpacing.Name="boxSpacing";
-            boxSpacing.Size=new Size(432, 192);
+            boxSpacing.Size=new Size(488, 240);
             boxSpacing.TabIndex=59;
             boxSpacing.Paint+=boxSpacing_Paint;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor=Color.Gray;
-            pictureBox1.Image=Properties.Resources.engine;
-            pictureBox1.Location=new Point(16, 651);
-            pictureBox1.Name="pictureBox1";
-            pictureBox1.Size=new Size(32, 32);
-            pictureBox1.SizeMode=PictureBoxSizeMode.AutoSize;
-            pictureBox1.TabIndex=61;
-            pictureBox1.TabStop=false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.BackColor=Color.Gray;
-            pictureBox2.Image=Properties.Resources.flip;
-            pictureBox2.Location=new Point(16, 531);
-            pictureBox2.Name="pictureBox2";
-            pictureBox2.Size=new Size(32, 32);
-            pictureBox2.SizeMode=PictureBoxSizeMode.AutoSize;
-            pictureBox2.TabIndex=62;
-            pictureBox2.TabStop=false;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.BackColor=Color.Gray;
-            pictureBox3.Image=Properties.Resources.fuel;
-            pictureBox3.Location=new Point(320, 171);
-            pictureBox3.Name="pictureBox3";
-            pictureBox3.Size=new Size(32, 32);
-            pictureBox3.SizeMode=PictureBoxSizeMode.AutoSize;
-            pictureBox3.TabIndex=63;
-            pictureBox3.TabStop=false;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.BackColor=Color.Gray;
-            pictureBox4.Image=Properties.Resources.landing_gear;
-            pictureBox4.Location=new Point(624, 171);
-            pictureBox4.Name="pictureBox4";
-            pictureBox4.Size=new Size(32, 32);
-            pictureBox4.SizeMode=PictureBoxSizeMode.AutoSize;
-            pictureBox4.TabIndex=64;
-            pictureBox4.TabStop=false;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.BackColor=Color.Gray;
-            pictureBox5.Image=Properties.Resources.brakes;
-            pictureBox5.Location=new Point(928, 171);
-            pictureBox5.Name="pictureBox5";
-            pictureBox5.Size=new Size(32, 32);
-            pictureBox5.SizeMode=PictureBoxSizeMode.AutoSize;
-            pictureBox5.TabIndex=65;
-            pictureBox5.TabStop=false;
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.BackColor=Color.Gray;
-            pictureBox6.Image=Properties.Resources.wings;
-            pictureBox6.Location=new Point(16, 171);
-            pictureBox6.Name="pictureBox6";
-            pictureBox6.Size=new Size(32, 32);
-            pictureBox6.SizeMode=PictureBoxSizeMode.AutoSize;
-            pictureBox6.TabIndex=66;
-            pictureBox6.TabStop=false;
-            // 
-            // pictureBox7
-            // 
-            pictureBox7.BackColor=Color.Gray;
-            pictureBox7.Image=Properties.Resources.spoiler;
-            pictureBox7.Location=new Point(16, 291);
-            pictureBox7.Name="pictureBox7";
-            pictureBox7.Size=new Size(32, 32);
-            pictureBox7.SizeMode=PictureBoxSizeMode.AutoSize;
-            pictureBox7.TabIndex=67;
-            pictureBox7.TabStop=false;
-            // 
-            // pictureBox8
-            // 
-            pictureBox8.BackColor=Color.Gray;
-            pictureBox8.Image=Properties.Resources.flight;
-            pictureBox8.Location=new Point(16, 411);
-            pictureBox8.Name="pictureBox8";
-            pictureBox8.Size=new Size(32, 32);
-            pictureBox8.SizeMode=PictureBoxSizeMode.AutoSize;
-            pictureBox8.TabIndex=68;
-            pictureBox8.TabStop=false;
             // 
             // icoParkingBrake
             // 
@@ -483,7 +392,7 @@
             // lbRunwayElevation
             // 
             lbRunwayElevation.BackColor=Color.White;
-            lbRunwayElevation.Location=new Point(1264, 112);
+            lbRunwayElevation.Location=new Point(1224, 80);
             lbRunwayElevation.Name="lbRunwayElevation";
             lbRunwayElevation.Padding=new Padding(1);
             lbRunwayElevation.Size=new Size(360, 40);
@@ -494,7 +403,7 @@
             // lbRunwayDegrees
             // 
             lbRunwayDegrees.BackColor=Color.White;
-            lbRunwayDegrees.Location=new Point(1264, 152);
+            lbRunwayDegrees.Location=new Point(1224, 120);
             lbRunwayDegrees.Name="lbRunwayDegrees";
             lbRunwayDegrees.Padding=new Padding(1);
             lbRunwayDegrees.Size=new Size(360, 40);
@@ -505,7 +414,7 @@
             // lbRunwaySize
             // 
             lbRunwaySize.BackColor=Color.White;
-            lbRunwaySize.Location=new Point(1264, 192);
+            lbRunwaySize.Location=new Point(1224, 160);
             lbRunwaySize.Name="lbRunwaySize";
             lbRunwaySize.Padding=new Padding(1);
             lbRunwaySize.Size=new Size(360, 40);
@@ -516,7 +425,7 @@
             // lbApproachDist
             // 
             lbApproachDist.BackColor=Color.White;
-            lbApproachDist.Location=new Point(1264, 240);
+            lbApproachDist.Location=new Point(1224, 208);
             lbApproachDist.Name="lbApproachDist";
             lbApproachDist.Padding=new Padding(1);
             lbApproachDist.Size=new Size(360, 40);
@@ -527,7 +436,7 @@
             // lbRunwayDist
             // 
             lbRunwayDist.BackColor=Color.White;
-            lbRunwayDist.Location=new Point(1264, 280);
+            lbRunwayDist.Location=new Point(1224, 248);
             lbRunwayDist.Name="lbRunwayDist";
             lbRunwayDist.Padding=new Padding(1);
             lbRunwayDist.Size=new Size(360, 40);
@@ -538,7 +447,7 @@
             // lbRunwayPoints
             // 
             lbRunwayPoints.BackColor=Color.White;
-            lbRunwayPoints.Location=new Point(1264, 72);
+            lbRunwayPoints.Location=new Point(1224, 40);
             lbRunwayPoints.Name="lbRunwayPoints";
             lbRunwayPoints.Padding=new Padding(1);
             lbRunwayPoints.Size=new Size(360, 40);
@@ -549,18 +458,13 @@
             // lbSpacing
             // 
             lbSpacing.BackColor=Color.White;
-            lbSpacing.Location=new Point(1272, 600);
+            lbSpacing.Location=new Point(1224, 544);
             lbSpacing.Name="lbSpacing";
             lbSpacing.Padding=new Padding(1);
-            lbSpacing.Size=new Size(264, 48);
+            lbSpacing.Size=new Size(488, 48);
             lbSpacing.TabIndex=85;
             lbSpacing.Title="Runway Alignment";
             lbSpacing.Value="";
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name="toolStripSeparator2";
-            toolStripSeparator2.Size=new Size(6, 31);
             // 
             // MainForm
             // 
@@ -568,6 +472,7 @@
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1720, 926);
+            Controls.Add(boxSpacing);
             Controls.Add(lbSpacing);
             Controls.Add(lbRunwayPoints);
             Controls.Add(lbRunwayDist);
@@ -578,15 +483,6 @@
             Controls.Add(lbHeadingTrue);
             Controls.Add(lbAutoBrake);
             Controls.Add(icoParkingBrake);
-            Controls.Add(pictureBox8);
-            Controls.Add(pictureBox7);
-            Controls.Add(pictureBox6);
-            Controls.Add(pictureBox5);
-            Controls.Add(pictureBox4);
-            Controls.Add(pictureBox3);
-            Controls.Add(pictureBox2);
-            Controls.Add(pictureBox1);
-            Controls.Add(boxSpacing);
             Controls.Add(boxRamp);
             Controls.Add(gaugeWheelBrake);
             Controls.Add(gaugeSpeedBrake);
@@ -612,14 +508,6 @@
             Load+=MainForm_Load;
             toolBar.ResumeLayout(false);
             toolBar.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -645,14 +533,6 @@
         private GaugePanel gaugeWheelBrake;
         private Panel boxRamp;
         private Panel boxSpacing;
-        private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox3;
-        private PictureBox pictureBox4;
-        private PictureBox pictureBox5;
-        private PictureBox pictureBox6;
-        private PictureBox pictureBox7;
-        private PictureBox pictureBox8;
         private PictureBox icoParkingBrake;
         private Controls.BorderControl lbAirSpeed;
         private Controls.BorderControl lbVerticalSpeed;
