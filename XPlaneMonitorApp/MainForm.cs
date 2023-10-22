@@ -372,9 +372,9 @@ namespace XPlaneMonitorApp
                 _runwayDistance = (float)GeoCalculator.ConverterKmParaMilhaNautica(
                     GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng));
 
-                lbApproachDist.Value = Utils.RoundToInt(GeoCalculator.ConverterKmParaMilhaNautica(
-                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng))).ToString();
-                lbRunwayDist.Value = Utils.RoundToInt(_runwayDistance).ToString();
+                lbApproachDist.Value = Math.Round(GeoCalculator.ConverterKmParaMilhaNautica(
+                    GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)), 1) + " nm";
+                lbRunwayDist.Value = Math.Round(_runwayDistance, 1) + " nm";
 
                 /*lbCompassToApproach.Text = Utils.RoundToInt(
                     GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)).ToString();
@@ -386,7 +386,7 @@ namespace XPlaneMonitorApp
                     new double[] { _runwayEnd.Value.Lat, _runwayEnd.Value.Lng },
                     new double[] { _lat.Value, _lng.Value });
 
-                lbSpacing.Text = _spacing.ToString();
+                lbSpacing.Value = Utils.RoundToInt(_spacing) + " m";
 
                 boxRamp.Invalidate();
                 boxSpacing.Invalidate();

@@ -50,8 +50,6 @@
             gaugeSpeedBrake=new GaugePanel();
             gaugeWheelBrake=new GaugePanel();
             boxRamp=new Panel();
-            lbSpacing=new Label();
-            label20=new Label();
             boxSpacing=new Panel();
             pictureBox1=new PictureBox();
             pictureBox2=new PictureBox();
@@ -77,6 +75,7 @@
             lbApproachDist=new Controls.BorderControl();
             lbRunwayDist=new Controls.BorderControl();
             lbRunwayPoints=new Controls.BorderControl();
+            lbSpacing=new Controls.BorderControl();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -293,24 +292,6 @@
             boxRamp.Size=new Size(432, 216);
             boxRamp.TabIndex=56;
             boxRamp.Paint+=boxRamp_Paint;
-            // 
-            // lbSpacing
-            // 
-            lbSpacing.AutoSize=true;
-            lbSpacing.Location=new Point(1408, 608);
-            lbSpacing.Name="lbSpacing";
-            lbSpacing.Size=new Size(39, 20);
-            lbSpacing.TabIndex=58;
-            lbSpacing.Text="-----";
-            // 
-            // label20
-            // 
-            label20.AutoSize=true;
-            label20.Location=new Point(1272, 608);
-            label20.Name="label20";
-            label20.Size=new Size(65, 20);
-            label20.TabIndex=57;
-            label20.Text="Spacing:";
             // 
             // boxSpacing
             // 
@@ -590,12 +571,24 @@
             lbRunwayPoints.Title="Runway Points";
             lbRunwayPoints.Value="";
             // 
+            // lbSpacing
+            // 
+            lbSpacing.BackColor=Color.White;
+            lbSpacing.Location=new Point(1272, 600);
+            lbSpacing.Name="lbSpacing";
+            lbSpacing.Padding=new Padding(1);
+            lbSpacing.Size=new Size(264, 48);
+            lbSpacing.TabIndex=85;
+            lbSpacing.Title="Runway Alignment";
+            lbSpacing.Value="";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1720, 926);
+            Controls.Add(lbSpacing);
             Controls.Add(lbRunwayPoints);
             Controls.Add(lbRunwayDist);
             Controls.Add(lbApproachDist);
@@ -614,8 +607,6 @@
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(boxSpacing);
-            Controls.Add(lbSpacing);
-            Controls.Add(label20);
             Controls.Add(boxRamp);
             Controls.Add(gaugeWheelBrake);
             Controls.Add(gaugeSpeedBrake);
@@ -687,8 +678,6 @@
         private GaugePanel gaugeSpeedBrake;
         private GaugePanel gaugeWheelBrake;
         private Panel boxRamp;
-        private Label lbSpacing;
-        private Label label20;
         private Panel boxSpacing;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
@@ -715,5 +704,6 @@
         private Controls.BorderControl lbApproachDist;
         private Controls.BorderControl lbRunwayDist;
         private Controls.BorderControl lbRunwayPoints;
+        private Controls.BorderControl lbSpacing;
     }
 }
