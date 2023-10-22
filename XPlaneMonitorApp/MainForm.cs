@@ -29,13 +29,13 @@ namespace XPlaneMonitorApp
         private float _heading;
         private float _runwayHeading;
 
-        enum RunwaySettingMode
+        private enum RunwaySettingMode
         {
             NONE,
             RUNWAY_BEGIN,
             RUNWAY_END
         }
-        private RunwaySettingMode _runwaySettingMode;
+        private RunwaySettingMode _runwaySettingMode = RunwaySettingMode.NONE;
 
         private PointLatLng? _runwayBegin, _runwayEnd, _runwayApproach;
 
@@ -50,18 +50,15 @@ namespace XPlaneMonitorApp
         {
             ConfigEngine.Load(); //load config
 
-            SetRunwaySettingMode(RunwaySettingMode.NONE);
-
             map.MapProvider = OpenStreetMapGraphHopperProvider.Instance;
             map.DragButton = MouseButtons.Left;
             map.ShowCenter = false;
-            map.Overlays.Add(_mapOverlay);
-            _mapOverlay.Routes.Add(_mapRoute);
-            _mapOverlay.Routes.Add(_runwayRoute);
-
             map.MaxZoom = 100;
             map.MinZoom = 0;
             map.Zoom = 15;
+            map.Overlays.Add(_mapOverlay);
+            _mapOverlay.Routes.Add(_mapRoute);
+            _mapOverlay.Routes.Add(_runwayRoute);
 
             gaugeFlaps.AddBar("Requested", Color.Orange, 1);
             gaugeFlaps.AddBar("Actual", Color.Green, 1);
@@ -378,11 +375,6 @@ namespace XPlaneMonitorApp
                     GeoCalculator.CalculateDistance(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)), 1) + " nm";
                 lbRunwayDist.Value = Math.Round(_runwayDistance, 1) + " nm";
 
-                /*lbCompassToApproach.Text = Utils.RoundToInt(
-                    GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng)).ToString();
-                lbCompassToRunway.Text = Utils.RoundToInt(
-                    GeoCalculator.CalculateBearing(_lat.Value, _lng.Value, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng)).ToString();*/
-
                 _spacing = (float)ProximityCalculator.CalcularDistanciaAteLinhaAeroporto2(
                     new double[] { _runwayBegin.Value.Lat, _runwayBegin.Value.Lng },
                     new double[] { _runwayEnd.Value.Lat, _runwayEnd.Value.Lng },
@@ -440,6 +432,8 @@ namespace XPlaneMonitorApp
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            map.Manager.CancelTileCaching();
+
             if (_communicator.Status == ConnectionStatus.CONNECTED)
             {
                 _communicator.Disconnect();
