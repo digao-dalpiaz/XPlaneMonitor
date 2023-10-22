@@ -24,6 +24,8 @@ namespace XPlaneMonitorApp
         private float _runwayDistance;
 
         private float _spacing;
+        private float _heading;
+        private float _runwayHeading;
 
         enum SettingMode
         {
@@ -128,6 +130,11 @@ namespace XPlaneMonitorApp
             _refsData.Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", r =>
             {
                 lbHeading.Text = Utils.RoundToInt(r.Value).ToString() + "º";
+            });
+            _refsData.Subscribe("sim/flightmodel2/position/true_psi", r =>
+            {
+                _heading = r.Value;
+                lbHeadingTrue.Text = Utils.RoundToInt(r.Value).ToString() + "º";
             });
 
             _refsData.Subscribe("sim/flightmodel/controls/parkbrake", r =>
@@ -312,7 +319,7 @@ namespace XPlaneMonitorApp
         {
             if (_runwayBegin.HasValue && _runwayEnd.HasValue)
             {
-                var degrees = GeoCalculator.CalculateBearing(
+                _runwayHeading = (float)GeoCalculator.CalculateBearing(
                     _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
                     _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
 
@@ -325,10 +332,10 @@ namespace XPlaneMonitorApp
                 _runwayElevation = (float)GeoCalculator.ConvertMetersToFeet(elevMeters);
 
                 lbRunwayElevation.Text = elevMeters.ToString() + " m / " + Utils.RoundToInt(_runwayElevation) + " ft";
-                lbRunwayDegrees.Text = Utils.RoundToInt(degrees).ToString() + "º";
+                lbRunwayDegrees.Text = Utils.RoundToInt(_runwayHeading).ToString() + "º";
                 lbRunwaySize.Text = Utils.RoundToInt(size * 1000).ToString() + " m";
 
-                var approach = GeoCalculator.CalculateDestinationPoint(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng, GeoCalculator.InvertDegree(degrees), 22);
+                var approach = GeoCalculator.CalculateDestinationPoint(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng, GeoCalculator.InvertDegree(_runwayHeading), 22);
 
                 _runwayApproach = new PointLatLng(approach.Item1, approach.Item2);
 
@@ -460,19 +467,31 @@ namespace XPlaneMonitorApp
 
         private void boxSpacing_Paint(object sender, PaintEventArgs e)
         {
+            const int margin = 250;
             var s = _spacing;
-            if (s > 100) s = 100;
-            if (s < -100) s = -100;
+            if (s > margin) s = margin;
+            if (s < -margin) s = -margin;
 
-            s += 100;
+            s += margin;
 
-            var x = boxSpacing.Width * s / 200;
+            var x = boxSpacing.Width * s / (margin*2);
 
             var xIdeal = boxSpacing.Width / 2;
 
             e.Graphics.FillRectangle(Brushes.Black, boxSpacing.ClientRectangle);
-            e.Graphics.DrawLine(new Pen(Color.Purple, 3), x, 0, x, boxSpacing.Height);
+            //e.Graphics.DrawLine(new Pen(Color.Purple, 3), x, 0, x, boxSpacing.Height);
             e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
+
+            //
+
+            double angleInDegrees = 90 + (_runwayHeading - _heading); // Ângulo em graus
+
+            // Converter o ângulo de graus para radianos
+            double angleInRadians = angleInDegrees * (Math.PI / 180);
+
+            var endX = x + (boxSpacing.Height / Math.Tan(angleInRadians));
+
+            e.Graphics.DrawLine(new Pen(Color.Purple, 3), (float)endX, 0, x, boxSpacing.Height);
         }
     }
 }

@@ -87,6 +87,7 @@
             lbSpacing=new Label();
             label20=new Label();
             boxSpacing=new Panel();
+            lbHeadingTrue=new Label();
             toolStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -214,7 +215,7 @@
             map.GrayScaleMode=false;
             map.HelperLineOption=GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             map.LevelsKeepInMemory=5;
-            map.Location=new Point(336, 280);
+            map.Location=new Point(320, 280);
             map.MarkersEnabled=true;
             map.MaxZoom=2;
             map.MinZoom=2;
@@ -238,7 +239,7 @@
             // 
             lbParking.AutoSize=true;
             lbParking.Font=new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            lbParking.Location=new Point(512, 112);
+            lbParking.Location=new Point(632, 112);
             lbParking.Name="lbParking";
             lbParking.Size=new Size(169, 28);
             lbParking.TabIndex=14;
@@ -636,11 +637,22 @@
             boxSpacing.TabIndex=59;
             boxSpacing.Paint+=boxSpacing_Paint;
             // 
+            // lbHeadingTrue
+            // 
+            lbHeadingTrue.AutoSize=true;
+            lbHeadingTrue.Font=new Font("Bahnschrift", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lbHeadingTrue.Location=new Point(504, 112);
+            lbHeadingTrue.Name="lbHeadingTrue";
+            lbHeadingTrue.Size=new Size(91, 36);
+            lbHeadingTrue.TabIndex=60;
+            lbHeadingTrue.Text="####";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             ClientSize=new Size(1720, 921);
+            Controls.Add(lbHeadingTrue);
             Controls.Add(boxSpacing);
             Controls.Add(lbSpacing);
             Controls.Add(label20);
@@ -763,5 +775,6 @@
         private Label lbSpacing;
         private Label label20;
         private Panel boxSpacing;
+        private Label lbHeadingTrue;
     }
 }
