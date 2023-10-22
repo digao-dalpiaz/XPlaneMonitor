@@ -486,11 +486,11 @@ namespace XPlaneMonitorApp
             }
         }
 
-        private void btnSetRunwayBegin_Click(object sender, EventArgs e)
+        private void DoButtonRunwayClick(ToolStripButton btn, RunwaySettingMode mode)
         {
-            if (!btnSetRunwayBegin.Checked)
+            if (!btn.Checked)
             {
-                SetRunwaySettingMode(RunwaySettingMode.RUNWAY_BEGIN);
+                SetRunwaySettingMode(mode);
             }
             else
             {
@@ -498,16 +498,14 @@ namespace XPlaneMonitorApp
             }
         }
 
+        private void btnSetRunwayBegin_Click(object sender, EventArgs e)
+        {
+            DoButtonRunwayClick(btnSetRunwayBegin, RunwaySettingMode.RUNWAY_BEGIN);
+        }
+
         private void btnSetRunwayEnd_Click(object sender, EventArgs e)
         {
-            if (!btnSetRunwayEnd.Checked)
-            {
-                SetRunwaySettingMode(RunwaySettingMode.RUNWAY_END);
-            }
-            else
-            {
-                SetRunwaySettingMode(RunwaySettingMode.NONE);
-            }
+            DoButtonRunwayClick(btnSetRunwayEnd, RunwaySettingMode.RUNWAY_END);
         }
 
         private void btnClearRunwayApproach_Click(object sender, EventArgs e)
