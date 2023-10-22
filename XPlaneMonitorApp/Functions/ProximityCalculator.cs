@@ -2,20 +2,16 @@
 {
     internal class ProximityCalculator
     {
-        public static double GrausParaRadianos(double graus)
-        {
-            return graus * (Math.PI / 180.0);
-        }
 
         public static double CalcularDistanciaHaversine(double[] ponto1, double[] ponto2)
         {
             const double raioTerra = 6371000; // Raio médio da Terra em metros
 
-            double latitude1Rad = GrausParaRadianos(ponto1[0]);
-            double latitude2Rad = GrausParaRadianos(ponto2[0]);
+            double latitude1Rad = Utils.DegreesToRadians(ponto1[0]);
+            double latitude2Rad = Utils.DegreesToRadians(ponto2[0]);
 
             double diferencaLatitudeRad = latitude2Rad - latitude1Rad;
-            double diferencaLongitudeRad = GrausParaRadianos(ponto2[1] - ponto1[1]);
+            double diferencaLongitudeRad = Utils.DegreesToRadians(ponto2[1] - ponto1[1]);
 
             double a = Math.Sin(diferencaLatitudeRad / 2) * Math.Sin(diferencaLatitudeRad / 2) +
                        Math.Cos(latitude1Rad) * Math.Cos(latitude2Rad) *
@@ -24,8 +20,6 @@
 
             return raioTerra * c;
         }
-
-        //
 
         public static double CalcularDistanciaAteLinhaAeroporto2(double[] pontoInicial, double[] pontoFinal, double[] pontoAviao)
         {
@@ -53,9 +47,9 @@
 
         public static double CalcularDirecao(double[] ponto1, double[] ponto2)
         {
-            double latitude1Rad = GrausParaRadianos(ponto1[0]);
-            double latitude2Rad = GrausParaRadianos(ponto2[0]);
-            double diferencaLongitudeRad = GrausParaRadianos(ponto2[1] - ponto1[1]);
+            double latitude1Rad = Utils.DegreesToRadians(ponto1[0]);
+            double latitude2Rad = Utils.DegreesToRadians(ponto2[0]);
+            double diferencaLongitudeRad = Utils.DegreesToRadians(ponto2[1] - ponto1[1]);
 
             double y = Math.Sin(diferencaLongitudeRad) * Math.Cos(latitude2Rad);
             double x = Math.Cos(latitude1Rad) * Math.Sin(latitude2Rad) - Math.Sin(latitude1Rad) * Math.Cos(latitude2Rad) * Math.Cos(diferencaLongitudeRad);
@@ -63,5 +57,6 @@
             double direcao = Math.Atan2(y, x);
             return direcao;
         }
+
     }
 }

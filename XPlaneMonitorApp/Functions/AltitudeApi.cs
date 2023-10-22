@@ -18,19 +18,13 @@ namespace XPlaneMonitorApp.Functions
                 try
                 {
                     HttpResponseMessage response = client.GetAsync(apiUrl).Result;
+                    if (response.IsSuccessStatusCode!) throw new Exception("Status code: " + response.StatusCode);
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string responseBody = response.Content.ReadAsStringAsync().Result;
-                        dynamic elevationData = Newtonsoft.Json.JsonConvert.DeserializeObject(responseBody);
-                        if (elevationData == null) throw new Exception("Null response");
+                    string responseBody = response.Content.ReadAsStringAsync().Result;
+                    dynamic elevationData = Newtonsoft.Json.JsonConvert.DeserializeObject(responseBody);
+                    if (elevationData == null) throw new Exception("Null response");
 
-                        return elevationData.results[0].elevation;
-                    }
-                    else
-                    {
-                        throw new Exception("Status code: " + response.StatusCode);
-                    }
+                    return elevationData.results[0].elevation;
                 }
                 catch (Exception ex)
                 {

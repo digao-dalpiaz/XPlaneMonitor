@@ -381,7 +381,7 @@ namespace XPlaneMonitorApp
             if (!_runwayBegin.HasValue || !_runwayEnd.HasValue) return;
 
             var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
-            _runwayElevation = GeoCalculator.ConvertMetersToFeet(elevMeters);
+            _runwayElevation = Utils.ConvertMetersToFeet(elevMeters);
 
             _runwayHeading = GeoCalculator.CalculateBearing(
                 _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
@@ -397,8 +397,8 @@ namespace XPlaneMonitorApp
 
             var approach = GeoCalculator.CalculateDestinationPoint(
                 _runwayBegin.Value.Lat, _runwayBegin.Value.Lng, 
-                GeoCalculator.InvertDegree(_runwayHeading), 
-                GeoCalculator.ConverterKmParaMilhaNautica(Vars.Cfg.RampDistance));
+                Utils.InvertDegree(_runwayHeading), 
+                Utils.ConverterKmParaMilhaNautica(Vars.Cfg.RampDistance));
 
             _runwayApproach = new PointLatLng(approach.Item1, approach.Item2);
 
@@ -416,10 +416,10 @@ namespace XPlaneMonitorApp
         {
             if (_runwayBegin.HasValue && _runwayEnd.HasValue && _runwayApproach.HasValue)
             {
-                var approachDist = GeoCalculator.ConverterKmParaMilhaNautica(
+                var approachDist = Utils.ConverterKmParaMilhaNautica(
                     GeoCalculator.CalculateDistance(_lat, _lng, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng));
 
-                _runwayDistance = GeoCalculator.ConverterKmParaMilhaNautica(
+                _runwayDistance = Utils.ConverterKmParaMilhaNautica(
                     GeoCalculator.CalculateDistance(_lat, _lng, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng));
 
                 lbApproachDist.Value = Math.Round(approachDist, 1) + " nm";
@@ -527,7 +527,7 @@ namespace XPlaneMonitorApp
             var angle = 90 + (_runwayHeading - _headingTrue);
 
             var startX = boxSpacing.Width * s / (margin*2);
-            var endX = startX + (boxSpacing.Height / Math.Tan(GeoCalculator.DegreesToRadians(angle)));
+            var endX = startX + (boxSpacing.Height / Math.Tan(Utils.DegreesToRadians(angle)));
 
             e.Graphics.DrawLine(new Pen(Color.Purple, 3), (float)endX, 0, (float)startX, boxSpacing.Height);
         }

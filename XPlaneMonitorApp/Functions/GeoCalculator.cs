@@ -8,10 +8,10 @@
             const double earthRadius = 6371; // Raio médio da Terra em quilômetros
 
             // Converter graus para radianos
-            double radiansLat1 = DegreesToRadians(lat1);
-            double radiansLon1 = DegreesToRadians(lon1);
-            double radiansLat2 = DegreesToRadians(lat2);
-            double radiansLon2 = DegreesToRadians(lon2);
+            double radiansLat1 = Utils.DegreesToRadians(lat1);
+            double radiansLon1 = Utils.DegreesToRadians(lon1);
+            double radiansLat2 = Utils.DegreesToRadians(lat2);
+            double radiansLon2 = Utils.DegreesToRadians(lon2);
 
             // Diferença entre as longitudes e latitudes
             double deltaLat = radiansLat2 - radiansLat1;
@@ -27,10 +27,10 @@
 
         public static double CalculateBearing(double lat1, double lon1, double lat2, double lon2)
         {
-            double radiansLat1 = DegreesToRadians(lat1);
-            double radiansLon1 = DegreesToRadians(lon1);
-            double radiansLat2 = DegreesToRadians(lat2);
-            double radiansLon2 = DegreesToRadians(lon2);
+            double radiansLat1 = Utils.DegreesToRadians(lat1);
+            double radiansLon1 = Utils.DegreesToRadians(lon1);
+            double radiansLat2 = Utils.DegreesToRadians(lat2);
+            double radiansLon2 = Utils.DegreesToRadians(lon2);
 
             double deltaLon = radiansLon2 - radiansLon1;
 
@@ -38,7 +38,7 @@
             double x = Math.Cos(radiansLat1) * Math.Sin(radiansLat2) - Math.Sin(radiansLat1) * Math.Cos(radiansLat2) * Math.Cos(deltaLon);
 
             double bearing = Math.Atan2(y, x);
-            bearing = RadiansToDegrees(bearing);
+            bearing = Utils.RadiansToDegrees(bearing);
 
             return (bearing + 360) % 360; // Garante um ângulo entre 0 e 360 graus
         }
@@ -48,9 +48,9 @@
             const double earthRadius = 6371; // Raio médio da Terra em quilômetros
 
             // Converter graus para radianos
-            double radiansLat1 = DegreesToRadians(lat1);
-            double radiansLon1 = DegreesToRadians(lon1);
-            double radiansBearing = DegreesToRadians(initialBearing);
+            double radiansLat1 = Utils.DegreesToRadians(lat1);
+            double radiansLon1 = Utils.DegreesToRadians(lon1);
+            double radiansBearing = Utils.DegreesToRadians(initialBearing);
 
             // Converter distância para radianos (arc length)
             double angularDistance = distance / earthRadius;
@@ -61,40 +61,10 @@
             // Calcular a longitude do ponto final
             double finalLon = radiansLon1 + Math.Atan2(Math.Sin(radiansBearing) * Math.Sin(angularDistance) * Math.Cos(radiansLat1), Math.Cos(angularDistance) - Math.Sin(radiansLat1) * Math.Sin(finalLat));
 
-            finalLat = RadiansToDegrees(finalLat);
-            finalLon = RadiansToDegrees(finalLon);
+            finalLat = Utils.RadiansToDegrees(finalLat);
+            finalLon = Utils.RadiansToDegrees(finalLon);
 
             return (finalLat, finalLon);
-        }
-
-        public static double InvertDegree(double angle)
-        {
-            // Adicionar 180 graus para inverter o ângulo
-            double invertedAngle = (angle + 180) % 360;
-
-            return invertedAngle;
-        }
-
-        public static double DegreesToRadians(double degrees)
-        {
-            return degrees * Math.PI / 180.0;
-        }
-
-        public static double RadiansToDegrees(double radians)
-        {
-            return radians * 180.0 / Math.PI;
-        }
-
-        public static double ConvertMetersToFeet(double metros)
-        {
-            const double metrosPorPe = 0.3048;
-            return metros / metrosPorPe;
-        }
-
-        public static double ConverterKmParaMilhaNautica(double km)
-        {
-            const double quilometrosPorMilhaNautica = 1.852;
-            return km / quilometrosPorMilhaNautica;
         }
 
     }
