@@ -347,6 +347,11 @@ namespace XPlaneMonitorApp
             btnCenterMap.Enabled = true;
         }
 
+        private void map_OnMapZoomChanged()
+        {
+            map_OnMapDrag();
+        }
+
         private void GotoPositionOnMap()
         {
             map.Position = new PointLatLng(_lat, _lng);
@@ -520,7 +525,7 @@ namespace XPlaneMonitorApp
             _runwayEndMarker.IsVisible = false;
             _runwayApproachMarker.IsVisible = false;
 
-            _runwayRoute.Points.Clear(); 
+            _runwayRoute.Points.Clear();
             map.UpdateRouteLocalPosition(_runwayRoute);
             map.Invalidate(); //there is a bug in GMap when clearing route
 

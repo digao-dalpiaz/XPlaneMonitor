@@ -120,6 +120,7 @@
             map.Zoom=0D;
             map.OnMapClick+=map_OnMapClick;
             map.OnMapDrag+=map_OnMapDrag;
+            map.OnMapZoomChanged+=map_OnMapZoomChanged;
             // 
             // gaugeElvTrim
             // 
@@ -489,7 +490,7 @@
             // stLastTimeRec
             // 
             stLastTimeRec.Name="stLastTimeRec";
-            stLastTimeRec.Size=new Size(0, 18);
+            stLastTimeRec.Size=new Size(0, 16);
             // 
             // MainForm
             // 
