@@ -40,6 +40,7 @@
             btnSetRunwayBegin=new ToolStripButton();
             btnSetRunwayEnd=new ToolStripButton();
             btnClearRunwayApproach=new ToolStripButton();
+            btnConfig=new ToolStripButton();
             gaugeFuel=new GaugePanel();
             gaugeGear=new GaugePanel();
             gaugeSpoilers=new GaugePanel();
@@ -72,6 +73,7 @@
             lbRunwayDist=new Controls.BorderControl();
             lbRunwayPoints=new Controls.BorderControl();
             lbSpacing=new Controls.BorderControl();
+            toolStripSeparator2=new ToolStripSeparator();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -147,7 +149,7 @@
             // toolBar
             // 
             toolBar.ImageScalingSize=new Size(20, 20);
-            toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach });
+            toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach, toolStripSeparator2, btnConfig });
             toolBar.Location=new Point(0, 0);
             toolBar.Name="toolBar";
             toolBar.Size=new Size(1720, 31);
@@ -201,11 +203,22 @@
             // btnClearRunwayApproach
             // 
             btnClearRunwayApproach.Image=Properties.Resources.cleaning;
+            btnClearRunwayApproach.ImageScaling=ToolStripItemImageScaling.None;
             btnClearRunwayApproach.ImageTransparentColor=Color.Magenta;
             btnClearRunwayApproach.Name="btnClearRunwayApproach";
-            btnClearRunwayApproach.Size=new Size(191, 28);
+            btnClearRunwayApproach.Size=new Size(195, 28);
             btnClearRunwayApproach.Text="Clear Runway Approach";
             btnClearRunwayApproach.Click+=btnClearRunwayApproach_Click;
+            // 
+            // btnConfig
+            // 
+            btnConfig.Image=Properties.Resources.cogwheel;
+            btnConfig.ImageScaling=ToolStripItemImageScaling.None;
+            btnConfig.ImageTransparentColor=Color.Magenta;
+            btnConfig.Name="btnConfig";
+            btnConfig.Size=new Size(90, 28);
+            btnConfig.Text="Settings";
+            btnConfig.Click+=btnConfig_Click;
             // 
             // gaugeFuel
             // 
@@ -544,6 +557,11 @@
             lbSpacing.Title="Runway Alignment";
             lbSpacing.Value="";
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name="toolStripSeparator2";
+            toolStripSeparator2.Size=new Size(6, 31);
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
@@ -659,5 +677,7 @@
         private Controls.BorderControl lbRunwayDist;
         private Controls.BorderControl lbRunwayPoints;
         private Controls.BorderControl lbSpacing;
+        private ToolStripButton btnConfig;
+        private ToolStripSeparator toolStripSeparator2;
     }
 }

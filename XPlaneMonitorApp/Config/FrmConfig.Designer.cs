@@ -166,6 +166,8 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             FormBorderStyle=FormBorderStyle.FixedDialog;
+            MaximizeBox=false;
+            MinimizeBox=false;
             Name="FrmConfig";
             ShowInTaskbar=false;
             StartPosition=FormStartPosition.CenterScreen;

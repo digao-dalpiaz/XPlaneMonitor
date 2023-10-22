@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using XPlaneMonitorApp.Config;
 
 namespace XPlaneMonitorApp
 {
@@ -28,6 +20,13 @@ namespace XPlaneMonitorApp
 
         private void btnOK_Click(object sender, EventArgs e)
         {
+            edHost.Text = edHost.Text.Trim();
+            edPort.Text = edPort.Text.Trim();
+            edRampDistance.Text = edRampDistance.Text.Trim();
+            edRampElevation.Text = edRampElevation.Text.Trim();
+
+            //
+
             Vars.Cfg.Host = edHost.Text;
             Vars.Cfg.Port = int.Parse(edPort.Text);
 

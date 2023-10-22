@@ -3,6 +3,7 @@ using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using XPlaneMonitorApp.Communicator;
+using XPlaneMonitorApp.Config;
 using XPlaneMonitorApp.Functions;
 
 namespace XPlaneMonitorApp
@@ -511,6 +512,12 @@ namespace XPlaneMonitorApp
             var endX = x + (boxSpacing.Height / Math.Tan(angleInRadians));
 
             e.Graphics.DrawLine(new Pen(Color.Purple, 3), (float)endX, 0, x, boxSpacing.Height);
+        }
+
+        private void btnConfig_Click(object sender, EventArgs e)
+        {
+            FrmConfig f = new();
+            f.ShowDialog();
         }
     }
 }

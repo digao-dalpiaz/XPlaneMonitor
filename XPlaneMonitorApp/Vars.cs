@@ -1,7 +1,9 @@
-﻿namespace XPlaneMonitorApp
+﻿using XPlaneMonitorApp.Config;
+
+namespace XPlaneMonitorApp
 {
     public class Vars
     {
-        public static Config Cfg;
+        public static ConfigData Cfg;
     }
 }
