@@ -11,11 +11,11 @@ namespace XPlaneMonitorApp
     public partial class MainForm : Form
     {
 
-        private RefDataContractList _refsData = new();
+        private readonly RefDataContractList _refsData = new();
         private XPlaneCommunicator _communicator;
-        private GMapOverlay _mapOverlay = new();
-        private GMapRoute _mapRoute = new("flight");
-        private GMapRoute _runwayRoute = new("runway");
+        private readonly GMapOverlay _mapOverlay = new();
+        private readonly GMapRoute _mapRoute = new("flight");
+        private readonly GMapRoute _runwayRoute = new("runway");
 
         private DateTime _tickMapUpd;
 
@@ -176,11 +176,11 @@ namespace XPlaneMonitorApp
                 gaugeElvTrim.Reload();
             });
 
-            var updEngine = (RefDataSubscription r, int barIndex) =>
+            void updEngine(RefDataSubscription r, int barIndex)
             {
                 gaugeThrottle.Bars[(r.ArrayIndex * 3) + barIndex].Pos = r.Value;
                 gaugeThrottle.Reload();
-            };
+            }
 
             _refsData.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), 4);
             _refsData.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
@@ -471,14 +471,14 @@ namespace XPlaneMonitorApp
 
             var aircraftHeight = _altitude - _runwayElevation;
 
-            var calcX = (float distance) =>
+            double calcX(float distance)
             {
                 return boxRamp.Width - ((distance / fullDistance) * boxRamp.Width);
-            };
-            var calcY = (float height) =>
+            }
+            double calcY(float height)
             {
                 return boxRamp.Height - ((height / fullHeight) * boxRamp.Height);
-            };
+            }
 
             e.Graphics.FillRectangle(Brushes.Black, boxRamp.ClientRectangle);
             e.Graphics.DrawLine(new Pen(Color.Red, 3), (float)calcX(_runwayDistance), (float)calcY(aircraftHeight), boxRamp.Width, boxRamp.Height); //real

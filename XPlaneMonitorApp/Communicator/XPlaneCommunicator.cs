@@ -78,11 +78,11 @@ namespace XPlaneMonitorApp.Communicator
 
             int pos = 0;
 
-            var incPart = (byte[] part) =>
+            void incPart(byte[] part)
             {
                 Array.Copy(part, 0, data, pos, part.Length);
                 pos += part.Length;
-            };
+            }
 
             incPart(Encoding.ASCII.GetBytes("RREF\0"));
             incPart(BitConverter.GetBytes(interval));
