@@ -13,7 +13,6 @@ namespace XPlaneMonitorApp
             public readonly Color Color;
 
             public float Max;
-
             public float Pos;
 
             public Bar(string name, Color color, float max)

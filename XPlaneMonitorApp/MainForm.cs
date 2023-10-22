@@ -299,7 +299,10 @@ namespace XPlaneMonitorApp
         private void btnConfig_Click(object sender, EventArgs e)
         {
             FrmConfig f = new();
-            f.ShowDialog();
+            if (f.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
 
         private void OnDataRefReceived()
@@ -522,7 +525,7 @@ namespace XPlaneMonitorApp
                 return boxRamp.Height - ((height / fullHeight) * boxRamp.Height);
             }
 
-           
+
             e.Graphics.DrawLine(new Pen(Color.Red, 3), (float)calcX(_runwayDistance), (float)calcY(aircraftHeight), boxRamp.Width, boxRamp.Height); //real
             e.Graphics.DrawLine(new Pen(Color.Green), (float)calcX(rampDistance), (float)calcY(rampHeight), boxRamp.Width, boxRamp.Height); //ideal
         }
@@ -538,7 +541,7 @@ namespace XPlaneMonitorApp
             e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
 
             //
-            
+
             var s = _spacing;
             if (s > marginSide) s = marginSide;
             if (s < -marginSide) s = -marginSide;
@@ -552,6 +555,6 @@ namespace XPlaneMonitorApp
 
             e.Graphics.DrawLine(new Pen(Color.Purple, 3), (float)endX, 0, (float)startX, boxSpacing.Height);
         }
-        
+
     }
 }

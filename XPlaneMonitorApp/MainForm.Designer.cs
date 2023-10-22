@@ -307,7 +307,6 @@
             lbAirSpeed.Size=new Size(296, 40);
             lbAirSpeed.TabIndex=70;
             lbAirSpeed.Title="Air Speed";
-            lbAirSpeed.Value="";
             // 
             // lbVerticalSpeed
             // 
@@ -318,7 +317,6 @@
             lbVerticalSpeed.Size=new Size(296, 40);
             lbVerticalSpeed.TabIndex=71;
             lbVerticalSpeed.Title="Vertical Speed";
-            lbVerticalSpeed.Value="";
             // 
             // lbGroundSpeed
             // 
@@ -330,7 +328,6 @@
             lbGroundSpeed.Size=new Size(296, 40);
             lbGroundSpeed.TabIndex=72;
             lbGroundSpeed.Title="Ground Speed";
-            lbGroundSpeed.Value="";
             // 
             // lbAltitude
             // 
@@ -342,7 +339,6 @@
             lbAltitude.Size=new Size(296, 40);
             lbAltitude.TabIndex=73;
             lbAltitude.Title="Altitude";
-            lbAltitude.Value="";
             // 
             // lbRadioAltimeter
             // 
@@ -354,7 +350,6 @@
             lbRadioAltimeter.Size=new Size(296, 40);
             lbRadioAltimeter.TabIndex=74;
             lbRadioAltimeter.Title="Radio Altimeter";
-            lbRadioAltimeter.Value="";
             // 
             // lbHeading
             // 
@@ -366,7 +361,6 @@
             lbHeading.Size=new Size(296, 40);
             lbHeading.TabIndex=75;
             lbHeading.Title="Heading";
-            lbHeading.Value="";
             // 
             // lbAutoBrake
             // 
@@ -377,7 +371,6 @@
             lbAutoBrake.Size=new Size(296, 40);
             lbAutoBrake.TabIndex=76;
             lbAutoBrake.Title="Auto Brake";
-            lbAutoBrake.Value="";
             // 
             // lbHeadingTrue
             // 
@@ -389,7 +382,6 @@
             lbHeadingTrue.Size=new Size(296, 40);
             lbHeadingTrue.TabIndex=77;
             lbHeadingTrue.Title="True Heading";
-            lbHeadingTrue.Value="";
             // 
             // lbParkingBrake
             // 
@@ -400,7 +392,6 @@
             lbParkingBrake.Size=new Size(296, 40);
             lbParkingBrake.TabIndex=78;
             lbParkingBrake.Title="Parking Brake";
-            lbParkingBrake.Value="";
             // 
             // lbRunwayElevation
             // 
@@ -411,7 +402,6 @@
             lbRunwayElevation.Size=new Size(296, 40);
             lbRunwayElevation.TabIndex=79;
             lbRunwayElevation.Title="Runway Elevation";
-            lbRunwayElevation.Value="";
             // 
             // lbRunwayDegrees
             // 
@@ -422,7 +412,6 @@
             lbRunwayDegrees.Size=new Size(296, 40);
             lbRunwayDegrees.TabIndex=80;
             lbRunwayDegrees.Title="Runway Heading";
-            lbRunwayDegrees.Value="";
             // 
             // lbRunwaySize
             // 
@@ -433,7 +422,6 @@
             lbRunwaySize.Size=new Size(296, 40);
             lbRunwaySize.TabIndex=81;
             lbRunwaySize.Title="Runway Size";
-            lbRunwaySize.Value="";
             // 
             // lbApproachDist
             // 
@@ -444,7 +432,6 @@
             lbApproachDist.Size=new Size(296, 40);
             lbApproachDist.TabIndex=82;
             lbApproachDist.Title="Approach Dist.";
-            lbApproachDist.Value="";
             // 
             // lbRunwayDist
             // 
@@ -455,7 +442,6 @@
             lbRunwayDist.Size=new Size(296, 40);
             lbRunwayDist.TabIndex=83;
             lbRunwayDist.Title="Runway Distance";
-            lbRunwayDist.Value="";
             // 
             // lbRunwayPoints
             // 
@@ -466,7 +452,6 @@
             lbRunwayPoints.Size=new Size(296, 40);
             lbRunwayPoints.TabIndex=84;
             lbRunwayPoints.Title="Runway Points";
-            lbRunwayPoints.Value="";
             // 
             // lbSpacing
             // 
@@ -477,7 +462,6 @@
             lbSpacing.Size=new Size(296, 40);
             lbSpacing.TabIndex=85;
             lbSpacing.Title="Align Deviation";
-            lbSpacing.Value="";
             // 
             // lbBoxDescentRamp
             // 

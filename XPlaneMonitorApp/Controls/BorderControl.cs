@@ -1,8 +1,12 @@
-﻿namespace XPlaneMonitorApp.Controls
+﻿using System.ComponentModel;
+
+namespace XPlaneMonitorApp.Controls
 {
     public partial class BorderControl : UserControl
     {
         public string Title { get { return lbTitle.Text; } set { lbTitle.Text = value; } }
+
+        [DefaultValue("")]
         public string Value { get { return lbValue.Text; } set { lbValue.Text = value; } }
 
         public BorderControl()
