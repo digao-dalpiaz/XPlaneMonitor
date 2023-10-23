@@ -21,6 +21,11 @@ namespace XPlaneMonitorApp.Functions
             return (int)Math.Round(value);
         }
 
+        public static double Div(double a, double b)
+        {
+            return a / b;
+        }
+
         public static double DegreesToRadians(double degrees)
         {
             return degrees * Math.PI / 180.0;

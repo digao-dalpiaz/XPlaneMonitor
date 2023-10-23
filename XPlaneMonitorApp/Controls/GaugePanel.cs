@@ -59,7 +59,7 @@ namespace XPlaneMonitorApp
 
                 e.Graphics.FillRectangle(new SolidBrush(bar.Color), 0, y, boxDraw.Width * perc, h);
 
-                var text = Utils.RoundToInt(perc * 100).ToString() + "%";
+                var text = Utils.RoundToInt(perc * 100) + "%";
                 var strSize = e.Graphics.MeasureString(text, this.Font);
                 var textY = y + ((h - strSize.Height) / 2);
                 e.Graphics.DrawString(text, this.Font, Brushes.Black,
