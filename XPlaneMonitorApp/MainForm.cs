@@ -155,7 +155,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
             {
                 lbVerticalSpeed.Value = Utils.RoundToInt(r.Value) + " ft/min";
-                lbVerticalSpeed.ForeColor = r.Value >= 0 ? Color.Green : Color.Red;
+                lbVerticalSpeed.ForeColor = Utils.RoundToInt(r.Value) >= 0 ? Color.Green : Color.Red; //round before check value!!!
             });
             lst.Subscribe("sim/flightmodel/position/groundspeed", r =>
             {
