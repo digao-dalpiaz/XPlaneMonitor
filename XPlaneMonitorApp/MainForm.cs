@@ -32,7 +32,7 @@ namespace XPlaneMonitorApp
         private double _lng = -46.4916308;
 
         private float _fuelTotalCapacity;
-        private float _altitude;
+        private float _altitudeTrue;
         private float _headingTrue;
 
         private double _runwayElevation;
@@ -161,8 +161,12 @@ namespace XPlaneMonitorApp
             });
             lst.Subscribe("sim/flightmodel/misc/h_ind", r =>
             {
-                _altitude = r.Value;
                 lbAltitude.Value = Utils.RoundToInt(r.Value) + " ft";
+            });
+            lst.Subscribe("sim/flightmodel2/position/pressure_altitude", r =>
+            {
+                _altitudeTrue = r.Value;
+                lbAltitudeTrue.Value = r.Value + " ft";
             });
             lst.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", r =>
             {
@@ -442,7 +446,7 @@ namespace XPlaneMonitorApp
                     _runwayElevation = Utils.ConvertMetersToFeet(elevMeters);
 
                     _lastAirportRetrievedAltitude = _runwayBegin;
-                } 
+                }
                 catch (Exception ex)
                 {
                     _runwayElevation = 0;
@@ -573,7 +577,7 @@ namespace XPlaneMonitorApp
 
             if (IsNotSetOrFarAwayFromAirport()) return;
 
-            var aircraftHeight = _altitude - _runwayElevation;
+            var aircraftHeight = _altitudeTrue - _runwayElevation;
 
             double calcX(double distance)
             {

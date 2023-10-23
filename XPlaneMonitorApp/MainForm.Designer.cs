@@ -70,6 +70,7 @@
             lbBoxAlign=new Label();
             statusBar=new StatusStrip();
             stLastTimeRec=new ToolStripStatusLabel();
+            lbAltitudeTrue=new Controls.BorderControl();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
@@ -492,12 +493,23 @@
             stLastTimeRec.Name="stLastTimeRec";
             stLastTimeRec.Size=new Size(0, 16);
             // 
+            // lbAltitudeTrue
+            // 
+            lbAltitudeTrue.BackColor=Color.White;
+            lbAltitudeTrue.Location=new Point(920, 120);
+            lbAltitudeTrue.Name="lbAltitudeTrue";
+            lbAltitudeTrue.Padding=new Padding(1);
+            lbAltitudeTrue.Size=new Size(296, 40);
+            lbAltitudeTrue.TabIndex=89;
+            lbAltitudeTrue.Title="True Altitude";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1720, 955);
+            Controls.Add(lbAltitudeTrue);
             Controls.Add(statusBar);
             Controls.Add(lbBoxAlign);
             Controls.Add(lbBoxDescentRamp);
@@ -587,5 +599,6 @@
         private Label lbBoxAlign;
         private StatusStrip statusBar;
         private ToolStripStatusLabel stLastTimeRec;
+        private Controls.BorderControl lbAltitudeTrue;
     }
 }
