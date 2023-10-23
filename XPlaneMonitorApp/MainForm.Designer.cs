@@ -71,6 +71,7 @@
             lbBoxDescentRamp=new Label();
             lbBoxAlign=new Label();
             statusBar=new StatusStrip();
+            stDigaoDalpiaz=new ToolStripStatusLabel();
             stVersion=new ToolStripStatusLabel();
             stLastTimeRec=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
@@ -500,12 +501,20 @@
             // statusBar
             // 
             statusBar.ImageScalingSize=new Size(20, 20);
-            statusBar.Items.AddRange(new ToolStripItem[] { stVersion, stLastTimeRec });
+            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stLastTimeRec });
             statusBar.Location=new Point(0, 929);
             statusBar.Name="statusBar";
             statusBar.Size=new Size(1720, 26);
             statusBar.TabIndex=88;
             statusBar.Text="statusStrip1";
+            // 
+            // stDigaoDalpiaz
+            // 
+            stDigaoDalpiaz.IsLink=true;
+            stDigaoDalpiaz.Name="stDigaoDalpiaz";
+            stDigaoDalpiaz.Size=new Size(105, 20);
+            stDigaoDalpiaz.Text="Digao Dalpiaz";
+            stDigaoDalpiaz.Click+=stDigaoDalpiaz_Click;
             // 
             // stVersion
             // 
@@ -630,5 +639,6 @@
         private ToolStripStatusLabel stVersion;
         private ToolStripButton btnClearRoute;
         private ToolStripSeparator toolStripSeparator3;
+        private ToolStripStatusLabel stDigaoDalpiaz;
     }
 }

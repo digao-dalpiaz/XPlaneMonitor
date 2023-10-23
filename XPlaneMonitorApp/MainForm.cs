@@ -2,6 +2,7 @@ using GMap.NET;
 using GMap.NET.MapProviders;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
+using System.Diagnostics;
 using XPlaneMonitorApp.Communicator;
 using XPlaneMonitorApp.Config;
 using XPlaneMonitorApp.Controls;
@@ -314,6 +315,11 @@ namespace XPlaneMonitorApp
             {
                 _communicator.Disconnect();
             }
+        }
+
+        private void stDigaoDalpiaz_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", "https://github.com/digao-dalpiaz/XPlaneMonitor");
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
