@@ -351,6 +351,11 @@ namespace XPlaneMonitorApp
             GotoPositionOnMap();
         }
 
+        private void btnClearRoute_Click(object sender, EventArgs e)
+        {
+            _mapRoute.Points.Clear();
+        }
+
         private void map_OnMapDrag()
         {
             btnCenterMap.Enabled = true;

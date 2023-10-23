@@ -123,6 +123,16 @@ namespace XPlaneMonitorApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap delete_route {
+            get {
+                object obj = ResourceManager.GetObject("delete-route", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap engine {
             get {
                 object obj = ResourceManager.GetObject("engine", resourceCulture);

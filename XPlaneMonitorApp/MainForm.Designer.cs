@@ -37,6 +37,8 @@
             btnDisconnect=new ToolStripButton();
             toolStripSeparator1=new ToolStripSeparator();
             btnCenterMap=new ToolStripButton();
+            btnClearRoute=new ToolStripButton();
+            toolStripSeparator3=new ToolStripSeparator();
             btnSetRunwayBegin=new ToolStripButton();
             btnSetRunwayEnd=new ToolStripButton();
             btnClearRunwayApproach=new ToolStripButton();
@@ -136,9 +138,10 @@
             // toolBar
             // 
             toolBar.ImageScalingSize=new Size(20, 20);
-            toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnCenterMap, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach, toolStripSeparator2, btnConfig });
+            toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnCenterMap, btnClearRoute, toolStripSeparator3, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach, toolStripSeparator2, btnConfig });
             toolBar.Location=new Point(0, 0);
             toolBar.Name="toolBar";
+            toolBar.ShowItemToolTips=false;
             toolBar.Size=new Size(1720, 31);
             toolBar.TabIndex=48;
             // 
@@ -175,6 +178,21 @@
             btnCenterMap.Size=new Size(110, 28);
             btnCenterMap.Text="Center Map";
             btnCenterMap.Click+=btnCenterMap_Click;
+            // 
+            // btnClearRoute
+            // 
+            btnClearRoute.Image=Properties.Resources.delete_route;
+            btnClearRoute.ImageScaling=ToolStripItemImageScaling.None;
+            btnClearRoute.ImageTransparentColor=Color.Magenta;
+            btnClearRoute.Name="btnClearRoute";
+            btnClearRoute.Size=new Size(114, 28);
+            btnClearRoute.Text="Clear Route";
+            btnClearRoute.Click+=btnClearRoute_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name="toolStripSeparator3";
+            toolStripSeparator3.Size=new Size(6, 31);
             // 
             // btnSetRunwayBegin
             // 
@@ -610,5 +628,7 @@
         private ToolStripStatusLabel stLastTimeRec;
         private Controls.BorderControl lbAltitudeTrue;
         private ToolStripStatusLabel stVersion;
+        private ToolStripButton btnClearRoute;
+        private ToolStripSeparator toolStripSeparator3;
     }
 }
