@@ -69,6 +69,7 @@
             lbBoxDescentRamp=new Label();
             lbBoxAlign=new Label();
             statusBar=new StatusStrip();
+            stVersion=new ToolStripStatusLabel();
             stLastTimeRec=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
             toolBar.SuspendLayout();
@@ -481,22 +482,30 @@
             // statusBar
             // 
             statusBar.ImageScalingSize=new Size(20, 20);
-            statusBar.Items.AddRange(new ToolStripItem[] { stLastTimeRec });
-            statusBar.Location=new Point(0, 933);
+            statusBar.Items.AddRange(new ToolStripItem[] { stVersion, stLastTimeRec });
+            statusBar.Location=new Point(0, 929);
             statusBar.Name="statusBar";
-            statusBar.Size=new Size(1720, 22);
+            statusBar.Size=new Size(1720, 26);
             statusBar.TabIndex=88;
             statusBar.Text="statusStrip1";
+            // 
+            // stVersion
+            // 
+            stVersion.Name="stVersion";
+            stVersion.Size=new Size(57, 20);
+            stVersion.Text="Version";
             // 
             // stLastTimeRec
             // 
             stLastTimeRec.Name="stLastTimeRec";
-            stLastTimeRec.Size=new Size(0, 16);
+            stLastTimeRec.Size=new Size(238, 20);
+            stLastTimeRec.Text="Nothing received yet from X-Plane";
             // 
             // lbAltitudeTrue
             // 
             lbAltitudeTrue.BackColor=Color.White;
-            lbAltitudeTrue.Location=new Point(920, 120);
+            lbAltitudeTrue.ForeColor=Color.Gray;
+            lbAltitudeTrue.Location=new Point(920, 118);
             lbAltitudeTrue.Name="lbAltitudeTrue";
             lbAltitudeTrue.Padding=new Padding(1);
             lbAltitudeTrue.Size=new Size(296, 40);
@@ -600,5 +609,6 @@
         private StatusStrip statusBar;
         private ToolStripStatusLabel stLastTimeRec;
         private Controls.BorderControl lbAltitudeTrue;
+        private ToolStripStatusLabel stVersion;
     }
 }

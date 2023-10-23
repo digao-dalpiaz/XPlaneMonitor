@@ -56,6 +56,8 @@ namespace XPlaneMonitorApp
 
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 
+            stVersion.Text = "Version " + Vars.VERSION;
+
             Utils.SetDoubleBuffered(boxRamp);
             Utils.SetDoubleBuffered(boxSpacing);
         }
