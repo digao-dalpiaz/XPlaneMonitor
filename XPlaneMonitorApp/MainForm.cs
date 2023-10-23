@@ -12,6 +12,9 @@ namespace XPlaneMonitorApp
     public partial class MainForm : Form
     {
 
+        private const double RAMP_DISTANCE_FATOR = 1.25;
+        private const double RAMP_ALTITUDE_FATOR = 1.5;
+
         private XPlaneCommunicator _communicator;
 
         private readonly GMapOverlay _mapOverlay = new();
@@ -552,18 +555,23 @@ namespace XPlaneMonitorApp
             lbSpacing.Value = string.Empty;
         }
 
+        private bool IsNotSetOrFarAwayFromAirport()
+        {
+            return !_runwayApproach.HasValue || _runwayDistance > (Vars.Cfg.RampDistance * RAMP_DISTANCE_FATOR);
+        }
+
         private void boxRamp_Paint(object sender, PaintEventArgs e)
         {
             var rampDistance = Vars.Cfg.RampDistance;
             var rampHeight = Vars.Cfg.RampElevation;
 
-            var fullDistance = rampDistance * 1.25;
-            var fullHeight = rampHeight * 1.5;
+            var fullDistance = rampDistance * RAMP_DISTANCE_FATOR;
+            var fullHeight = rampHeight * RAMP_ALTITUDE_FATOR;
 
             Utils.DrawGrid(e.Graphics, 1, fullDistance, 500, fullHeight, boxRamp.ClientRectangle);
             //
 
-            if (_runwayDistance > fullDistance) return; //do not paint descent ramp if aircraft is far away from airport
+            if (IsNotSetOrFarAwayFromAirport()) return;
 
             var aircraftHeight = _altitude - _runwayElevation;
 
@@ -586,6 +594,8 @@ namespace XPlaneMonitorApp
             const int marginFull = marginSide * 2;
             Utils.DrawGrid(e.Graphics, 50, marginFull, 1, 1, boxSpacing.ClientRectangle);
             //
+
+            if (IsNotSetOrFarAwayFromAirport()) return;
 
             var xIdeal = boxSpacing.Width / 2;
             e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
