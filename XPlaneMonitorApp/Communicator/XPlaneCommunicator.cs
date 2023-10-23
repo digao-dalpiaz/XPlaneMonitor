@@ -95,29 +95,29 @@ namespace XPlaneMonitorApp.Communicator
 
         private void ReceiveCallback(IAsyncResult ar)
         {
-            byte[] response;
             try
             {
-                IPEndPoint remoteEndPoint = null;
-                response = _server.EndReceive(ar, ref remoteEndPoint);
-            }
-            catch (ObjectDisposedException)
-            {
-                return;
-            }
-            catch (SocketException ex)
-            {
-                Disconnect();
-                RunSync(() =>
+                byte[] response;
+                try
                 {
-                    string msg = ex.ErrorCode == 10054 ? string.Format("X-Plane not found running at {0}:{1}", _host, _port) : ex.Message;
-                    Messages.Error(msg);
-                });
-                return;
+                    IPEndPoint remoteEndPoint = null;
+                    response = _server.EndReceive(ar, ref remoteEndPoint);
+                }
+                catch (SocketException ex)
+                {
+                    Disconnect();
+                    RunSync(() =>
+                    {
+                        string msg = ex.ErrorCode == 10054 ? string.Format("X-Plane not found running at {0}:{1}", _host, _port) : ex.Message;
+                        Messages.Error(msg);
+                    });
+                    return;
+                }
+                if (Status == ConnectionStatus.CONNECTING) ChangeStatus(ConnectionStatus.CONNECTED);
+                ParseResponse(response);
+                _server.BeginReceive(ReceiveCallback, null);
             }
-            if (Status == ConnectionStatus.CONNECTING) ChangeStatus(ConnectionStatus.CONNECTED);
-            ParseResponse(response);
-            _server.BeginReceive(ReceiveCallback, null);
+            catch (ObjectDisposedException) { }
         }
 
         private void ParseResponse(byte[] buffer)
