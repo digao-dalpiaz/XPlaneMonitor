@@ -354,6 +354,8 @@ namespace XPlaneMonitorApp
         private void btnClearRoute_Click(object sender, EventArgs e)
         {
             _mapRoute.Points.Clear();
+            map.UpdateRouteLocalPosition(_mapRoute);
+            map.Invalidate(); //there is a bug in GMap when clearing route
         }
 
         private void map_OnMapDrag()
