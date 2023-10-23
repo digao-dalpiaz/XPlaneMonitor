@@ -82,7 +82,7 @@ namespace XPlaneMonitorApp
             map.MapProvider = OpenStreetMapGraphHopperProvider.Instance;
             map.DragButton = MouseButtons.Left;
             map.ShowCenter = false;
-            map.MaxZoom = 100;
+            map.MaxZoom = 20;
             map.MinZoom = 0;
             map.Zoom = 15;
             map.Overlays.Add(_mapOverlay);
