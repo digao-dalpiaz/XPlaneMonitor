@@ -52,12 +52,26 @@ namespace XPlaneMonitorApp.Communicator
             _server = new UdpClient(ep);
             _server.BeginReceive(ReceiveCallback, null);
 
+            new Task(() =>
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    Thread.Sleep(1000);
+                    if (_connectionStatus != ConnectionStatus.CONNECTING) return;
+                }
+                Disconnect();
+                RunSync(() => Messages.Error("Connection time-out"));
+            }).Start();
+
             RequestRefs(true);
         }
 
         public void Disconnect()
         {
-            RequestRefs(false);
+            if (_connectionStatus == ConnectionStatus.CONNECTED)
+            {
+                RequestRefs(false);
+            }
 
             _server.Close();
             _client.Close();
@@ -113,7 +127,7 @@ namespace XPlaneMonitorApp.Communicator
                     });
                     return;
                 }
-                if (Status == ConnectionStatus.CONNECTING) ChangeStatus(ConnectionStatus.CONNECTED);
+                if (_connectionStatus == ConnectionStatus.CONNECTING) ChangeStatus(ConnectionStatus.CONNECTED);
                 ParseResponse(response);
                 _server.BeginReceive(ReceiveCallback, null);
             }
