@@ -74,6 +74,7 @@
             stDigaoDalpiaz=new ToolStripStatusLabel();
             stVersion=new ToolStripStatusLabel();
             stLastTimeRec=new ToolStripStatusLabel();
+            stConnStatus=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
@@ -500,10 +501,12 @@
             // 
             // statusBar
             // 
+            statusBar.GripStyle=ToolStripGripStyle.Visible;
             statusBar.ImageScalingSize=new Size(20, 20);
-            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stLastTimeRec });
+            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec });
             statusBar.Location=new Point(0, 929);
             statusBar.Name="statusBar";
+            statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
             statusBar.Size=new Size(1720, 26);
             statusBar.TabIndex=88;
             statusBar.Text="statusStrip1";
@@ -518,6 +521,7 @@
             // 
             // stVersion
             // 
+            stVersion.ForeColor=Color.Teal;
             stVersion.Name="stVersion";
             stVersion.Size=new Size(57, 20);
             stVersion.Text="Version";
@@ -527,6 +531,12 @@
             stLastTimeRec.Name="stLastTimeRec";
             stLastTimeRec.Size=new Size(238, 20);
             stLastTimeRec.Text="Nothing received yet from X-Plane";
+            // 
+            // stConnStatus
+            // 
+            stConnStatus.Name="stConnStatus";
+            stConnStatus.Size=new Size(49, 20);
+            stConnStatus.Text="Status";
             // 
             // lbAltitudeTrue
             // 
@@ -640,5 +650,6 @@
         private ToolStripButton btnClearRoute;
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripStatusLabel stDigaoDalpiaz;
+        private ToolStripStatusLabel stConnStatus;
     }
 }

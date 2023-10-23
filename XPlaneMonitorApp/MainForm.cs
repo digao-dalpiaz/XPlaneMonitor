@@ -350,6 +350,21 @@ namespace XPlaneMonitorApp
         {
             btnConnect.Enabled = _communicator.Status == ConnectionStatus.DISCONNECTED;
             btnDisconnect.Enabled = _communicator.Status == ConnectionStatus.CONNECTED;
+
+            switch (_communicator.Status)
+            {
+                case ConnectionStatus.CONNECTED:
+                    stConnStatus.Text = "Connected";
+                    break;
+                case ConnectionStatus.DISCONNECTED:
+                    stConnStatus.Text = "Disconnected";
+                    break;
+                case ConnectionStatus.CONNECTING:
+                    stConnStatus.Text = "Connecting...";
+                    break;
+                default:
+                    throw new Exception("Invalid connection status");
+            }
         }
 
         private void btnCenterMap_Click(object sender, EventArgs e)
