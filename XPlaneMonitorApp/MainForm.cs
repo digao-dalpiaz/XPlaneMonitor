@@ -166,7 +166,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel2/position/pressure_altitude", r =>
             {
                 _altitudeTrue = r.Value;
-                lbAltitudeTrue.Value = r.Value + " ft";
+                lbAltitudeTrue.Value = Utils.RoundToInt(r.Value) + " ft";
             });
             lst.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", r =>
             {
