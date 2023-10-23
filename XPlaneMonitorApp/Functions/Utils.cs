@@ -21,11 +21,6 @@ namespace XPlaneMonitorApp.Functions
             return (int)Math.Round(value);
         }
 
-        public static double Div(double a, double b)
-        {
-            return a / b;
-        }
-
         public static double DegreesToRadians(double degrees)
         {
             return degrees * Math.PI / 180.0;
@@ -39,7 +34,6 @@ namespace XPlaneMonitorApp.Functions
         public static double InvertDegree(double angle)
         {
             double invertedAngle = (angle + 180) % 360;
-
             return invertedAngle;
         }
 
@@ -65,7 +59,7 @@ namespace XPlaneMonitorApp.Functions
         {
             g.FillRectangle(new SolidBrush(Color.FromArgb(30, 30, 30)), r);
 
-            var xSpacing = r.Width * xUnit / xTotal;
+            double xSpacing = r.Width * xUnit / xTotal;
             double x = 0;
             while (x < r.Width)
             {
@@ -73,7 +67,7 @@ namespace XPlaneMonitorApp.Functions
                 g.DrawLine(new Pen(Color.Black), (float)x, 0, (float)x, r.Height);
             }
 
-            var ySpacing = r.Height * yUnit / yTotal;
+            double ySpacing = r.Height * yUnit / yTotal;
             double y = 0;
             while (y < r.Height)
             {

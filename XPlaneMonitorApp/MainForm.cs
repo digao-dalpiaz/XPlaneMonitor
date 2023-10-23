@@ -597,7 +597,7 @@ namespace XPlaneMonitorApp
 
             if (IsNotSetOrFarAwayFromAirport()) return;
 
-            var xIdeal = boxSpacing.Width / 2;
+            int xIdeal = boxSpacing.Width / 2;
             e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
 
             //
@@ -610,8 +610,8 @@ namespace XPlaneMonitorApp
 
             var angle = 90 + (_runwayHeading - _headingTrue);
 
-            var startX = boxSpacing.Width * s / marginFull;
-            var endX = startX + (boxSpacing.Height / Math.Tan(Utils.DegreesToRadians(angle)));
+            double startX = boxSpacing.Width * s / marginFull;
+            double endX = startX + (boxSpacing.Height / Math.Tan(Utils.DegreesToRadians(angle)));
 
             e.Graphics.DrawLine(new Pen(Color.Purple, 3), (float)endX, 0, (float)startX, boxSpacing.Height);
         }
