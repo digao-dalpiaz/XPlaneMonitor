@@ -73,9 +73,11 @@
             statusBar=new StatusStrip();
             stDigaoDalpiaz=new ToolStripStatusLabel();
             stVersion=new ToolStripStatusLabel();
-            stLastTimeRec=new ToolStripStatusLabel();
             stConnStatus=new ToolStripStatusLabel();
+            stLastTimeRec=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
+            lbWindSpeed=new Controls.BorderControl();
+            lbWindHeading=new Controls.BorderControl();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
@@ -526,17 +528,17 @@
             stVersion.Size=new Size(57, 20);
             stVersion.Text="Version";
             // 
-            // stLastTimeRec
-            // 
-            stLastTimeRec.Name="stLastTimeRec";
-            stLastTimeRec.Size=new Size(238, 20);
-            stLastTimeRec.Text="Nothing received yet from X-Plane";
-            // 
             // stConnStatus
             // 
             stConnStatus.Name="stConnStatus";
             stConnStatus.Size=new Size(49, 20);
             stConnStatus.Text="Status";
+            // 
+            // stLastTimeRec
+            // 
+            stLastTimeRec.Name="stLastTimeRec";
+            stLastTimeRec.Size=new Size(238, 20);
+            stLastTimeRec.Text="Nothing received yet from X-Plane";
             // 
             // lbAltitudeTrue
             // 
@@ -549,12 +551,34 @@
             lbAltitudeTrue.TabIndex=89;
             lbAltitudeTrue.Title="True Altitude";
             // 
+            // lbWindSpeed
+            // 
+            lbWindSpeed.BackColor=Color.White;
+            lbWindSpeed.Location=new Point(920, 40);
+            lbWindSpeed.Name="lbWindSpeed";
+            lbWindSpeed.Padding=new Padding(1);
+            lbWindSpeed.Size=new Size(296, 40);
+            lbWindSpeed.TabIndex=90;
+            lbWindSpeed.Title="Wind Speed";
+            // 
+            // lbWindHeading
+            // 
+            lbWindHeading.BackColor=Color.White;
+            lbWindHeading.Location=new Point(920, 79);
+            lbWindHeading.Name="lbWindHeading";
+            lbWindHeading.Padding=new Padding(1);
+            lbWindHeading.Size=new Size(296, 40);
+            lbWindHeading.TabIndex=91;
+            lbWindHeading.Title="Wind Heading";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1720, 955);
+            Controls.Add(lbWindHeading);
+            Controls.Add(lbWindSpeed);
             Controls.Add(lbAltitudeTrue);
             Controls.Add(statusBar);
             Controls.Add(lbBoxAlign);
@@ -651,5 +675,7 @@
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripStatusLabel stDigaoDalpiaz;
         private ToolStripStatusLabel stConnStatus;
+        private Controls.BorderControl lbWindSpeed;
+        private Controls.BorderControl lbWindHeading;
     }
 }

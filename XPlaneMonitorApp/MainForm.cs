@@ -200,6 +200,15 @@ namespace XPlaneMonitorApp
                 icoParkingBrake.Visible = on;
             });
 
+            lst.Subscribe("sim/cockpit2/gauges/indicators/wind_speed_kts", r =>
+            {
+                lbWindSpeed.Value = Utils.RoundToInt(r.Value) + " kts";
+            });
+            lst.Subscribe("sim/cockpit2/gauges/indicators/wind_heading_deg_mag", r =>
+            {
+                lbWindHeading.Value = Utils.RoundToInt(r.Value) + "º";
+            });
+
             lst.Subscribe("sim/flightmodel/controls/flaprqst", r =>
             {
                 gaugeFlaps.Bars[0].Pos = r.Value;
