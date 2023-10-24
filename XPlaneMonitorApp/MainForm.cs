@@ -123,6 +123,8 @@ namespace XPlaneMonitorApp
             gaugeWheelBrake.AddBar("Left", Color.Fuchsia, 1);
             gaugeWheelBrake.AddBar("Right", Color.Fuchsia, 1);
 
+            gaugeAPU.AddBar(null, Color.GreenYellow, 100);
+
             for (int i = 0; i < 4; i++)
             {
                 gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), Color.Green, 1);
@@ -263,6 +265,12 @@ namespace XPlaneMonitorApp
             {
                 gaugeWheelBrake.Bars[1].Pos = r.Value;
                 gaugeWheelBrake.Reload();
+            });
+
+            lst.Subscribe("sim/cockpit/engine/APU_N1", r =>
+            {
+                gaugeAPU.Bars[0].Pos = r.Value;
+                gaugeAPU.Reload();
             });
 
             lst.Subscribe("sim/flightmodel/controls/lsplrdef", r =>

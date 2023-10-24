@@ -78,6 +78,7 @@
             lbAltitudeTrue=new Controls.BorderControl();
             lbWindSpeed=new Controls.BorderControl();
             lbWindHeading=new Controls.BorderControl();
+            gaugeAPU=new GaugePanel();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
@@ -146,7 +147,7 @@
             toolBar.Location=new Point(0, 0);
             toolBar.Name="toolBar";
             toolBar.ShowItemToolTips=false;
-            toolBar.Size=new Size(1720, 31);
+            toolBar.Size=new Size(1834, 31);
             toolBar.TabIndex=48;
             // 
             // btnConnect
@@ -290,17 +291,17 @@
             // 
             // boxRamp
             // 
-            boxRamp.Location=new Point(1224, 320);
+            boxRamp.Location=new Point(1224, 312);
             boxRamp.Name="boxRamp";
-            boxRamp.Size=new Size(488, 264);
+            boxRamp.Size=new Size(600, 264);
             boxRamp.TabIndex=56;
             boxRamp.Paint+=boxRamp_Paint;
             // 
             // boxSpacing
             // 
-            boxSpacing.Location=new Point(1224, 616);
+            boxSpacing.Location=new Point(1224, 608);
             boxSpacing.Name="boxSpacing";
-            boxSpacing.Size=new Size(488, 264);
+            boxSpacing.Size=new Size(600, 264);
             boxSpacing.TabIndex=59;
             boxSpacing.Paint+=boxSpacing_Paint;
             // 
@@ -414,7 +415,7 @@
             // lbRunwayElevation
             // 
             lbRunwayElevation.BackColor=Color.White;
-            lbRunwayElevation.Location=new Point(1224, 79);
+            lbRunwayElevation.Location=new Point(1528, 79);
             lbRunwayElevation.Name="lbRunwayElevation";
             lbRunwayElevation.Padding=new Padding(1);
             lbRunwayElevation.Size=new Size(296, 40);
@@ -424,7 +425,7 @@
             // lbRunwayDegrees
             // 
             lbRunwayDegrees.BackColor=Color.White;
-            lbRunwayDegrees.Location=new Point(1224, 118);
+            lbRunwayDegrees.Location=new Point(1528, 118);
             lbRunwayDegrees.Name="lbRunwayDegrees";
             lbRunwayDegrees.Padding=new Padding(1);
             lbRunwayDegrees.Size=new Size(296, 40);
@@ -434,7 +435,7 @@
             // lbRunwaySize
             // 
             lbRunwaySize.BackColor=Color.White;
-            lbRunwaySize.Location=new Point(1224, 157);
+            lbRunwaySize.Location=new Point(1528, 157);
             lbRunwaySize.Name="lbRunwaySize";
             lbRunwaySize.Padding=new Padding(1);
             lbRunwaySize.Size=new Size(296, 40);
@@ -444,7 +445,7 @@
             // lbApproachDist
             // 
             lbApproachDist.BackColor=Color.White;
-            lbApproachDist.Location=new Point(1224, 208);
+            lbApproachDist.Location=new Point(1528, 200);
             lbApproachDist.Name="lbApproachDist";
             lbApproachDist.Padding=new Padding(1);
             lbApproachDist.Size=new Size(296, 40);
@@ -454,7 +455,7 @@
             // lbRunwayDist
             // 
             lbRunwayDist.BackColor=Color.White;
-            lbRunwayDist.Location=new Point(1224, 247);
+            lbRunwayDist.Location=new Point(1528, 239);
             lbRunwayDist.Name="lbRunwayDist";
             lbRunwayDist.Padding=new Padding(1);
             lbRunwayDist.Size=new Size(296, 40);
@@ -464,7 +465,7 @@
             // lbRunwayPoints
             // 
             lbRunwayPoints.BackColor=Color.White;
-            lbRunwayPoints.Location=new Point(1224, 40);
+            lbRunwayPoints.Location=new Point(1528, 40);
             lbRunwayPoints.Name="lbRunwayPoints";
             lbRunwayPoints.Padding=new Padding(1);
             lbRunwayPoints.Size=new Size(296, 40);
@@ -474,7 +475,7 @@
             // lbSpacing
             // 
             lbSpacing.BackColor=Color.White;
-            lbSpacing.Location=new Point(1224, 880);
+            lbSpacing.Location=new Point(1528, 880);
             lbSpacing.Name="lbSpacing";
             lbSpacing.Padding=new Padding(1);
             lbSpacing.Size=new Size(296, 40);
@@ -484,9 +485,9 @@
             // lbBoxDescentRamp
             // 
             lbBoxDescentRamp.BackColor=Color.Gray;
-            lbBoxDescentRamp.Location=new Point(1224, 296);
+            lbBoxDescentRamp.Location=new Point(1224, 288);
             lbBoxDescentRamp.Name="lbBoxDescentRamp";
-            lbBoxDescentRamp.Size=new Size(488, 24);
+            lbBoxDescentRamp.Size=new Size(600, 24);
             lbBoxDescentRamp.TabIndex=86;
             lbBoxDescentRamp.Text="Descent Ramp";
             lbBoxDescentRamp.TextAlign=ContentAlignment.MiddleCenter;
@@ -494,9 +495,9 @@
             // lbBoxAlign
             // 
             lbBoxAlign.BackColor=Color.Gray;
-            lbBoxAlign.Location=new Point(1224, 592);
+            lbBoxAlign.Location=new Point(1224, 584);
             lbBoxAlign.Name="lbBoxAlign";
-            lbBoxAlign.Size=new Size(488, 24);
+            lbBoxAlign.Size=new Size(600, 24);
             lbBoxAlign.TabIndex=87;
             lbBoxAlign.Text="Approach Alignment";
             lbBoxAlign.TextAlign=ContentAlignment.MiddleCenter;
@@ -509,7 +510,7 @@
             statusBar.Location=new Point(0, 929);
             statusBar.Name="statusBar";
             statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
-            statusBar.Size=new Size(1720, 26);
+            statusBar.Size=new Size(1834, 26);
             statusBar.TabIndex=88;
             statusBar.Text="statusStrip1";
             // 
@@ -571,12 +572,22 @@
             lbWindHeading.TabIndex=91;
             lbWindHeading.Title="Wind Heading";
             // 
+            // gaugeAPU
+            // 
+            gaugeAPU.GaugeImage=Properties.Resources.cone;
+            gaugeAPU.GaugeTitle="APU N1";
+            gaugeAPU.Location=new Point(1224, 168);
+            gaugeAPU.Name="gaugeAPU";
+            gaugeAPU.Size=new Size(296, 112);
+            gaugeAPU.TabIndex=92;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
-            ClientSize=new Size(1720, 955);
+            ClientSize=new Size(1834, 955);
+            Controls.Add(gaugeAPU);
             Controls.Add(lbWindHeading);
             Controls.Add(lbWindSpeed);
             Controls.Add(lbAltitudeTrue);
@@ -677,5 +688,6 @@
         private ToolStripStatusLabel stConnStatus;
         private Controls.BorderControl lbWindSpeed;
         private Controls.BorderControl lbWindHeading;
+        private GaugePanel gaugeAPU;
     }
 }
