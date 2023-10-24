@@ -82,6 +82,8 @@
             lbOutsideTemp=new Controls.BorderControl();
             lbAutoPilot=new Controls.BorderControl();
             lbAutoThrottle=new Controls.BorderControl();
+            borderControl1=new Controls.BorderControl();
+            stSimTime=new ToolStripStatusLabel();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
@@ -509,7 +511,7 @@
             // 
             statusBar.GripStyle=ToolStripGripStyle.Visible;
             statusBar.ImageScalingSize=new Size(20, 20);
-            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec });
+            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stSimTime });
             statusBar.Location=new Point(0, 929);
             statusBar.Name="statusBar";
             statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
@@ -614,12 +616,29 @@
             lbAutoThrottle.TabIndex=95;
             lbAutoThrottle.Title="Auto Throttle";
             // 
+            // borderControl1
+            // 
+            borderControl1.BackColor=Color.White;
+            borderControl1.Location=new Point(1224, 880);
+            borderControl1.Name="borderControl1";
+            borderControl1.Padding=new Padding(1);
+            borderControl1.Size=new Size(296, 40);
+            borderControl1.TabIndex=96;
+            borderControl1.Title="Align Deviation";
+            // 
+            // stSimTime
+            // 
+            stSimTime.Name="stSimTime";
+            stSimTime.Size=new Size(151, 20);
+            stSimTime.Text="toolStripStatusLabel1";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1834, 955);
+            Controls.Add(borderControl1);
             Controls.Add(lbAutoThrottle);
             Controls.Add(lbAutoPilot);
             Controls.Add(lbOutsideTemp);
@@ -728,5 +747,7 @@
         private Controls.BorderControl lbOutsideTemp;
         private Controls.BorderControl lbAutoPilot;
         private Controls.BorderControl lbAutoThrottle;
+        private Controls.BorderControl borderControl1;
+        private ToolStripStatusLabel stSimTime;
     }
 }

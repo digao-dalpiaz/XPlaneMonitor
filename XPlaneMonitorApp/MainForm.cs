@@ -239,6 +239,10 @@ namespace XPlaneMonitorApp
                 gaugeFlaps.Reload();
             });
 
+            lst.Subscribe("sim/cockpit2/switches/dump_fuel", r =>
+            {
+                gaugeFuel.GaugeTitle = "Fuel" + (r.Value == 1 ? " - DUMPING!!!" : "");
+            });
             lst.Subscribe("sim/aircraft/weight/acf_m_fuel_tot", r =>
             {
                 _fuelTotalCapacity = r.Value;
@@ -345,6 +349,18 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
             lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
             //--
+
+            lst.Subscribe("sim/time/total_flight_time_sec", r =>
+            {
+                var time = TimeSpan.FromSeconds(r.Value);
+                var hours = time.TotalHours;
+                var hoursInt = Math.Floor(hours);
+                var min = (hours - hoursInt) * 60;
+                var minInt = Math.Floor(min);
+                var sec = (min - minInt) * 60;
+                var secInt = Math.Floor(sec);
+                stSimTime.Text = "Simulator time elapsed: " +  hoursInt + ":" + minInt.ToString("00") + ":" + secInt.ToString("00");
+            });
 
             return lst;
         }
