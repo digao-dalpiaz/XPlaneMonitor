@@ -79,6 +79,7 @@
             lbWindSpeed=new Controls.BorderControl();
             lbWindHeading=new Controls.BorderControl();
             gaugeAPU=new GaugePanel();
+            lbOutsideTemp=new Controls.BorderControl();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
@@ -581,12 +582,23 @@
             gaugeAPU.Size=new Size(296, 112);
             gaugeAPU.TabIndex=92;
             // 
+            // lbOutsideTemp
+            // 
+            lbOutsideTemp.BackColor=Color.White;
+            lbOutsideTemp.Location=new Point(1224, 40);
+            lbOutsideTemp.Name="lbOutsideTemp";
+            lbOutsideTemp.Padding=new Padding(1);
+            lbOutsideTemp.Size=new Size(296, 40);
+            lbOutsideTemp.TabIndex=93;
+            lbOutsideTemp.Title="Outside Temp.";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1834, 955);
+            Controls.Add(lbOutsideTemp);
             Controls.Add(gaugeAPU);
             Controls.Add(lbWindHeading);
             Controls.Add(lbWindSpeed);
@@ -689,5 +701,6 @@
         private Controls.BorderControl lbWindSpeed;
         private Controls.BorderControl lbWindHeading;
         private GaugePanel gaugeAPU;
+        private Controls.BorderControl lbOutsideTemp;
     }
 }

@@ -211,6 +211,11 @@ namespace XPlaneMonitorApp
                 lbWindHeading.Value = Utils.RoundToInt(r.Value) + "º";
             });
 
+            lst.Subscribe("sim/cockpit2/temperature/outside_air_temp_degc", r =>
+            {
+                lbOutsideTemp.Value = Utils.RoundToInt(r.Value) + "ºC";
+            });
+
             lst.Subscribe("sim/flightmodel/controls/flaprqst", r =>
             {
                 gaugeFlaps.Bars[0].Pos = r.Value;
