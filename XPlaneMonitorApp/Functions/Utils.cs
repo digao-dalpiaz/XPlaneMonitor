@@ -64,7 +64,7 @@ namespace XPlaneMonitorApp.Functions
             while (x < r.Width)
             {
                 x += xSpacing;
-                g.DrawLine(new Pen(Color.Black), (float)x, 0, (float)x, r.Height);
+                Drawing.DrawLine(g, new Pen(Color.Black), x, 0, x, r.Height);
             }
 
             double ySpacing = r.Height * yUnit / yTotal;
@@ -72,7 +72,7 @@ namespace XPlaneMonitorApp.Functions
             while (y < r.Height)
             {
                 y += ySpacing;
-                g.DrawLine(new Pen(Color.Black), 0, (float)y, r.Width, (float)y);
+                Drawing.DrawLine(g, new Pen(Color.Black), 0, y, r.Width, y);
             }
         }
 

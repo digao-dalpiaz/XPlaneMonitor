@@ -688,8 +688,6 @@ namespace XPlaneMonitorApp
 
             if (IsNotSetOrFarAwayFromAirport()) return;
 
-            var aircraftHeight = _altitudeTrue - _runwayElevation;
-
             double calcX(double distance)
             {
                 return boxRamp.Width - ((distance / fullDistance) * boxRamp.Width);
@@ -699,8 +697,14 @@ namespace XPlaneMonitorApp
                 return boxRamp.Height - ((height / fullHeight) * boxRamp.Height);
             }
 
-            e.Graphics.DrawLine(new Pen(Color.Red, 3), (float)calcX(_runwayDistance), (float)calcY(aircraftHeight), boxRamp.Width, boxRamp.Height); //real
-            e.Graphics.DrawLine(new Pen(Color.Green), (float)calcX(rampDistance), (float)calcY(rampHeight), boxRamp.Width, boxRamp.Height); //ideal
+            var airplaneX = calcX(_runwayDistance);
+            var airplaneY = calcY(_altitudeTrue - _runwayElevation);
+
+            Drawing.DrawLine(e.Graphics, new Pen(Color.Red, 3), airplaneX, airplaneY, boxRamp.Width, boxRamp.Height); //real
+            Drawing.DrawLine(e.Graphics, new Pen(Color.Green), calcX(rampDistance), calcY(rampHeight), boxRamp.Width, boxRamp.Height); //ideal
+
+            var airplaneImg = Properties.Resources.airplane_ramp;
+            Drawing.DrawImage(e.Graphics, airplaneImg, airplaneX - (airplaneImg.Width / 2), airplaneY - (airplaneImg.Height / 2));
         }
 
         private void boxSpacing_Paint(object sender, PaintEventArgs e)
@@ -713,22 +717,23 @@ namespace XPlaneMonitorApp
             if (IsNotSetOrFarAwayFromAirport()) return;
 
             int xIdeal = boxSpacing.Width / 2;
-            e.Graphics.DrawLine(new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
+            Drawing.DrawLine(e.Graphics, new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
 
             //
 
             var s = _spacing;
-            if (s > marginSide) s = marginSide;
-            if (s < -marginSide) s = -marginSide;
+            if (s > marginSide) s = marginSide; else if (s < -marginSide) s = -marginSide;
+            s += marginSide; //move half side to the right
 
-            s += marginSide;
+            var difAngle = _runwayHeading - _headingTrue;
 
-            var angle = 90 + (_runwayHeading - _headingTrue);
+            var startX = boxSpacing.Width * s / marginFull;
+            var endX = startX + (boxSpacing.Height / Math.Tan(Utils.DegreesToRadians(90 + difAngle)));
 
-            double startX = boxSpacing.Width * s / marginFull;
-            double endX = startX + (boxSpacing.Height / Math.Tan(Utils.DegreesToRadians(angle)));
+            var airplaneImg = Drawing.RotateImage(Properties.Resources.airplane_align, -difAngle);
 
-            e.Graphics.DrawLine(new Pen(Color.Purple, 3), (float)endX, 0, (float)startX, boxSpacing.Height);
+            Drawing.DrawLine(e.Graphics, new Pen(Color.Purple, 3), endX, 0, startX, boxSpacing.Height - (airplaneImg.Height / 2));
+            Drawing.DrawImage(e.Graphics, airplaneImg, startX - (airplaneImg.Width / 2), boxSpacing.Height - airplaneImg.Height);
         }
 
     }
