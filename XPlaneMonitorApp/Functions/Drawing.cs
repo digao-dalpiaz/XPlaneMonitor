@@ -13,6 +13,16 @@
             g.DrawImage(img, (float)x, (float)y, img.Width, img.Height);
         }
 
+        public static void FillRectangle(Graphics g, Brush brush, double x, double y, double w, double h)
+        {
+            g.FillRectangle(brush, (float)x, (float)y, (float)w, (float)h);
+        }
+
+        public static void DrawString(Graphics g, string text, Font font, Brush brush, double x, double y)
+        {
+            g.DrawString(text, font, brush, (float)x, (float)y);
+        }
+
         public static Bitmap RotateImage(Bitmap bmp, double angle)
         {
             float height = bmp.Height;

@@ -20,6 +20,16 @@ namespace XPlaneMonitorApp.Functions
         {
             return (int)Math.Round(value);
         }
+        
+        public static double Div(double a, double b)
+        {
+            return a / b;
+        }
+
+        public static double RuleOfThree(double a1, double a2, double b1)
+        {
+            return a2 * b1 / a1;
+        }
 
         public static double DegreesToRadians(double degrees)
         {
@@ -33,33 +43,29 @@ namespace XPlaneMonitorApp.Functions
 
         public static double InvertDegree(double angle)
         {
-            double invertedAngle = (angle + 180) % 360;
-            return invertedAngle;
+            return (angle + 180) % 360;
         }
 
         public static double ConvertMetersToFeet(double metros)
         {
-            const double metrosPorPe = 0.3048;
-            return metros / metrosPorPe;
+            return metros / 0.3048;
         }
 
         public static double ConverterMilhaNauticaParaKm(double nm)
         {
-            const double milhasNauticasEmQuilometros = 1.852;
-            return nm * milhasNauticasEmQuilometros;
+            return nm * 1.852;
         }
 
         public static double ConverterKmParaMilhaNautica(double km)
         {
-            const double quilometrosPorMilhaNautica = 1.852;
-            return km / quilometrosPorMilhaNautica;
+            return km / 1.852;
         }
 
         public static void DrawGrid(Graphics g, double xUnit, double xTotal, double yUnit, double yTotal, Rectangle r)
         {
             g.FillRectangle(new SolidBrush(Color.FromArgb(30, 30, 30)), r);
 
-            double xSpacing = r.Width * xUnit / xTotal;
+            double xSpacing = Utils.RuleOfThree(xTotal, xUnit, r.Width);
             double x = 0;
             while (x < r.Width)
             {
@@ -67,7 +73,7 @@ namespace XPlaneMonitorApp.Functions
                 Drawing.DrawLine(g, new Pen(Color.Black), x, 0, x, r.Height);
             }
 
-            double ySpacing = r.Height * yUnit / yTotal;
+            double ySpacing = Utils.RuleOfThree(yTotal, yUnit, r.Height);
             double y = 0;
             while (y < r.Height)
             {

@@ -51,36 +51,36 @@ namespace XPlaneMonitorApp
 
             var list = Bars.Take(count);
 
-            float y = 0;
-            float h = boxDraw.Height / count;
+            double y = 0;
+            double h = Utils.Div(boxDraw.Height, count);
 
             foreach (var bar in list)
             {
                 if (bar.Max == 0) continue;
-                var perc = bar.Pos / bar.Max;
+                var perc = Utils.Div(bar.Pos, bar.Max);
 
-                e.Graphics.FillRectangle(new SolidBrush(bar.Color), 0, y, boxDraw.Width * perc, h);
+                Drawing.FillRectangle(e.Graphics, new SolidBrush(bar.Color), 0, y, boxDraw.Width * perc, h);
 
                 var fontHeight = e.Graphics.MeasureString("A", this.Font).Height;
-                var textY = y + ((h - fontHeight) / 2);
+                var textY = y + Utils.Div(h - fontHeight, 2);
 
                 if (!bar.HidePercent)
                 {
                     var text = Utils.RoundToInt(perc * 100) + "%";
                     var strSize = e.Graphics.MeasureString(text, this.Font);
-                    e.Graphics.DrawString(text, this.Font, Brushes.Black, (boxDraw.Width - strSize.Width) / 2, textY);
+                    Drawing.DrawString(e.Graphics, text, this.Font, Brushes.Black, Utils.Div(boxDraw.Width - strSize.Width, 2), textY);
                 }
 
                 if (bar.Name != null)
                 {
-                    e.Graphics.DrawString(bar.Name, this.Font, Brushes.Gray, 4, textY);
+                    Drawing.DrawString(e.Graphics, bar.Name, this.Font, Brushes.Gray, 4, textY);
                 }
 
                 if (bar.Extra != null)
                 {
                     var text = bar.Extra;
                     var strSize = e.Graphics.MeasureString(text, this.Font);
-                    e.Graphics.DrawString(text, this.Font, Brushes.Black, boxDraw.Width - strSize.Width, textY);
+                    Drawing.DrawString(e.Graphics, text, this.Font, Brushes.Black, boxDraw.Width - strSize.Width, textY);
                 }
 
                 y += h;
