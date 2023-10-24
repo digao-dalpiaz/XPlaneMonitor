@@ -253,7 +253,7 @@ namespace XPlaneMonitorApp
             {
                 var bar = gaugeGear.Bars[0];
                 bar.Pos = r.Value;
-                bar.Extra = r.Value < 0 ? "OFF" : r.Value >= 1 ? "DOWN" : "PREPARED";
+                bar.Extra = r.Value == -1 ? "UP/OFF" : r.Value == 0 ? "UP/PREPARED" : r.Value == 1 ? "DOWN" : "?";
                 gaugeGear.Reload();
             });
             lst.Subscribe("sim/flightmodel/movingparts/gear1def", r =>
