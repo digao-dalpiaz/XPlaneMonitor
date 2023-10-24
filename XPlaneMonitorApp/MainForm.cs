@@ -351,6 +351,13 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), 4);
             lst.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
             lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
+            
+            lst.Subscribe("sim/flightmodel/engine/ENGN_propmode", r =>
+            {
+                //feather=0,normal=1,beta=2,reverse=3
+                gaugeThrottle.Bars[3 * r.ArrayIndex].Extra = r.Value == 3 ? "REVERSE" : "";
+                gaugeThrottle.Reload();
+            }, 4);
             //--
 
             lst.Subscribe("sim/flightmodel/controls/dist", r =>
