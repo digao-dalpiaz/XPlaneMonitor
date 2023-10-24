@@ -217,6 +217,12 @@ namespace XPlaneMonitorApp
                 lbOutsideTemp.Value = Utils.RoundToInt(r.Value) + "ºC";
             });
 
+            lst.Subscribe("sim/cockpit/autopilot/autopilot_mode", r =>
+            {
+                //off=0, flight director=1, on=2
+                lbAutoPilot.Value = r.Value == 0 ? "OFF" : r.Value == 1 ? "FLIGTH DIR" : r.Value == 2 ? "ON" : "?";
+            });
+
             lst.Subscribe("sim/flightmodel/controls/flaprqst", r =>
             {
                 gaugeFlaps.Bars[0].Pos = r.Value;
@@ -276,7 +282,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit/engine/APU_switch", r =>
             {
                 //0 = off, 1 = on, 2 = start
-                var bar = gaugeAPU.Bars[0]; 
+                var bar = gaugeAPU.Bars[0];
                 bar.Pos = r.Value;
                 bar.Extra = r.Value == 0 ? "OFF" : r.Value == 1 ? "ON" : r.Value == 2 ? "START" : "?";
                 gaugeAPU.Reload();
