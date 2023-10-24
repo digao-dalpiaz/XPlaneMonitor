@@ -27,6 +27,8 @@ namespace XPlaneMonitorApp
         private readonly GMarkerGoogle _runwayBeginMarker = new(new PointLatLng(), GMarkerGoogleType.green_small);
         private readonly GMarkerGoogle _runwayEndMarker = new(new PointLatLng(), GMarkerGoogleType.red_small);
 
+        private long _ammountDataReceived;
+
         private float _tmpReceivedLatitude;
 
         private double _lat = -23.4323859;
@@ -61,6 +63,7 @@ namespace XPlaneMonitorApp
 
             stLastTimeRec.Text = string.Empty;
             stSimTime.Text = string.Empty;
+            stAmmountDataReceived.Text = string.Empty;
 
             Utils.SetDoubleBuffered(boxRamp);
             Utils.SetDoubleBuffered(boxSpacing);
@@ -351,7 +354,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), 4);
             lst.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
             lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
-            
+
             lst.Subscribe("sim/flightmodel/engine/ENGN_propmode", r =>
             {
                 //feather=0,normal=1,beta=2,reverse=3
@@ -397,6 +400,7 @@ namespace XPlaneMonitorApp
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
+            _ammountDataReceived = 0;
             _communicator.Connect(Vars.Cfg.Host, Vars.Cfg.Port);
         }
 
@@ -414,9 +418,11 @@ namespace XPlaneMonitorApp
             }
         }
 
-        private void OnDataRefReceived()
+        private void OnDataRefReceived(int size)
         {
+            _ammountDataReceived += size;
             stLastTimeRec.Text = "Last data received: " + DateTime.Now.ToString("HH:mm:ss");
+            stAmmountDataReceived.Text = "Ammount data received: " + (_ammountDataReceived / 1024) + " kb";
         }
 
         private void OnStatusChanged()

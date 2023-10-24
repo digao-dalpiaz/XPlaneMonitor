@@ -19,7 +19,7 @@ namespace XPlaneMonitorApp.Communicator
         private ConnectionStatus _connectionStatus = ConnectionStatus.DISCONNECTED;
         public ConnectionStatus Status { get { return _connectionStatus; } }
 
-        public event Action OnReceived;
+        public event Action<int> OnReceived;
         public event Action OnStatusChanged;
 
         private string _host;
@@ -139,7 +139,7 @@ namespace XPlaneMonitorApp.Communicator
             var header = Encoding.ASCII.GetString(buffer, 0, 5);
             if (header != "RREF,") throw new Exception("Wrong message header received: " + header);
 
-            RunSync(() => OnReceived.Invoke());
+            RunSync(() => OnReceived.Invoke(buffer.Length));
 
             for (int i = 5; i < buffer.Length; i += 8)
             {

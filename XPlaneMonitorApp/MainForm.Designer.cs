@@ -76,6 +76,7 @@
             stConnStatus=new ToolStripStatusLabel();
             stLastTimeRec=new ToolStripStatusLabel();
             stSimTime=new ToolStripStatusLabel();
+            stAmmountDataReceived=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
             lbWindSpeed=new Controls.BorderControl();
             lbWindHeading=new Controls.BorderControl();
@@ -512,7 +513,7 @@
             // 
             statusBar.GripStyle=ToolStripGripStyle.Visible;
             statusBar.ImageScalingSize=new Size(20, 20);
-            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stSimTime });
+            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTime });
             statusBar.Location=new Point(0, 929);
             statusBar.Name="statusBar";
             statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
@@ -552,6 +553,12 @@
             stSimTime.Name="stSimTime";
             stSimTime.Size=new Size(71, 20);
             stSimTime.Text="Sim Time";
+            // 
+            // stAmmountDataReceived
+            // 
+            stAmmountDataReceived.Name="stAmmountDataReceived";
+            stAmmountDataReceived.Size=new Size(175, 20);
+            stAmmountDataReceived.Text="Ammount Data Received";
             // 
             // lbAltitudeTrue
             // 
@@ -756,5 +763,6 @@
         private Controls.BorderControl lbAutoThrottle;
         private Controls.BorderControl lbFlightDist;
         private ToolStripStatusLabel stSimTime;
+        private ToolStripStatusLabel stAmmountDataReceived;
     }
 }
