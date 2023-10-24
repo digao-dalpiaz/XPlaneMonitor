@@ -421,8 +421,10 @@ namespace XPlaneMonitorApp
         private void OnDataRefReceived(int size)
         {
             _ammountDataReceived += size;
+            var bytesReceived = _ammountDataReceived / 1024; //integer value, so result is integer too!
+
             stLastTimeRec.Text = "Last data received: " + DateTime.Now.ToString("HH:mm:ss");
-            stAmmountDataReceived.Text = "Ammount data received: " + (_ammountDataReceived / 1024) + " kb";
+            stAmmountDataReceived.Text = "Ammount data received: " + bytesReceived + " kb";
         }
 
         private void OnStatusChanged()
