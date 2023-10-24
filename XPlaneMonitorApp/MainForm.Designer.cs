@@ -544,14 +544,14 @@
             // stLastTimeRec
             // 
             stLastTimeRec.Name="stLastTimeRec";
-            stLastTimeRec.Size=new Size(238, 20);
-            stLastTimeRec.Text="Nothing received yet from X-Plane";
+            stLastTimeRec.Size=new Size(136, 20);
+            stLastTimeRec.Text="Last Time Received";
             // 
             // stSimTime
             // 
             stSimTime.Name="stSimTime";
-            stSimTime.Size=new Size(151, 20);
-            stSimTime.Text="toolStripStatusLabel1";
+            stSimTime.Size=new Size(71, 20);
+            stSimTime.Text="Sim Time";
             // 
             // lbAltitudeTrue
             // 

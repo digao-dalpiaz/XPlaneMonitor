@@ -59,6 +59,9 @@ namespace XPlaneMonitorApp
 
             stVersion.Text = "Version " + Vars.VERSION;
 
+            stLastTimeRec.Text = string.Empty;
+            stSimTime.Text = string.Empty;
+
             Utils.SetDoubleBuffered(boxRamp);
             Utils.SetDoubleBuffered(boxSpacing);
         }
