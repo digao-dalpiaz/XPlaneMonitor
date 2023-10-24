@@ -40,6 +40,8 @@
             label4=new Label();
             btnOK=new Button();
             btnCancel=new Button();
+            edUpdPerSecond=new TextBox();
+            label5=new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -78,13 +80,15 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(edUpdPerSecond);
+            groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(edHost);
             groupBox1.Controls.Add(edPort);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(label2);
             groupBox1.Location=new Point(16, 16);
             groupBox1.Name="groupBox1";
-            groupBox1.Size=new Size(536, 112);
+            groupBox1.Size=new Size(536, 184);
             groupBox1.TabIndex=4;
             groupBox1.TabStop=false;
             groupBox1.Text="X-Plane Connection";
@@ -95,7 +99,7 @@
             groupBox2.Controls.Add(edRampElevation);
             groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(label4);
-            groupBox2.Location=new Point(16, 144);
+            groupBox2.Location=new Point(16, 216);
             groupBox2.Name="groupBox2";
             groupBox2.Size=new Size(536, 120);
             groupBox2.TabIndex=5;
@@ -136,7 +140,7 @@
             // 
             // btnOK
             // 
-            btnOK.Location=new Point(176, 280);
+            btnOK.Location=new Point(176, 352);
             btnOK.Name="btnOK";
             btnOK.Size=new Size(104, 40);
             btnOK.TabIndex=6;
@@ -147,12 +151,28 @@
             // btnCancel
             // 
             btnCancel.DialogResult=DialogResult.Cancel;
-            btnCancel.Location=new Point(288, 280);
+            btnCancel.Location=new Point(288, 352);
             btnCancel.Name="btnCancel";
             btnCancel.Size=new Size(104, 40);
             btnCancel.TabIndex=7;
             btnCancel.Text="Cancel";
             btnCancel.UseVisualStyleBackColor=true;
+            // 
+            // edUpdPerSecond
+            // 
+            edUpdPerSecond.Location=new Point(16, 136);
+            edUpdPerSecond.Name="edUpdPerSecond";
+            edUpdPerSecond.Size=new Size(144, 27);
+            edUpdPerSecond.TabIndex=5;
+            // 
+            // label5
+            // 
+            label5.AutoSize=true;
+            label5.Location=new Point(14, 112);
+            label5.Name="label5";
+            label5.Size=new Size(141, 20);
+            label5.TabIndex=4;
+            label5.Text="Updates per second";
             // 
             // FrmConfig
             // 
@@ -160,7 +180,7 @@
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             CancelButton=btnCancel;
-            ClientSize=new Size(569, 334);
+            ClientSize=new Size(569, 406);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
             Controls.Add(groupBox2);
@@ -194,5 +214,7 @@
         private Label label4;
         private Button btnOK;
         private Button btnCancel;
+        private TextBox edUpdPerSecond;
+        private Label label5;
     }
 }

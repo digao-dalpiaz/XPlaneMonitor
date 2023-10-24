@@ -8,8 +8,6 @@ namespace XPlaneMonitorApp.Communicator
     public class XPlaneCommunicator
     {
 
-        private const int UPDATE_REF_PER_SECOND = 5;
-
         private readonly Control _invokeControl;
         private readonly List<RefDataSubscription> _subscriptions;
 
@@ -83,7 +81,7 @@ namespace XPlaneMonitorApp.Communicator
         {
             for (int i = 0; i < _subscriptions.Count; i++)
             {
-                SendRef(_subscriptions[i].GetName(), i+1, subscribe ? UPDATE_REF_PER_SECOND : 0);
+                SendRef(_subscriptions[i].GetName(), i+1, subscribe ? Vars.Cfg.UpdPerSecond : 0);
             }
         }
 

@@ -15,6 +15,8 @@ namespace XPlaneMonitorApp
             edHost.Text = Vars.Cfg.Host;
             edPort.Text = Vars.Cfg.Port.ToString();
 
+            edUpdPerSecond.Text = Vars.Cfg.UpdPerSecond.ToString();
+
             edRampDistance.Text = Vars.Cfg.RampDistance.ToString();
             edRampElevation.Text = Vars.Cfg.RampElevation.ToString();
         }
@@ -23,10 +25,12 @@ namespace XPlaneMonitorApp
         {
             if (CheckBlank(edHost)) return;
             if (CheckBlank(edPort)) return;
+            if (CheckBlank(edUpdPerSecond)) return;
             if (CheckBlank(edRampDistance)) return;
             if (CheckBlank(edRampElevation)) return;
 
             if (CheckInvalidInteger(edPort)) return;
+            if (CheckInvalidInteger(edUpdPerSecond)) return;
             if (CheckInvalidInteger(edRampDistance)) return;
             if (CheckInvalidInteger(edRampElevation)) return;
 
@@ -34,6 +38,8 @@ namespace XPlaneMonitorApp
 
             Vars.Cfg.Host = edHost.Text;
             Vars.Cfg.Port = int.Parse(edPort.Text);
+
+            Vars.Cfg.UpdPerSecond = int.Parse(edUpdPerSecond.Text);
 
             Vars.Cfg.RampDistance = int.Parse(edRampDistance.Text);
             Vars.Cfg.RampElevation = int.Parse(edRampElevation.Text);
