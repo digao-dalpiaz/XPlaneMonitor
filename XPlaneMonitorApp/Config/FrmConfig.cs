@@ -34,12 +34,20 @@ namespace XPlaneMonitorApp
             if (CheckInvalidInteger(edRampDistance)) return;
             if (CheckInvalidInteger(edRampElevation)) return;
 
+            var interval = int.Parse(edUpdPerSecond.Text);
+            if (interval < 1 || interval > 5)
+            {
+                Messages.Error("Updates per second must be from 1 to 5");
+                edUpdPerSecond.Select();
+                return;
+            }
+
             //
 
             Vars.Cfg.Host = edHost.Text;
             Vars.Cfg.Port = int.Parse(edPort.Text);
 
-            Vars.Cfg.UpdPerSecond = int.Parse(edUpdPerSecond.Text);
+            Vars.Cfg.UpdPerSecond = interval;
 
             Vars.Cfg.RampDistance = int.Parse(edRampDistance.Text);
             Vars.Cfg.RampElevation = int.Parse(edRampElevation.Text);
