@@ -222,6 +222,11 @@ namespace XPlaneMonitorApp
                 //off=0, flight director=1, on=2
                 lbAutoPilot.Value = r.Value == 0 ? "OFF" : r.Value == 1 ? "FLIGTH DIR" : r.Value == 2 ? "ON" : "?";
             });
+            lst.Subscribe("sim/cockpit2/autopilot/autothrottle_enabled", r =>
+            {
+                //-1=hard off, not even armed. 0=servos declutched (arm, hold), 1=airspeed hold, 2=N1 target hold, 3=retard, 4=reserved for future use
+                lbAutoThrottle.Value = r.Value == -1 ? "OFF" : r.Value == 0 ? "ARMED" : r.Value == 1 ? "SPEED HOLD" : r.Value == 2 ? "N1 TGT HOLD" : r.Value == 3 ? "RETARD" : "?";
+            });
 
             lst.Subscribe("sim/flightmodel/controls/flaprqst", r =>
             {

@@ -81,6 +81,7 @@
             gaugeAPU=new GaugePanel();
             lbOutsideTemp=new Controls.BorderControl();
             lbAutoPilot=new Controls.BorderControl();
+            lbAutoThrottle=new Controls.BorderControl();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
@@ -603,12 +604,23 @@
             lbAutoPilot.TabIndex=94;
             lbAutoPilot.Title="Autopilot Mode";
             // 
+            // lbAutoThrottle
+            // 
+            lbAutoThrottle.BackColor=Color.White;
+            lbAutoThrottle.Location=new Point(1224, 118);
+            lbAutoThrottle.Name="lbAutoThrottle";
+            lbAutoThrottle.Padding=new Padding(1);
+            lbAutoThrottle.Size=new Size(296, 40);
+            lbAutoThrottle.TabIndex=95;
+            lbAutoThrottle.Title="Auto Throttle";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1834, 955);
+            Controls.Add(lbAutoThrottle);
             Controls.Add(lbAutoPilot);
             Controls.Add(lbOutsideTemp);
             Controls.Add(gaugeAPU);
@@ -715,5 +727,6 @@
         private GaugePanel gaugeAPU;
         private Controls.BorderControl lbOutsideTemp;
         private Controls.BorderControl lbAutoPilot;
+        private Controls.BorderControl lbAutoThrottle;
     }
 }
