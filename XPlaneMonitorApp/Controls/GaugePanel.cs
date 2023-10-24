@@ -10,15 +10,17 @@ namespace XPlaneMonitorApp
             public string Name;
             public string Extra;
             public readonly Color Color;
+            public readonly bool HidePercent;
 
             public float Max;
             public float Pos;
 
-            public Bar(string name, Color color, float max)
+            public Bar(string name, Color color, float max, bool hidePercent)
             {
                 this.Name = name;
                 this.Color = color;
                 this.Max = max;
+                this.HidePercent = hidePercent;
             }
         }
 
@@ -59,11 +61,15 @@ namespace XPlaneMonitorApp
 
                 e.Graphics.FillRectangle(new SolidBrush(bar.Color), 0, y, boxDraw.Width * perc, h);
 
-                var text = Utils.RoundToInt(perc * 100) + "%";
-                var strSize = e.Graphics.MeasureString(text, this.Font);
-                var textY = y + ((h - strSize.Height) / 2);
-                e.Graphics.DrawString(text, this.Font, Brushes.Black,
-                    (boxDraw.Width - strSize.Width) / 2, textY);
+                var fontHeight = e.Graphics.MeasureString("A", this.Font).Height;
+                var textY = y + ((h - fontHeight) / 2);
+
+                if (!bar.HidePercent)
+                {
+                    var text = Utils.RoundToInt(perc * 100) + "%";
+                    var strSize = e.Graphics.MeasureString(text, this.Font);
+                    e.Graphics.DrawString(text, this.Font, Brushes.Black, (boxDraw.Width - strSize.Width) / 2, textY);
+                }
 
                 if (bar.Name != null)
                 {
@@ -72,8 +78,8 @@ namespace XPlaneMonitorApp
 
                 if (bar.Extra != null)
                 {
-                    text = bar.Extra;
-                    strSize = e.Graphics.MeasureString(text, this.Font);
+                    var text = bar.Extra;
+                    var strSize = e.Graphics.MeasureString(text, this.Font);
                     e.Graphics.DrawString(text, this.Font, Brushes.Black, boxDraw.Width - strSize.Width, textY);
                 }
 
@@ -86,9 +92,9 @@ namespace XPlaneMonitorApp
             boxDraw.Invalidate();
         }
 
-        public void AddBar(string name, Color color, float max)
+        public void AddBar(string name, Color color, float max, bool hidePercent = false)
         {
-            Bars.Add(new Bar(name, color, max));
+            Bars.Add(new Bar(name, color, max, hidePercent));
         }
 
     }

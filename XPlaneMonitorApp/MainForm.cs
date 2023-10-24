@@ -111,7 +111,7 @@ namespace XPlaneMonitorApp
 
             gaugeElvTrim.AddBar(null, Color.Bisque, 2);
 
-            gaugeGear.AddBar("Requested", Color.Purple, 1);
+            gaugeGear.AddBar("Requested", Color.Purple, 1, true);
             gaugeGear.AddBar("Actual", Color.Firebrick, 1);
 
             gaugeSpoilers.AddBar("Left", Color.Gainsboro, 20);
@@ -123,7 +123,8 @@ namespace XPlaneMonitorApp
             gaugeWheelBrake.AddBar("Left", Color.Fuchsia, 1);
             gaugeWheelBrake.AddBar("Right", Color.Fuchsia, 1);
 
-            gaugeAPU.AddBar(null, Color.GreenYellow, 100);
+            gaugeAPU.AddBar("Switch", Color.Yellow, 1, true);
+            gaugeAPU.AddBar("N1", Color.GreenYellow, 100);
 
             for (int i = 0; i < 4; i++)
             {
@@ -272,9 +273,17 @@ namespace XPlaneMonitorApp
                 gaugeWheelBrake.Reload();
             });
 
+            lst.Subscribe("sim/cockpit/engine/APU_switch", r =>
+            {
+                //0 = off, 1 = on, 2 = start
+                var bar = gaugeAPU.Bars[0]; 
+                bar.Pos = r.Value;
+                bar.Extra = r.Value == 0 ? "OFF" : r.Value == 1 ? "ON" : r.Value == 2 ? "START" : "?";
+                gaugeAPU.Reload();
+            });
             lst.Subscribe("sim/cockpit/engine/APU_N1", r =>
             {
-                gaugeAPU.Bars[0].Pos = r.Value;
+                gaugeAPU.Bars[1].Pos = r.Value;
                 gaugeAPU.Reload();
             });
 
