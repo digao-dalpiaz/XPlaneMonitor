@@ -350,6 +350,11 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
             //--
 
+            lst.Subscribe("sim/flightmodel/controls/dist", r =>
+            {
+                lbFlightDist.Value = Utils.RoundToInt(r.Value) + " m";
+            });
+
             lst.Subscribe("sim/time/total_flight_time_sec", r =>
             {
                 var time = TimeSpan.FromSeconds(r.Value);

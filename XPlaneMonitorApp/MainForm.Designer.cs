@@ -75,6 +75,7 @@
             stVersion=new ToolStripStatusLabel();
             stConnStatus=new ToolStripStatusLabel();
             stLastTimeRec=new ToolStripStatusLabel();
+            stSimTime=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
             lbWindSpeed=new Controls.BorderControl();
             lbWindHeading=new Controls.BorderControl();
@@ -82,8 +83,7 @@
             lbOutsideTemp=new Controls.BorderControl();
             lbAutoPilot=new Controls.BorderControl();
             lbAutoThrottle=new Controls.BorderControl();
-            borderControl1=new Controls.BorderControl();
-            stSimTime=new ToolStripStatusLabel();
+            lbFlightDist=new Controls.BorderControl();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
@@ -324,7 +324,7 @@
             // lbAirSpeed
             // 
             lbAirSpeed.BackColor=Color.White;
-            lbAirSpeed.ForeColor=Color.OrangeRed;
+            lbAirSpeed.ForeColor=Color.DarkBlue;
             lbAirSpeed.Location=new Point(8, 40);
             lbAirSpeed.Name="lbAirSpeed";
             lbAirSpeed.Padding=new Padding(1);
@@ -378,7 +378,7 @@
             // lbHeading
             // 
             lbHeading.BackColor=Color.White;
-            lbHeading.ForeColor=Color.FromArgb(192, 192, 0);
+            lbHeading.ForeColor=Color.DarkKhaki;
             lbHeading.Location=new Point(312, 118);
             lbHeading.Name="lbHeading";
             lbHeading.Padding=new Padding(1);
@@ -480,6 +480,7 @@
             // lbSpacing
             // 
             lbSpacing.BackColor=Color.White;
+            lbSpacing.ForeColor=Color.Purple;
             lbSpacing.Location=new Point(1528, 880);
             lbSpacing.Name="lbSpacing";
             lbSpacing.Padding=new Padding(1);
@@ -546,6 +547,12 @@
             stLastTimeRec.Size=new Size(238, 20);
             stLastTimeRec.Text="Nothing received yet from X-Plane";
             // 
+            // stSimTime
+            // 
+            stSimTime.Name="stSimTime";
+            stSimTime.Size=new Size(151, 20);
+            stSimTime.Text="toolStripStatusLabel1";
+            // 
             // lbAltitudeTrue
             // 
             lbAltitudeTrue.BackColor=Color.White;
@@ -560,6 +567,7 @@
             // lbWindSpeed
             // 
             lbWindSpeed.BackColor=Color.White;
+            lbWindSpeed.ForeColor=Color.DeepSkyBlue;
             lbWindSpeed.Location=new Point(920, 40);
             lbWindSpeed.Name="lbWindSpeed";
             lbWindSpeed.Padding=new Padding(1);
@@ -570,6 +578,7 @@
             // lbWindHeading
             // 
             lbWindHeading.BackColor=Color.White;
+            lbWindHeading.ForeColor=Color.DeepSkyBlue;
             lbWindHeading.Location=new Point(920, 79);
             lbWindHeading.Name="lbWindHeading";
             lbWindHeading.Padding=new Padding(1);
@@ -589,7 +598,8 @@
             // lbOutsideTemp
             // 
             lbOutsideTemp.BackColor=Color.White;
-            lbOutsideTemp.Location=new Point(1224, 40);
+            lbOutsideTemp.ForeColor=Color.Tan;
+            lbOutsideTemp.Location=new Point(1224, 118);
             lbOutsideTemp.Name="lbOutsideTemp";
             lbOutsideTemp.Padding=new Padding(1);
             lbOutsideTemp.Size=new Size(296, 40);
@@ -599,7 +609,8 @@
             // lbAutoPilot
             // 
             lbAutoPilot.BackColor=Color.White;
-            lbAutoPilot.Location=new Point(1224, 79);
+            lbAutoPilot.ForeColor=Color.DeepPink;
+            lbAutoPilot.Location=new Point(1224, 40);
             lbAutoPilot.Name="lbAutoPilot";
             lbAutoPilot.Padding=new Padding(1);
             lbAutoPilot.Size=new Size(296, 40);
@@ -609,28 +620,24 @@
             // lbAutoThrottle
             // 
             lbAutoThrottle.BackColor=Color.White;
-            lbAutoThrottle.Location=new Point(1224, 118);
+            lbAutoThrottle.ForeColor=Color.DeepPink;
+            lbAutoThrottle.Location=new Point(1224, 79);
             lbAutoThrottle.Name="lbAutoThrottle";
             lbAutoThrottle.Padding=new Padding(1);
             lbAutoThrottle.Size=new Size(296, 40);
             lbAutoThrottle.TabIndex=95;
             lbAutoThrottle.Title="Auto Throttle";
             // 
-            // borderControl1
+            // lbFlightDist
             // 
-            borderControl1.BackColor=Color.White;
-            borderControl1.Location=new Point(1224, 880);
-            borderControl1.Name="borderControl1";
-            borderControl1.Padding=new Padding(1);
-            borderControl1.Size=new Size(296, 40);
-            borderControl1.TabIndex=96;
-            borderControl1.Title="Align Deviation";
-            // 
-            // stSimTime
-            // 
-            stSimTime.Name="stSimTime";
-            stSimTime.Size=new Size(151, 20);
-            stSimTime.Text="toolStripStatusLabel1";
+            lbFlightDist.BackColor=Color.White;
+            lbFlightDist.ForeColor=Color.Silver;
+            lbFlightDist.Location=new Point(1224, 880);
+            lbFlightDist.Name="lbFlightDist";
+            lbFlightDist.Padding=new Padding(1);
+            lbFlightDist.Size=new Size(296, 40);
+            lbFlightDist.TabIndex=96;
+            lbFlightDist.Title="Flight Distance";
             // 
             // MainForm
             // 
@@ -638,7 +645,7 @@
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1834, 955);
-            Controls.Add(borderControl1);
+            Controls.Add(lbFlightDist);
             Controls.Add(lbAutoThrottle);
             Controls.Add(lbAutoPilot);
             Controls.Add(lbOutsideTemp);
@@ -747,7 +754,7 @@
         private Controls.BorderControl lbOutsideTemp;
         private Controls.BorderControl lbAutoPilot;
         private Controls.BorderControl lbAutoThrottle;
-        private Controls.BorderControl borderControl1;
+        private Controls.BorderControl lbFlightDist;
         private ToolStripStatusLabel stSimTime;
     }
 }
