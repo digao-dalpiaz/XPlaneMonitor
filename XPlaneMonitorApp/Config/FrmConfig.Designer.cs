@@ -33,6 +33,8 @@
             edHost=new TextBox();
             edPort=new TextBox();
             groupBox1=new GroupBox();
+            edUpdPerSecond=new TextBox();
+            label5=new Label();
             groupBox2=new GroupBox();
             edRampDistance=new TextBox();
             edRampElevation=new TextBox();
@@ -40,8 +42,9 @@
             label4=new Label();
             btnOK=new Button();
             btnCancel=new Button();
-            edUpdPerSecond=new TextBox();
-            label5=new Label();
+            label6=new Label();
+            label7=new Label();
+            edDegreesUnit=new ComboBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -80,6 +83,9 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(edDegreesUnit);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(edUpdPerSecond);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(edHost);
@@ -92,6 +98,22 @@
             groupBox1.TabIndex=4;
             groupBox1.TabStop=false;
             groupBox1.Text="X-Plane Connection";
+            // 
+            // edUpdPerSecond
+            // 
+            edUpdPerSecond.Location=new Point(16, 136);
+            edUpdPerSecond.Name="edUpdPerSecond";
+            edUpdPerSecond.Size=new Size(144, 27);
+            edUpdPerSecond.TabIndex=5;
+            // 
+            // label5
+            // 
+            label5.AutoSize=true;
+            label5.Location=new Point(14, 112);
+            label5.Name="label5";
+            label5.Size=new Size(141, 20);
+            label5.TabIndex=4;
+            label5.Text="Updates per second";
             // 
             // groupBox2
             // 
@@ -158,21 +180,34 @@
             btnCancel.Text="Cancel";
             btnCancel.UseVisualStyleBackColor=true;
             // 
-            // edUpdPerSecond
+            // label6
             // 
-            edUpdPerSecond.Location=new Point(16, 136);
-            edUpdPerSecond.Name="edUpdPerSecond";
-            edUpdPerSecond.Size=new Size(144, 27);
-            edUpdPerSecond.TabIndex=5;
+            label6.AutoSize=true;
+            label6.ForeColor=Color.Gray;
+            label6.Location=new Point(168, 139);
+            label6.Name="label6";
+            label6.Size=new Size(80, 20);
+            label6.TabIndex=6;
+            label6.Text="Values: 1..5";
             // 
-            // label5
+            // label7
             // 
-            label5.AutoSize=true;
-            label5.Location=new Point(14, 112);
-            label5.Name="label5";
-            label5.Size=new Size(141, 20);
-            label5.TabIndex=4;
-            label5.Text="Updates per second";
+            label7.AutoSize=true;
+            label7.Location=new Point(350, 112);
+            label7.Name="label7";
+            label7.Size=new Size(93, 20);
+            label7.TabIndex=7;
+            label7.Text="Degrees unit";
+            // 
+            // edDegreesUnit
+            // 
+            edDegreesUnit.DropDownStyle=ComboBoxStyle.DropDownList;
+            edDegreesUnit.FormattingEnabled=true;
+            edDegreesUnit.Items.AddRange(new object[] { "Celsius", "Fahrenheit" });
+            edDegreesUnit.Location=new Point(352, 136);
+            edDegreesUnit.Name="edDegreesUnit";
+            edDegreesUnit.Size=new Size(168, 28);
+            edDegreesUnit.TabIndex=8;
             // 
             // FrmConfig
             // 
@@ -216,5 +251,8 @@
         private Button btnCancel;
         private TextBox edUpdPerSecond;
         private Label label5;
+        private Label label6;
+        private ComboBox edDegreesUnit;
+        private Label label7;
     }
 }

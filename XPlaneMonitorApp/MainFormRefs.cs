@@ -108,7 +108,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/aircraft/weight/acf_m_fuel_tot", r =>
             {
                 _fuelTotalCapacity = r.Value;
-                //** if total capacity received after gauge calc, the value will remain wrong until next update
+                //keep before another subscribe where this var is used
             });
             lst.Subscribe("sim/aircraft/overflow/acf_num_tanks", r =>
             {

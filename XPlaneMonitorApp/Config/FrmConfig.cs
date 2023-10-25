@@ -16,6 +16,7 @@ namespace XPlaneMonitorApp
             edPort.Text = Vars.Cfg.Port.ToString();
 
             edUpdPerSecond.Text = Vars.Cfg.UpdPerSecond.ToString();
+            edDegreesUnit.SelectedIndex = (int)Vars.Cfg.DegreesUnit;
 
             edRampDistance.Text = Vars.Cfg.RampDistance.ToString();
             edRampElevation.Text = Vars.Cfg.RampElevation.ToString();
@@ -48,6 +49,7 @@ namespace XPlaneMonitorApp
             Vars.Cfg.Port = int.Parse(edPort.Text);
 
             Vars.Cfg.UpdPerSecond = interval;
+            Vars.Cfg.DegreesUnit = (DegreesUnitType)edDegreesUnit.SelectedIndex;
 
             Vars.Cfg.RampDistance = int.Parse(edRampDistance.Text);
             Vars.Cfg.RampElevation = int.Parse(edRampElevation.Text);
