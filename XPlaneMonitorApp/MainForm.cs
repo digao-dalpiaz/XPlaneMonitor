@@ -163,8 +163,11 @@ namespace XPlaneMonitorApp
             });
             lst.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
             {
-                lbVerticalSpeed.Value = Utils.RoundToInt(r.Value) + " ft/min";
-                lbVerticalSpeed.ForeColor = Utils.RoundToInt(r.Value) >= 0 ? Color.Green : Color.Red; //round before check value!!!
+                int v = Utils.RoundToInt(r.Value); //round before check value to avoid different value from view!!!
+                lbVerticalSpeed.Value = v + " ft/min";
+                lbVerticalSpeed.ForeColor = v >= 0 ? Color.Green : Color.Red;
+                icoVerticalSpeed.Image = v >= 0 ? Properties.Resources.arrow_up : Properties.Resources.arrow_down;
+                icoVerticalSpeed.Visible = v != 0;
             });
             lst.Subscribe("sim/flightmodel/position/groundspeed", r =>
             {

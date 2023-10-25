@@ -75,8 +75,8 @@
             stVersion=new ToolStripStatusLabel();
             stConnStatus=new ToolStripStatusLabel();
             stLastTimeRec=new ToolStripStatusLabel();
-            stSimTime=new ToolStripStatusLabel();
             stAmmountDataReceived=new ToolStripStatusLabel();
+            stSimTime=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
             lbWindSpeed=new Controls.BorderControl();
             lbWindHeading=new Controls.BorderControl();
@@ -85,9 +85,11 @@
             lbAutoPilot=new Controls.BorderControl();
             lbAutoThrottle=new Controls.BorderControl();
             lbFlightDist=new Controls.BorderControl();
+            icoVerticalSpeed=new PictureBox();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)icoVerticalSpeed).BeginInit();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -548,17 +550,17 @@
             stLastTimeRec.Size=new Size(136, 20);
             stLastTimeRec.Text="Last Time Received";
             // 
-            // stSimTime
-            // 
-            stSimTime.Name="stSimTime";
-            stSimTime.Size=new Size(71, 20);
-            stSimTime.Text="Sim Time";
-            // 
             // stAmmountDataReceived
             // 
             stAmmountDataReceived.Name="stAmmountDataReceived";
             stAmmountDataReceived.Size=new Size(175, 20);
             stAmmountDataReceived.Text="Ammount Data Received";
+            // 
+            // stSimTime
+            // 
+            stSimTime.Name="stSimTime";
+            stSimTime.Size=new Size(71, 20);
+            stSimTime.Text="Sim Time";
             // 
             // lbAltitudeTrue
             // 
@@ -646,12 +648,23 @@
             lbFlightDist.TabIndex=96;
             lbFlightDist.Title="Flight Distance";
             // 
+            // icoVerticalSpeed
+            // 
+            icoVerticalSpeed.BackColor=Color.White;
+            icoVerticalSpeed.Location=new Point(264, 83);
+            icoVerticalSpeed.Name="icoVerticalSpeed";
+            icoVerticalSpeed.Size=new Size(32, 32);
+            icoVerticalSpeed.SizeMode=PictureBoxSizeMode.AutoSize;
+            icoVerticalSpeed.TabIndex=97;
+            icoVerticalSpeed.TabStop=false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1834, 955);
+            Controls.Add(icoVerticalSpeed);
             Controls.Add(lbFlightDist);
             Controls.Add(lbAutoThrottle);
             Controls.Add(lbAutoPilot);
@@ -701,6 +714,7 @@
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).EndInit();
             statusBar.ResumeLayout(false);
             statusBar.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)icoVerticalSpeed).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -764,5 +778,6 @@
         private Controls.BorderControl lbFlightDist;
         private ToolStripStatusLabel stSimTime;
         private ToolStripStatusLabel stAmmountDataReceived;
+        private PictureBox icoVerticalSpeed;
     }
 }
