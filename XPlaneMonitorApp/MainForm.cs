@@ -146,17 +146,6 @@ namespace XPlaneMonitorApp
         {
             RefDataContractList lst = new();
 
-            lst.Subscribe("sim/flightmodel/position/latitude", r =>
-            {
-                _tmpReceivedLatitude = r.Value; //assuming latitude always received before longitude (I hope!)
-            });
-            lst.Subscribe("sim/flightmodel/position/longitude", r =>
-            {
-                _lat = _tmpReceivedLatitude;
-                _lng = r.Value;
-                ReceivedAircraftPosition();
-            });
-
             lst.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
             {
                 lbAirSpeed.Value = Utils.RoundToInt(r.Value) + " kts";
@@ -381,6 +370,21 @@ namespace XPlaneMonitorApp
                 var sec = (min - minInt) * 60;
                 var secInt = Math.Floor(sec);
                 stSimTime.Text = "Simulator time elapsed: " +  hoursInt + ":" + minInt.ToString("00") + ":" + secInt.ToString("00");
+            });
+
+            //
+
+            //### LATITUDE AND LONGITUDE MUST BE ALWAYS THE LAST PARAMETER TO RECEIVE, BECAUSE UPDATE METHOS DEPENDS ON OTHERS PARAMETERS
+
+            lst.Subscribe("sim/flightmodel/position/latitude", r =>
+            {
+                _tmpReceivedLatitude = r.Value; //assuming latitude always received before longitude (I hope!)
+            });
+            lst.Subscribe("sim/flightmodel/position/longitude", r =>
+            {
+                _lat = _tmpReceivedLatitude;
+                _lng = r.Value;
+                ReceivedAircraftPosition(); //here there is update approach params, that depends on others parameter just received before
             });
 
             return lst;
