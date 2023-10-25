@@ -31,8 +31,8 @@ namespace XPlaneMonitorApp
 
         private float _tmpReceivedLatitude;
 
-        private double _lat = -23.4323859;
-        private double _lng = -46.4916308;
+        private double _lat = -23.4305305;
+        private double _lng = -46.4696579;
 
         private float _fuelTotalCapacity;
         private float _altitudeTrue;
@@ -91,7 +91,7 @@ namespace XPlaneMonitorApp
             map.ShowCenter = false;
             map.MaxZoom = 20;
             map.MinZoom = 0;
-            map.Zoom = 15;
+            map.Zoom = 14;
             map.Overlays.Add(_mapOverlay);
 
             _mapOverlay.Routes.Add(_mapRoute);
