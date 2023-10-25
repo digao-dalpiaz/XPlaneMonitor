@@ -733,13 +733,13 @@ namespace XPlaneMonitorApp
             s += marginSide; //move half side to the right
 
             var difAngle = _runwayHeading - _headingTrue;
+            var airplaneImg = Drawing.RotateImage(Properties.Resources.airplane_align, -difAngle);
+            var lineHeight = boxSpacing.Height - Utils.Div(airplaneImg.Height, 2);
 
             var startX = Utils.RuleOfThree(marginFull, s, boxSpacing.Width);
-            var endX = startX + Utils.Div(boxSpacing.Height, Math.Tan(Utils.DegreesToRadians(90 + difAngle)));
+            var endX = startX + Utils.Div(lineHeight, Math.Tan(Utils.DegreesToRadians(90 + difAngle)));
 
-            var airplaneImg = Drawing.RotateImage(Properties.Resources.airplane_align, -difAngle);
-
-            Drawing.DrawLine(e.Graphics, new Pen(Color.Purple, 3), endX, 0, startX, boxSpacing.Height - Utils.Div(airplaneImg.Height, 2));
+            Drawing.DrawLine(e.Graphics, new Pen(Color.Purple, 3), endX, 0, startX, lineHeight);
             Drawing.DrawImage(e.Graphics, airplaneImg, startX - Utils.Div(airplaneImg.Width, 2), boxSpacing.Height - airplaneImg.Height);
         }
 
