@@ -33,6 +33,10 @@
             edHost=new TextBox();
             edPort=new TextBox();
             groupBox1=new GroupBox();
+            lbInfoReconnect=new Label();
+            edDegreesUnit=new ComboBox();
+            label7=new Label();
+            label6=new Label();
             edUpdPerSecond=new TextBox();
             label5=new Label();
             groupBox2=new GroupBox();
@@ -42,9 +46,6 @@
             label4=new Label();
             btnOK=new Button();
             btnCancel=new Button();
-            label6=new Label();
-            label7=new Label();
-            edDegreesUnit=new ComboBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -83,6 +84,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(lbInfoReconnect);
             groupBox1.Controls.Add(edDegreesUnit);
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(label6);
@@ -94,10 +96,49 @@
             groupBox1.Controls.Add(label2);
             groupBox1.Location=new Point(16, 16);
             groupBox1.Name="groupBox1";
-            groupBox1.Size=new Size(536, 184);
+            groupBox1.Size=new Size(536, 232);
             groupBox1.TabIndex=4;
             groupBox1.TabStop=false;
             groupBox1.Text="X-Plane Connection";
+            // 
+            // lbInfoReconnect
+            // 
+            lbInfoReconnect.AutoSize=true;
+            lbInfoReconnect.ForeColor=Color.IndianRed;
+            lbInfoReconnect.Location=new Point(16, 192);
+            lbInfoReconnect.Name="lbInfoReconnect";
+            lbInfoReconnect.Size=new Size(314, 20);
+            lbInfoReconnect.TabIndex=9;
+            lbInfoReconnect.Text="If you change these settings, please reconnect.";
+            // 
+            // edDegreesUnit
+            // 
+            edDegreesUnit.DropDownStyle=ComboBoxStyle.DropDownList;
+            edDegreesUnit.FormattingEnabled=true;
+            edDegreesUnit.Items.AddRange(new object[] { "Celsius", "Fahrenheit" });
+            edDegreesUnit.Location=new Point(352, 136);
+            edDegreesUnit.Name="edDegreesUnit";
+            edDegreesUnit.Size=new Size(168, 28);
+            edDegreesUnit.TabIndex=8;
+            // 
+            // label7
+            // 
+            label7.AutoSize=true;
+            label7.Location=new Point(350, 112);
+            label7.Name="label7";
+            label7.Size=new Size(93, 20);
+            label7.TabIndex=7;
+            label7.Text="Degrees unit";
+            // 
+            // label6
+            // 
+            label6.AutoSize=true;
+            label6.ForeColor=Color.Gray;
+            label6.Location=new Point(168, 139);
+            label6.Name="label6";
+            label6.Size=new Size(80, 20);
+            label6.TabIndex=6;
+            label6.Text="Values: 1..5";
             // 
             // edUpdPerSecond
             // 
@@ -121,23 +162,23 @@
             groupBox2.Controls.Add(edRampElevation);
             groupBox2.Controls.Add(label3);
             groupBox2.Controls.Add(label4);
-            groupBox2.Location=new Point(16, 216);
+            groupBox2.Location=new Point(16, 264);
             groupBox2.Name="groupBox2";
-            groupBox2.Size=new Size(536, 120);
+            groupBox2.Size=new Size(536, 112);
             groupBox2.TabIndex=5;
             groupBox2.TabStop=false;
             groupBox2.Text="Ideal Descent Ramp";
             // 
             // edRampDistance
             // 
-            edRampDistance.Location=new Point(17, 71);
+            edRampDistance.Location=new Point(17, 63);
             edRampDistance.Name="edRampDistance";
             edRampDistance.Size=new Size(159, 27);
             edRampDistance.TabIndex=6;
             // 
             // edRampElevation
             // 
-            edRampElevation.Location=new Point(192, 72);
+            edRampElevation.Location=new Point(192, 64);
             edRampElevation.Name="edRampElevation";
             edRampElevation.Size=new Size(160, 27);
             edRampElevation.TabIndex=7;
@@ -145,7 +186,7 @@
             // label3
             // 
             label3.AutoSize=true;
-            label3.Location=new Point(15, 47);
+            label3.Location=new Point(15, 39);
             label3.Name="label3";
             label3.Size=new Size(101, 20);
             label3.TabIndex=4;
@@ -154,7 +195,7 @@
             // label4
             // 
             label4.AutoSize=true;
-            label4.Location=new Point(190, 48);
+            label4.Location=new Point(190, 40);
             label4.Name="label4";
             label4.Size=new Size(94, 20);
             label4.TabIndex=5;
@@ -162,7 +203,7 @@
             // 
             // btnOK
             // 
-            btnOK.Location=new Point(176, 352);
+            btnOK.Location=new Point(176, 392);
             btnOK.Name="btnOK";
             btnOK.Size=new Size(104, 40);
             btnOK.TabIndex=6;
@@ -173,41 +214,12 @@
             // btnCancel
             // 
             btnCancel.DialogResult=DialogResult.Cancel;
-            btnCancel.Location=new Point(288, 352);
+            btnCancel.Location=new Point(288, 392);
             btnCancel.Name="btnCancel";
             btnCancel.Size=new Size(104, 40);
             btnCancel.TabIndex=7;
             btnCancel.Text="Cancel";
             btnCancel.UseVisualStyleBackColor=true;
-            // 
-            // label6
-            // 
-            label6.AutoSize=true;
-            label6.ForeColor=Color.Gray;
-            label6.Location=new Point(168, 139);
-            label6.Name="label6";
-            label6.Size=new Size(80, 20);
-            label6.TabIndex=6;
-            label6.Text="Values: 1..5";
-            // 
-            // label7
-            // 
-            label7.AutoSize=true;
-            label7.Location=new Point(350, 112);
-            label7.Name="label7";
-            label7.Size=new Size(93, 20);
-            label7.TabIndex=7;
-            label7.Text="Degrees unit";
-            // 
-            // edDegreesUnit
-            // 
-            edDegreesUnit.DropDownStyle=ComboBoxStyle.DropDownList;
-            edDegreesUnit.FormattingEnabled=true;
-            edDegreesUnit.Items.AddRange(new object[] { "Celsius", "Fahrenheit" });
-            edDegreesUnit.Location=new Point(352, 136);
-            edDegreesUnit.Name="edDegreesUnit";
-            edDegreesUnit.Size=new Size(168, 28);
-            edDegreesUnit.TabIndex=8;
             // 
             // FrmConfig
             // 
@@ -215,7 +227,7 @@
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             CancelButton=btnCancel;
-            ClientSize=new Size(569, 406);
+            ClientSize=new Size(569, 445);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
             Controls.Add(groupBox2);
@@ -254,5 +266,6 @@
         private Label label6;
         private ComboBox edDegreesUnit;
         private Label label7;
+        private Label lbInfoReconnect;
     }
 }
