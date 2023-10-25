@@ -46,9 +46,9 @@ namespace XPlaneMonitorApp.Functions
             return (angle + 180) % 360;
         }
 
-        public static double ConvertMetersToFeet(double metros)
+        public static double ConvertMetersToFeet(double meters)
         {
-            return metros / 0.3048;
+            return meters / 0.3048;
         }
 
         public static double ConverterMilhaNauticaParaKm(double nm)
@@ -65,7 +65,7 @@ namespace XPlaneMonitorApp.Functions
         {
             g.FillRectangle(new SolidBrush(Color.FromArgb(30, 30, 30)), r);
 
-            double xSpacing = Utils.RuleOfThree(xTotal, xUnit, r.Width);
+            double xSpacing = RuleOfThree(xTotal, xUnit, r.Width);
             double x = 0;
             while (x < r.Width)
             {
@@ -73,7 +73,7 @@ namespace XPlaneMonitorApp.Functions
                 Drawing.DrawLine(g, new Pen(Color.Black), x, 0, x, r.Height);
             }
 
-            double ySpacing = Utils.RuleOfThree(yTotal, yUnit, r.Height);
+            double ySpacing = RuleOfThree(yTotal, yUnit, r.Height);
             double y = 0;
             while (y < r.Height)
             {
