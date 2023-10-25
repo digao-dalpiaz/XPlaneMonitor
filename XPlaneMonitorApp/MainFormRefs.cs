@@ -74,9 +74,9 @@ namespace XPlaneMonitorApp
                 lbWindHeading.Value = Utils.RoundToInt(r.Value) + "º";
             });
 
-            lst.Subscribe("sim/cockpit2/temperature/outside_air_temp_degc", r =>
+            lst.Subscribe("sim/cockpit2/temperature/outside_air_temp_deg" + (Vars.Cfg.DegreesUnit == Config.DegreesUnitType.CELSIUS ? "c" : "f"), r =>
             {
-                lbOutsideTemp.Value = Utils.RoundToInt(r.Value) + "ºC";
+                lbOutsideTemp.Value = Utils.RoundToInt(r.Value) + "º" + (Vars.Cfg.DegreesUnit == Config.DegreesUnitType.CELSIUS ? "C" : "F");
             });
 
             lst.Subscribe("sim/cockpit/autopilot/autopilot_mode", r =>
