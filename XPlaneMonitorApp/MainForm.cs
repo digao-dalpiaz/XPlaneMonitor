@@ -173,6 +173,10 @@ namespace XPlaneMonitorApp
             FrmConfig f = new();
             if (f.ShowDialog() == DialogResult.OK)
             {
+                //force update drawing boxes here, because BuildApproch may exit if runway not defined
+                boxRamp.Invalidate();
+                boxSpacing.Invalidate();
+
                 BuildApproach();
             }
         }
