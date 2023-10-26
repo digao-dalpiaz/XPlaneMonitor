@@ -431,7 +431,7 @@ namespace XPlaneMonitorApp
 
         private bool IsNotSetOrFarAwayFromAirport()
         {
-            return !_runwayApproach.HasValue || _runwayDistance > (Vars.Cfg.RampDistance * RAMP_DISTANCE_FATOR);
+            return !_aircraftMarker.IsVisible || !_runwayApproach.HasValue || _runwayDistance > (Vars.Cfg.RampDistance * RAMP_DISTANCE_FATOR);
         }
 
         private void boxRamp_Paint(object sender, PaintEventArgs e)
