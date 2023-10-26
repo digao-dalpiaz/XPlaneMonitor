@@ -117,7 +117,7 @@ namespace XPlaneMonitorApp
 
             gaugeElvTrim.AddBar(null, Color.Bisque, 2);
 
-            gaugeGear.AddBar("Requested", Color.Purple, 1, true);
+            gaugeGear.AddBar("Requested", Color.HotPink, 1, true);
             gaugeGear.AddBar("Actual", Color.Firebrick, 1);
 
             gaugeSpoilers.AddBar("Left", Color.Gainsboro, 20);
@@ -134,9 +134,9 @@ namespace XPlaneMonitorApp
 
             for (int i = 0; i < 4; i++)
             {
-                gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), Color.Green, 1);
-                gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), Color.Red, 100);
-                gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Orange, 100);
+                gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), Color.LightGreen, 1);
+                gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), Color.SandyBrown, 100);
+                gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Salmon, 100);
 
                 gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.Aquamarine, 1); //initial Max=1 only to better initial show, because max will be replaced when connected
             }
