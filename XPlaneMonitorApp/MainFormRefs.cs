@@ -17,7 +17,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
             {
                 int v = Utils.RoundToInt(r.Value); //round before check value to avoid different value from view!!!
-                lbVerticalSpeed.Value = v + " ft/min";
+                lbVerticalSpeed.Value = v + " ft/m"; //ft/min
                 lbVerticalSpeed.ForeColor = v >= 0 ? Color.Green : Color.Red;
                 icoVerticalSpeed.Image = v >= 0 ? Properties.Resources.arrow_up : Properties.Resources.arrow_down;
                 icoVerticalSpeed.Visible = v != 0;
