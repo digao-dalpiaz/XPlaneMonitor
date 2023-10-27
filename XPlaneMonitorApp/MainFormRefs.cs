@@ -82,7 +82,11 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit/autopilot/autopilot_mode", r =>
             {
                 //off=0, flight director=1, on=2
-                lbAutoPilot.Value = r.Value == 0 ? "OFF" : r.Value == 1 ? "FLIGTH DIR" : r.Value == 2 ? "ON" : "?";
+                lbAutopilotMode.Value = r.Value == 0 ? "OFF" : r.Value == 1 ? "FLIGTH DIR" : r.Value == 2 ? "ON" : "?";
+            });
+            lst.Subscribe("sim/cockpit/autopilot/heading_mag", r =>
+            {
+                lbAutopilotHeading.Value = r.Value + "º";
             });
             lst.Subscribe("sim/cockpit2/autopilot/autothrottle_enabled", r =>
             {
@@ -221,7 +225,7 @@ namespace XPlaneMonitorApp
 
             lst.Subscribe("sim/flightmodel/controls/dist", r =>
             {
-                lbFlightDist.Value = Utils.RoundToInt(r.Value) + " m";
+                stFlightDistance.Text = "Flight Distance: " + Utils.RoundToInt(r.Value) + " m";
             });
 
             lst.Subscribe("sim/time/total_flight_time_sec", r =>

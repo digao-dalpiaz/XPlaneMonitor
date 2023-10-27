@@ -36,6 +36,7 @@
             btnConnect=new ToolStripButton();
             btnDisconnect=new ToolStripButton();
             toolStripSeparator1=new ToolStripSeparator();
+            btnGotoGooglePoint=new ToolStripButton();
             btnCenterMap=new ToolStripButton();
             btnClearRoute=new ToolStripButton();
             toolStripSeparator3=new ToolStripSeparator();
@@ -77,15 +78,16 @@
             stLastTimeRec=new ToolStripStatusLabel();
             stAmmountDataReceived=new ToolStripStatusLabel();
             stSimTime=new ToolStripStatusLabel();
+            stFlightDistance=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
             lbWindSpeed=new Controls.BorderControl();
             lbWindHeading=new Controls.BorderControl();
             gaugeAPU=new GaugePanel();
             lbOutsideTemp=new Controls.BorderControl();
-            lbAutoPilot=new Controls.BorderControl();
+            lbAutopilotMode=new Controls.BorderControl();
             lbAutoThrottle=new Controls.BorderControl();
-            lbFlightDist=new Controls.BorderControl();
             icoVerticalSpeed=new PictureBox();
+            lbAutopilotHeading=new Controls.BorderControl();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
@@ -151,7 +153,7 @@
             // toolBar
             // 
             toolBar.ImageScalingSize=new Size(20, 20);
-            toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnCenterMap, btnClearRoute, toolStripSeparator3, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach, toolStripSeparator2, btnConfig });
+            toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnGotoGooglePoint, btnCenterMap, btnClearRoute, toolStripSeparator3, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach, toolStripSeparator2, btnConfig });
             toolBar.Location=new Point(0, 0);
             toolBar.Name="toolBar";
             toolBar.ShowItemToolTips=false;
@@ -182,6 +184,16 @@
             // 
             toolStripSeparator1.Name="toolStripSeparator1";
             toolStripSeparator1.Size=new Size(6, 31);
+            // 
+            // btnGotoGooglePoint
+            // 
+            btnGotoGooglePoint.Image=Properties.Resources.map;
+            btnGotoGooglePoint.ImageScaling=ToolStripItemImageScaling.None;
+            btnGotoGooglePoint.ImageTransparentColor=Color.Magenta;
+            btnGotoGooglePoint.Name="btnGotoGooglePoint";
+            btnGotoGooglePoint.Size=new Size(163, 28);
+            btnGotoGooglePoint.Text="Google Maps Point";
+            btnGotoGooglePoint.Click+=btnGotoGooglePoint_Click;
             // 
             // btnCenterMap
             // 
@@ -515,7 +527,7 @@
             // 
             statusBar.GripStyle=ToolStripGripStyle.Visible;
             statusBar.ImageScalingSize=new Size(20, 20);
-            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTime });
+            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTime, stFlightDistance });
             statusBar.Location=new Point(0, 929);
             statusBar.Name="statusBar";
             statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
@@ -561,6 +573,12 @@
             stSimTime.Name="stSimTime";
             stSimTime.Size=new Size(71, 20);
             stSimTime.Text="Sim Time";
+            // 
+            // stFlightDistance
+            // 
+            stFlightDistance.Name="stFlightDistance";
+            stFlightDistance.Size=new Size(103, 20);
+            stFlightDistance.Text="Fight Distance";
             // 
             // lbAltitudeTrue
             // 
@@ -615,16 +633,16 @@
             lbOutsideTemp.TabIndex=93;
             lbOutsideTemp.Title="Outside Temp.";
             // 
-            // lbAutoPilot
+            // lbAutopilotMode
             // 
-            lbAutoPilot.BackColor=Color.White;
-            lbAutoPilot.ForeColor=Color.DeepPink;
-            lbAutoPilot.Location=new Point(1224, 40);
-            lbAutoPilot.Name="lbAutoPilot";
-            lbAutoPilot.Padding=new Padding(1);
-            lbAutoPilot.Size=new Size(296, 40);
-            lbAutoPilot.TabIndex=94;
-            lbAutoPilot.Title="Autopilot Mode";
+            lbAutopilotMode.BackColor=Color.White;
+            lbAutopilotMode.ForeColor=Color.DeepPink;
+            lbAutopilotMode.Location=new Point(1224, 40);
+            lbAutopilotMode.Name="lbAutopilotMode";
+            lbAutopilotMode.Padding=new Padding(1);
+            lbAutopilotMode.Size=new Size(296, 40);
+            lbAutopilotMode.TabIndex=94;
+            lbAutopilotMode.Title="Autopilot Mode";
             // 
             // lbAutoThrottle
             // 
@@ -637,17 +655,6 @@
             lbAutoThrottle.TabIndex=95;
             lbAutoThrottle.Title="Auto Throttle";
             // 
-            // lbFlightDist
-            // 
-            lbFlightDist.BackColor=Color.White;
-            lbFlightDist.ForeColor=Color.Silver;
-            lbFlightDist.Location=new Point(1224, 880);
-            lbFlightDist.Name="lbFlightDist";
-            lbFlightDist.Padding=new Padding(1);
-            lbFlightDist.Size=new Size(296, 40);
-            lbFlightDist.TabIndex=96;
-            lbFlightDist.Title="Flight Distance";
-            // 
             // icoVerticalSpeed
             // 
             icoVerticalSpeed.BackColor=Color.White;
@@ -658,16 +665,27 @@
             icoVerticalSpeed.TabIndex=97;
             icoVerticalSpeed.TabStop=false;
             // 
+            // lbAutopilotHeading
+            // 
+            lbAutopilotHeading.BackColor=Color.White;
+            lbAutopilotHeading.ForeColor=Color.Sienna;
+            lbAutopilotHeading.Location=new Point(1224, 880);
+            lbAutopilotHeading.Name="lbAutopilotHeading";
+            lbAutopilotHeading.Padding=new Padding(1);
+            lbAutopilotHeading.Size=new Size(296, 40);
+            lbAutopilotHeading.TabIndex=98;
+            lbAutopilotHeading.Title="Autopilot Head.";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.White;
             ClientSize=new Size(1834, 955);
+            Controls.Add(lbAutopilotHeading);
             Controls.Add(icoVerticalSpeed);
-            Controls.Add(lbFlightDist);
             Controls.Add(lbAutoThrottle);
-            Controls.Add(lbAutoPilot);
+            Controls.Add(lbAutopilotMode);
             Controls.Add(lbOutsideTemp);
             Controls.Add(gaugeAPU);
             Controls.Add(lbWindHeading);
@@ -773,11 +791,13 @@
         private Controls.BorderControl lbWindHeading;
         private GaugePanel gaugeAPU;
         private Controls.BorderControl lbOutsideTemp;
-        private Controls.BorderControl lbAutoPilot;
+        private Controls.BorderControl lbAutopilotMode;
         private Controls.BorderControl lbAutoThrottle;
-        private Controls.BorderControl lbFlightDist;
         private ToolStripStatusLabel stSimTime;
         private ToolStripStatusLabel stAmmountDataReceived;
         private PictureBox icoVerticalSpeed;
+        private ToolStripButton btnGotoGooglePoint;
+        private ToolStripStatusLabel stFlightDistance;
+        private Controls.BorderControl lbAutopilotHeading;
     }
 }

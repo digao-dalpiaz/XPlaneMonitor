@@ -64,6 +64,7 @@ namespace XPlaneMonitorApp
             stLastTimeRec.Text = string.Empty;
             stSimTime.Text = string.Empty;
             stAmmountDataReceived.Text = string.Empty;
+            stFlightDistance.Text = string.Empty;
 
             Utils.SetDoubleBuffered(boxRamp);
             Utils.SetDoubleBuffered(boxSpacing);
@@ -230,6 +231,20 @@ namespace XPlaneMonitorApp
 
         private void map_OnMapZoomChanged()
         {
+            map_OnMapDrag();
+        }
+
+        private void btnGotoGooglePoint_Click(object sender, EventArgs e)
+        {
+            PointLatLng? p = null;
+
+            if (Messages.SurroundMsgException(() =>
+            {
+                p = GoogleMapsLinkDecoder.ReadFromClipboard();
+            })) return;
+
+            map.Position = p.Value;
+
             map_OnMapDrag();
         }
 
