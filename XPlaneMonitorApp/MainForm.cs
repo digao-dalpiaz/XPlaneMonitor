@@ -391,8 +391,8 @@ namespace XPlaneMonitorApp
                 _runwayDistance = Utils.ConverterKmParaMilhaNautica(
                     GeoCalculator.CalculateDistance(_lat, _lng, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng));
 
-                lbApproachDist.Value = Math.Round(approachDist, 1) + " nm";
-                lbRunwayDist.Value = Math.Round(_runwayDistance, 1) + " nm";
+                lbApproachDist.Value = Math.Round(approachDist, 1).ToString("0.0") + " nm";
+                lbRunwayDist.Value = Math.Round(_runwayDistance, 1).ToString("0.0") + " nm";
 
                 _spacing = ProximityCalculator.CalcularDistanciaAteLinhaAeroporto2(
                     new double[] { _runwayBegin.Value.Lat, _runwayBegin.Value.Lng },
