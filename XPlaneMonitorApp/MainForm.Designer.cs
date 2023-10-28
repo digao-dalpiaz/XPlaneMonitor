@@ -525,6 +525,7 @@
             statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTimeElapsed, stFlightDistance, stScenaryClock });
             statusBar.Location=new Point(0, 965);
             statusBar.Name="statusBar";
+            statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
             statusBar.Size=new Size(1834, 28);
             statusBar.TabIndex=88;
             // 
