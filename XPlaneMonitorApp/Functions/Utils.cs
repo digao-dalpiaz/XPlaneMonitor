@@ -46,6 +46,16 @@ namespace XPlaneMonitorApp.Functions
             return (angle + 180) % 360;
         }
 
+        public static double AddAngles(double angle1, double angle2)
+        {
+            double sum = angle1 + angle2;
+
+            while (sum < 0) sum += 360;
+            while (sum >= 360) sum -= 360;
+
+            return sum;
+        }
+
         public static double ConvertMetersToFeet(double meters)
         {
             return meters / 0.3048;

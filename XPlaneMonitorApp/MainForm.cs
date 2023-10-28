@@ -404,7 +404,7 @@ namespace XPlaneMonitorApp
                     new double[] { _lat, _lng });
 
                 lbSpacing.Value = Utils.RoundToInt(_spacing) + " m";
-                lbRunwayHeadingMag.Value = Utils.RoundToInt(_runwayHeading + _magneticVariation) + "º";
+                lbRunwayHeadingMag.Value = Utils.RoundToInt(Utils.AddAngles(_runwayHeading, _magneticVariation)) + "º";
 
                 UpdateGrids();
             }
