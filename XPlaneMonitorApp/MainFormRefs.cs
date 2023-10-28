@@ -14,6 +14,7 @@ namespace XPlaneMonitorApp
         private float _fuelTotalCapacity;
         private float _altitudeTrue;
         private float _headingTrue;
+        private float _magneticVariation;
 
         private RefDataContractList GetRefDataContractList()
         {
@@ -58,6 +59,10 @@ namespace XPlaneMonitorApp
                 _headingTrue = r.Value;
                 _aircraftMarker.Angle = r.Value;
                 lbHeadingTrue.Value = Utils.RoundToInt(r.Value) + "º";
+            });
+            lst.Subscribe("sim/flightmodel/position/magnetic_variation", r =>
+            {
+                _magneticVariation = r.Value;
             });
 
             lst.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>

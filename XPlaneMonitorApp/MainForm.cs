@@ -181,8 +181,7 @@ namespace XPlaneMonitorApp
             if (f.ShowDialog() == DialogResult.OK)
             {
                 //force update drawing boxes here, because BuildApproch may exit if runway not defined
-                boxRamp.Invalidate();
-                boxSpacing.Invalidate();
+                UpdateGrids();
 
                 BuildApproach();
             }
@@ -400,9 +399,9 @@ namespace XPlaneMonitorApp
                     new double[] { _lat, _lng });
 
                 lbSpacing.Value = Utils.RoundToInt(_spacing) + " m";
+                lbRunwayHeadingMag.Value = Utils.RoundToInt(_runwayHeading + _magneticVariation) + "º";
 
-                boxRamp.Invalidate();
-                boxSpacing.Invalidate();
+                UpdateGrids();
             }
         }
 
@@ -452,6 +451,15 @@ namespace XPlaneMonitorApp
             lbRunwayDist.Value = string.Empty;
 
             lbSpacing.Value = string.Empty;
+            lbRunwayHeadingMag.Value = string.Empty;
+
+            UpdateGrids();
+        }
+
+        private void UpdateGrids()
+        {
+            boxRamp.Invalidate();
+            boxSpacing.Invalidate();
         }
 
         private bool IsNotSetOrFarAwayFromAirport()

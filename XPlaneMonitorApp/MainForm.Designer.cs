@@ -90,6 +90,7 @@
             icoAutoThrottle=new PictureBox();
             icoAutopilot=new PictureBox();
             icoAutoBrake=new PictureBox();
+            lbRunwayHeadingMag=new Controls.BorderControl();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
@@ -493,10 +494,10 @@
             // lbSpacing
             // 
             lbSpacing.ForeColor=Color.Plum;
-            lbSpacing.Location=new Point(1224, 880);
+            lbSpacing.Location=new Point(1528, 880);
             lbSpacing.Name="lbSpacing";
             lbSpacing.Padding=new Padding(1);
-            lbSpacing.Size=new Size(600, 40);
+            lbSpacing.Size=new Size(296, 40);
             lbSpacing.TabIndex=85;
             lbSpacing.Title="Align Deviation";
             // 
@@ -689,12 +690,24 @@
             icoAutoBrake.TabIndex=101;
             icoAutoBrake.TabStop=false;
             // 
+            // lbRunwayHeadingMag
+            // 
+            lbRunwayHeadingMag.ForeColor=Color.Blue;
+            lbRunwayHeadingMag.Location=new Point(1224, 880);
+            lbRunwayHeadingMag.Name="lbRunwayHeadingMag";
+            lbRunwayHeadingMag.Padding=new Padding(1);
+            lbRunwayHeadingMag.Size=new Size(296, 40);
+            lbRunwayHeadingMag.TabIndex=102;
+            lbRunwayHeadingMag.Title="Rw. Head. Mag.";
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.Black;
             ClientSize=new Size(1834, 955);
+            Controls.Add(lbRunwayHeadingMag);
+            Controls.Add(lbSpacing);
             Controls.Add(icoAutoBrake);
             Controls.Add(icoAutopilot);
             Controls.Add(icoAutoThrottle);
@@ -712,7 +725,6 @@
             Controls.Add(statusBar);
             Controls.Add(lbBoxAlign);
             Controls.Add(lbBoxDescentRamp);
-            Controls.Add(lbSpacing);
             Controls.Add(boxSpacing);
             Controls.Add(lbRunwayPoints);
             Controls.Add(lbRunwayDist);
@@ -819,5 +831,6 @@
         private PictureBox icoAutoThrottle;
         private PictureBox icoAutopilot;
         private PictureBox icoAutoBrake;
+        private Controls.BorderControl lbRunwayHeadingMag;
     }
 }
