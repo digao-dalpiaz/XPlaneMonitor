@@ -23,6 +23,8 @@ namespace XPlaneMonitorApp.Communicator
         private string _host;
         private int _port;
 
+        private long _lastTick;
+
         public XPlaneCommunicator(RefDataContractList refsData, Control invokeControl)
         {
             _invokeControl = invokeControl;
@@ -33,6 +35,24 @@ namespace XPlaneMonitorApp.Communicator
         {
             _connectionStatus = status;
             RunSync(() => OnStatusChanged.Invoke());
+        }
+
+        private void SetConnected()
+        {
+            ChangeStatus(ConnectionStatus.CONNECTED);
+
+            new Task(() =>
+            {
+                while (_connectionStatus == ConnectionStatus.CONNECTED)
+                {
+                    Thread.Sleep(1000);
+                    if ((Environment.TickCount64 - _lastTick) > 10000) //10 seconds without receiving means connection lost
+                    {
+                        Disconnect();
+                        RunSync(() => Messages.Error("Connection lost"));
+                    }
+                }
+            }).Start();
         }
 
         public void Connect(string host, int port)
@@ -52,7 +72,7 @@ namespace XPlaneMonitorApp.Communicator
 
             new Task(() =>
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 10; i++) //10 seconds in connecting status means time-out
                 {
                     Thread.Sleep(1000);
                     if (_connectionStatus != ConnectionStatus.CONNECTING) return;
@@ -109,6 +129,7 @@ namespace XPlaneMonitorApp.Communicator
         {
             try
             {
+                _lastTick = Environment.TickCount64;
                 byte[] response;
                 try
                 {
@@ -125,7 +146,7 @@ namespace XPlaneMonitorApp.Communicator
                     });
                     return;
                 }
-                if (_connectionStatus == ConnectionStatus.CONNECTING) ChangeStatus(ConnectionStatus.CONNECTED);
+                if (_connectionStatus == ConnectionStatus.CONNECTING) SetConnected();
                 ParseResponse(response);
                 _server.BeginReceive(ReceiveCallback, null);
             }
@@ -160,7 +181,7 @@ namespace XPlaneMonitorApp.Communicator
         {
             try
             {
-                _invokeControl.Invoke(action);
+                _invokeControl.BeginInvoke(action);
             } catch (ObjectDisposedException) { }
         }
 
