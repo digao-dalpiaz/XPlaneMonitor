@@ -1,6 +1,6 @@
 ﻿namespace XPlaneMonitorApp.Functions
 {
-    internal class ProximityCalculator
+    public class ProximityCalculator
     {
 
         public static double CalcularDistanciaHaversine(double[] ponto1, double[] ponto2)
