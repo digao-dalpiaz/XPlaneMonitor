@@ -463,7 +463,7 @@
             // lbApproachDist
             // 
             lbApproachDist.ForeColor=Color.White;
-            lbApproachDist.Location=new Point(1528, 200);
+            lbApproachDist.Location=new Point(1528, 201);
             lbApproachDist.Name="lbApproachDist";
             lbApproachDist.Padding=new Padding(1);
             lbApproachDist.Size=new Size(296, 40);
@@ -473,7 +473,7 @@
             // lbRunwayDist
             // 
             lbRunwayDist.ForeColor=Color.White;
-            lbRunwayDist.Location=new Point(1528, 239);
+            lbRunwayDist.Location=new Point(1528, 240);
             lbRunwayDist.Name="lbRunwayDist";
             lbRunwayDist.Padding=new Padding(1);
             lbRunwayDist.Size=new Size(296, 40);
