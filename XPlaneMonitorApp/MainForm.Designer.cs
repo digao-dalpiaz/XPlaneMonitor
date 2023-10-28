@@ -342,7 +342,7 @@
             // 
             // lbAirSpeed
             // 
-            lbAirSpeed.ForeColor=Color.RoyalBlue;
+            lbAirSpeed.ForeColor=Color.DeepSkyBlue;
             lbAirSpeed.Location=new Point(8, 40);
             lbAirSpeed.Name="lbAirSpeed";
             lbAirSpeed.Padding=new Padding(1);
@@ -402,7 +402,7 @@
             // 
             // lbAutoBrake
             // 
-            lbAutoBrake.ForeColor=Color.Gold;
+            lbAutoBrake.ForeColor=Color.White;
             lbAutoBrake.Location=new Point(920, 40);
             lbAutoBrake.Name="lbAutoBrake";
             lbAutoBrake.Padding=new Padding(1);
@@ -593,7 +593,7 @@
             // 
             // lbWindInfo
             // 
-            lbWindInfo.ForeColor=Color.DeepSkyBlue;
+            lbWindInfo.ForeColor=Color.RoyalBlue;
             lbWindInfo.Location=new Point(616, 118);
             lbWindInfo.Name="lbWindInfo";
             lbWindInfo.Padding=new Padding(1);

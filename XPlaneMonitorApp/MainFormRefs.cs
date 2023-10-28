@@ -63,6 +63,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>
             {
                 lbAutoBrake.Value = r.Value == 0 ? "RTO" : r.Value == 1 ? "OFF" : "ON " + (r.Value-1);
+                lbAutoBrake.ForeColor = r.Value != 1 ? Color.Gold : Color.Gray;
                 icoAutoBrake.Visible = r.Value != 1;
             });
             lst.Subscribe("sim/flightmodel/controls/parkbrake", r =>
