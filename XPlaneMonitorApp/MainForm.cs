@@ -241,14 +241,19 @@ namespace XPlaneMonitorApp
 
         private void btnGotoGooglePoint_Click(object sender, EventArgs e)
         {
-            PointLatLng? p = null;
+            PointLatLng p;
 
-            if (Messages.SurroundMsgException(() =>
+            try
             {
                 p = GoogleMapsLinkDecoder.ReadFromClipboard();
-            })) return;
+            }
+            catch (MsgException exMsg)
+            {
+                Messages.Error(exMsg.Message);
+                return;
+            }
 
-            map.Position = p.Value;
+            map.Position = p;
 
             map_OnMapDrag();
         }
