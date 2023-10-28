@@ -4,7 +4,7 @@ namespace XPlaneMonitorApp
 {
     public class Vars
     {
-        public const string VERSION = "1.0";
+        public const string VERSION = "1.1";
 
         public static ConfigData Cfg;
     }
