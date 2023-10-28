@@ -362,7 +362,7 @@
             // 
             // lbGroundSpeed
             // 
-            lbGroundSpeed.ForeColor=Color.SkyBlue;
+            lbGroundSpeed.ForeColor=Color.FromArgb(0, 0, 160);
             lbGroundSpeed.Location=new Point(8, 118);
             lbGroundSpeed.Name="lbGroundSpeed";
             lbGroundSpeed.Padding=new Padding(1);
