@@ -139,12 +139,15 @@ namespace XPlaneMonitorApp
             gaugeAPU.AddBar("Switch", ControlPaint.Light(Color.SteelBlue, LIGHT_COLOR), 1, true);
             gaugeAPU.AddBar("N1", Color.SteelBlue, 100);
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < MAX_ENGINES; i++)
             {
                 gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), ControlPaint.Light(Color.Salmon, LIGHT_COLOR * 2), 1);
                 gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), ControlPaint.Light(Color.Salmon, LIGHT_COLOR), 100);
                 gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Salmon, 100);
+            }
 
+            for (int i = 0; i < MAX_TANKS; i++)
+            {
                 gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.LightSeaGreen, 1); //initial Max=1 only to better initial show, because max will be replaced when connected
             }
         }

@@ -113,7 +113,7 @@
             // 
             gaugeThrottle.GaugeImage=Properties.Resources.engine;
             gaugeThrottle.GaugeTitle="Engines";
-            gaugeThrottle.Location=new Point(8, 648);
+            gaugeThrottle.Location=new Point(8, 688);
             gaugeThrottle.Name="gaugeThrottle";
             gaugeThrottle.Size=new Size(296, 272);
             gaugeThrottle.TabIndex=1;
@@ -140,7 +140,7 @@
             map.ScaleMode=GMap.NET.WindowsForms.ScaleModes.Integer;
             map.SelectedAreaFillColor=Color.FromArgb(33, 65, 105, 225);
             map.ShowTileGridLines=false;
-            map.Size=new Size(904, 632);
+            map.Size=new Size(904, 672);
             map.TabIndex=13;
             map.Zoom=0D;
             map.OnMapClick+=map_OnMapClick;
@@ -151,7 +151,7 @@
             // 
             gaugeElvTrim.GaugeImage=Properties.Resources.flip;
             gaugeElvTrim.GaugeTitle="Elevator Trim";
-            gaugeElvTrim.Location=new Point(8, 528);
+            gaugeElvTrim.Location=new Point(312, 168);
             gaugeElvTrim.Name="gaugeElvTrim";
             gaugeElvTrim.Size=new Size(296, 112);
             gaugeElvTrim.TabIndex=15;
@@ -274,9 +274,9 @@
             // 
             gaugeFuel.GaugeImage=Properties.Resources.fuel;
             gaugeFuel.GaugeTitle="Fuel";
-            gaugeFuel.Location=new Point(312, 168);
+            gaugeFuel.Location=new Point(8, 528);
             gaugeFuel.Name="gaugeFuel";
-            gaugeFuel.Size=new Size(296, 112);
+            gaugeFuel.Size=new Size(296, 152);
             gaugeFuel.TabIndex=49;
             // 
             // gaugeGear
@@ -319,15 +319,15 @@
             // 
             boxRamp.Location=new Point(1224, 312);
             boxRamp.Name="boxRamp";
-            boxRamp.Size=new Size(600, 264);
+            boxRamp.Size=new Size(600, 280);
             boxRamp.TabIndex=56;
             boxRamp.Paint+=boxRamp_Paint;
             // 
             // boxSpacing
             // 
-            boxSpacing.Location=new Point(1224, 608);
+            boxSpacing.Location=new Point(1224, 624);
             boxSpacing.Name="boxSpacing";
-            boxSpacing.Size=new Size(600, 264);
+            boxSpacing.Size=new Size(600, 288);
             boxSpacing.TabIndex=59;
             boxSpacing.Paint+=boxSpacing_Paint;
             // 
@@ -494,7 +494,7 @@
             // lbSpacing
             // 
             lbSpacing.ForeColor=Color.Plum;
-            lbSpacing.Location=new Point(1528, 880);
+            lbSpacing.Location=new Point(1528, 920);
             lbSpacing.Name="lbSpacing";
             lbSpacing.Padding=new Padding(1);
             lbSpacing.Size=new Size(296, 40);
@@ -516,7 +516,7 @@
             // 
             lbBoxAlign.BackColor=Color.FromArgb(64, 64, 64);
             lbBoxAlign.ForeColor=Color.Silver;
-            lbBoxAlign.Location=new Point(1224, 584);
+            lbBoxAlign.Location=new Point(1224, 600);
             lbBoxAlign.Name="lbBoxAlign";
             lbBoxAlign.Size=new Size(600, 24);
             lbBoxAlign.TabIndex=87;
@@ -528,7 +528,7 @@
             statusBar.GripStyle=ToolStripGripStyle.Visible;
             statusBar.ImageScalingSize=new Size(20, 20);
             statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTime, stFlightDistance });
-            statusBar.Location=new Point(0, 929);
+            statusBar.Location=new Point(0, 967);
             statusBar.Name="statusBar";
             statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
             statusBar.Size=new Size(1834, 26);
@@ -693,7 +693,7 @@
             // lbRunwayHeadingMag
             // 
             lbRunwayHeadingMag.ForeColor=Color.Blue;
-            lbRunwayHeadingMag.Location=new Point(1224, 880);
+            lbRunwayHeadingMag.Location=new Point(1224, 920);
             lbRunwayHeadingMag.Name="lbRunwayHeadingMag";
             lbRunwayHeadingMag.Padding=new Padding(1);
             lbRunwayHeadingMag.Size=new Size(296, 40);
@@ -705,7 +705,7 @@
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.Black;
-            ClientSize=new Size(1834, 955);
+            ClientSize=new Size(1834, 993);
             Controls.Add(lbRunwayHeadingMag);
             Controls.Add(lbSpacing);
             Controls.Add(icoAutoBrake);

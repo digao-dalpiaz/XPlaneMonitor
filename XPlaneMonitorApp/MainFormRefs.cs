@@ -6,6 +6,9 @@ namespace XPlaneMonitorApp
     public partial class MainForm
     {
 
+        private const int MAX_ENGINES = 4;
+        private const int MAX_TANKS = 6;
+
         private float _tmpReceivedLatitude;
 
         private float _windSpeed;
@@ -147,12 +150,12 @@ namespace XPlaneMonitorApp
             {
                 gaugeFuel.Bars[r.ArrayIndex].Max = r.Value * _fuelTotalCapacity;
                 gaugeFuel.Reload();
-            }, 4);
+            }, MAX_TANKS);
             lst.Subscribe("sim/cockpit2/fuel/fuel_quantity", r =>
             {
                 gaugeFuel.Bars[r.ArrayIndex].Pos = r.Value;
                 gaugeFuel.Reload();
-            }, 4);
+            }, MAX_TANKS);
 
             lst.Subscribe("sim/cockpit/switches/gear_handle_status", r =>
             {
@@ -235,16 +238,16 @@ namespace XPlaneMonitorApp
                 gaugeThrottle.Reload();
             }
 
-            lst.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), 4);
-            lst.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), 4);
-            lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), 4);
+            lst.Subscribe("sim/cockpit2/engine/actuators/throttle_ratio", r => updEngine(r, 0), MAX_ENGINES);
+            lst.Subscribe("sim/cockpit2/engine/indicators/N1_percent", r => updEngine(r, 1), MAX_ENGINES);
+            lst.Subscribe("sim/cockpit2/engine/indicators/N2_percent", r => updEngine(r, 2), MAX_ENGINES);
 
             lst.Subscribe("sim/flightmodel/engine/ENGN_propmode", r =>
             {
                 //feather=0,normal=1,beta=2,reverse=3
                 gaugeThrottle.Bars[3 * r.ArrayIndex].Extra = r.Value == 3 ? "REVERSE" : "";
                 gaugeThrottle.Reload();
-            }, 4);
+            }, MAX_ENGINES);
             //--
 
             lst.Subscribe("sim/flightmodel/controls/dist", r =>
