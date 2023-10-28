@@ -407,7 +407,7 @@ namespace XPlaneMonitorApp
                     new double[] { _runwayEnd.Value.Lat, _runwayEnd.Value.Lng },
                     new double[] { _lat, _lng });
 
-                lbSpacing.Value = Utils.RoundToInt(_spacing) + " m";
+                lbSpacing.Value = Math.Abs(_spacing) > 1000 ? "FAR AWAY" : Utils.RoundToInt(_spacing) + " m";
                 lbRunwayHeadingMag.Value = Utils.RoundToInt(Utils.AddAngles(_runwayHeading, _magneticVariation)) + "º";
 
                 UpdateGrids();
