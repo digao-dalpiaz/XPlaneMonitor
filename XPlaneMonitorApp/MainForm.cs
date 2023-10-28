@@ -66,6 +66,8 @@ namespace XPlaneMonitorApp
             Utils.SetDoubleBuffered(boxRamp);
             Utils.SetDoubleBuffered(boxSpacing);
 
+            toolBar.ImageScalingSize = new Size(toolBar.Height - 8, toolBar.Height - 8); //multi DPI support
+
             WinDarkMode.UseImmersiveDarkMode(this.Handle);
             TSRenderer.SetToolStrip(toolBar);
             TSRenderer.SetStatusStrip(statusBar);

@@ -66,6 +66,7 @@
             icon.Location=new Point(9, 2);
             icon.Name="icon";
             icon.Size=new Size(32, 32);
+            icon.SizeMode=PictureBoxSizeMode.Zoom;
             icon.TabIndex=0;
             icon.TabStop=false;
             // 

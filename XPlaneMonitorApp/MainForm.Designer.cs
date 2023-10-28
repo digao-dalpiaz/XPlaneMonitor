@@ -159,46 +159,44 @@
             // 
             // toolBar
             // 
-            toolBar.ImageScalingSize=new Size(20, 20);
+            toolBar.AutoSize=false;
+            toolBar.ImageScalingSize=new Size(24, 24);
             toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnGotoGooglePoint, btnCenterMap, btnClearRoute, toolStripSeparator3, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach, toolStripSeparator2, btnConfig });
             toolBar.Location=new Point(0, 0);
             toolBar.Name="toolBar";
             toolBar.ShowItemToolTips=false;
-            toolBar.Size=new Size(1834, 31);
+            toolBar.Size=new Size(1834, 32);
             toolBar.TabIndex=48;
             // 
             // btnConnect
             // 
             btnConnect.Image=Properties.Resources.link;
-            btnConnect.ImageScaling=ToolStripItemImageScaling.None;
             btnConnect.ImageTransparentColor=Color.Magenta;
             btnConnect.Name="btnConnect";
-            btnConnect.Size=new Size(91, 28);
+            btnConnect.Size=new Size(91, 29);
             btnConnect.Text="Connect";
             btnConnect.Click+=btnConnect_Click;
             // 
             // btnDisconnect
             // 
             btnDisconnect.Image=Properties.Resources.cloud_computing;
-            btnDisconnect.ImageScaling=ToolStripItemImageScaling.None;
             btnDisconnect.ImageTransparentColor=Color.Magenta;
             btnDisconnect.Name="btnDisconnect";
-            btnDisconnect.Size=new Size(110, 28);
+            btnDisconnect.Size=new Size(110, 29);
             btnDisconnect.Text="Disconnect";
             btnDisconnect.Click+=btnDisconnect_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name="toolStripSeparator1";
-            toolStripSeparator1.Size=new Size(6, 31);
+            toolStripSeparator1.Size=new Size(6, 32);
             // 
             // btnGotoGooglePoint
             // 
             btnGotoGooglePoint.Image=Properties.Resources.map;
-            btnGotoGooglePoint.ImageScaling=ToolStripItemImageScaling.None;
             btnGotoGooglePoint.ImageTransparentColor=Color.Magenta;
             btnGotoGooglePoint.Name="btnGotoGooglePoint";
-            btnGotoGooglePoint.Size=new Size(163, 28);
+            btnGotoGooglePoint.Size=new Size(163, 29);
             btnGotoGooglePoint.Text="Google Maps Point";
             btnGotoGooglePoint.Click+=btnGotoGooglePoint_Click;
             // 
@@ -207,67 +205,62 @@
             btnCenterMap.Image=Properties.Resources.maps_and_flags;
             btnCenterMap.ImageTransparentColor=Color.Magenta;
             btnCenterMap.Name="btnCenterMap";
-            btnCenterMap.Size=new Size(110, 28);
+            btnCenterMap.Size=new Size(114, 29);
             btnCenterMap.Text="Center Map";
             btnCenterMap.Click+=btnCenterMap_Click;
             // 
             // btnClearRoute
             // 
             btnClearRoute.Image=Properties.Resources.delete_route;
-            btnClearRoute.ImageScaling=ToolStripItemImageScaling.None;
             btnClearRoute.ImageTransparentColor=Color.Magenta;
             btnClearRoute.Name="btnClearRoute";
-            btnClearRoute.Size=new Size(114, 28);
+            btnClearRoute.Size=new Size(114, 29);
             btnClearRoute.Text="Clear Route";
             btnClearRoute.Click+=btnClearRoute_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name="toolStripSeparator3";
-            toolStripSeparator3.Size=new Size(6, 31);
+            toolStripSeparator3.Size=new Size(6, 32);
             // 
             // btnSetRunwayBegin
             // 
             btnSetRunwayBegin.Image=Properties.Resources.runway;
-            btnSetRunwayBegin.ImageScaling=ToolStripItemImageScaling.None;
             btnSetRunwayBegin.ImageTransparentColor=Color.Magenta;
             btnSetRunwayBegin.Name="btnSetRunwayBegin";
-            btnSetRunwayBegin.Size=new Size(155, 28);
+            btnSetRunwayBegin.Size=new Size(155, 29);
             btnSetRunwayBegin.Text="Set Runway Begin";
             btnSetRunwayBegin.Click+=btnSetRunwayBegin_Click;
             // 
             // btnSetRunwayEnd
             // 
             btnSetRunwayEnd.Image=Properties.Resources.runway2;
-            btnSetRunwayEnd.ImageScaling=ToolStripItemImageScaling.None;
             btnSetRunwayEnd.ImageTransparentColor=Color.Magenta;
             btnSetRunwayEnd.Name="btnSetRunwayEnd";
-            btnSetRunwayEnd.Size=new Size(142, 28);
+            btnSetRunwayEnd.Size=new Size(142, 29);
             btnSetRunwayEnd.Text="Set Runway End";
             btnSetRunwayEnd.Click+=btnSetRunwayEnd_Click;
             // 
             // btnClearRunwayApproach
             // 
             btnClearRunwayApproach.Image=Properties.Resources.cleaning;
-            btnClearRunwayApproach.ImageScaling=ToolStripItemImageScaling.None;
             btnClearRunwayApproach.ImageTransparentColor=Color.Magenta;
             btnClearRunwayApproach.Name="btnClearRunwayApproach";
-            btnClearRunwayApproach.Size=new Size(195, 28);
+            btnClearRunwayApproach.Size=new Size(195, 29);
             btnClearRunwayApproach.Text="Clear Runway Approach";
             btnClearRunwayApproach.Click+=btnClearRunwayApproach_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name="toolStripSeparator2";
-            toolStripSeparator2.Size=new Size(6, 31);
+            toolStripSeparator2.Size=new Size(6, 32);
             // 
             // btnConfig
             // 
             btnConfig.Image=Properties.Resources.cogwheel;
-            btnConfig.ImageScaling=ToolStripItemImageScaling.None;
             btnConfig.ImageTransparentColor=Color.Magenta;
             btnConfig.Name="btnConfig";
-            btnConfig.Size=new Size(90, 28);
+            btnConfig.Size=new Size(90, 29);
             btnConfig.Text="Settings";
             btnConfig.Click+=btnConfig_Click;
             // 
@@ -338,7 +331,7 @@
             icoParkingBrake.Location=new Point(1176, 83);
             icoParkingBrake.Name="icoParkingBrake";
             icoParkingBrake.Size=new Size(32, 32);
-            icoParkingBrake.SizeMode=PictureBoxSizeMode.AutoSize;
+            icoParkingBrake.SizeMode=PictureBoxSizeMode.Zoom;
             icoParkingBrake.TabIndex=69;
             icoParkingBrake.TabStop=false;
             // 
@@ -653,7 +646,7 @@
             icoVerticalSpeed.Location=new Point(264, 83);
             icoVerticalSpeed.Name="icoVerticalSpeed";
             icoVerticalSpeed.Size=new Size(32, 32);
-            icoVerticalSpeed.SizeMode=PictureBoxSizeMode.AutoSize;
+            icoVerticalSpeed.SizeMode=PictureBoxSizeMode.Zoom;
             icoVerticalSpeed.TabIndex=97;
             icoVerticalSpeed.TabStop=false;
             // 
@@ -673,7 +666,7 @@
             icoAutoThrottle.Location=new Point(1480, 44);
             icoAutoThrottle.Name="icoAutoThrottle";
             icoAutoThrottle.Size=new Size(32, 32);
-            icoAutoThrottle.SizeMode=PictureBoxSizeMode.AutoSize;
+            icoAutoThrottle.SizeMode=PictureBoxSizeMode.Zoom;
             icoAutoThrottle.TabIndex=99;
             icoAutoThrottle.TabStop=false;
             // 
@@ -683,7 +676,7 @@
             icoAutopilot.Location=new Point(1480, 83);
             icoAutopilot.Name="icoAutopilot";
             icoAutopilot.Size=new Size(32, 32);
-            icoAutopilot.SizeMode=PictureBoxSizeMode.AutoSize;
+            icoAutopilot.SizeMode=PictureBoxSizeMode.Zoom;
             icoAutopilot.TabIndex=100;
             icoAutopilot.TabStop=false;
             // 
@@ -693,7 +686,7 @@
             icoAutoBrake.Location=new Point(1176, 44);
             icoAutoBrake.Name="icoAutoBrake";
             icoAutoBrake.Size=new Size(32, 32);
-            icoAutoBrake.SizeMode=PictureBoxSizeMode.AutoSize;
+            icoAutoBrake.SizeMode=PictureBoxSizeMode.Zoom;
             icoAutoBrake.TabIndex=101;
             icoAutoBrake.TabStop=false;
             // 
