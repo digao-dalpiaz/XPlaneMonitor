@@ -68,19 +68,21 @@ namespace XPlaneMonitorApp
                 {
                     var text = Utils.RoundToInt(perc * 100) + "%";
                     var strSize = e.Graphics.MeasureString(text, this.Font);
-                    Drawing.DrawString(e.Graphics, text, this.Font, Brushes.Black, Utils.Div(boxDraw.Width - strSize.Width, 2), textY);
+                    Drawing.DrawString(e.Graphics, text, this.Font, Brushes.Gray, Utils.Div(boxDraw.Width - strSize.Width, 2), textY);
                 }
 
                 if (bar.Name != null)
                 {
-                    Drawing.DrawString(e.Graphics, bar.Name, this.Font, Brushes.Gray, 4, textY);
+                    Drawing.DrawString(e.Graphics, bar.Name, this.Font, Brushes.White, 4, textY);
                 }
 
                 if (bar.Extra != null)
                 {
+                    Font f = new(this.Font.Name, this.Font.Size, FontStyle.Bold);
+
                     var text = bar.Extra;
-                    var strSize = e.Graphics.MeasureString(text, this.Font);
-                    Drawing.DrawString(e.Graphics, text, this.Font, Brushes.Black, boxDraw.Width - strSize.Width, textY);
+                    var strSize = e.Graphics.MeasureString(text, f);
+                    Drawing.DrawString(e.Graphics, text, f, Brushes.White, boxDraw.Width - strSize.Width, textY);
                 }
 
                 y += h;

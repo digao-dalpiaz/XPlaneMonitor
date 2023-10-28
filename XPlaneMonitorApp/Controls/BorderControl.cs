@@ -18,7 +18,7 @@ namespace XPlaneMonitorApp.Controls
 
         private void BorderPanel_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawRectangle(new Pen(Color.Gray), 0, 0, Width-1, Height-1);
+            e.Graphics.DrawRectangle(new Pen(Color.FromArgb(64, 64, 64)), 0, 0, Width-1, Height-1);
         }
     }
 }

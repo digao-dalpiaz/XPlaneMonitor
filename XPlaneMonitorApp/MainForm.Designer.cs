@@ -80,18 +80,23 @@
             stSimTime=new ToolStripStatusLabel();
             stFlightDistance=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
-            lbWindSpeed=new Controls.BorderControl();
-            lbWindHeading=new Controls.BorderControl();
+            lbWindInfo=new Controls.BorderControl();
             gaugeAPU=new GaugePanel();
             lbOutsideTemp=new Controls.BorderControl();
             lbAutopilotMode=new Controls.BorderControl();
             lbAutoThrottle=new Controls.BorderControl();
             icoVerticalSpeed=new PictureBox();
             lbAutopilotHeading=new Controls.BorderControl();
+            icoAutoThrottle=new PictureBox();
+            icoAutopilot=new PictureBox();
+            icoAutoBrake=new PictureBox();
             toolBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoParkingBrake).BeginInit();
             statusBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icoVerticalSpeed).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)icoAutoThrottle).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)icoAutopilot).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)icoAutoBrake).BeginInit();
             SuspendLayout();
             // 
             // gaugeFlaps
@@ -327,9 +332,8 @@
             // 
             // icoParkingBrake
             // 
-            icoParkingBrake.BackColor=Color.White;
             icoParkingBrake.Image=Properties.Resources.alert;
-            icoParkingBrake.Location=new Point(872, 83);
+            icoParkingBrake.Location=new Point(1176, 83);
             icoParkingBrake.Name="icoParkingBrake";
             icoParkingBrake.Size=new Size(32, 32);
             icoParkingBrake.SizeMode=PictureBoxSizeMode.AutoSize;
@@ -338,8 +342,7 @@
             // 
             // lbAirSpeed
             // 
-            lbAirSpeed.BackColor=Color.White;
-            lbAirSpeed.ForeColor=Color.DarkBlue;
+            lbAirSpeed.ForeColor=Color.RoyalBlue;
             lbAirSpeed.Location=new Point(8, 40);
             lbAirSpeed.Name="lbAirSpeed";
             lbAirSpeed.Padding=new Padding(1);
@@ -349,7 +352,7 @@
             // 
             // lbVerticalSpeed
             // 
-            lbVerticalSpeed.BackColor=Color.White;
+            lbVerticalSpeed.ForeColor=Color.White;
             lbVerticalSpeed.Location=new Point(8, 79);
             lbVerticalSpeed.Name="lbVerticalSpeed";
             lbVerticalSpeed.Padding=new Padding(1);
@@ -359,7 +362,6 @@
             // 
             // lbGroundSpeed
             // 
-            lbGroundSpeed.BackColor=Color.White;
             lbGroundSpeed.ForeColor=Color.SkyBlue;
             lbGroundSpeed.Location=new Point(8, 118);
             lbGroundSpeed.Name="lbGroundSpeed";
@@ -370,9 +372,8 @@
             // 
             // lbAltitude
             // 
-            lbAltitude.BackColor=Color.White;
             lbAltitude.ForeColor=Color.BlueViolet;
-            lbAltitude.Location=new Point(312, 40);
+            lbAltitude.Location=new Point(312, 79);
             lbAltitude.Name="lbAltitude";
             lbAltitude.Padding=new Padding(1);
             lbAltitude.Size=new Size(296, 40);
@@ -381,9 +382,8 @@
             // 
             // lbRadioAltimeter
             // 
-            lbRadioAltimeter.BackColor=Color.White;
             lbRadioAltimeter.ForeColor=Color.Teal;
-            lbRadioAltimeter.Location=new Point(312, 79);
+            lbRadioAltimeter.Location=new Point(312, 118);
             lbRadioAltimeter.Name="lbRadioAltimeter";
             lbRadioAltimeter.Padding=new Padding(1);
             lbRadioAltimeter.Size=new Size(296, 40);
@@ -392,9 +392,8 @@
             // 
             // lbHeading
             // 
-            lbHeading.BackColor=Color.White;
             lbHeading.ForeColor=Color.DarkKhaki;
-            lbHeading.Location=new Point(312, 118);
+            lbHeading.Location=new Point(312, 40);
             lbHeading.Name="lbHeading";
             lbHeading.Padding=new Padding(1);
             lbHeading.Size=new Size(296, 40);
@@ -403,8 +402,8 @@
             // 
             // lbAutoBrake
             // 
-            lbAutoBrake.BackColor=Color.White;
-            lbAutoBrake.Location=new Point(616, 40);
+            lbAutoBrake.ForeColor=Color.Gold;
+            lbAutoBrake.Location=new Point(920, 40);
             lbAutoBrake.Name="lbAutoBrake";
             lbAutoBrake.Padding=new Padding(1);
             lbAutoBrake.Size=new Size(296, 40);
@@ -413,9 +412,8 @@
             // 
             // lbHeadingTrue
             // 
-            lbHeadingTrue.BackColor=Color.White;
             lbHeadingTrue.ForeColor=Color.Gray;
-            lbHeadingTrue.Location=new Point(616, 118);
+            lbHeadingTrue.Location=new Point(616, 40);
             lbHeadingTrue.Name="lbHeadingTrue";
             lbHeadingTrue.Padding=new Padding(1);
             lbHeadingTrue.Size=new Size(296, 40);
@@ -424,8 +422,8 @@
             // 
             // lbParkingBrake
             // 
-            lbParkingBrake.BackColor=Color.White;
-            lbParkingBrake.Location=new Point(616, 79);
+            lbParkingBrake.ForeColor=Color.Tomato;
+            lbParkingBrake.Location=new Point(920, 79);
             lbParkingBrake.Name="lbParkingBrake";
             lbParkingBrake.Padding=new Padding(1);
             lbParkingBrake.Size=new Size(296, 40);
@@ -434,7 +432,7 @@
             // 
             // lbRunwayElevation
             // 
-            lbRunwayElevation.BackColor=Color.White;
+            lbRunwayElevation.ForeColor=Color.SteelBlue;
             lbRunwayElevation.Location=new Point(1528, 79);
             lbRunwayElevation.Name="lbRunwayElevation";
             lbRunwayElevation.Padding=new Padding(1);
@@ -444,7 +442,7 @@
             // 
             // lbRunwayDegrees
             // 
-            lbRunwayDegrees.BackColor=Color.White;
+            lbRunwayDegrees.ForeColor=Color.SteelBlue;
             lbRunwayDegrees.Location=new Point(1528, 118);
             lbRunwayDegrees.Name="lbRunwayDegrees";
             lbRunwayDegrees.Padding=new Padding(1);
@@ -454,7 +452,7 @@
             // 
             // lbRunwaySize
             // 
-            lbRunwaySize.BackColor=Color.White;
+            lbRunwaySize.ForeColor=Color.SteelBlue;
             lbRunwaySize.Location=new Point(1528, 157);
             lbRunwaySize.Name="lbRunwaySize";
             lbRunwaySize.Padding=new Padding(1);
@@ -464,7 +462,7 @@
             // 
             // lbApproachDist
             // 
-            lbApproachDist.BackColor=Color.White;
+            lbApproachDist.ForeColor=Color.White;
             lbApproachDist.Location=new Point(1528, 200);
             lbApproachDist.Name="lbApproachDist";
             lbApproachDist.Padding=new Padding(1);
@@ -474,7 +472,7 @@
             // 
             // lbRunwayDist
             // 
-            lbRunwayDist.BackColor=Color.White;
+            lbRunwayDist.ForeColor=Color.White;
             lbRunwayDist.Location=new Point(1528, 239);
             lbRunwayDist.Name="lbRunwayDist";
             lbRunwayDist.Padding=new Padding(1);
@@ -484,7 +482,7 @@
             // 
             // lbRunwayPoints
             // 
-            lbRunwayPoints.BackColor=Color.White;
+            lbRunwayPoints.ForeColor=Color.White;
             lbRunwayPoints.Location=new Point(1528, 40);
             lbRunwayPoints.Name="lbRunwayPoints";
             lbRunwayPoints.Padding=new Padding(1);
@@ -494,18 +492,18 @@
             // 
             // lbSpacing
             // 
-            lbSpacing.BackColor=Color.White;
-            lbSpacing.ForeColor=Color.Purple;
-            lbSpacing.Location=new Point(1528, 880);
+            lbSpacing.ForeColor=Color.Plum;
+            lbSpacing.Location=new Point(1224, 880);
             lbSpacing.Name="lbSpacing";
             lbSpacing.Padding=new Padding(1);
-            lbSpacing.Size=new Size(296, 40);
+            lbSpacing.Size=new Size(600, 40);
             lbSpacing.TabIndex=85;
             lbSpacing.Title="Align Deviation";
             // 
             // lbBoxDescentRamp
             // 
-            lbBoxDescentRamp.BackColor=Color.Gray;
+            lbBoxDescentRamp.BackColor=Color.FromArgb(64, 64, 64);
+            lbBoxDescentRamp.ForeColor=Color.Silver;
             lbBoxDescentRamp.Location=new Point(1224, 288);
             lbBoxDescentRamp.Name="lbBoxDescentRamp";
             lbBoxDescentRamp.Size=new Size(600, 24);
@@ -515,7 +513,8 @@
             // 
             // lbBoxAlign
             // 
-            lbBoxAlign.BackColor=Color.Gray;
+            lbBoxAlign.BackColor=Color.FromArgb(64, 64, 64);
+            lbBoxAlign.ForeColor=Color.Silver;
             lbBoxAlign.Location=new Point(1224, 584);
             lbBoxAlign.Name="lbBoxAlign";
             lbBoxAlign.Size=new Size(600, 24);
@@ -538,6 +537,7 @@
             // stDigaoDalpiaz
             // 
             stDigaoDalpiaz.IsLink=true;
+            stDigaoDalpiaz.LinkColor=Color.FromArgb(128, 128, 255);
             stDigaoDalpiaz.Name="stDigaoDalpiaz";
             stDigaoDalpiaz.Size=new Size(105, 20);
             stDigaoDalpiaz.Text="Digao Dalpiaz";
@@ -552,8 +552,9 @@
             // 
             // stConnStatus
             // 
+            stConnStatus.Font=new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             stConnStatus.Name="stConnStatus";
-            stConnStatus.Size=new Size(49, 20);
+            stConnStatus.Size=new Size(53, 20);
             stConnStatus.Text="Status";
             // 
             // stLastTimeRec
@@ -582,36 +583,23 @@
             // 
             // lbAltitudeTrue
             // 
-            lbAltitudeTrue.BackColor=Color.White;
             lbAltitudeTrue.ForeColor=Color.Gray;
-            lbAltitudeTrue.Location=new Point(920, 118);
+            lbAltitudeTrue.Location=new Point(616, 79);
             lbAltitudeTrue.Name="lbAltitudeTrue";
             lbAltitudeTrue.Padding=new Padding(1);
             lbAltitudeTrue.Size=new Size(296, 40);
             lbAltitudeTrue.TabIndex=89;
             lbAltitudeTrue.Title="True Altitude";
             // 
-            // lbWindSpeed
+            // lbWindInfo
             // 
-            lbWindSpeed.BackColor=Color.White;
-            lbWindSpeed.ForeColor=Color.DeepSkyBlue;
-            lbWindSpeed.Location=new Point(920, 40);
-            lbWindSpeed.Name="lbWindSpeed";
-            lbWindSpeed.Padding=new Padding(1);
-            lbWindSpeed.Size=new Size(296, 40);
-            lbWindSpeed.TabIndex=90;
-            lbWindSpeed.Title="Wind Speed";
-            // 
-            // lbWindHeading
-            // 
-            lbWindHeading.BackColor=Color.White;
-            lbWindHeading.ForeColor=Color.DeepSkyBlue;
-            lbWindHeading.Location=new Point(920, 79);
-            lbWindHeading.Name="lbWindHeading";
-            lbWindHeading.Padding=new Padding(1);
-            lbWindHeading.Size=new Size(296, 40);
-            lbWindHeading.TabIndex=91;
-            lbWindHeading.Title="Wind Heading";
+            lbWindInfo.ForeColor=Color.DeepSkyBlue;
+            lbWindInfo.Location=new Point(616, 118);
+            lbWindInfo.Name="lbWindInfo";
+            lbWindInfo.Padding=new Padding(1);
+            lbWindInfo.Size=new Size(296, 40);
+            lbWindInfo.TabIndex=90;
+            lbWindInfo.Title="Wind Spd/Head.";
             // 
             // gaugeAPU
             // 
@@ -624,9 +612,8 @@
             // 
             // lbOutsideTemp
             // 
-            lbOutsideTemp.BackColor=Color.White;
             lbOutsideTemp.ForeColor=Color.Tan;
-            lbOutsideTemp.Location=new Point(1224, 118);
+            lbOutsideTemp.Location=new Point(920, 118);
             lbOutsideTemp.Name="lbOutsideTemp";
             lbOutsideTemp.Padding=new Padding(1);
             lbOutsideTemp.Size=new Size(296, 40);
@@ -635,9 +622,8 @@
             // 
             // lbAutopilotMode
             // 
-            lbAutopilotMode.BackColor=Color.White;
             lbAutopilotMode.ForeColor=Color.DeepPink;
-            lbAutopilotMode.Location=new Point(1224, 40);
+            lbAutopilotMode.Location=new Point(1224, 79);
             lbAutopilotMode.Name="lbAutopilotMode";
             lbAutopilotMode.Padding=new Padding(1);
             lbAutopilotMode.Size=new Size(296, 40);
@@ -646,9 +632,8 @@
             // 
             // lbAutoThrottle
             // 
-            lbAutoThrottle.BackColor=Color.White;
-            lbAutoThrottle.ForeColor=Color.DeepPink;
-            lbAutoThrottle.Location=new Point(1224, 79);
+            lbAutoThrottle.ForeColor=Color.Plum;
+            lbAutoThrottle.Location=new Point(1224, 40);
             lbAutoThrottle.Name="lbAutoThrottle";
             lbAutoThrottle.Padding=new Padding(1);
             lbAutoThrottle.Size=new Size(296, 40);
@@ -657,7 +642,6 @@
             // 
             // icoVerticalSpeed
             // 
-            icoVerticalSpeed.BackColor=Color.White;
             icoVerticalSpeed.Location=new Point(264, 83);
             icoVerticalSpeed.Name="icoVerticalSpeed";
             icoVerticalSpeed.Size=new Size(32, 32);
@@ -667,29 +651,63 @@
             // 
             // lbAutopilotHeading
             // 
-            lbAutopilotHeading.BackColor=Color.White;
             lbAutopilotHeading.ForeColor=Color.Sienna;
-            lbAutopilotHeading.Location=new Point(1224, 880);
+            lbAutopilotHeading.Location=new Point(1224, 118);
             lbAutopilotHeading.Name="lbAutopilotHeading";
             lbAutopilotHeading.Padding=new Padding(1);
             lbAutopilotHeading.Size=new Size(296, 40);
             lbAutopilotHeading.TabIndex=98;
             lbAutopilotHeading.Title="Autopilot Head.";
             // 
+            // icoAutoThrottle
+            // 
+            icoAutoThrottle.Image=Properties.Resources.speedometer;
+            icoAutoThrottle.Location=new Point(1480, 44);
+            icoAutoThrottle.Name="icoAutoThrottle";
+            icoAutoThrottle.Size=new Size(32, 32);
+            icoAutoThrottle.SizeMode=PictureBoxSizeMode.AutoSize;
+            icoAutoThrottle.TabIndex=99;
+            icoAutoThrottle.TabStop=false;
+            // 
+            // icoAutopilot
+            // 
+            icoAutopilot.Image=Properties.Resources.autopilot;
+            icoAutopilot.Location=new Point(1480, 83);
+            icoAutopilot.Name="icoAutopilot";
+            icoAutopilot.Size=new Size(32, 32);
+            icoAutopilot.SizeMode=PictureBoxSizeMode.AutoSize;
+            icoAutopilot.TabIndex=100;
+            icoAutopilot.TabStop=false;
+            // 
+            // icoAutoBrake
+            // 
+            icoAutoBrake.Image=Properties.Resources.pedal;
+            icoAutoBrake.Location=new Point(1176, 44);
+            icoAutoBrake.Name="icoAutoBrake";
+            icoAutoBrake.Size=new Size(32, 32);
+            icoAutoBrake.SizeMode=PictureBoxSizeMode.AutoSize;
+            icoAutoBrake.TabIndex=101;
+            icoAutoBrake.TabStop=false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
-            BackColor=Color.White;
+            BackColor=Color.Black;
             ClientSize=new Size(1834, 955);
+            Controls.Add(icoAutoBrake);
+            Controls.Add(icoAutopilot);
+            Controls.Add(icoAutoThrottle);
+            Controls.Add(icoParkingBrake);
             Controls.Add(lbAutopilotHeading);
+            Controls.Add(lbAutoBrake);
+            Controls.Add(lbOutsideTemp);
             Controls.Add(icoVerticalSpeed);
+            Controls.Add(lbParkingBrake);
             Controls.Add(lbAutoThrottle);
             Controls.Add(lbAutopilotMode);
-            Controls.Add(lbOutsideTemp);
             Controls.Add(gaugeAPU);
-            Controls.Add(lbWindHeading);
-            Controls.Add(lbWindSpeed);
+            Controls.Add(lbWindInfo);
             Controls.Add(lbAltitudeTrue);
             Controls.Add(statusBar);
             Controls.Add(lbBoxAlign);
@@ -703,8 +721,6 @@
             Controls.Add(lbRunwayDegrees);
             Controls.Add(lbRunwayElevation);
             Controls.Add(lbHeadingTrue);
-            Controls.Add(lbAutoBrake);
-            Controls.Add(icoParkingBrake);
             Controls.Add(boxRamp);
             Controls.Add(gaugeWheelBrake);
             Controls.Add(gaugeSpeedBrake);
@@ -722,7 +738,6 @@
             Controls.Add(lbRadioAltimeter);
             Controls.Add(lbHeading);
             Controls.Add(lbVerticalSpeed);
-            Controls.Add(lbParkingBrake);
             Name="MainForm";
             Text="X-Plane Monitor";
             FormClosing+=MainForm_FormClosing;
@@ -733,6 +748,9 @@
             statusBar.ResumeLayout(false);
             statusBar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)icoVerticalSpeed).EndInit();
+            ((System.ComponentModel.ISupportInitialize)icoAutoThrottle).EndInit();
+            ((System.ComponentModel.ISupportInitialize)icoAutopilot).EndInit();
+            ((System.ComponentModel.ISupportInitialize)icoAutoBrake).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -787,8 +805,7 @@
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripStatusLabel stDigaoDalpiaz;
         private ToolStripStatusLabel stConnStatus;
-        private Controls.BorderControl lbWindSpeed;
-        private Controls.BorderControl lbWindHeading;
+        private Controls.BorderControl lbWindInfo;
         private GaugePanel gaugeAPU;
         private Controls.BorderControl lbOutsideTemp;
         private Controls.BorderControl lbAutopilotMode;
@@ -799,5 +816,8 @@
         private ToolStripButton btnGotoGooglePoint;
         private ToolStripStatusLabel stFlightDistance;
         private Controls.BorderControl lbAutopilotHeading;
+        private PictureBox icoAutoThrottle;
+        private PictureBox icoAutopilot;
+        private PictureBox icoAutoBrake;
     }
 }

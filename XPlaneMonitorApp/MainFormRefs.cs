@@ -6,6 +6,15 @@ namespace XPlaneMonitorApp
     public partial class MainForm
     {
 
+        private float _tmpReceivedLatitude;
+
+        private float _windSpeed;
+        private float _windHeading;
+
+        private float _fuelTotalCapacity;
+        private float _altitudeTrue;
+        private float _headingTrue;
+
         private RefDataContractList GetRefDataContractList()
         {
             RefDataContractList lst = new();
@@ -17,7 +26,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel/position/vh_ind_fpm", r =>
             {
                 int v = Utils.RoundToInt(r.Value); //round before check value to avoid different value from view!!!
-                lbVerticalSpeed.Value = v + " ft/m"; //ft/min
+                lbVerticalSpeed.Value = Math.Abs(v) + " ft/m"; //ft/min
                 lbVerticalSpeed.ForeColor = v >= 0 ? Color.Green : Color.Red;
                 icoVerticalSpeed.Image = v >= 0 ? Properties.Resources.arrow_up : Properties.Resources.arrow_down;
                 icoVerticalSpeed.Visible = v != 0;
@@ -54,24 +63,30 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>
             {
                 lbAutoBrake.Value = r.Value == 0 ? "RTO" : r.Value == 1 ? "OFF" : "ON " + (r.Value-1);
+                icoAutoBrake.Visible = r.Value != 1;
             });
             lst.Subscribe("sim/flightmodel/controls/parkbrake", r =>
             {
                 bool on = r.Value == 1;
 
                 lbParkingBrake.Value = on ? "SET" : "RELEASED";
-                lbParkingBrake.ForeColor = on ? Color.Red : Color.Green;
-
                 icoParkingBrake.Visible = on;
             });
 
+            void UpdateWindLabel()
+            {
+                lbWindInfo.Value = Utils.RoundToInt(_windSpeed) + " kts/" + Utils.RoundToInt(_windHeading) + "º";
+            }
+
             lst.Subscribe("sim/cockpit2/gauges/indicators/wind_speed_kts", r =>
             {
-                lbWindSpeed.Value = Utils.RoundToInt(r.Value) + " kts";
+                _windSpeed = r.Value;
+                UpdateWindLabel();
             });
             lst.Subscribe("sim/cockpit2/gauges/indicators/wind_heading_deg_mag", r =>
             {
-                lbWindHeading.Value = Utils.RoundToInt(r.Value) + "º";
+                _windHeading = r.Value;
+                UpdateWindLabel();
             });
 
             lst.Subscribe("sim/cockpit2/temperature/outside_air_temp_deg" + (Vars.Cfg.DegreesUnit == Config.DegreesUnitType.CELSIUS ? "c" : "f"), r =>
@@ -82,7 +97,8 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit/autopilot/autopilot_mode", r =>
             {
                 //off=0, flight director=1, on=2
-                lbAutopilotMode.Value = r.Value == 0 ? "OFF" : r.Value == 1 ? "FLIGTH DIR" : r.Value == 2 ? "ON" : "?";
+                lbAutopilotMode.Value = r.Value == 0 ? "OFF" : r.Value == 1 ? "FL DIR" : r.Value == 2 ? "ON" : "?";
+                icoAutopilot.Visible = r.Value != 0;
             });
             lst.Subscribe("sim/cockpit/autopilot/heading_mag", r =>
             {
@@ -91,7 +107,8 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/cockpit2/autopilot/autothrottle_enabled", r =>
             {
                 //-1=hard off, not even armed. 0=servos declutched (arm, hold), 1=airspeed hold, 2=N1 target hold, 3=retard, 4=reserved for future use
-                lbAutoThrottle.Value = r.Value == -1 ? "OFF" : r.Value == 0 ? "ARMED" : r.Value == 1 ? "SPEED HOLD" : r.Value == 2 ? "N1 TGT HOLD" : r.Value == 3 ? "RETARD" : "?";
+                lbAutoThrottle.Value = r.Value == -1 ? "OFF" : r.Value == 0 ? "ARMED" : r.Value == 1 ? "SPEED" : r.Value == 2 ? "N1 TGT" : r.Value == 3 ? "RETARD" : "?";
+                icoAutoThrottle.Visible = r.Value != -1;
             });
 
             lst.Subscribe("sim/flightmodel/controls/flaprqst", r =>
@@ -225,7 +242,7 @@ namespace XPlaneMonitorApp
 
             lst.Subscribe("sim/flightmodel/controls/dist", r =>
             {
-                stFlightDistance.Text = "Flight Distance: " + Utils.RoundToInt(r.Value) + " m";
+                stFlightDistance.Text = "Flight distance: " + Utils.RoundToInt(r.Value) + " m";
             });
 
             lst.Subscribe("sim/time/total_flight_time_sec", r =>

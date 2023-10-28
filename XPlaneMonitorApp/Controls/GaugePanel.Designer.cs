@@ -40,7 +40,6 @@
             // 
             // lbTitle
             // 
-            lbTitle.BackColor=Color.Gray;
             lbTitle.Dock=DockStyle.Top;
             lbTitle.Font=new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             lbTitle.ForeColor=Color.WhiteSmoke;
@@ -52,7 +51,7 @@
             // 
             // boxExternal
             // 
-            boxExternal.BackColor=Color.Gray;
+            boxExternal.BackColor=Color.FromArgb(64, 64, 64);
             boxExternal.Controls.Add(icon);
             boxExternal.Controls.Add(boxInternal);
             boxExternal.Dock=DockStyle.Fill;
@@ -64,7 +63,6 @@
             // 
             // icon
             // 
-            icon.BackColor=Color.Gray;
             icon.Location=new Point(9, 2);
             icon.Name="icon";
             icon.Size=new Size(32, 32);
@@ -73,7 +71,6 @@
             // 
             // boxInternal
             // 
-            boxInternal.BackColor=Color.White;
             boxInternal.Controls.Add(boxDraw);
             boxInternal.Controls.Add(lbTitle);
             boxInternal.Dock=DockStyle.Fill;
@@ -84,6 +81,7 @@
             // 
             // boxDraw
             // 
+            boxDraw.BackColor=Color.Black;
             boxDraw.Dock=DockStyle.Fill;
             boxDraw.Location=new Point(0, 32);
             boxDraw.Name="boxDraw";

@@ -113,6 +113,16 @@ namespace XPlaneMonitorApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap autopilot {
+            get {
+                object obj = ResourceManager.GetObject("autopilot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap black_plane {
             get {
                 object obj = ResourceManager.GetObject("black-plane", resourceCulture);
@@ -263,6 +273,16 @@ namespace XPlaneMonitorApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap pedal {
+            get {
+                object obj = ResourceManager.GetObject("pedal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap runway {
             get {
                 object obj = ResourceManager.GetObject("runway", resourceCulture);
@@ -276,6 +296,16 @@ namespace XPlaneMonitorApp.Properties {
         internal static System.Drawing.Bitmap runway2 {
             get {
                 object obj = ResourceManager.GetObject("runway2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap speedometer {
+            get {
+                object obj = ResourceManager.GetObject("speedometer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

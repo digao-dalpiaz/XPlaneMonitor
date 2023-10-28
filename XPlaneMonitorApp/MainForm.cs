@@ -13,6 +13,8 @@ namespace XPlaneMonitorApp
     public partial class MainForm : Form
     {
 
+        private const float LIGHT_COLOR = 0.5f;
+
         private const double RAMP_DISTANCE_FATOR = 1.25;
         private const double RAMP_ALTITUDE_FATOR = 1.5;
 
@@ -29,14 +31,8 @@ namespace XPlaneMonitorApp
 
         private long _ammountDataReceived;
 
-        private float _tmpReceivedLatitude;
-
         private double _lat = -23.4305305;
         private double _lng = -46.4696579;
-
-        private float _fuelTotalCapacity;
-        private float _altitudeTrue;
-        private float _headingTrue;
 
         private double _runwayElevation;
         private double _runwayHeading;
@@ -68,6 +64,10 @@ namespace XPlaneMonitorApp
 
             Utils.SetDoubleBuffered(boxRamp);
             Utils.SetDoubleBuffered(boxSpacing);
+
+            WinDarkMode.UseImmersiveDarkMode(this.Handle);
+            TSRenderer.SetToolStrip(toolBar);
+            TSRenderer.SetStatusStrip(statusBar);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -87,7 +87,7 @@ namespace XPlaneMonitorApp
 
         private void InitMap()
         {
-            map.MapProvider = OpenStreetMapGraphHopperProvider.Instance;
+            map.MapProvider = OpenStreetMapProvider.Instance;
             map.DragButton = MouseButtons.Left;
             map.ShowCenter = false;
             map.MaxZoom = 20;
@@ -95,13 +95,19 @@ namespace XPlaneMonitorApp
             map.Zoom = 14;
             map.Overlays.Add(_mapOverlay);
 
-            _mapOverlay.Routes.Add(_mapRoute);
             _mapOverlay.Routes.Add(_runwayRoute);
+            _mapOverlay.Routes.Add(_mapRoute);
 
             _mapOverlay.Markers.Add(_aircraftMarker);
             _mapOverlay.Markers.Add(_runwayApproachMarker);
             _mapOverlay.Markers.Add(_runwayBeginMarker);
             _mapOverlay.Markers.Add(_runwayEndMarker);
+
+            _runwayRoute.Stroke = (Pen)_runwayRoute.Stroke.Clone();
+            _runwayRoute.Stroke.Color = Color.Orange;
+
+            _mapRoute.Stroke = (Pen)_mapRoute.Stroke.Clone();
+            _mapRoute.Stroke.Color = Color.Gray;
 
             _aircraftMarker.IsVisible = false;
             _runwayApproachMarker.IsVisible = false;
@@ -113,33 +119,33 @@ namespace XPlaneMonitorApp
 
         private void BuildGaugeBars()
         {
-            gaugeFlaps.AddBar("Requested", Color.Orange, 1);
+            gaugeFlaps.AddBar("Requested", ControlPaint.Light(Color.Green, LIGHT_COLOR), 1);
             gaugeFlaps.AddBar("Actual", Color.Green, 1);
 
-            gaugeElvTrim.AddBar(null, Color.Bisque, 2);
+            gaugeElvTrim.AddBar(null, Color.Gold, 2);
 
-            gaugeGear.AddBar("Requested", Color.HotPink, 1, true);
+            gaugeGear.AddBar("Requested", ControlPaint.Light(Color.Firebrick, LIGHT_COLOR), 1, true);
             gaugeGear.AddBar("Actual", Color.Firebrick, 1);
 
-            gaugeSpoilers.AddBar("Left", Color.Gainsboro, 20);
-            gaugeSpoilers.AddBar("Right", Color.Gainsboro, 20);
+            gaugeSpoilers.AddBar("Left", Color.Purple, 20);
+            gaugeSpoilers.AddBar("Right", Color.Purple, 20);
 
-            gaugeSpeedBrake.AddBar("Requested", Color.Gold, 1);
+            gaugeSpeedBrake.AddBar("Requested", ControlPaint.Light(Color.MediumBlue, LIGHT_COLOR), 1);
             gaugeSpeedBrake.AddBar("Actual", Color.MediumBlue, 1);
 
-            gaugeWheelBrake.AddBar("Left", Color.Fuchsia, 1);
-            gaugeWheelBrake.AddBar("Right", Color.Fuchsia, 1);
+            gaugeWheelBrake.AddBar("Left", Color.MediumPurple, 1);
+            gaugeWheelBrake.AddBar("Right", Color.MediumPurple, 1);
 
-            gaugeAPU.AddBar("Switch", Color.Yellow, 1, true);
-            gaugeAPU.AddBar("N1", Color.GreenYellow, 100);
+            gaugeAPU.AddBar("Switch", ControlPaint.Light(Color.SteelBlue, LIGHT_COLOR), 1, true);
+            gaugeAPU.AddBar("N1", Color.SteelBlue, 100);
 
             for (int i = 0; i < 4; i++)
             {
-                gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), Color.LightGreen, 1);
-                gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), Color.SandyBrown, 100);
+                gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), ControlPaint.Light(Color.Salmon, LIGHT_COLOR * 2), 1);
+                gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), ControlPaint.Light(Color.Salmon, LIGHT_COLOR), 100);
                 gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Salmon, 100);
 
-                gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.Aquamarine, 1); //initial Max=1 only to better initial show, because max will be replaced when connected
+                gaugeFuel.AddBar(string.Format("Tank {0}", i+1), Color.LightSeaGreen, 1); //initial Max=1 only to better initial show, because max will be replaced when connected
             }
         }
 
@@ -372,7 +378,7 @@ namespace XPlaneMonitorApp
             map.UpdateRouteLocalPosition(_runwayRoute);
             map.Invalidate(); //there is a bug in GMap when clearing route
 
-            UpdateApproachParams();
+            if (_aircraftMarker.IsVisible) UpdateApproachParams();
         }
 
         private void UpdateApproachParams()
