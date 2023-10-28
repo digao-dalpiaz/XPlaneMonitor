@@ -519,22 +519,21 @@
             // 
             // statusBar
             // 
+            statusBar.AutoSize=false;
             statusBar.GripStyle=ToolStripGripStyle.Visible;
             statusBar.ImageScalingSize=new Size(20, 20);
             statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTimeElapsed, stFlightDistance, stScenaryClock });
-            statusBar.Location=new Point(0, 967);
+            statusBar.Location=new Point(0, 965);
             statusBar.Name="statusBar";
-            statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
-            statusBar.Size=new Size(1834, 26);
+            statusBar.Size=new Size(1834, 28);
             statusBar.TabIndex=88;
-            statusBar.Text="statusStrip1";
             // 
             // stDigaoDalpiaz
             // 
             stDigaoDalpiaz.IsLink=true;
             stDigaoDalpiaz.LinkColor=Color.FromArgb(128, 128, 255);
             stDigaoDalpiaz.Name="stDigaoDalpiaz";
-            stDigaoDalpiaz.Size=new Size(105, 20);
+            stDigaoDalpiaz.Size=new Size(105, 22);
             stDigaoDalpiaz.Text="Digao Dalpiaz";
             stDigaoDalpiaz.Click+=stDigaoDalpiaz_Click;
             // 
@@ -542,44 +541,44 @@
             // 
             stVersion.ForeColor=Color.Teal;
             stVersion.Name="stVersion";
-            stVersion.Size=new Size(57, 20);
+            stVersion.Size=new Size(57, 22);
             stVersion.Text="Version";
             // 
             // stConnStatus
             // 
             stConnStatus.Font=new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             stConnStatus.Name="stConnStatus";
-            stConnStatus.Size=new Size(53, 20);
+            stConnStatus.Size=new Size(53, 22);
             stConnStatus.Text="Status";
             // 
             // stLastTimeRec
             // 
             stLastTimeRec.Name="stLastTimeRec";
-            stLastTimeRec.Size=new Size(155, 20);
+            stLastTimeRec.Size=new Size(155, 22);
             stLastTimeRec.Text="Last package received";
             // 
             // stAmmountDataReceived
             // 
             stAmmountDataReceived.Name="stAmmountDataReceived";
-            stAmmountDataReceived.Size=new Size(169, 20);
+            stAmmountDataReceived.Size=new Size(169, 22);
             stAmmountDataReceived.Text="Ammount data received";
             // 
             // stSimTimeElapsed
             // 
             stSimTimeElapsed.Name="stSimTimeElapsed";
-            stSimTimeElapsed.Size=new Size(163, 20);
+            stSimTimeElapsed.Size=new Size(163, 22);
             stSimTimeElapsed.Text="Simulator elapsed time";
             // 
             // stFlightDistance
             // 
             stFlightDistance.Name="stFlightDistance";
-            stFlightDistance.Size=new Size(101, 20);
+            stFlightDistance.Size=new Size(101, 22);
             stFlightDistance.Text="Fight distance";
             // 
             // stScenaryClock
             // 
             stScenaryClock.Name="stScenaryClock";
-            stScenaryClock.Size=new Size(98, 20);
+            stScenaryClock.Size=new Size(98, 22);
             stScenaryClock.Text="Scenary clock";
             // 
             // lbAltitudeTrue
@@ -764,7 +763,6 @@
             ((System.ComponentModel.ISupportInitialize)icoAutopilot).EndInit();
             ((System.ComponentModel.ISupportInitialize)icoAutoBrake).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
