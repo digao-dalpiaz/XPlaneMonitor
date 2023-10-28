@@ -92,5 +92,19 @@ namespace XPlaneMonitorApp.Functions
             }
         }
 
+        public static string SecondsToTime(double totalSeconds)
+        {
+            var time = TimeSpan.FromSeconds(totalSeconds);
+
+            var hours = time.TotalHours;
+            var hoursInt = Math.Floor(hours);
+            var min = (hours - hoursInt) * 60;
+            var minInt = Math.Floor(min);
+            var sec = (min - minInt) * 60;
+            var secInt = Math.Floor(sec);
+
+            return hoursInt.ToString("00") + ":" + minInt.ToString("00") + ":" + secInt.ToString("00");
+        }
+
     }
 }

@@ -258,14 +258,11 @@ namespace XPlaneMonitorApp
 
             lst.Subscribe("sim/time/total_flight_time_sec", r =>
             {
-                var time = TimeSpan.FromSeconds(r.Value);
-                var hours = time.TotalHours;
-                var hoursInt = Math.Floor(hours);
-                var min = (hours - hoursInt) * 60;
-                var minInt = Math.Floor(min);
-                var sec = (min - minInt) * 60;
-                var secInt = Math.Floor(sec);
-                stSimTime.Text = "Simulator time elapsed: " +  hoursInt + ":" + minInt.ToString("00") + ":" + secInt.ToString("00");
+                stSimTimeElapsed.Text = "Simulator time elapsed: " + Utils.SecondsToTime(r.Value);
+            });
+            lst.Subscribe("sim/time/local_time_sec", r =>
+            {
+                stScenaryClock.Text = "Scenary clock: " + Utils.SecondsToTime(r.Value);
             });
 
             //

@@ -77,8 +77,9 @@
             stConnStatus=new ToolStripStatusLabel();
             stLastTimeRec=new ToolStripStatusLabel();
             stAmmountDataReceived=new ToolStripStatusLabel();
-            stSimTime=new ToolStripStatusLabel();
+            stSimTimeElapsed=new ToolStripStatusLabel();
             stFlightDistance=new ToolStripStatusLabel();
+            stScenaryClock=new ToolStripStatusLabel();
             lbAltitudeTrue=new Controls.BorderControl();
             lbWindInfo=new Controls.BorderControl();
             gaugeAPU=new GaugePanel();
@@ -527,7 +528,7 @@
             // 
             statusBar.GripStyle=ToolStripGripStyle.Visible;
             statusBar.ImageScalingSize=new Size(20, 20);
-            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTime, stFlightDistance });
+            statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTimeElapsed, stFlightDistance, stScenaryClock });
             statusBar.Location=new Point(0, 967);
             statusBar.Name="statusBar";
             statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
@@ -561,26 +562,32 @@
             // stLastTimeRec
             // 
             stLastTimeRec.Name="stLastTimeRec";
-            stLastTimeRec.Size=new Size(136, 20);
-            stLastTimeRec.Text="Last Time Received";
+            stLastTimeRec.Size=new Size(155, 20);
+            stLastTimeRec.Text="Last package received";
             // 
             // stAmmountDataReceived
             // 
             stAmmountDataReceived.Name="stAmmountDataReceived";
-            stAmmountDataReceived.Size=new Size(175, 20);
-            stAmmountDataReceived.Text="Ammount Data Received";
+            stAmmountDataReceived.Size=new Size(169, 20);
+            stAmmountDataReceived.Text="Ammount data received";
             // 
-            // stSimTime
+            // stSimTimeElapsed
             // 
-            stSimTime.Name="stSimTime";
-            stSimTime.Size=new Size(71, 20);
-            stSimTime.Text="Sim Time";
+            stSimTimeElapsed.Name="stSimTimeElapsed";
+            stSimTimeElapsed.Size=new Size(163, 20);
+            stSimTimeElapsed.Text="Simulator elapsed time";
             // 
             // stFlightDistance
             // 
             stFlightDistance.Name="stFlightDistance";
-            stFlightDistance.Size=new Size(103, 20);
-            stFlightDistance.Text="Fight Distance";
+            stFlightDistance.Size=new Size(101, 20);
+            stFlightDistance.Text="Fight distance";
+            // 
+            // stScenaryClock
+            // 
+            stScenaryClock.Name="stScenaryClock";
+            stScenaryClock.Size=new Size(98, 20);
+            stScenaryClock.Text="Scenary clock";
             // 
             // lbAltitudeTrue
             // 
@@ -822,7 +829,7 @@
         private Controls.BorderControl lbOutsideTemp;
         private Controls.BorderControl lbAutopilotMode;
         private Controls.BorderControl lbAutoThrottle;
-        private ToolStripStatusLabel stSimTime;
+        private ToolStripStatusLabel stSimTimeElapsed;
         private ToolStripStatusLabel stAmmountDataReceived;
         private PictureBox icoVerticalSpeed;
         private ToolStripButton btnGotoGooglePoint;
@@ -832,5 +839,6 @@
         private PictureBox icoAutopilot;
         private PictureBox icoAutoBrake;
         private Controls.BorderControl lbRunwayHeadingMag;
+        private ToolStripStatusLabel stScenaryClock;
     }
 }

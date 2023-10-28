@@ -58,9 +58,10 @@ namespace XPlaneMonitorApp
             stVersion.Text = "Version " + Vars.VERSION;
 
             stLastTimeRec.Text = string.Empty;
-            stSimTime.Text = string.Empty;
+            stSimTimeElapsed.Text = string.Empty;
             stAmmountDataReceived.Text = string.Empty;
             stFlightDistance.Text = string.Empty;
+            stScenaryClock.Text = string.Empty;
 
             Utils.SetDoubleBuffered(boxRamp);
             Utils.SetDoubleBuffered(boxSpacing);
@@ -195,7 +196,7 @@ namespace XPlaneMonitorApp
             _ammountDataReceived += size;
             var bytesReceived = _ammountDataReceived / 1024; //integer value, so result is integer too!
 
-            stLastTimeRec.Text = "Last data received: " + DateTime.Now.ToString("HH:mm:ss");
+            stLastTimeRec.Text = "Last package received: " + DateTime.Now.ToString("HH:mm:ss");
             stAmmountDataReceived.Text = "Ammount data received: " + bytesReceived + " kb";
         }
 
