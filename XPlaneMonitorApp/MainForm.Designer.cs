@@ -706,6 +706,8 @@
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.Black;
             ClientSize=new Size(1834, 993);
+            Controls.Add(statusBar);
+            Controls.Add(toolBar);
             Controls.Add(lbRunwayHeadingMag);
             Controls.Add(lbSpacing);
             Controls.Add(icoAutoBrake);
@@ -722,7 +724,6 @@
             Controls.Add(gaugeAPU);
             Controls.Add(lbWindInfo);
             Controls.Add(lbAltitudeTrue);
-            Controls.Add(statusBar);
             Controls.Add(lbBoxAlign);
             Controls.Add(lbBoxDescentRamp);
             Controls.Add(boxSpacing);
@@ -739,7 +740,6 @@
             Controls.Add(gaugeSpoilers);
             Controls.Add(gaugeGear);
             Controls.Add(gaugeFuel);
-            Controls.Add(toolBar);
             Controls.Add(gaugeElvTrim);
             Controls.Add(map);
             Controls.Add(gaugeThrottle);
