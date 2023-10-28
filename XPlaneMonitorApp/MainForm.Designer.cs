@@ -388,7 +388,7 @@
             lbRadioAltimeter.Padding=new Padding(1);
             lbRadioAltimeter.Size=new Size(296, 40);
             lbRadioAltimeter.TabIndex=74;
-            lbRadioAltimeter.Title="Radio Altimeter";
+            lbRadioAltimeter.Title="Radio Alt. (AGL)";
             // 
             // lbHeading
             // 
@@ -422,7 +422,7 @@
             // 
             // lbParkingBrake
             // 
-            lbParkingBrake.ForeColor=Color.Tomato;
+            lbParkingBrake.ForeColor=Color.White;
             lbParkingBrake.Location=new Point(920, 79);
             lbParkingBrake.Name="lbParkingBrake";
             lbParkingBrake.Padding=new Padding(1);

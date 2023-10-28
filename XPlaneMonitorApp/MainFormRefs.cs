@@ -70,6 +70,7 @@ namespace XPlaneMonitorApp
                 bool on = r.Value == 1;
 
                 lbParkingBrake.Value = on ? "SET" : "RELEASED";
+                lbParkingBrake.ForeColor = on ? Color.Tomato : Color.LightGreen;
                 icoParkingBrake.Visible = on;
             });
 
