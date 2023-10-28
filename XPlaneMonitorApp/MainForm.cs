@@ -358,7 +358,7 @@ namespace XPlaneMonitorApp
                 _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
 
             lbRunwayElevation.Value = Utils.RoundToInt(_runwayElevation) + " ft";
-            lbRunwayDegrees.Value = Utils.RoundToInt(_runwayHeading) + "º";
+            lbRunwayHeadingTrue.Value = Utils.RoundToInt(_runwayHeading) + "º";
             lbRunwaySize.Value = Utils.RoundToInt(sizeKm * 1000) + " m";
 
             var approach = GeoCalculator.CalculateDestinationPoint(
@@ -445,7 +445,7 @@ namespace XPlaneMonitorApp
 
             UpdateRunwayPointsLabel();
             lbRunwayElevation.Value = string.Empty;
-            lbRunwayDegrees.Value = string.Empty;
+            lbRunwayHeadingTrue.Value = string.Empty;
             lbRunwaySize.Value = string.Empty;
             lbApproachDist.Value = string.Empty;
             lbRunwayDist.Value = string.Empty;

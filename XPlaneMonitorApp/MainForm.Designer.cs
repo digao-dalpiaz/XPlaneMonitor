@@ -63,7 +63,7 @@
             lbHeadingTrue=new Controls.BorderControl();
             lbParkingBrake=new Controls.BorderControl();
             lbRunwayElevation=new Controls.BorderControl();
-            lbRunwayDegrees=new Controls.BorderControl();
+            lbRunwayHeadingTrue=new Controls.BorderControl();
             lbRunwaySize=new Controls.BorderControl();
             lbApproachDist=new Controls.BorderControl();
             lbRunwayDist=new Controls.BorderControl();
@@ -441,15 +441,15 @@
             lbRunwayElevation.TabIndex=79;
             lbRunwayElevation.Title="Runway Elevation";
             // 
-            // lbRunwayDegrees
+            // lbRunwayHeadingTrue
             // 
-            lbRunwayDegrees.ForeColor=Color.SteelBlue;
-            lbRunwayDegrees.Location=new Point(1528, 118);
-            lbRunwayDegrees.Name="lbRunwayDegrees";
-            lbRunwayDegrees.Padding=new Padding(1);
-            lbRunwayDegrees.Size=new Size(296, 40);
-            lbRunwayDegrees.TabIndex=80;
-            lbRunwayDegrees.Title="Runway Heading";
+            lbRunwayHeadingTrue.ForeColor=Color.SteelBlue;
+            lbRunwayHeadingTrue.Location=new Point(1528, 118);
+            lbRunwayHeadingTrue.Name="lbRunwayHeadingTrue";
+            lbRunwayHeadingTrue.Padding=new Padding(1);
+            lbRunwayHeadingTrue.Size=new Size(296, 40);
+            lbRunwayHeadingTrue.TabIndex=80;
+            lbRunwayHeadingTrue.Title="Runway True Head.";
             // 
             // lbRunwaySize
             // 
@@ -698,7 +698,7 @@
             lbRunwayHeadingMag.Padding=new Padding(1);
             lbRunwayHeadingMag.Size=new Size(296, 40);
             lbRunwayHeadingMag.TabIndex=102;
-            lbRunwayHeadingMag.Title="Rw. Head. Mag.";
+            lbRunwayHeadingMag.Title="Runway Heading";
             // 
             // MainForm
             // 
@@ -730,7 +730,7 @@
             Controls.Add(lbRunwayDist);
             Controls.Add(lbApproachDist);
             Controls.Add(lbRunwaySize);
-            Controls.Add(lbRunwayDegrees);
+            Controls.Add(lbRunwayHeadingTrue);
             Controls.Add(lbRunwayElevation);
             Controls.Add(lbHeadingTrue);
             Controls.Add(boxRamp);
@@ -798,7 +798,7 @@
         private Controls.BorderControl lbParkingBrake;
         private ToolStripSeparator toolStripSeparator1;
         private Controls.BorderControl lbRunwayElevation;
-        private Controls.BorderControl lbRunwayDegrees;
+        private Controls.BorderControl lbRunwayHeadingTrue;
         private Controls.BorderControl lbRunwaySize;
         private Controls.BorderControl lbApproachDist;
         private Controls.BorderControl lbRunwayDist;

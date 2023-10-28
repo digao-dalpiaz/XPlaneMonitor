@@ -35,12 +35,11 @@
             // lbTitle
             // 
             lbTitle.Dock=DockStyle.Left;
+            lbTitle.Font=new Font("Segoe UI Light", 9F, FontStyle.Regular, GraphicsUnit.Point);
             lbTitle.Location=new Point(1, 1);
             lbTitle.Name="lbTitle";
-            lbTitle.Padding=new Padding(2, 0, 0, 0);
             lbTitle.Size=new Size(128, 148);
             lbTitle.TabIndex=0;
-            lbTitle.Text="Title";
             lbTitle.TextAlign=ContentAlignment.MiddleLeft;
             // 
             // lbValue
