@@ -1,6 +1,6 @@
 ﻿namespace XPlaneMonitorApp.Controls
 {
-    partial class BorderControl
+    partial class ParamPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -38,30 +38,33 @@
             // 
             // lbTitle
             // 
+            lbTitle.BackColor=Color.FromArgb(20, 20, 20);
             lbTitle.Dock=DockStyle.Left;
             lbTitle.Font=new Font("Segoe UI Light", 9F, FontStyle.Regular, GraphicsUnit.Point);
             lbTitle.Location=new Point(1, 1);
             lbTitle.Name="lbTitle";
-            lbTitle.Size=new Size(128, 132);
+            lbTitle.Size=new Size(128, 126);
             lbTitle.TabIndex=0;
             lbTitle.TextAlign=ContentAlignment.MiddleLeft;
             // 
             // lbValue
             // 
+            lbValue.BackColor=Color.Black;
             lbValue.Dock=DockStyle.Fill;
             lbValue.Font=new Font("Bahnschrift SemiCondensed", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
             lbValue.Location=new Point(129, 1);
             lbValue.Name="lbValue";
-            lbValue.Size=new Size(322, 132);
+            lbValue.Size=new Size(322, 126);
             lbValue.TabIndex=1;
             lbValue.TextAlign=ContentAlignment.MiddleLeft;
             // 
             // icon
             // 
+            icon.BackColor=Color.Black;
             icon.Dock=DockStyle.Right;
             icon.Location=new Point(451, 1);
             icon.Name="icon";
-            icon.Size=new Size(32, 132);
+            icon.Size=new Size(32, 126);
             icon.SizeMode=PictureBoxSizeMode.Zoom;
             icon.TabIndex=98;
             icon.TabStop=false;
@@ -69,6 +72,7 @@
             // 
             // panelPadding
             // 
+            panelPadding.BackColor=Color.FromArgb(64, 64, 64);
             panelPadding.Controls.Add(lbValue);
             panelPadding.Controls.Add(icon);
             panelPadding.Controls.Add(lbTitle);
@@ -76,17 +80,16 @@
             panelPadding.Location=new Point(0, 0);
             panelPadding.Name="panelPadding";
             panelPadding.Padding=new Padding(1);
-            panelPadding.Size=new Size(484, 134);
+            panelPadding.Size=new Size(484, 128);
             panelPadding.TabIndex=99;
-            panelPadding.Paint+=panelPadding_Paint;
             // 
-            // BorderControl
+            // ParamPanel
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             Controls.Add(panelPadding);
-            Name="BorderControl";
-            Size=new Size(484, 134);
+            Name="ParamPanel";
+            Size=new Size(484, 128);
             ((System.ComponentModel.ISupportInitialize)icon).EndInit();
             panelPadding.ResumeLayout(false);
             ResumeLayout(false);

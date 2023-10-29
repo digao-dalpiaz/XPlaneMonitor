@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             lbTitle=new Label();
-            box=new Panel();
+            boxDraw=new Panel();
             SuspendLayout();
             // 
             // lbTitle
@@ -44,19 +44,19 @@
             lbTitle.Text="Title";
             lbTitle.TextAlign=ContentAlignment.MiddleCenter;
             // 
-            // box
+            // boxDraw
             // 
-            box.Dock=DockStyle.Fill;
-            box.Location=new Point(0, 24);
-            box.Name="box";
-            box.Size=new Size(564, 325);
-            box.TabIndex=87;
+            boxDraw.Dock=DockStyle.Fill;
+            boxDraw.Location=new Point(0, 24);
+            boxDraw.Name="boxDraw";
+            boxDraw.Size=new Size(564, 325);
+            boxDraw.TabIndex=87;
             // 
             // GridPanel
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
-            Controls.Add(box);
+            Controls.Add(boxDraw);
             Controls.Add(lbTitle);
             Name="GridPanel";
             Size=new Size(564, 349);
@@ -67,6 +67,6 @@
         #endregion
 
         private Label lbTitle;
-        private Panel box;
+        private Panel boxDraw;
     }
 }

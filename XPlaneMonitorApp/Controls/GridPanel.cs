@@ -8,7 +8,7 @@ namespace XPlaneMonitorApp.Controls
         {
             InitializeComponent();
 
-            Utils.SetDoubleBuffered(box);
+            Utils.SetDoubleBuffered(boxDraw);
         }
 
         public string Title
@@ -18,13 +18,13 @@ namespace XPlaneMonitorApp.Controls
 
         public event PaintEventHandler OnBoxPaint
         {
-            add { box.Paint += value; }
-            remove { box.Paint -= value; }
+            add { boxDraw.Paint += value; }
+            remove { boxDraw.Paint -= value; }
         }
 
         public void Reload()
         {
-            box.Invalidate();
+            boxDraw.Invalidate();
         }
 
         private void GridPanel_Resize(object sender, EventArgs e)

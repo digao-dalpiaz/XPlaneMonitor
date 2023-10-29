@@ -84,7 +84,7 @@ namespace XPlaneMonitorApp
 
             foreach (Control c in this.Controls)
             {
-                if (c is GaugePanel || c is BorderControl || c is GMapControl || c is GridPanel)
+                if (c is GaugePanel || c is ParamPanel || c is GMapControl || c is GridPanel)
                 {
                     if (c.Tag == null)
                     {
