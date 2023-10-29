@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using XPlaneMonitorApp.Functions;
 
 namespace XPlaneMonitorApp.Controls
 {
