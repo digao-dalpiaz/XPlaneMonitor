@@ -25,8 +25,6 @@ namespace XPlaneMonitorApp.Controls
         public ParamPanel()
         {
             InitializeComponent();
-
-            Utils.SetDoubleBuffered(panelPadding);
         }
 
     }
