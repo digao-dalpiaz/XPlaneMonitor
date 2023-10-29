@@ -450,7 +450,7 @@
             statusBar.GripStyle=ToolStripGripStyle.Visible;
             statusBar.ImageScalingSize=new Size(20, 20);
             statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTimeElapsed, stFlightDistance, stScenaryClock });
-            statusBar.Location=new Point(0, 966);
+            statusBar.Location=new Point(0, 922);
             statusBar.Name="statusBar";
             statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
             statusBar.Size=new Size(1709, 27);
@@ -606,7 +606,7 @@
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.Black;
-            ClientSize=new Size(1709, 993);
+            ClientSize=new Size(1709, 949);
             Controls.Add(gridAlignment);
             Controls.Add(gridDescentRamp);
             Controls.Add(statusBar);
