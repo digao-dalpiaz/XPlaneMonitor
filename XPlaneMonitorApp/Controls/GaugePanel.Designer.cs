@@ -97,6 +97,7 @@
             Controls.Add(boxExternal);
             Name="GaugePanel";
             Size=new Size(383, 212);
+            Resize+=GaugePanel_Resize;
             boxExternal.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)icon).EndInit();
             boxInternal.ResumeLayout(false);

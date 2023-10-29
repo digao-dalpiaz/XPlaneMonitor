@@ -63,9 +63,6 @@ namespace XPlaneMonitorApp
             stFlightDistance.Text = string.Empty;
             stScenaryClock.Text = string.Empty;
 
-            Utils.SetDoubleBuffered(boxRamp);
-            Utils.SetDoubleBuffered(boxSpacing);
-
             toolBar.ImageScalingSize = new Size(toolBar.Height - 9, toolBar.Height - 9); //multi DPI support
 
             WinDarkMode.UseImmersiveDarkMode(this.Handle);
@@ -73,11 +70,52 @@ namespace XPlaneMonitorApp
             TSRenderer.SetStatusStrip(statusBar);
         }
 
+        private void ScaleControls()
+        {
+            const int FIRST_LINE_TOP = 40;
+
+            const int DESIGN_BLOCK_WIDTH = 280;
+            const int DESIGN_BLOCK_HEIGHT = 8;
+
+            const int SPACE = 4;
+
+            var blockW = ClientSize.Width / 6;
+            var blockH = (ClientSize.Height - toolBar.Height - statusBar.Height) / 110;
+
+            foreach (Control c in this.Controls)
+            {
+                if (c is GaugePanel || c is BorderControl || c is GMapControl || c is GridPanel)
+                {
+                    if (c.Tag == null)
+                    {
+                        if (c.Left % DESIGN_BLOCK_WIDTH != 0) throw new Exception("Invalid control left");
+                        if (c.Width % DESIGN_BLOCK_WIDTH != 0) throw new Exception("Invalid control width");
+                        if (c.Top % DESIGN_BLOCK_HEIGHT != 0) throw new Exception("Invalid control top");
+                        if (c.Height % DESIGN_BLOCK_HEIGHT != 0) throw new Exception("Invalid control height");
+                        c.Tag = new int[] {
+                            c.Left / DESIGN_BLOCK_WIDTH, c.Width / DESIGN_BLOCK_WIDTH,
+                            (c.Top-FIRST_LINE_TOP) / DESIGN_BLOCK_HEIGHT, c.Height / DESIGN_BLOCK_HEIGHT
+                        };
+                    }
+
+                    var t = (int[])c.Tag;
+
+                    c.Left = (blockW * t[0]) + (SPACE / 2);
+                    c.Width = (blockW * t[1]) - SPACE;
+
+                    c.Top = (blockH * t[2]) + toolBar.Height + SPACE;
+                    c.Height = (blockH * t[3]) - SPACE;
+                }
+            }
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             ConfigEngine.Load();
             InitMap();
             BuildGaugeBars();
+
+            ScaleControls();
 
             _communicator = new(GetRefDataContractList(), this);
             _communicator.OnReceived += OnDataRefReceived;
@@ -163,6 +201,11 @@ namespace XPlaneMonitorApp
             {
                 _communicator.Disconnect();
             }
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            ScaleControls();
         }
 
         private void stDigaoDalpiaz_Click(object sender, EventArgs e)
@@ -469,8 +512,8 @@ namespace XPlaneMonitorApp
 
         private void UpdateGrids()
         {
-            boxRamp.Invalidate();
-            boxSpacing.Invalidate();
+            gridDescentRamp.Reload();
+            gridAlignment.Reload();
         }
 
         private bool IsNotSetOrFarAwayFromAirport()
@@ -480,31 +523,33 @@ namespace XPlaneMonitorApp
 
         private void boxRamp_Paint(object sender, PaintEventArgs e)
         {
+            var r = e.Graphics.ClipBounds;
+
             var rampDistance = Vars.Cfg.RampDistance;
             var rampHeight = Vars.Cfg.RampElevation;
 
             var fullDistance = rampDistance * RAMP_DISTANCE_FATOR;
             var fullHeight = rampHeight * RAMP_ALTITUDE_FATOR;
 
-            Utils.DrawGrid(e.Graphics, 1, fullDistance, 500, fullHeight, boxRamp.ClientRectangle);
+            Utils.DrawGrid(e.Graphics, 1, fullDistance, 500, fullHeight, r);
             //
 
             if (IsNotSetOrFarAwayFromAirport()) return;
 
             double calcX(double distance)
             {
-                return boxRamp.Width - (Utils.Div(distance, fullDistance) * boxRamp.Width);
+                return r.Width - (Utils.Div(distance, fullDistance) * r.Width);
             }
             double calcY(double height)
             {
-                return boxRamp.Height - (Utils.Div(height, fullHeight) * boxRamp.Height);
+                return r.Height - (Utils.Div(height, fullHeight) * r.Height);
             }
 
             var airplaneX = calcX(_runwayDistance);
             var airplaneY = calcY(_altitudeTrue - _runwayElevation);
 
-            Drawing.DrawLine(e.Graphics, new Pen(Color.Red, 3), airplaneX, airplaneY, boxRamp.Width, boxRamp.Height); //real
-            Drawing.DrawLine(e.Graphics, new Pen(Color.Green), calcX(rampDistance), calcY(rampHeight), boxRamp.Width, boxRamp.Height); //ideal
+            Drawing.DrawLine(e.Graphics, new Pen(Color.Red, 3), airplaneX, airplaneY, r.Width, r.Height); //real
+            Drawing.DrawLine(e.Graphics, new Pen(Color.Green), calcX(rampDistance), calcY(rampHeight), r.Width, r.Height); //ideal
 
             var airplaneImg = Properties.Resources.airplane_ramp;
             Drawing.DrawImage(e.Graphics, airplaneImg, airplaneX - Utils.Div(airplaneImg.Width, 2), airplaneY - Utils.Div(airplaneImg.Height, 2));
@@ -512,15 +557,17 @@ namespace XPlaneMonitorApp
 
         private void boxSpacing_Paint(object sender, PaintEventArgs e)
         {
+            var r = e.Graphics.ClipBounds;
+
             const int marginSide = 250; //meters
             const int marginFull = marginSide * 2; //meters
-            Utils.DrawGrid(e.Graphics, 50, marginFull, 1, 1, boxSpacing.ClientRectangle);
+            Utils.DrawGrid(e.Graphics, 50, marginFull, 1, 1, r);
             //
 
             if (IsNotSetOrFarAwayFromAirport()) return;
 
-            var xIdeal = Utils.Div(boxSpacing.Width, 2);
-            Drawing.DrawLine(e.Graphics, new Pen(Color.Green), xIdeal, 0, xIdeal, boxSpacing.Height);
+            var xIdeal = Utils.Div(r.Width, 2);
+            Drawing.DrawLine(e.Graphics, new Pen(Color.Green), xIdeal, 0, xIdeal, r.Height);
 
             //
 
@@ -530,13 +577,13 @@ namespace XPlaneMonitorApp
 
             var difAngle = _runwayHeading - _headingTrue;
             var airplaneImg = Drawing.RotateImage(Properties.Resources.airplane_align, -difAngle);
-            var lineHeight = boxSpacing.Height - Utils.Div(airplaneImg.Height, 2);
+            var lineHeight = r.Height - Utils.Div(airplaneImg.Height, 2);
 
-            var startX = Utils.RuleOfThree(marginFull, s, boxSpacing.Width);
+            var startX = Utils.RuleOfThree(marginFull, s, r.Width);
             var endX = startX + Utils.Div(lineHeight, Math.Tan(Utils.DegreesToRadians(90 + difAngle)));
 
             Drawing.DrawLine(e.Graphics, new Pen(Color.Purple, 3), endX, 0, startX, lineHeight);
-            Drawing.DrawImage(e.Graphics, airplaneImg, startX - Utils.Div(airplaneImg.Width, 2), boxSpacing.Height - airplaneImg.Height);
+            Drawing.DrawImage(e.Graphics, airplaneImg, startX - Utils.Div(airplaneImg.Width, 2), r.Height - airplaneImg.Height);
         }
 
     }

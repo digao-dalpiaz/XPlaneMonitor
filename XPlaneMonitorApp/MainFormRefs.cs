@@ -32,8 +32,8 @@ namespace XPlaneMonitorApp
                 int v = Utils.RoundToInt(r.Value); //round before check value to avoid different value from view!!!
                 lbVerticalSpeed.Value = Math.Abs(v) + " ft/m"; //ft/min
                 lbVerticalSpeed.ForeColor = v >= 0 ? Color.Green : Color.Red;
-                icoVerticalSpeed.Image = v >= 0 ? Properties.Resources.arrow_up : Properties.Resources.arrow_down;
-                icoVerticalSpeed.Visible = v != 0;
+                lbVerticalSpeed.ValueImage = v >= 0 ? Properties.Resources.arrow_up : Properties.Resources.arrow_down;
+                lbVerticalSpeed.ValueImageVisible = v != 0;
             });
             lst.Subscribe("sim/flightmodel/position/groundspeed", r =>
             {
@@ -72,7 +72,7 @@ namespace XPlaneMonitorApp
             {
                 lbAutoBrake.Value = r.Value == 0 ? "RTO" : r.Value == 1 ? "OFF" : "ON " + (r.Value-1);
                 lbAutoBrake.ForeColor = r.Value != 1 ? Color.Gold : Color.Gray;
-                icoAutoBrake.Visible = r.Value != 1;
+                lbAutoBrake.ValueImageVisible = r.Value != 1;
             });
             lst.Subscribe("sim/flightmodel/controls/parkbrake", r =>
             {
@@ -80,7 +80,7 @@ namespace XPlaneMonitorApp
 
                 lbParkingBrake.Value = on ? "SET" : "RELEASED";
                 lbParkingBrake.ForeColor = on ? Color.Tomato : Color.LightGreen;
-                icoParkingBrake.Visible = on;
+                lbParkingBrake.ValueImageVisible = on;
             });
 
             void UpdateWindLabel()
@@ -108,7 +108,7 @@ namespace XPlaneMonitorApp
             {
                 //off=0, flight director=1, on=2
                 lbAutopilotMode.Value = r.Value == 0 ? "OFF" : r.Value == 1 ? "FL DIR" : r.Value == 2 ? "ON" : "?";
-                icoAutopilot.Visible = r.Value != 0;
+                lbAutopilotMode.ValueImageVisible = r.Value != 0;
             });
             lst.Subscribe("sim/cockpit/autopilot/heading_mag", r =>
             {
@@ -118,7 +118,7 @@ namespace XPlaneMonitorApp
             {
                 //-1=hard off, not even armed. 0=servos declutched (arm, hold), 1=airspeed hold, 2=N1 target hold, 3=retard, 4=reserved for future use
                 lbAutoThrottle.Value = r.Value == -1 ? "OFF" : r.Value == 0 ? "ARMED" : r.Value == 1 ? "SPEED" : r.Value == 2 ? "N1 TGT" : r.Value == 3 ? "RETARD" : "?";
-                icoAutoThrottle.Visible = r.Value != -1;
+                lbAutoThrottle.ValueImageVisible = r.Value != -1;
             });
 
             lst.Subscribe("sim/flightmodel/controls/flaprqst", r =>

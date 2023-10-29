@@ -30,6 +30,10 @@
         {
             lbTitle=new Label();
             lbValue=new Label();
+            icon=new PictureBox();
+            panelPadding=new Panel();
+            ((System.ComponentModel.ISupportInitialize)icon).BeginInit();
+            panelPadding.SuspendLayout();
             SuspendLayout();
             // 
             // lbTitle
@@ -38,7 +42,7 @@
             lbTitle.Font=new Font("Segoe UI Light", 9F, FontStyle.Regular, GraphicsUnit.Point);
             lbTitle.Location=new Point(1, 1);
             lbTitle.Name="lbTitle";
-            lbTitle.Size=new Size(128, 148);
+            lbTitle.Size=new Size(128, 132);
             lbTitle.TabIndex=0;
             lbTitle.TextAlign=ContentAlignment.MiddleLeft;
             // 
@@ -48,20 +52,43 @@
             lbValue.Font=new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point);
             lbValue.Location=new Point(129, 1);
             lbValue.Name="lbValue";
-            lbValue.Size=new Size(197, 148);
+            lbValue.Size=new Size(322, 132);
             lbValue.TabIndex=1;
             lbValue.TextAlign=ContentAlignment.MiddleLeft;
+            // 
+            // icon
+            // 
+            icon.Dock=DockStyle.Right;
+            icon.Location=new Point(451, 1);
+            icon.Name="icon";
+            icon.Size=new Size(32, 132);
+            icon.SizeMode=PictureBoxSizeMode.Zoom;
+            icon.TabIndex=98;
+            icon.TabStop=false;
+            icon.Visible=false;
+            // 
+            // panelPadding
+            // 
+            panelPadding.Controls.Add(lbValue);
+            panelPadding.Controls.Add(icon);
+            panelPadding.Controls.Add(lbTitle);
+            panelPadding.Dock=DockStyle.Fill;
+            panelPadding.Location=new Point(0, 0);
+            panelPadding.Name="panelPadding";
+            panelPadding.Padding=new Padding(1);
+            panelPadding.Size=new Size(484, 134);
+            panelPadding.TabIndex=99;
+            panelPadding.Paint+=panelPadding_Paint;
             // 
             // BorderControl
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
-            Controls.Add(lbValue);
-            Controls.Add(lbTitle);
+            Controls.Add(panelPadding);
             Name="BorderControl";
-            Padding=new Padding(1);
-            Size=new Size(327, 150);
-            Paint+=BorderPanel_Paint;
+            Size=new Size(484, 134);
+            ((System.ComponentModel.ISupportInitialize)icon).EndInit();
+            panelPadding.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -69,5 +96,7 @@
 
         private Label lbTitle;
         private Label lbValue;
+        private PictureBox icon;
+        private Panel panelPadding;
     }
 }

@@ -71,7 +71,7 @@ namespace XPlaneMonitorApp.Functions
             return km / 1.852;
         }
 
-        public static void DrawGrid(Graphics g, double xUnit, double xTotal, double yUnit, double yTotal, Rectangle r)
+        public static void DrawGrid(Graphics g, double xUnit, double xTotal, double yUnit, double yTotal, RectangleF r)
         {
             g.FillRectangle(new SolidBrush(Color.FromArgb(30, 30, 30)), r);
 

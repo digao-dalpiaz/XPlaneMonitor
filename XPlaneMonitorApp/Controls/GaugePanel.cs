@@ -99,5 +99,9 @@ namespace XPlaneMonitorApp
             Bars.Add(new Bar(name, color, max, hidePercent));
         }
 
+        private void GaugePanel_Resize(object sender, EventArgs e)
+        {
+            Reload();
+        }
     }
 }
