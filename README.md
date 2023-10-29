@@ -40,6 +40,12 @@ With these situations in mind, I developed this application that communicates us
 
 3. Click in the "Connect" button and enjoy!
 
+## Requirements
+
+This app requires .NET Core 6 x64 Runtime.
+
+Supports X-Plane 11 and 12.
+
 ## How this software works
 
 X-Plane provides UDP connection, allowing any third software communication. This app takes advantage of X-Plane UDP port, and receives several flight parameters. You can configure the frequency of parameters update. I recommend you to keep this parameter in default value.
