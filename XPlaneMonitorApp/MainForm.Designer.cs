@@ -164,8 +164,9 @@
             toolBar.Items.AddRange(new ToolStripItem[] { btnConnect, btnDisconnect, toolStripSeparator1, btnGotoGooglePoint, btnCenterMap, btnClearRoute, toolStripSeparator3, btnSetRunwayBegin, btnSetRunwayEnd, btnClearRunwayApproach, toolStripSeparator2, btnConfig });
             toolBar.Location=new Point(0, 0);
             toolBar.Name="toolBar";
+            toolBar.Padding=new Padding(2, 0, 2, 0);
             toolBar.ShowItemToolTips=false;
-            toolBar.Size=new Size(1834, 32);
+            toolBar.Size=new Size(1834, 33);
             toolBar.TabIndex=48;
             // 
             // btnConnect
@@ -173,7 +174,7 @@
             btnConnect.Image=Properties.Resources.link;
             btnConnect.ImageTransparentColor=Color.Magenta;
             btnConnect.Name="btnConnect";
-            btnConnect.Size=new Size(91, 29);
+            btnConnect.Size=new Size(91, 30);
             btnConnect.Text="Connect";
             btnConnect.Click+=btnConnect_Click;
             // 
@@ -182,21 +183,21 @@
             btnDisconnect.Image=Properties.Resources.cloud_computing;
             btnDisconnect.ImageTransparentColor=Color.Magenta;
             btnDisconnect.Name="btnDisconnect";
-            btnDisconnect.Size=new Size(110, 29);
+            btnDisconnect.Size=new Size(110, 30);
             btnDisconnect.Text="Disconnect";
             btnDisconnect.Click+=btnDisconnect_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name="toolStripSeparator1";
-            toolStripSeparator1.Size=new Size(6, 32);
+            toolStripSeparator1.Size=new Size(6, 33);
             // 
             // btnGotoGooglePoint
             // 
             btnGotoGooglePoint.Image=Properties.Resources.map;
             btnGotoGooglePoint.ImageTransparentColor=Color.Magenta;
             btnGotoGooglePoint.Name="btnGotoGooglePoint";
-            btnGotoGooglePoint.Size=new Size(163, 29);
+            btnGotoGooglePoint.Size=new Size(163, 30);
             btnGotoGooglePoint.Text="Google Maps Point";
             btnGotoGooglePoint.Click+=btnGotoGooglePoint_Click;
             // 
@@ -205,7 +206,7 @@
             btnCenterMap.Image=Properties.Resources.maps_and_flags;
             btnCenterMap.ImageTransparentColor=Color.Magenta;
             btnCenterMap.Name="btnCenterMap";
-            btnCenterMap.Size=new Size(114, 29);
+            btnCenterMap.Size=new Size(114, 30);
             btnCenterMap.Text="Center Map";
             btnCenterMap.Click+=btnCenterMap_Click;
             // 
@@ -214,21 +215,21 @@
             btnClearRoute.Image=Properties.Resources.delete_route;
             btnClearRoute.ImageTransparentColor=Color.Magenta;
             btnClearRoute.Name="btnClearRoute";
-            btnClearRoute.Size=new Size(114, 29);
+            btnClearRoute.Size=new Size(114, 30);
             btnClearRoute.Text="Clear Route";
             btnClearRoute.Click+=btnClearRoute_Click;
             // 
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name="toolStripSeparator3";
-            toolStripSeparator3.Size=new Size(6, 32);
+            toolStripSeparator3.Size=new Size(6, 33);
             // 
             // btnSetRunwayBegin
             // 
             btnSetRunwayBegin.Image=Properties.Resources.runway;
             btnSetRunwayBegin.ImageTransparentColor=Color.Magenta;
             btnSetRunwayBegin.Name="btnSetRunwayBegin";
-            btnSetRunwayBegin.Size=new Size(155, 29);
+            btnSetRunwayBegin.Size=new Size(155, 30);
             btnSetRunwayBegin.Text="Set Runway Begin";
             btnSetRunwayBegin.Click+=btnSetRunwayBegin_Click;
             // 
@@ -237,7 +238,7 @@
             btnSetRunwayEnd.Image=Properties.Resources.runway2;
             btnSetRunwayEnd.ImageTransparentColor=Color.Magenta;
             btnSetRunwayEnd.Name="btnSetRunwayEnd";
-            btnSetRunwayEnd.Size=new Size(142, 29);
+            btnSetRunwayEnd.Size=new Size(142, 30);
             btnSetRunwayEnd.Text="Set Runway End";
             btnSetRunwayEnd.Click+=btnSetRunwayEnd_Click;
             // 
@@ -246,21 +247,21 @@
             btnClearRunwayApproach.Image=Properties.Resources.cleaning;
             btnClearRunwayApproach.ImageTransparentColor=Color.Magenta;
             btnClearRunwayApproach.Name="btnClearRunwayApproach";
-            btnClearRunwayApproach.Size=new Size(195, 29);
+            btnClearRunwayApproach.Size=new Size(195, 30);
             btnClearRunwayApproach.Text="Clear Runway Approach";
             btnClearRunwayApproach.Click+=btnClearRunwayApproach_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name="toolStripSeparator2";
-            toolStripSeparator2.Size=new Size(6, 32);
+            toolStripSeparator2.Size=new Size(6, 33);
             // 
             // btnConfig
             // 
             btnConfig.Image=Properties.Resources.cogwheel;
             btnConfig.ImageTransparentColor=Color.Magenta;
             btnConfig.Name="btnConfig";
-            btnConfig.Size=new Size(90, 29);
+            btnConfig.Size=new Size(90, 30);
             btnConfig.Text="Settings";
             btnConfig.Click+=btnConfig_Click;
             // 
@@ -523,10 +524,10 @@
             statusBar.GripStyle=ToolStripGripStyle.Visible;
             statusBar.ImageScalingSize=new Size(20, 20);
             statusBar.Items.AddRange(new ToolStripItem[] { stDigaoDalpiaz, stVersion, stConnStatus, stLastTimeRec, stAmmountDataReceived, stSimTimeElapsed, stFlightDistance, stScenaryClock });
-            statusBar.Location=new Point(0, 965);
+            statusBar.Location=new Point(0, 966);
             statusBar.Name="statusBar";
             statusBar.RenderMode=ToolStripRenderMode.ManagerRenderMode;
-            statusBar.Size=new Size(1834, 28);
+            statusBar.Size=new Size(1834, 27);
             statusBar.TabIndex=88;
             // 
             // stDigaoDalpiaz
@@ -534,7 +535,7 @@
             stDigaoDalpiaz.IsLink=true;
             stDigaoDalpiaz.LinkColor=Color.FromArgb(128, 128, 255);
             stDigaoDalpiaz.Name="stDigaoDalpiaz";
-            stDigaoDalpiaz.Size=new Size(105, 22);
+            stDigaoDalpiaz.Size=new Size(105, 21);
             stDigaoDalpiaz.Text="Digao Dalpiaz";
             stDigaoDalpiaz.Click+=stDigaoDalpiaz_Click;
             // 
@@ -542,44 +543,44 @@
             // 
             stVersion.ForeColor=Color.Teal;
             stVersion.Name="stVersion";
-            stVersion.Size=new Size(57, 22);
+            stVersion.Size=new Size(57, 21);
             stVersion.Text="Version";
             // 
             // stConnStatus
             // 
             stConnStatus.Font=new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
             stConnStatus.Name="stConnStatus";
-            stConnStatus.Size=new Size(53, 22);
+            stConnStatus.Size=new Size(53, 21);
             stConnStatus.Text="Status";
             // 
             // stLastTimeRec
             // 
             stLastTimeRec.Name="stLastTimeRec";
-            stLastTimeRec.Size=new Size(155, 22);
+            stLastTimeRec.Size=new Size(155, 21);
             stLastTimeRec.Text="Last package received";
             // 
             // stAmmountDataReceived
             // 
             stAmmountDataReceived.Name="stAmmountDataReceived";
-            stAmmountDataReceived.Size=new Size(169, 22);
+            stAmmountDataReceived.Size=new Size(169, 21);
             stAmmountDataReceived.Text="Ammount data received";
             // 
             // stSimTimeElapsed
             // 
             stSimTimeElapsed.Name="stSimTimeElapsed";
-            stSimTimeElapsed.Size=new Size(163, 22);
+            stSimTimeElapsed.Size=new Size(163, 21);
             stSimTimeElapsed.Text="Simulator elapsed time";
             // 
             // stFlightDistance
             // 
             stFlightDistance.Name="stFlightDistance";
-            stFlightDistance.Size=new Size(101, 22);
+            stFlightDistance.Size=new Size(101, 21);
             stFlightDistance.Text="Fight distance";
             // 
             // stScenaryClock
             // 
             stScenaryClock.Name="stScenaryClock";
-            stScenaryClock.Size=new Size(98, 22);
+            stScenaryClock.Size=new Size(98, 21);
             stScenaryClock.Text="Scenary clock";
             // 
             // lbAltitudeTrue
