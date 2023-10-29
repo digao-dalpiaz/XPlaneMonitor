@@ -21,7 +21,7 @@ namespace XPlaneMonitorApp.Controls
         {
             get => icon.Visible; set => icon.Visible = value;
         }
-        
+
         public BorderControl()
         {
             InitializeComponent();

@@ -49,7 +49,7 @@
             // lbValue
             // 
             lbValue.Dock=DockStyle.Fill;
-            lbValue.Font=new Font("Bahnschrift SemiCondensed", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            lbValue.Font=new Font("Bahnschrift SemiCondensed", 16.2F, FontStyle.Regular, GraphicsUnit.Point);
             lbValue.Location=new Point(129, 1);
             lbValue.Name="lbValue";
             lbValue.Size=new Size(322, 132);
