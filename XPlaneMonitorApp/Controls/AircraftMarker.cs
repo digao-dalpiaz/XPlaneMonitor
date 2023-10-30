@@ -15,7 +15,7 @@ namespace XPlaneMonitorApp.Controls
 
         public override void OnRender(Graphics g)
         {
-            var img = Drawing.RotateImage(Properties.Resources.black_plane, Angle);
+            var img = Drawing.RotateImage(Vars.Cfg.MapDarkMode ? Properties.Resources.yellow_plane : Properties.Resources.black_plane, Angle);
             Drawing.DrawImage(g, img, LocalPosition.X - Utils.Div(img.Width, 5), LocalPosition.Y + Utils.Div(img.Height, 5));
         }
 

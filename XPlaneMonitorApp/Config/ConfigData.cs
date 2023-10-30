@@ -10,6 +10,8 @@
 
         public int RampDistance = 12;
         public int RampElevation = 4000;
+
+        public bool MapDarkMode = true;
     }
 
     public enum DegreesUnitType

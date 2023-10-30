@@ -10,7 +10,7 @@ namespace XPlaneMonitorApp
             InitializeComponent();
         }
 
-        private void FrmConfig_Load(object sender, EventArgs e)
+        private void LoadCfg()
         {
             edHost.Text = Vars.Cfg.Host;
             edPort.Text = Vars.Cfg.Port.ToString();
@@ -20,6 +20,27 @@ namespace XPlaneMonitorApp
 
             edRampDistance.Text = Vars.Cfg.RampDistance.ToString();
             edRampElevation.Text = Vars.Cfg.RampElevation.ToString();
+
+            ckMapDarkMode.Checked = Vars.Cfg.MapDarkMode;
+        }
+
+        private void SaveCfg()
+        {
+            Vars.Cfg.Host = edHost.Text;
+            Vars.Cfg.Port = int.Parse(edPort.Text);
+
+            Vars.Cfg.UpdPerSecond = int.Parse(edUpdPerSecond.Text);
+            Vars.Cfg.DegreesUnit = (DegreesUnitType)edDegreesUnit.SelectedIndex;
+
+            Vars.Cfg.RampDistance = int.Parse(edRampDistance.Text);
+            Vars.Cfg.RampElevation = int.Parse(edRampElevation.Text);
+
+            Vars.Cfg.MapDarkMode = ckMapDarkMode.Checked;
+        }
+
+        private void FrmConfig_Load(object sender, EventArgs e)
+        {
+            LoadCfg();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -45,21 +66,14 @@ namespace XPlaneMonitorApp
 
             //
 
-            Vars.Cfg.Host = edHost.Text;
-            Vars.Cfg.Port = int.Parse(edPort.Text);
-
-            Vars.Cfg.UpdPerSecond = interval;
-            Vars.Cfg.DegreesUnit = (DegreesUnitType)edDegreesUnit.SelectedIndex;
-
-            Vars.Cfg.RampDistance = int.Parse(edRampDistance.Text);
-            Vars.Cfg.RampElevation = int.Parse(edRampElevation.Text);
+            SaveCfg();
 
             ConfigEngine.Save();
 
             DialogResult = DialogResult.OK;
         }
 
-        private bool CheckInvalidInteger(TextBox ed)
+        private static bool CheckInvalidInteger(TextBox ed)
         {
             if (!int.TryParse(ed.Text, out _))
             {
@@ -70,7 +84,7 @@ namespace XPlaneMonitorApp
             return false;
         }
 
-        private bool CheckBlank(TextBox ed)
+        private static bool CheckBlank(TextBox ed)
         {
             ed.Text = ed.Text.Trim();
             if (ed.Text == string.Empty)

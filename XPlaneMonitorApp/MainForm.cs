@@ -155,7 +155,13 @@ namespace XPlaneMonitorApp
             _runwayBeginMarker.IsVisible = false;
             _runwayEndMarker.IsVisible = false;
 
+            ReloadMapParams();
             GotoPositionOnMap();
+        }
+
+        private void ReloadMapParams()
+        {
+            map.NegativeMode = Vars.Cfg.MapDarkMode;
         }
 
         private void BuildGaugeBars()
@@ -182,9 +188,9 @@ namespace XPlaneMonitorApp
 
             for (int i = 0; i < MAX_ENGINES; i++)
             {
-                gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), ControlPaint.Light(Color.Salmon, LIGHT_COLOR * 2), 1);
-                gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), ControlPaint.Light(Color.Salmon, LIGHT_COLOR), 100);
-                gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.Salmon, 100);
+                gaugeThrottle.AddBar(string.Format("[{0}] Throttle", i+1), ControlPaint.Light(Color.SaddleBrown, LIGHT_COLOR * 2), 1);
+                gaugeThrottle.AddBar(string.Format("[{0}] N1", i+1), ControlPaint.Light(Color.SaddleBrown, LIGHT_COLOR), 100);
+                gaugeThrottle.AddBar(string.Format("[{0}] N2", i+1), Color.SaddleBrown, 100);
             }
 
             for (int i = 0; i < MAX_TANKS; i++)
@@ -229,6 +235,8 @@ namespace XPlaneMonitorApp
             FrmConfig f = new();
             if (f.ShowDialog() == DialogResult.OK)
             {
+                ReloadMapParams();
+
                 //force update drawing boxes here, because BuildApproch may exit if runway not defined
                 UpdateGrids();
 
@@ -250,20 +258,13 @@ namespace XPlaneMonitorApp
             btnConnect.Enabled = _communicator.Status == ConnectionStatus.DISCONNECTED;
             btnDisconnect.Enabled = _communicator.Status == ConnectionStatus.CONNECTED;
 
-            switch (_communicator.Status)
+            stConnStatus.Text = _communicator.Status switch
             {
-                case ConnectionStatus.CONNECTED:
-                    stConnStatus.Text = "Connected";
-                    break;
-                case ConnectionStatus.DISCONNECTED:
-                    stConnStatus.Text = "Disconnected";
-                    break;
-                case ConnectionStatus.CONNECTING:
-                    stConnStatus.Text = "Connecting...";
-                    break;
-                default:
-                    throw new Exception("Invalid connection status");
-            }
+                ConnectionStatus.CONNECTED => "Connected",
+                ConnectionStatus.DISCONNECTED => "Disconnected",
+                ConnectionStatus.CONNECTING => "Connecting...",
+                _ => throw new Exception("Invalid connection status"),
+            };
         }
 
         private void btnCenterMap_Click(object sender, EventArgs e)

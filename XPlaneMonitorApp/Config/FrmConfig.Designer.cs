@@ -46,8 +46,11 @@
             label4=new Label();
             btnOK=new Button();
             btnCancel=new Button();
+            groupBox3=new GroupBox();
+            ckMapDarkMode=new CheckBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -73,14 +76,14 @@
             edHost.Location=new Point(16, 64);
             edHost.Name="edHost";
             edHost.Size=new Size(408, 27);
-            edHost.TabIndex=2;
+            edHost.TabIndex=0;
             // 
             // edPort
             // 
             edPort.Location=new Point(432, 64);
             edPort.Name="edPort";
             edPort.Size=new Size(88, 27);
-            edPort.TabIndex=3;
+            edPort.TabIndex=1;
             // 
             // groupBox1
             // 
@@ -97,7 +100,7 @@
             groupBox1.Location=new Point(16, 16);
             groupBox1.Name="groupBox1";
             groupBox1.Size=new Size(536, 232);
-            groupBox1.TabIndex=4;
+            groupBox1.TabIndex=0;
             groupBox1.TabStop=false;
             groupBox1.Text="X-Plane Connection";
             // 
@@ -119,7 +122,7 @@
             edDegreesUnit.Location=new Point(352, 136);
             edDegreesUnit.Name="edDegreesUnit";
             edDegreesUnit.Size=new Size(168, 28);
-            edDegreesUnit.TabIndex=8;
+            edDegreesUnit.TabIndex=3;
             // 
             // label7
             // 
@@ -145,7 +148,7 @@
             edUpdPerSecond.Location=new Point(16, 136);
             edUpdPerSecond.Name="edUpdPerSecond";
             edUpdPerSecond.Size=new Size(144, 27);
-            edUpdPerSecond.TabIndex=5;
+            edUpdPerSecond.TabIndex=2;
             // 
             // label5
             // 
@@ -165,7 +168,7 @@
             groupBox2.Location=new Point(16, 264);
             groupBox2.Name="groupBox2";
             groupBox2.Size=new Size(536, 112);
-            groupBox2.TabIndex=5;
+            groupBox2.TabIndex=1;
             groupBox2.TabStop=false;
             groupBox2.Text="Ideal Descent Ramp";
             // 
@@ -174,14 +177,14 @@
             edRampDistance.Location=new Point(17, 63);
             edRampDistance.Name="edRampDistance";
             edRampDistance.Size=new Size(159, 27);
-            edRampDistance.TabIndex=6;
+            edRampDistance.TabIndex=0;
             // 
             // edRampElevation
             // 
             edRampElevation.Location=new Point(192, 64);
             edRampElevation.Name="edRampElevation";
             edRampElevation.Size=new Size(160, 27);
-            edRampElevation.TabIndex=7;
+            edRampElevation.TabIndex=1;
             // 
             // label3
             // 
@@ -203,10 +206,10 @@
             // 
             // btnOK
             // 
-            btnOK.Location=new Point(176, 392);
+            btnOK.Location=new Point(176, 472);
             btnOK.Name="btnOK";
             btnOK.Size=new Size(104, 40);
-            btnOK.TabIndex=6;
+            btnOK.TabIndex=11;
             btnOK.Text="OK";
             btnOK.UseVisualStyleBackColor=true;
             btnOK.Click+=btnOK_Click;
@@ -214,12 +217,32 @@
             // btnCancel
             // 
             btnCancel.DialogResult=DialogResult.Cancel;
-            btnCancel.Location=new Point(288, 392);
+            btnCancel.Location=new Point(288, 472);
             btnCancel.Name="btnCancel";
             btnCancel.Size=new Size(104, 40);
-            btnCancel.TabIndex=7;
+            btnCancel.TabIndex=12;
             btnCancel.Text="Cancel";
             btnCancel.UseVisualStyleBackColor=true;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(ckMapDarkMode);
+            groupBox3.Location=new Point(16, 392);
+            groupBox3.Name="groupBox3";
+            groupBox3.Size=new Size(536, 72);
+            groupBox3.TabIndex=2;
+            groupBox3.TabStop=false;
+            groupBox3.Text="Other";
+            // 
+            // ckMapDarkMode
+            // 
+            ckMapDarkMode.AutoSize=true;
+            ckMapDarkMode.Location=new Point(16, 32);
+            ckMapDarkMode.Name="ckMapDarkMode";
+            ckMapDarkMode.Size=new Size(211, 24);
+            ckMapDarkMode.TabIndex=0;
+            ckMapDarkMode.Text="Use dark mode on the map";
+            ckMapDarkMode.UseVisualStyleBackColor=true;
             // 
             // FrmConfig
             // 
@@ -227,7 +250,8 @@
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             CancelButton=btnCancel;
-            ClientSize=new Size(569, 445);
+            ClientSize=new Size(569, 527);
+            Controls.Add(groupBox3);
             Controls.Add(btnCancel);
             Controls.Add(btnOK);
             Controls.Add(groupBox2);
@@ -244,6 +268,8 @@
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -267,5 +293,7 @@
         private ComboBox edDegreesUnit;
         private Label label7;
         private Label lbInfoReconnect;
+        private GroupBox groupBox3;
+        private CheckBox ckMapDarkMode;
     }
 }

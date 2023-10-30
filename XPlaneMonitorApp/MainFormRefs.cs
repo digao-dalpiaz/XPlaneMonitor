@@ -170,16 +170,14 @@ namespace XPlaneMonitorApp
                 gaugeGear.Reload();
             });
 
-            lst.Subscribe("sim/cockpit2/controls/left_brake_ratio", r =>
+            lst.Subscribe("sim/flightmodel2/gear/tire_part_brake", r =>
             {
-                gaugeWheelBrake.Bars[0].Pos = r.Value;
-                gaugeWheelBrake.Reload();
-            });
-            lst.Subscribe("sim/cockpit2/controls/right_brake_ratio", r =>
-            {
-                gaugeWheelBrake.Bars[1].Pos = r.Value;
-                gaugeWheelBrake.Reload();
-            });
+                if (r.ArrayIndex > 0)
+                {
+                    gaugeWheelBrake.Bars[r.ArrayIndex-1].Pos = r.Value;
+                    gaugeWheelBrake.Reload();
+                }
+            }, 3);
 
             lst.Subscribe("sim/cockpit/engine/APU_switch", r =>
             {
