@@ -45,24 +45,11 @@ namespace XPlaneMonitorApp
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (CheckBlank(edHost)) return;
-            if (CheckBlank(edPort)) return;
-            if (CheckBlank(edUpdPerSecond)) return;
-            if (CheckBlank(edRampDistance)) return;
-            if (CheckBlank(edRampElevation)) return;
-
-            if (CheckInvalidInteger(edPort)) return;
-            if (CheckInvalidInteger(edUpdPerSecond)) return;
-            if (CheckInvalidInteger(edRampDistance)) return;
-            if (CheckInvalidInteger(edRampElevation)) return;
-
-            var interval = int.Parse(edUpdPerSecond.Text);
-            if (interval < 1 || interval > 5)
-            {
-                Messages.Error("Updates per second must be from 1 to 5");
-                edUpdPerSecond.Select();
-                return;
-            }
+            if (!ValidateField(edHost)) return;
+            if (!ValidateField(edPort, true, i => i > 0 && i <= ushort.MaxValue, "Invalid port number")) return;
+            if (!ValidateField(edUpdPerSecond, true, i => i >= 1 && i <= 5, "Updates per second must be from 1 to 5")) return;
+            if (!ValidateField(edRampDistance, true, i => i > 0, "Ramp distance must be greater than zero")) return;
+            if (!ValidateField(edRampElevation, true, i => i > 0, "Ramp elevation must be greater than zero")) return;
 
             //
 
@@ -73,27 +60,37 @@ namespace XPlaneMonitorApp
             DialogResult = DialogResult.OK;
         }
 
-        private static bool CheckInvalidInteger(TextBox ed)
-        {
-            if (!int.TryParse(ed.Text, out _))
-            {
-                Messages.Error("Please, type only numbers");
-                ed.Select();
-                return true;
-            }
-            return false;
-        }
-
-        private static bool CheckBlank(TextBox ed)
+        private static bool ValidateField(TextBox ed, bool onlyInt = false, Func<int, bool> intValidation = null, string msgIntValidation = null)
         {
             ed.Text = ed.Text.Trim();
             if (ed.Text == string.Empty)
             {
                 Messages.Error("Required field is empty");
                 ed.Select();
-                return true;
+                return false;
             }
-            return false;
+
+            if (onlyInt)
+            {
+                if (!int.TryParse(ed.Text, out int i))
+                {
+                    Messages.Error("Please, type only numbers");
+                    ed.Select();
+                    return false;
+                }
+
+                if (intValidation != null)
+                {
+                    if (!intValidation(i))
+                    {
+                        Messages.Error(msgIntValidation);
+                        ed.Select();
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
     }
