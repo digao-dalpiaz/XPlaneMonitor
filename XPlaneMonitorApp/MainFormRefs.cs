@@ -207,7 +207,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel/controls/sbrkrqst", r =>
             {
                 var bar = gaugeSpeedBrake.Bars[0];
-                bar.Pos = r.Value;
+                bar.Pos = Math.Max(r.Value, 0);
                 bar.Extra = r.Value < 0 ? "ARMED" : null;
                 gaugeSpeedBrake.Reload();
             });
