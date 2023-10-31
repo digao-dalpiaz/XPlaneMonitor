@@ -7,14 +7,13 @@ namespace XPlaneMonitorApp.Functions
     {
         public static PointLatLng ReadFromClipboard()
         {
-            var text = Clipboard.GetText();
-            if (text == null) throw new MsgException("Nothing found in clipboard");
+            var text = Clipboard.GetText() ?? throw new MsgException("Nothing found in clipboard");
 
             const string START_IDENT = "/@";
             var i = text.IndexOf(START_IDENT);
             if (i == -1) throw new MsgException("Clipboard does not contain Google Maps position link");
 
-            text = text.Substring(i + START_IDENT.Length);
+            text = text[(i + START_IDENT.Length)..];
             var parts = text.Split(',');
             if (parts.Length < 3) throw new MsgException("Incorrect parts of Google Maps position link");
 

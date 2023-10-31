@@ -3,8 +3,8 @@
     public class TSRenderer : ToolStripSystemRenderer
     {
 
-        private static Color BACK_COLOR = Color.FromArgb(64, 64, 64);
-        private static Color FORE_COLOR = Color.White;
+        private static readonly Color BACK_COLOR = Color.FromArgb(64, 64, 64);
+        private static readonly Color FORE_COLOR = Color.White;
 
         public TSRenderer() : base() { }
 
@@ -52,12 +52,12 @@
 
         protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
         {
-            bool itemChecked = (e.Item is ToolStripButton && ((ToolStripButton)e.Item).Checked);
+            bool itemChecked = e.Item is ToolStripButton button && button.Checked;
             bool itemSelected = e.Item.Selected || e.Item.Pressed;
 
             if (itemSelected || itemChecked)
             {
-                Rectangle rectangle = new Rectangle(0, 0, e.Item.Size.Width - 1, e.Item.Size.Height - 1);
+                Rectangle rectangle = new(0, 0, e.Item.Size.Width - 1, e.Item.Size.Height - 1);
                 e.Graphics.FillRectangle(new SolidBrush(itemChecked ? Color.IndianRed : Color.FromArgb(22, 65, 124)), rectangle);
                 if (itemSelected) e.Graphics.DrawRectangle(new Pen(Color.FromArgb(100, 100, 100)), rectangle);
                 return;

@@ -28,7 +28,7 @@
             float height = bmp.Height;
             float width = bmp.Width;
             int hypotenuse = Convert.ToInt32(Math.Floor(Math.Sqrt(Math.Pow(height, 2) + Math.Pow(width, 2))));
-            Bitmap rotatedImage = new Bitmap(hypotenuse, hypotenuse);
+            Bitmap rotatedImage = new(hypotenuse, hypotenuse);
             using (Graphics g = Graphics.FromImage(rotatedImage))
             {
                 g.TranslateTransform((float)rotatedImage.Width / 2, (float)rotatedImage.Height / 2); //set the rotation point as the center into the matrix
