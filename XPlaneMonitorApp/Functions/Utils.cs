@@ -124,14 +124,25 @@ namespace XPlaneMonitorApp.Functions
         public static double CalculateVerticalRatioInFtPerMin(double initialAltitudeFt, double finalAltitudeFt, double speedMS, double distanceNm)
         {
             double altitudeFt = finalAltitudeFt - initialAltitudeFt;
-            double speedKmH = ConvertMetersPerSecondToKilometersPerHour(speedMS);
+            double speedActualKmH = ConvertMetersPerSecondToKilometersPerHour(speedMS);
             double distanceKm = ConvertNauticalMilesToKm(distanceNm);
 
             //esta fórmula eu construí fazendo observações no simulador, sem vento e clima zerado
             //a cada 5.000 pés, uso o fator de 0.928 aplicado a velocidade para corrigí-la
-            speedKmH = speedKmH * Math.Pow(0.928, -altitudeFt / 1000 / 5);
+            double speedFinalKmH = speedActualKmH * Math.Pow(0.928, -altitudeFt / 1000 / 5);
+            double avgSpeedKmH = (speedActualKmH + speedFinalKmH) / 2;
+            /*
+                30.000 pes - 275 nos - 795 km/h
+                25.000 pes - 275 nos - 737 km/h
+                20.000 pes - 275 nos - 682 km/h
+                15.000 pes - 275 nos - 632 km/h
+                10.000 pes - 275 nos - 588 km/h
+                 5.000 pes - 275 nos - 547 km/h
 
-            double hours = distanceKm / speedKmH;
+                velocidade real = velocidade atual x (0,928 ^ (pes / 1000 / 5))
+             */
+
+            double hours = distanceKm / avgSpeedKmH;
             double mins = hours * 60;
 
             return altitudeFt / mins;
