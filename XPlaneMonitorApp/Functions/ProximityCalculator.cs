@@ -5,7 +5,7 @@ namespace XPlaneMonitorApp.Functions
     public class ProximityCalculator
     {
 
-        private static double CalculateHaversineDistance(PointLatLng ponto1, PointLatLng ponto2)
+        private static double CalculateHaversineDistanceMeters(PointLatLng ponto1, PointLatLng ponto2)
         {
             const double raioTerra = 6371000; // Raio médio da Terra em metros
 
@@ -23,7 +23,7 @@ namespace XPlaneMonitorApp.Functions
             return raioTerra * c;
         }
 
-        public static double CalculateLongitudinalClearance(PointLatLng pontoInicial, PointLatLng pontoFinal, PointLatLng pontoAviao)
+        public static double CalculateLongitudinalClearanceMeters(PointLatLng pontoInicial, PointLatLng pontoFinal, PointLatLng pontoAviao)
         {
             double direcaoPista = CalculateAngleDirection(pontoInicial, pontoFinal);
             double direcaoAviaoPista = CalculateAngleDirection(pontoInicial, pontoAviao);
@@ -42,7 +42,7 @@ namespace XPlaneMonitorApp.Functions
             }
 
             // Calcular a distância entre o avião e a linha do aeroporto
-            double distancia = Math.Sin(diferencaAngular) * CalculateHaversineDistance(pontoInicial, pontoAviao);
+            double distancia = Math.Sin(diferencaAngular) * CalculateHaversineDistanceMeters(pontoInicial, pontoAviao);
 
             return distancia;
         }

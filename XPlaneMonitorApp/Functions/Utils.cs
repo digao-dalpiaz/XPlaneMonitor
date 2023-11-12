@@ -76,6 +76,16 @@ namespace XPlaneMonitorApp.Functions
             return value * 3.6;
         }
 
+        public static double ConvertKilometersToMeters(double value)
+        {
+            return value * 1000;
+        }
+
+        public static double ConvertMetersToKilometers(double value)
+        {
+            return value / 1000;
+        }
+
         public static void DrawGrid(Graphics g, double xUnit, double xTotal, double yUnit, double yTotal, RectangleF r)
         {
             g.FillRectangle(new SolidBrush(Color.FromArgb(30, 30, 30)), r);

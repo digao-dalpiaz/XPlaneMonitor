@@ -405,12 +405,12 @@ namespace XPlaneMonitorApp
                 }
             }
 
-            _runwayHeadingTrue = GeoCalculator.CalculateBearing(_runwayBegin.Value, _runwayEnd.Value);
+            _runwayHeadingTrue = GeoCalculator.CalculateBearingDegrees(_runwayBegin.Value, _runwayEnd.Value);
 
-            var sizeKm = GeoCalculator.CalculateDistance(_runwayBegin.Value, _runwayEnd.Value);
+            var sizeKm = GeoCalculator.CalculateDistanceKm(_runwayBegin.Value, _runwayEnd.Value);
 
             lbRunwayElevation.Value = Utils.RoundToInt(_runwayElevation + Vars.Cfg.RampElevation) + ">" + Utils.RoundToInt(_runwayElevation) + " ft";
-            lbRunwaySize.Value = Utils.RoundToInt(sizeKm * 1000) + " m";
+            lbRunwaySize.Value = Utils.RoundToInt(Utils.ConvertKilometersToMeters(sizeKm)) + " m";
 
             _runwayApproach = GeoCalculator.CalculateDestinationPoint(
                 _runwayBegin.Value,
@@ -434,16 +434,16 @@ namespace XPlaneMonitorApp
         {
             if (_runwayBegin.HasValue && _runwayEnd.HasValue && _runwayApproach.HasValue)
             {
-                var approachDistKm = GeoCalculator.CalculateDistance(_location, _runwayApproach.Value);
+                var approachDistKm = GeoCalculator.CalculateDistanceKm(_location, _runwayApproach.Value);
                 var approachDist = Utils.ConvertKmToNauticalMiles(approachDistKm);
 
-                var runwayDistKm = GeoCalculator.CalculateDistance(_location, _runwayBegin.Value);
+                var runwayDistKm = GeoCalculator.CalculateDistanceKm(_location, _runwayBegin.Value);
                 _runwayDistance = Utils.ConvertKmToNauticalMiles(runwayDistKm);
 
                 bool insideRamp = IsDistanceInsideRamp(); //must stay after runwayDistance set!
 
-                lbApproachTime.Value = Utils.SecondsToTime(approachDistKm * 1000 / _groundSpeedMS);
-                lbRunwayTime.Value = Utils.SecondsToTime(runwayDistKm * 1000 / _groundSpeedMS);
+                lbApproachTime.Value = Utils.SecondsToTime(Utils.ConvertKilometersToMeters(approachDistKm) / _groundSpeedMS);
+                lbRunwayTime.Value = Utils.SecondsToTime(Utils.ConvertKilometersToMeters(runwayDistKm) / _groundSpeedMS);
 
                 lbApproachDist.Value = Math.Round(approachDist, 1).ToString("0.0") + " nm";
                 lbRunwayDist.Value = Math.Round(_runwayDistance, 1).ToString("0.0") + " nm";
@@ -455,11 +455,11 @@ namespace XPlaneMonitorApp
 
                 var runwayCentralPoint = GeoCalculator.CalculateCentralPoint(_runwayBegin.Value, _runwayEnd.Value);
                 lbAirportAngle.Value =
-                    Utils.RoundToInt(Utils.AddAngles(GeoCalculator.CalculateBearing(_location, _runwayApproach.Value), _magneticVariation)) +
+                    Utils.RoundToInt(Utils.AddAngles(GeoCalculator.CalculateBearingDegrees(_location, _runwayApproach.Value), _magneticVariation)) +
                     ">" +
-                    Utils.RoundToInt(Utils.AddAngles(GeoCalculator.CalculateBearing(_location, runwayCentralPoint), _magneticVariation)) + "º";
+                    Utils.RoundToInt(Utils.AddAngles(GeoCalculator.CalculateBearingDegrees(_location, runwayCentralPoint), _magneticVariation)) + "º";
 
-                _spacing = ProximityCalculator.CalculateLongitudinalClearance(_runwayBegin.Value, _runwayEnd.Value, _location);
+                _spacing = ProximityCalculator.CalculateLongitudinalClearanceMeters(_runwayBegin.Value, _runwayEnd.Value, _location);
 
                 lbSpacing.Value = Math.Abs(_spacing) > 1000 ? "FAR AWAY" : Utils.RoundToInt(_spacing) + " m";
 

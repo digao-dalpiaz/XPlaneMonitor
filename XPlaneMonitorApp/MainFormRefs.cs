@@ -254,7 +254,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel/controls/dist", r =>
             {
                 //original distance in meters
-                stFlightDistance.Text = "Flight distance: " + Utils.RoundToInt(Utils.Div(r.Value, 1000)) + " km";
+                stFlightDistance.Text = "Flight distance: " + Utils.RoundToInt(Utils.ConvertMetersToKilometers(r.Value)) + " km";
             });
 
             lst.Subscribe("sim/time/total_flight_time_sec", r =>
