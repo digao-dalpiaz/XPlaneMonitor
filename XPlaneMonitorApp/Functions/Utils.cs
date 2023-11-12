@@ -61,14 +61,19 @@ namespace XPlaneMonitorApp.Functions
             return meters / 0.3048;
         }
 
-        public static double ConverterMilhaNauticaParaKm(double nm)
+        public static double ConvertNauticalMilesToKm(double nm)
         {
             return nm * 1.852;
         }
 
-        public static double ConverterKmParaMilhaNautica(double km)
+        public static double ConvertKmToNauticalMiles(double km)
         {
             return km / 1.852;
+        }
+
+        public static double ConvertMetersPerSecondToKilometersPerHour(double value)
+        {
+            return value * 3.6;
         }
 
         public static void DrawGrid(Graphics g, double xUnit, double xTotal, double yUnit, double yTotal, RectangleF r)
@@ -104,6 +109,18 @@ namespace XPlaneMonitorApp.Functions
             var secInt = Math.Floor(sec);
 
             return hoursInt.ToString("00") + ":" + minInt.ToString("00") + ":" + secInt.ToString("00");
+        }
+
+        public static double CalculateVerticalRatioInFtPerMin(double initialAltitudeFt, double finalAltitudeFt, double speedMS, double distanceNm)
+        {
+            double altitudeFt = finalAltitudeFt - initialAltitudeFt;
+            double speedKmH = ConvertMetersPerSecondToKilometersPerHour(speedMS);
+            double distanceKm = ConvertNauticalMilesToKm(distanceNm);
+
+            double hours = distanceKm / speedKmH;
+            double mins = hours * 60;
+
+            return altitudeFt / mins;
         }
 
     }

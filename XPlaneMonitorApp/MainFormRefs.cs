@@ -18,6 +18,7 @@ namespace XPlaneMonitorApp
         private float _altitudeTrue;
         private float _headingTrue;
         private float _magneticVariation;
+        private float _groundSpeedMS;
 
         private RefDataContractList GetRefDataContractList()
         {
@@ -38,7 +39,8 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel/position/groundspeed", r =>
             {
                 //original value in m/s
-                lbGroundSpeed.Value = Utils.RoundToInt(r.Value * 3.6) + " km/h";
+                _groundSpeedMS = r.Value;
+                lbGroundSpeed.Value = Utils.RoundToInt(Utils.ConvertMetersPerSecondToKilometersPerHour(r.Value)) + " km/h";
             });
             lst.Subscribe("sim/flightmodel/misc/h_ind", r =>
             {
@@ -47,7 +49,7 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/flightmodel2/position/pressure_altitude", r =>
             {
                 _altitudeTrue = r.Value;
-                lbAltitudeTrue.Value = Utils.RoundToInt(r.Value) + " ft";
+                stTrueAltitude.Text = "True altitude: " + Utils.RoundToInt(r.Value) + " ft";
             });
             lst.Subscribe("sim/cockpit2/gauges/indicators/radio_altimeter_height_ft_pilot", r =>
             {
@@ -55,17 +57,18 @@ namespace XPlaneMonitorApp
             });
             lst.Subscribe("sim/cockpit2/gauges/indicators/compass_heading_deg_mag", r =>
             {
-                lbHeading.Value = Utils.RoundToInt(r.Value) + "º";
+                lbHeadingMag.Value = Utils.RoundToInt(r.Value) + "º";
             });
             lst.Subscribe("sim/flightmodel2/position/true_psi", r =>
             {
                 _headingTrue = r.Value;
                 _aircraftMarker.Angle = r.Value;
-                lbHeadingTrue.Value = Utils.RoundToInt(r.Value) + "º";
+                stTrueHeading.Text = "True heading: " + Utils.RoundToInt(r.Value) + "º";
             });
             lst.Subscribe("sim/flightmodel/position/magnetic_variation", r =>
             {
                 _magneticVariation = r.Value;
+                stMagneticVariation.Text = "Magnetic variation: " + Utils.RoundToInt(r.Value) + "º";
             });
 
             lst.Subscribe("sim/cockpit2/switches/auto_brake_level", r =>
@@ -273,8 +276,8 @@ namespace XPlaneMonitorApp
             });
             lst.Subscribe("sim/flightmodel/position/longitude", r =>
             {
-                _lat = _tmpReceivedLatitude;
-                _lng = r.Value;
+                _location.Lat = _tmpReceivedLatitude;
+                _location.Lng = r.Value;
                 ReceivedAircraftPosition(); //here there is update approach params, that depends on others parameter just received before
             });
 

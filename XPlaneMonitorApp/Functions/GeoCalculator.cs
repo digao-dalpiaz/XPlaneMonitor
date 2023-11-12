@@ -1,17 +1,19 @@
-﻿namespace XPlaneMonitorApp.Functions
+﻿using GMap.NET;
+
+namespace XPlaneMonitorApp.Functions
 {
     public class GeoCalculator
     {
 
-        public static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
+        public static double CalculateDistance(PointLatLng ponto1, PointLatLng ponto2)
         {
             const double earthRadius = 6371; // Raio médio da Terra em quilômetros
 
             // Converter graus para radianos
-            double radiansLat1 = Utils.DegreesToRadians(lat1);
-            double radiansLon1 = Utils.DegreesToRadians(lon1);
-            double radiansLat2 = Utils.DegreesToRadians(lat2);
-            double radiansLon2 = Utils.DegreesToRadians(lon2);
+            double radiansLat1 = Utils.DegreesToRadians(ponto1.Lat);
+            double radiansLon1 = Utils.DegreesToRadians(ponto1.Lng);
+            double radiansLat2 = Utils.DegreesToRadians(ponto2.Lat);
+            double radiansLon2 = Utils.DegreesToRadians(ponto2.Lng);
 
             // Diferença entre as longitudes e latitudes
             double deltaLat = radiansLat2 - radiansLat1;
@@ -25,12 +27,12 @@
             return distance;
         }
 
-        public static double CalculateBearing(double lat1, double lon1, double lat2, double lon2)
+        public static double CalculateBearing(PointLatLng ponto1, PointLatLng ponto2)
         {
-            double radiansLat1 = Utils.DegreesToRadians(lat1);
-            double radiansLon1 = Utils.DegreesToRadians(lon1);
-            double radiansLat2 = Utils.DegreesToRadians(lat2);
-            double radiansLon2 = Utils.DegreesToRadians(lon2);
+            double radiansLat1 = Utils.DegreesToRadians(ponto1.Lat);
+            double radiansLon1 = Utils.DegreesToRadians(ponto1.Lng);
+            double radiansLat2 = Utils.DegreesToRadians(ponto2.Lat);
+            double radiansLon2 = Utils.DegreesToRadians(ponto2.Lng);
 
             double deltaLon = radiansLon2 - radiansLon1;
 
@@ -43,13 +45,13 @@
             return (bearing + 360) % 360; // Garante um ângulo entre 0 e 360 graus
         }
 
-        public static (double, double) CalculateDestinationPoint(double lat1, double lon1, double initialBearing, double distance)
+        public static PointLatLng CalculateDestinationPoint(PointLatLng ponto, double initialBearing, double distance)
         {
             const double earthRadius = 6371; // Raio médio da Terra em quilômetros
 
             // Converter graus para radianos
-            double radiansLat1 = Utils.DegreesToRadians(lat1);
-            double radiansLon1 = Utils.DegreesToRadians(lon1);
+            double radiansLat1 = Utils.DegreesToRadians(ponto.Lat);
+            double radiansLon1 = Utils.DegreesToRadians(ponto.Lng);
             double radiansBearing = Utils.DegreesToRadians(initialBearing);
 
             // Converter distância para radianos (arc length)
@@ -64,7 +66,29 @@
             finalLat = Utils.RadiansToDegrees(finalLat);
             finalLon = Utils.RadiansToDegrees(finalLon);
 
-            return (finalLat, finalLon);
+            return new(finalLat, finalLon);
+        }
+
+        public static PointLatLng CalculateCentralPoint(PointLatLng ponto1, PointLatLng ponto2)
+        {
+            double lat1 = Utils.DegreesToRadians(ponto1.Lat);
+            double lon1 = Utils.DegreesToRadians(ponto1.Lng);
+            double lat2 = Utils.DegreesToRadians(ponto2.Lat);
+            double lon2 = Utils.DegreesToRadians(ponto2.Lng);
+
+            double dLon = lon2 - lon1;
+
+            double x = Math.Cos(lat2) * Math.Cos(dLon);
+            double y = Math.Cos(lat2) * Math.Sin(dLon);
+
+            double lat3 = Math.Atan2(
+                Math.Sin(lat1) + Math.Sin(lat2),
+                Math.Sqrt((Math.Cos(lat1) + x) * (Math.Cos(lat1) + x) + y * y)
+            );
+
+            double lon3 = lon1 + Math.Atan2(y, Math.Cos(lat1) + x);
+
+            return new(Utils.RadiansToDegrees(lat3), Utils.RadiansToDegrees(lon3));
         }
 
     }

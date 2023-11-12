@@ -31,11 +31,10 @@ namespace XPlaneMonitorApp
 
         private long _ammountDataReceived;
 
-        private double _lat = -23.4305305;
-        private double _lng = -46.4696579;
+        private PointLatLng _location = new(-23.4305305, -46.4696579);
 
         private double _runwayElevation;
-        private double _runwayHeading;
+        private double _runwayHeadingTrue;
         private double _runwayDistance;
         private double _spacing;
 
@@ -62,6 +61,9 @@ namespace XPlaneMonitorApp
             stAmmountDataReceived.Text = string.Empty;
             stFlightDistance.Text = string.Empty;
             stScenaryClock.Text = string.Empty;
+            stMagneticVariation.Text = string.Empty;
+            stTrueHeading.Text = string.Empty;
+            stTrueAltitude.Text = string.Empty;
 
             toolBar.ImageScalingSize = new Size(toolBar.Height - 9, toolBar.Height - 9); //multi DPI support
 
@@ -310,14 +312,14 @@ namespace XPlaneMonitorApp
 
         private void GotoPositionOnMap()
         {
-            map.Position = new PointLatLng(_lat, _lng);
+            map.Position = _location;
 
             btnCenterMap.Enabled = false;
         }
 
         private void ReceivedAircraftPosition()
         {
-            var pos = new PointLatLng(_lat, _lng);
+            var pos = _location;
             _aircraftMarker.Position = pos;
             _aircraftMarker.IsVisible = true;
 
@@ -391,7 +393,7 @@ namespace XPlaneMonitorApp
                 lbRunwayElevation.Refresh();
                 try
                 {
-                    var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value.Lat, _runwayBegin.Value.Lng);
+                    var elevMeters = AltitudeApi.GetElevationMeters(_runwayBegin.Value);
                     _runwayElevation = Utils.ConvertMetersToFeet(elevMeters);
 
                     _lastAirportRetrievedAltitude = _runwayBegin;
@@ -399,29 +401,22 @@ namespace XPlaneMonitorApp
                 catch (Exception ex)
                 {
                     _runwayElevation = 0;
-                    lbRunwayElevation.Value = "fail!!!";
                     Messages.Error(ex.Message);
                 }
             }
 
-            _runwayHeading = GeoCalculator.CalculateBearing(
-                _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
-                _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
+            _runwayHeadingTrue = GeoCalculator.CalculateBearing(_runwayBegin.Value, _runwayEnd.Value);
 
-            var sizeKm = GeoCalculator.CalculateDistance(
-                _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
-                _runwayEnd.Value.Lat, _runwayEnd.Value.Lng);
+            var sizeKm = GeoCalculator.CalculateDistance(_runwayBegin.Value, _runwayEnd.Value);
 
-            lbRunwayElevation.Value = Utils.RoundToInt(_runwayElevation) + " ft";
-            lbRunwayHeadingTrue.Value = Utils.RoundToInt(_runwayHeading) + "º";
+            lbRunwayElevation.Value = Utils.RoundToInt(_runwayElevation + Vars.Cfg.RampElevation) + ">" + Utils.RoundToInt(_runwayElevation) + " ft";
             lbRunwaySize.Value = Utils.RoundToInt(sizeKm * 1000) + " m";
 
-            var approach = GeoCalculator.CalculateDestinationPoint(
-                _runwayBegin.Value.Lat, _runwayBegin.Value.Lng,
-                Utils.InvertDegree(_runwayHeading),
-                Utils.ConverterMilhaNauticaParaKm(Vars.Cfg.RampDistance));
+            _runwayApproach = GeoCalculator.CalculateDestinationPoint(
+                _runwayBegin.Value,
+                Utils.InvertDegree(_runwayHeadingTrue),
+                Utils.ConvertNauticalMilesToKm(Vars.Cfg.RampDistance));
 
-            _runwayApproach = new PointLatLng(approach.Item1, approach.Item2);
             _runwayApproachMarker.Position = _runwayApproach.Value;
             _runwayApproachMarker.IsVisible = true;
 
@@ -439,22 +434,34 @@ namespace XPlaneMonitorApp
         {
             if (_runwayBegin.HasValue && _runwayEnd.HasValue && _runwayApproach.HasValue)
             {
-                var approachDist = Utils.ConverterKmParaMilhaNautica(
-                    GeoCalculator.CalculateDistance(_lat, _lng, _runwayApproach.Value.Lat, _runwayApproach.Value.Lng));
+                var approachDistKm = GeoCalculator.CalculateDistance(_location, _runwayApproach.Value);
+                var approachDist = Utils.ConvertKmToNauticalMiles(approachDistKm);
 
-                _runwayDistance = Utils.ConverterKmParaMilhaNautica(
-                    GeoCalculator.CalculateDistance(_lat, _lng, _runwayBegin.Value.Lat, _runwayBegin.Value.Lng));
+                var runwayDistKm = GeoCalculator.CalculateDistance(_location, _runwayBegin.Value);
+                _runwayDistance = Utils.ConvertKmToNauticalMiles(runwayDistKm);
+
+                bool insideRamp = IsDistanceInsideRamp(); //must stay after runwayDistance set!
+
+                lbApproachTime.Value = Utils.SecondsToTime(approachDistKm * 1000 / _groundSpeedMS);
+                lbRunwayTime.Value = Utils.SecondsToTime(runwayDistKm * 1000 / _groundSpeedMS);
 
                 lbApproachDist.Value = Math.Round(approachDist, 1).ToString("0.0") + " nm";
                 lbRunwayDist.Value = Math.Round(_runwayDistance, 1).ToString("0.0") + " nm";
 
-                _spacing = ProximityCalculator.CalcularDistanciaAteLinhaAeroporto2(
-                    new double[] { _runwayBegin.Value.Lat, _runwayBegin.Value.Lng },
-                    new double[] { _runwayEnd.Value.Lat, _runwayEnd.Value.Lng },
-                    new double[] { _lat, _lng });
+                var verticalSpeed = Utils.RoundToInt(Utils.CalculateVerticalRatioInFtPerMin(
+                    _altitudeTrue, _runwayElevation + (insideRamp ? 0 : Vars.Cfg.RampElevation), _groundSpeedMS, insideRamp ? _runwayDistance : approachDist));
+                lbIdealVS.Value = (verticalSpeed > 0 ? "+" : "") + verticalSpeed + " ft/min";
+                lbIdealVS.Title = insideRamp ? "Runway Ideal VS." : "Approach Ideal VS.";
+
+                var runwayCentralPoint = GeoCalculator.CalculateCentralPoint(_runwayBegin.Value, _runwayEnd.Value);
+                lbAirportAngle.Value =
+                    Utils.RoundToInt(Utils.AddAngles(GeoCalculator.CalculateBearing(_location, _runwayApproach.Value), _magneticVariation)) +
+                    ">" +
+                    Utils.RoundToInt(Utils.AddAngles(GeoCalculator.CalculateBearing(_location, runwayCentralPoint), _magneticVariation)) + "º";
+
+                _spacing = ProximityCalculator.CalculateLongitudinalClearance(_runwayBegin.Value, _runwayEnd.Value, _location);
 
                 lbSpacing.Value = Math.Abs(_spacing) > 1000 ? "FAR AWAY" : Utils.RoundToInt(_spacing) + " m";
-                lbRunwayHeadingMag.Value = Utils.RoundToInt(Utils.AddAngles(_runwayHeading, _magneticVariation)) + "º";
 
                 UpdateGrids();
             }
@@ -499,14 +506,20 @@ namespace XPlaneMonitorApp
             map.Invalidate(); //there is a bug in GMap when clearing route
 
             UpdateRunwayPointsLabel();
+            
             lbRunwayElevation.Value = string.Empty;
-            lbRunwayHeadingTrue.Value = string.Empty;
             lbRunwaySize.Value = string.Empty;
-            lbApproachDist.Value = string.Empty;
-            lbRunwayDist.Value = string.Empty;
 
+            lbApproachDist.Value = string.Empty;
+            lbApproachTime.Value = string.Empty;
+            lbRunwayDist.Value = string.Empty;
+            lbRunwayTime.Value = string.Empty;
+
+            lbIdealVS.Title = "App/Rw. Ideal VS.";
+            lbIdealVS.Value = string.Empty;
+
+            lbAirportAngle.Value = string.Empty;
             lbSpacing.Value = string.Empty;
-            lbRunwayHeadingMag.Value = string.Empty;
 
             UpdateGrids();
         }
@@ -517,9 +530,14 @@ namespace XPlaneMonitorApp
             gridAlignment.Reload();
         }
 
+        private bool IsDistanceInsideRamp()
+        {
+            return _runwayDistance <= (Vars.Cfg.RampDistance * RAMP_DISTANCE_FATOR);
+        }
+
         private bool IsNotSetOrFarAwayFromAirport()
         {
-            return !_aircraftMarker.IsVisible || !_runwayApproach.HasValue || _runwayDistance > (Vars.Cfg.RampDistance * RAMP_DISTANCE_FATOR);
+            return !_aircraftMarker.IsVisible || !_runwayApproach.HasValue || !IsDistanceInsideRamp();
         }
 
         private void boxRamp_Paint(object sender, PaintEventArgs e)
@@ -576,7 +594,7 @@ namespace XPlaneMonitorApp
             if (s > marginSide) s = marginSide; else if (s < -marginSide) s = -marginSide;
             s += marginSide; //move half side to the right
 
-            var difAngle = _runwayHeading - _headingTrue;
+            var difAngle = _runwayHeadingTrue - _headingTrue;
             var airplaneImg = Drawing.RotateImage(Properties.Resources.airplane_align, -difAngle);
             var lineHeight = r.Height - Utils.Div(airplaneImg.Height, 2);
 

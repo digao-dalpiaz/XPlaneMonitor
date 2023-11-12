@@ -1,15 +1,16 @@
-﻿using System.Globalization;
+﻿using GMap.NET;
+using System.Globalization;
 
 namespace XPlaneMonitorApp.Functions
 {
     public class AltitudeApi
     {
 
-        public static double GetElevationMeters(double lat, double lng)
+        public static double GetElevationMeters(PointLatLng point)
         {
             CultureInfo culture = CultureInfo.GetCultureInfo("en-US");
-            string latStr = lat.ToString(culture);
-            string lonStr = lng.ToString(culture);
+            string latStr = point.Lat.ToString(culture);
+            string lonStr = point.Lng.ToString(culture);
 
             string apiUrl = $"https://api.open-elevation.com/api/v1/lookup?locations={latStr},{lonStr}";
 

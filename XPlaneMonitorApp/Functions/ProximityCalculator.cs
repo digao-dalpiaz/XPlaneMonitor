@@ -1,17 +1,19 @@
-﻿namespace XPlaneMonitorApp.Functions
+﻿using GMap.NET;
+
+namespace XPlaneMonitorApp.Functions
 {
     public class ProximityCalculator
     {
 
-        public static double CalcularDistanciaHaversine(double[] ponto1, double[] ponto2)
+        private static double CalculateHaversineDistance(PointLatLng ponto1, PointLatLng ponto2)
         {
             const double raioTerra = 6371000; // Raio médio da Terra em metros
 
-            double latitude1Rad = Utils.DegreesToRadians(ponto1[0]);
-            double latitude2Rad = Utils.DegreesToRadians(ponto2[0]);
+            double latitude1Rad = Utils.DegreesToRadians(ponto1.Lat);
+            double latitude2Rad = Utils.DegreesToRadians(ponto2.Lat);
 
             double diferencaLatitudeRad = latitude2Rad - latitude1Rad;
-            double diferencaLongitudeRad = Utils.DegreesToRadians(ponto2[1] - ponto1[1]);
+            double diferencaLongitudeRad = Utils.DegreesToRadians(ponto2.Lng - ponto1.Lng);
 
             double a = Math.Sin(diferencaLatitudeRad / 2) * Math.Sin(diferencaLatitudeRad / 2) +
                        Math.Cos(latitude1Rad) * Math.Cos(latitude2Rad) *
@@ -21,10 +23,10 @@
             return raioTerra * c;
         }
 
-        public static double CalcularDistanciaAteLinhaAeroporto2(double[] pontoInicial, double[] pontoFinal, double[] pontoAviao)
+        public static double CalculateLongitudinalClearance(PointLatLng pontoInicial, PointLatLng pontoFinal, PointLatLng pontoAviao)
         {
-            double direcaoPista = CalcularDirecao(pontoInicial, pontoFinal);
-            double direcaoAviaoPista = CalcularDirecao(pontoInicial, pontoAviao);
+            double direcaoPista = CalculateAngleDirection(pontoInicial, pontoFinal);
+            double direcaoAviaoPista = CalculateAngleDirection(pontoInicial, pontoAviao);
 
             // Verifique a orientação da pista
             double diferencaAngular = direcaoAviaoPista - direcaoPista;
@@ -40,16 +42,16 @@
             }
 
             // Calcular a distância entre o avião e a linha do aeroporto
-            double distancia = Math.Sin(diferencaAngular) * CalcularDistanciaHaversine(pontoInicial, pontoAviao);
+            double distancia = Math.Sin(diferencaAngular) * CalculateHaversineDistance(pontoInicial, pontoAviao);
 
             return distancia;
         }
 
-        public static double CalcularDirecao(double[] ponto1, double[] ponto2)
+        private static double CalculateAngleDirection(PointLatLng ponto1, PointLatLng ponto2)
         {
-            double latitude1Rad = Utils.DegreesToRadians(ponto1[0]);
-            double latitude2Rad = Utils.DegreesToRadians(ponto2[0]);
-            double diferencaLongitudeRad = Utils.DegreesToRadians(ponto2[1] - ponto1[1]);
+            double latitude1Rad = Utils.DegreesToRadians(ponto1.Lat);
+            double latitude2Rad = Utils.DegreesToRadians(ponto2.Lat);
+            double diferencaLongitudeRad = Utils.DegreesToRadians(ponto2.Lng - ponto1.Lng);
 
             double y = Math.Sin(diferencaLongitudeRad) * Math.Cos(latitude2Rad);
             double x = Math.Cos(latitude1Rad) * Math.Sin(latitude2Rad) - Math.Sin(latitude1Rad) * Math.Cos(latitude2Rad) * Math.Cos(diferencaLongitudeRad);
