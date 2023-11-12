@@ -127,6 +127,10 @@ namespace XPlaneMonitorApp.Functions
             double speedKmH = ConvertMetersPerSecondToKilometersPerHour(speedMS);
             double distanceKm = ConvertNauticalMilesToKm(distanceNm);
 
+            //esta fórmula eu construí fazendo observações no simulador, sem vento e clima zerado
+            //a cada 5.000 pés, uso o fator de 0.928 aplicado a velocidade para corrigí-la
+            speedKmH = speedKmH * Math.Pow(0.928, -altitudeFt / 1000 / 5);
+
             double hours = distanceKm / speedKmH;
             double mins = hours * 60;
 

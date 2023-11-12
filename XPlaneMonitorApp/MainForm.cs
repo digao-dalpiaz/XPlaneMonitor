@@ -260,12 +260,25 @@ namespace XPlaneMonitorApp
             btnConnect.Enabled = _communicator.Status == ConnectionStatus.DISCONNECTED;
             btnDisconnect.Enabled = _communicator.Status == ConnectionStatus.CONNECTED;
 
-            stConnStatus.Text = _communicator.Status switch
+            switch (_communicator.Status)
             {
-                ConnectionStatus.CONNECTED => "Connected",
-                ConnectionStatus.DISCONNECTED => "Disconnected",
-                ConnectionStatus.CONNECTING => "Connecting...",
-                _ => throw new Exception("Invalid connection status"),
+                case ConnectionStatus.DISCONNECTED:
+                    stConnStatus.Image = Properties.Resources.cancel;
+                    stConnStatus.Text = "Disconnected";
+                    stConnStatus.ForeColor = Color.Salmon;
+                    break;
+                case ConnectionStatus.CONNECTING:
+                    stConnStatus.Image = Properties.Resources.loading;
+                    stConnStatus.Text = "Connecting...";
+                    stConnStatus.ForeColor = Color.Yellow;
+                    break;
+                case ConnectionStatus.CONNECTED:
+                    stConnStatus.Image = Properties.Resources.wifi;
+                    stConnStatus.Text = "Connected";
+                    stConnStatus.ForeColor = Color.LimeGreen;
+                    break;
+                default:
+                    throw new Exception("Invalid connection status");
             };
         }
 
