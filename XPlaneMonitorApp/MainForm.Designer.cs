@@ -88,6 +88,7 @@
             lbAirportAngle=new Controls.ParamPanel();
             lbApproachTime=new Controls.ParamPanel();
             lbRunwayTime=new Controls.ParamPanel();
+            gridPitch=new Controls.GridPanel();
             toolBar.SuspendLayout();
             statusBar.SuspendLayout();
             SuspendLayout();
@@ -622,12 +623,22 @@
             lbRunwayTime.TabIndex=109;
             lbRunwayTime.Title="Runway Time";
             // 
+            // gridPitch
+            // 
+            gridPitch.Location=new Point(1120, 160);
+            gridPitch.Name="gridPitch";
+            gridPitch.Size=new Size(280, 120);
+            gridPitch.TabIndex=110;
+            gridPitch.Title="Pitch";
+            gridPitch.OnBoxPaint+=gridPitch_OnBoxPaint;
+            // 
             // MainForm
             // 
             AutoScaleDimensions=new SizeF(8F, 20F);
             AutoScaleMode=AutoScaleMode.Font;
             BackColor=Color.Black;
             ClientSize=new Size(1709, 949);
+            Controls.Add(gridPitch);
             Controls.Add(lbRunwayTime);
             Controls.Add(lbApproachTime);
             Controls.Add(lbAirportAngle);
@@ -739,5 +750,6 @@
         private Controls.ParamPanel lbAirportAngle;
         private Controls.ParamPanel lbApproachTime;
         private Controls.ParamPanel lbRunwayTime;
+        private Controls.GridPanel gridPitch;
     }
 }

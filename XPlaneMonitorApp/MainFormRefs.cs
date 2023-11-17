@@ -20,6 +20,8 @@ namespace XPlaneMonitorApp
         private float _magneticVariation;
         private float _groundSpeedMS;
 
+        private float _pitch;
+
         private RefDataContractList GetRefDataContractList()
         {
             RefDataContractList lst = new();
@@ -264,6 +266,12 @@ namespace XPlaneMonitorApp
             lst.Subscribe("sim/time/local_time_sec", r =>
             {
                 stScenaryClock.Text = "Scenary clock: " + Utils.SecondsToTime(r.Value);
+            });
+
+            lst.Subscribe("sim/flightmodel2/position/true_theta", r =>
+            {
+                _pitch = r.Value;
+                gridPitch.Reload();
             });
 
             //

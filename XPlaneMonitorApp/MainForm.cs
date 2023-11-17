@@ -519,7 +519,7 @@ namespace XPlaneMonitorApp
             map.Invalidate(); //there is a bug in GMap when clearing route
 
             UpdateRunwayPointsLabel();
-            
+
             lbRunwayElevation.Value = string.Empty;
             lbRunwaySize.Value = string.Empty;
 
@@ -616,6 +616,20 @@ namespace XPlaneMonitorApp
 
             Drawing.DrawLine(e.Graphics, new Pen(Color.Purple, 3), endX, 0, startX, lineHeight);
             Drawing.DrawImage(e.Graphics, airplaneImg, startX - Utils.Div(airplaneImg.Width, 2), r.Height - airplaneImg.Height);
+        }
+
+        private void gridPitch_OnBoxPaint(object sender, PaintEventArgs e)
+        {
+            var r = e.Graphics.ClipBounds;
+            var w = r.Width;
+            var h = r.Height;
+
+            var imgW = Math.Min(h * 3, w);
+
+            var img = Drawing.RotateImage(Properties.Resources.pitch, -_pitch);
+            e.Graphics.DrawImage(img, (w-imgW) / 2, -(imgW-h) / 2, imgW, imgW);
+
+            e.Graphics.DrawString(Utils.RoundToInt(_pitch).ToString() + "º", gridPitch.Font, Brushes.White, 4, 4);
         }
 
     }
