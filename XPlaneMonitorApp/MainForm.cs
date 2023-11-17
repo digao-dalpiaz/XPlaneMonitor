@@ -629,7 +629,7 @@ namespace XPlaneMonitorApp
             var img = Drawing.RotateImage(Properties.Resources.pitch, -_pitch);
             e.Graphics.DrawImage(img, (w-imgW) / 2, -(imgW-h) / 2, imgW, imgW);
 
-            e.Graphics.DrawString(Utils.RoundToInt(_pitch).ToString() + "º", gridPitch.Font, Brushes.White, 4, 4);
+            e.Graphics.DrawString(_pitch.ToString("0.0") + "º", gridPitch.Font, Brushes.White, 4, 4);
         }
 
     }
