@@ -8,7 +8,7 @@ X-Plane Windows desktop app providing real time flight controls, instruments, pa
 
 ## Description
 
-This is an application made in .NET Core 6, using WinForms, to be executed together with X-Plane, in order to show the flight parameters, helping you to flight without looking to the plane controls in the simulator, and helping you to land ANY aircraft.
+This is an application made in .NET Core 8, using WinForms, to be executed together with X-Plane, in order to show the flight parameters, helping you to flight without looking to the plane controls in the simulator, and helping you to land ANY aircraft.
 
 I developed this program because, several times using the simulator, I came across the difficulty of knowing the current status of a certain parameter during a flight.
 
@@ -42,7 +42,7 @@ With these situations in mind, I developed this application that communicates us
 
 ## Requirements
 
-This app requires .NET Core 6 x64 Runtime.
+This app requires .NET Core 8 x64 Runtime.
 
 Supports X-Plane 11 and 12.
 
