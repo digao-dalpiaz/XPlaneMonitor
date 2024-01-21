@@ -76,13 +76,13 @@ namespace XPlaneMonitorApp
         {
             const int FIRST_LINE_TOP = 40;
 
-            const int DESIGN_BLOCK_WIDTH = 280;
+            const int DESIGN_BLOCK_WIDTH = 8;
             const int DESIGN_BLOCK_HEIGHT = 8;
 
             const int SPACE = 4;
 
-            var blockW = ClientSize.Width / 6;
-            var blockH = (ClientSize.Height - toolBar.Height - statusBar.Height) / 110;
+            var blockW = ClientSize.Width / 210;
+            var blockH = (ClientSize.Height - toolBar.Height - statusBar.Height) / 116;
 
             foreach (Control c in this.Controls)
             {
@@ -621,13 +621,10 @@ namespace XPlaneMonitorApp
         private void gridPitch_OnBoxPaint(object sender, PaintEventArgs e)
         {
             var r = e.Graphics.ClipBounds;
-            var w = r.Width;
-            var h = r.Height;
-
-            var imgW = Math.Min(h * 3, w);
-
             var img = Drawing.RotateImage(Properties.Resources.pitch, -_pitch);
-            e.Graphics.DrawImage(img, (w-imgW) / 2, -(imgW-h) / 2, imgW, imgW);
+            var size = Drawing.CalculateProportionalDimensions(r.Width, r.Height, img.Width, img.Height);
+
+            e.Graphics.DrawImage(img, (r.Width-size.Width) / 2, (r.Height-size.Height) / 2, size.Width, size.Height);
 
             e.Graphics.DrawString(_pitch.ToString("0.0") + "º", gridPitch.Font, Brushes.White, 4, 4);
         }

@@ -39,5 +39,15 @@
             return rotatedImage;
         }
 
+        public static SizeF CalculateProportionalDimensions(float areaWidth, float areaHeight, float imageWidth, float imageHeight)
+        {
+            float widthProportion = areaWidth / imageWidth;
+            float heightProportion = areaHeight / imageHeight;
+
+            float smallerProportion = Math.Min(widthProportion, heightProportion);
+
+            return new(imageWidth * smallerProportion, imageHeight * smallerProportion);
+        }
+
     }
 }
