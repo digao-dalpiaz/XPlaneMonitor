@@ -24,7 +24,7 @@ namespace XPlaneMonitorApp
 
         private RefDataContractList GetRefDataContractList()
         {
-            RefDataContractList lst = new();
+            RefDataContractList lst = [];
 
             lst.Subscribe("sim/flightmodel/position/indicated_airspeed", r =>
             {

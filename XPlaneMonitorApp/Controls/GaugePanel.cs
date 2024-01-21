@@ -35,7 +35,7 @@ namespace XPlaneMonitorApp
 
         public int ShowBarsCount = -1;
 
-        public readonly List<Bar> Bars = new();
+        public readonly List<Bar> Bars = [];
 
         public GaugePanel()
         {

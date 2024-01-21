@@ -25,7 +25,7 @@
 
         public List<RefDataSubscription> GetSubscriptions()
         {
-            List<RefDataSubscription> lst = new();
+            List<RefDataSubscription> lst = [];
             foreach (var r in this)
             {
                 if (r.ArraySize > 0)
