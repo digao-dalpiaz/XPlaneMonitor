@@ -130,7 +130,7 @@ namespace XPlaneMonitorApp
 
         private void InitMap()
         {
-            map.MapProvider = OpenStreetMapProvider.Instance;
+            map.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             map.DragButton = MouseButtons.Left;
             map.ShowCenter = false;
             map.MaxZoom = 20;

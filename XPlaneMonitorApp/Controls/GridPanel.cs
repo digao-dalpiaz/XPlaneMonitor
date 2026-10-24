@@ -1,4 +1,5 @@
 ﻿using XPlaneMonitorApp.Functions;
+using System.ComponentModel;
 
 namespace XPlaneMonitorApp.Controls
 {
@@ -11,6 +12,7 @@ namespace XPlaneMonitorApp.Controls
             Utils.SetDoubleBuffered(boxDraw);
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Title
         {
             get => lbTitle.Text; set => lbTitle.Text = value;

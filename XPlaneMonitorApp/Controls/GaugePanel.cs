@@ -1,4 +1,5 @@
 ﻿using XPlaneMonitorApp.Functions;
+using System.ComponentModel;
 
 namespace XPlaneMonitorApp
 {
@@ -24,10 +25,12 @@ namespace XPlaneMonitorApp
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string GaugeTitle
         {
             get => lbTitle.Text; set => lbTitle.Text = value;
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Image GaugeImage
         {
             get => icon.Image; set => icon.Image = value;

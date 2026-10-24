@@ -4,6 +4,7 @@ namespace XPlaneMonitorApp.Controls
 {
     public partial class ParamPanel : UserControl
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Title { get { return lbTitle.Text; } set { lbTitle.Text = value; } }
 
         [DefaultValue("")]
